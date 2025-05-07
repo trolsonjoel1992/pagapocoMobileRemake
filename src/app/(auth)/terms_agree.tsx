@@ -54,7 +54,7 @@ const styles = StyleSheet.create({
   logoTermsStyle: {
     width: moderateScale(200),
     height: moderateScale(200),
-    borderRadius: moderateScale(250),
+    //borderRadius: moderateScale(250),
   },
   textFrom: {
     fontSize: moderateScale(10),

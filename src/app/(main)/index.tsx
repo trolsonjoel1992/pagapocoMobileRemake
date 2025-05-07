@@ -1,5 +1,5 @@
-import React from 'react'
-import { Text, View } from 'react-native'
+import React from 'react';
+import { Text, View } from 'react-native';
 
 const Main = () => {
   return (
@@ -9,4 +9,4 @@ const Main = () => {
   )
 }
 
-export default Main
+export default Main;

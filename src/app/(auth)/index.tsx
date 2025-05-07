@@ -32,11 +32,12 @@ const Auth = () => {
           style={styles.logoStyle}
           resizeMode="contain"
         />
-        <Text style={styles.textLogo}>Paga Poco</Text>
+        {/* <Text style={styles.textLogo}>Paga Poco</Text> */}
+        <ActivityIndicator size={moderateScale(48)} color={"purple"} />
       </View>
 
       <View style={styles.footer}>
-        {isLoading ? (
+        {/* {isLoading ? (
           <>
             <ActivityIndicator size={moderateScale(48)} color={"purple"} />
             <Text style={styles.textCargando}>Cargando...</Text>
@@ -46,8 +47,10 @@ const Auth = () => {
             <Text style={styles.textFrom}>From</Text>
             <Text style={styles.textUTN}>UTN</Text>
           </>
-        )}
+        )} */}
+        <Text style={styles.textFrom}>@2025 | PagaPoco</Text>
       </View>
+
     </SafeAreaView>
   );
 };
@@ -82,7 +85,8 @@ const styles = StyleSheet.create({
   },
   textFrom: {
     fontSize: moderateScale(10),
-    color: "#867373",
+    color: "black",
+    fontWeight: "bold",
   },
   textUTN: {
     fontSize: moderateScale(20),
