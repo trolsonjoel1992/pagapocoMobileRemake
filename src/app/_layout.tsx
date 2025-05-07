@@ -1,12 +1,17 @@
-import React from "react";
-import { Text, View } from "react-native";
+import { Redirect, Stack } from 'expo-router';
+import React, { useState } from 'react';
 
-const Rootnavigation = () => {
-    return(
-    <View>
-        <Text>_layout</Text>
-    </View>
-    );
+const RootNavigation = () => {
+
+  const [isLogin, setIsLogin] = useState(false);
+
+  return (
+    <>
+      <Stack screenOptions={{ headerShown: false }}></Stack>
+      {isLogin ? <Redirect href='/(main)' /> : <Redirect href='/(auth)' />}
+    </>
+  );
+
 };
 
-export default Rootnavigation;
+export default RootNavigation;
