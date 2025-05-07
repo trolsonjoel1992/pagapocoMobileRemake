@@ -6,11 +6,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const Auth = () => {
-
+  
   const [isLoading, setIsLoading] = useState(false);
 
   let navigateToTermsAgree = () => { 
-    router.push("/(auth)/terms_agree");
+    router.push("/(main)/mainScreen");
   }
 
   let loadingTimeout = () => {
@@ -21,6 +21,28 @@ const Auth = () => {
   useEffect(() => {
     setTimeout(loadingTimeout, 2000);
   }, []);
+
+  /* const [showSkeleton, setShowSkeleton] = useState(true);
+
+  useEffect(() => {
+    // mostrar skeleton durante 2 segundos
+    const timer = setTimeout(() => {
+      setShowSkeleton(false);
+      // navegar despues de que desaparezca el skeleton
+      //setTimeout(() => router.push("/(auth)/terms_agree"), 500);
+      setTimeout(() => router.push("/(main)/mainScreen"), 500);
+    }, 2000); // Cambia el tiempo según tus necesidades
+
+    return () => clearTimeout(timer); // Limpia el temporizador si el componente se desmonta
+  }, []); */
+
+  /* if (showSkeleton) {
+    return (
+      <SafeAreaView style={styles.skeletonContainer}>
+        <SkeletorComponent />
+      </SafeAreaView>
+    );
+  } */
 
   return (
     <SafeAreaView style={styles.container}>
@@ -50,7 +72,6 @@ const Auth = () => {
         )} */}
         <Text style={styles.textFrom}>@2025 | PagaPoco</Text>
       </View>
-
     </SafeAreaView>
   );
 };
