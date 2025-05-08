@@ -10,7 +10,9 @@ const Auth = () => {
   const [isLoading, setIsLoading] = useState(false);
 
   let navigateToTermsAgree = () => { 
-    router.push("/(main)/mainScreen");
+    //router.push("/(main)/mainScreen");
+    //router.push("/(auth)/login");
+    router.push("/(auth)/form_login");
   }
 
   let loadingTimeout = () => {
@@ -21,28 +23,6 @@ const Auth = () => {
   useEffect(() => {
     setTimeout(loadingTimeout, 2000);
   }, []);
-
-  /* const [showSkeleton, setShowSkeleton] = useState(true);
-
-  useEffect(() => {
-    // mostrar skeleton durante 2 segundos
-    const timer = setTimeout(() => {
-      setShowSkeleton(false);
-      // navegar despues de que desaparezca el skeleton
-      //setTimeout(() => router.push("/(auth)/terms_agree"), 500);
-      setTimeout(() => router.push("/(main)/mainScreen"), 500);
-    }, 2000); // Cambia el tiempo según tus necesidades
-
-    return () => clearTimeout(timer); // Limpia el temporizador si el componente se desmonta
-  }, []); */
-
-  /* if (showSkeleton) {
-    return (
-      <SafeAreaView style={styles.skeletonContainer}>
-        <SkeletorComponent />
-      </SafeAreaView>
-    );
-  } */
 
   return (
     <SafeAreaView style={styles.container}>
@@ -88,7 +68,7 @@ const styles = StyleSheet.create({
   header: {},
   body: {
     alignItems: "center",
-    gap: verticalScale(7),
+    gap: verticalScale(20), // 7
   },
   footer: {
     alignItems: "center",

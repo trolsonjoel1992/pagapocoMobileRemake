@@ -33,6 +33,7 @@ const MainScreen = () => {
 
         <View style={styles.body}>
             <Text>Body</Text>
+            <Text>Pantalla donde iria las publicaciones</Text>
         </View>
 
         <View style={styles.footer}>
@@ -52,7 +53,10 @@ const styles = StyleSheet.create({
         paddingVertical: verticalScale(70),
     },
     header: {},
-    body: {},
+    body: {
+      //justifyContent: 'center',
+      alignItems: 'center'
+    },
     footer: {},
     // Nuevos estilos para skeleton
   skeletonContainer: {
