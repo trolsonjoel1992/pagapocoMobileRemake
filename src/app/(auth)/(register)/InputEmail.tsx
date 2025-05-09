@@ -1,0 +1,71 @@
+import BottomComponent from "@/src/components/atoms/BottomComponent";
+import HeaderMainComponent from "@/src/components/atoms/HeaderMainComponent";
+import React, { useState } from "react";
+import { StyleSheet, Text, TextInput, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { moderateScale, verticalScale } from "react-native-size-matters";
+
+const InputEmail = () => {
+  const [email, setEmail] = useState("");
+
+  return (
+    <SafeAreaView style={styles.container}>
+      {/* Header */}
+      <HeaderMainComponent titulo="Cuenta" />
+
+      {/* Body */}
+      <View style={styles.body}>
+        <Text style={styles.textTitle}>Agrega tu email</Text>
+
+        <TextInput
+          style={styles.inputContainer}
+          onChangeText={setEmail}
+          value={email}
+          placeholder="example@gmail.com"
+          keyboardType="email-address"
+          autoCapitalize="none"
+        />
+
+        <View style={{ width: moderateScale(150) }}>
+          <BottomComponent titulo="Siguiente" />
+        </View>
+      </View>
+
+      {/* Footer */}
+      <View style={styles.footer}></View>
+    </SafeAreaView>
+  );
+};
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    justifyContent: "space-between",
+    alignItems: "center",
+    backgroundColor: "#F5F5F5",
+  },
+  body: {
+    justifyContent: "center",
+    alignItems: "center",
+    width: "100%",
+    paddingVertical: moderateScale(20),
+    gap: verticalScale(30),
+  },
+  footer: {},
+  textTitle: {
+    color: "black",
+    fontSize: moderateScale(25),
+    fontWeight: "bold",
+    marginBottom: moderateScale(20),
+  },
+  inputContainer: {
+    width: "80%",
+    padding: verticalScale(10),
+    borderRadius: verticalScale(20),
+    borderWidth: verticalScale(1),
+    borderColor: "gray",
+    marginBottom: verticalScale(10),
+  },
+});
+
+export default InputEmail;
