@@ -11,10 +11,10 @@ const Auth = () => {
 
   let navigateToTermsAgree = () => { 
     //router.push("/(main)/mainScreen");
-    //router.push("/(auth)/login");
+    router.push("/(auth)/login");
     //router.push("/(auth)/(login)/FormLogin");
     //router.push("/(auth)/(register)/InputEmail");
-    router.push("/(auth)/(register)/InputPassword");
+    //router.push("/(auth)/(register)/InputPassword");
   }
 
   let loadingTimeout = () => {

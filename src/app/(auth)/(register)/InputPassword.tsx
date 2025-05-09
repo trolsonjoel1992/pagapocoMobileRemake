@@ -1,21 +1,25 @@
 import HeaderMainComponent from "@/src/components/atoms/HeaderMainComponent";
 import ImagesPath from "@/src/constants/ImagesPath";
+import { router } from "expo-router";
 import React, { useState } from "react";
 import {
-    Image,
-    Modal,
-    StyleSheet,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  Image,
+  Modal,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from "react-native";
+import { Checkbox } from 'react-native-paper';
 import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const InputPassword = () => {
+
   const [password, setPassword] = useState("");
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isChecked, setIsChecked] = useState(false);
 
   const handleRegister = () => {
     setIsModalVisible(true);
@@ -37,13 +41,23 @@ const InputPassword = () => {
           secureTextEntry
         />
 
-        {/* Botón personalizado (no usa BottomComponent) */}
+        {/* CheckBox */}
+        <View style={styles.checkContainer}>
+          <Checkbox 
+            status={isChecked ? 'checked' : 'unchecked'}
+            onPress={() => setIsChecked(!isChecked)}
+            color="blue"
+          />
+          <Text>Acepto los <Text style={styles.textLink}>Terminos y condiciones</Text> y autorizo el uso de mis datos de acuerdo a la <Text style={styles.textLink}>Declaración de privacidad</Text>.</Text>
+        </View>
+
         <TouchableOpacity
           style={[styles.customButton, { width: moderateScale(150) }]}
           onPress={handleRegister}
         >
           <Text style={styles.customButtonText}>Registrarme</Text>
         </TouchableOpacity>
+
       </View>
 
       {/* Modal de éxito */}
@@ -73,12 +87,18 @@ const InputPassword = () => {
             {/* Botón del modal */}
             <TouchableOpacity
               style={styles.modalButton}
-              onPress={() => setIsModalVisible(false)}
+              onPress={() => {
+                setIsModalVisible(false);
+                router.push("/(main)/mainScreen"); // navega hacia la pantalla principal
+              }}
             >
               <Text style={styles.modalButtonText}>Continuar</Text>
             </TouchableOpacity>
+
           </View>
+
         </View>
+
       </Modal>
 
       <View style={styles.footer}></View>
@@ -171,6 +191,17 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     fontWeight: 'bold',
   },
+  // estilos del checkbox
+  checkContainer: {
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    margin: 10,
+    width: '90%'
+  },
+  textLink: {
+    color: '#4285F4'
+  }
 });
 
 export default InputPassword;

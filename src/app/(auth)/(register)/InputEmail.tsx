@@ -1,7 +1,7 @@
-import BottomComponent from "@/src/components/atoms/BottomComponent";
 import HeaderMainComponent from "@/src/components/atoms/HeaderMainComponent";
+import { router } from "expo-router";
 import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
@@ -10,6 +10,7 @@ const InputEmail = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+
       {/* Header */}
       <HeaderMainComponent titulo="Cuenta" />
 
@@ -26,13 +27,24 @@ const InputEmail = () => {
           autoCapitalize="none"
         />
 
-        <View style={{ width: moderateScale(150) }}>
+        {/* Uso de componente */}
+        {/* <View style={{ width: moderateScale(150) }}>
           <BottomComponent titulo="Siguiente" />
+        </View> */}
+        <View style={{ width: moderateScale(150) }}>
+          {/* Descarto uso de componentes - (solo de momento) */}
+          <TouchableOpacity
+            style={styles.buttomSiguienteContainer}
+            onPress={() => router.push("/(auth)/(register)/InputPassword")}
+          >
+            <Text style={styles.buttomSiguienteText}>Siguiente</Text>
+          </TouchableOpacity>
         </View>
       </View>
 
       {/* Footer */}
       <View style={styles.footer}></View>
+      
     </SafeAreaView>
   );
 };
@@ -66,6 +78,20 @@ const styles = StyleSheet.create({
     borderColor: "gray",
     marginBottom: verticalScale(10),
   },
+  // estilos de botones
+  buttomSiguienteContainer: {
+        backgroundColor: "#A230C7",
+        width: "100%",
+        paddingVertical: verticalScale(10),
+        paddingHorizontal: verticalScale(10),
+        borderRadius: moderateScale(20),
+        alignItems: "center",
+    },
+    buttomSiguienteText: {
+        color: "white",
+        fontSize: moderateScale(13),
+        fontWeight: "bold",
+    }
 });
 
 export default InputEmail;
