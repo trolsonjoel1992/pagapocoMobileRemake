@@ -2,16 +2,16 @@ import React from 'react';
 import { StyleSheet, Text, TouchableOpacity } from 'react-native';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
 
-const BottomComponent = ( { titulo } : any ) => {
+const ButtonComponent = ( { titulo } : any ) => {
   return (
-    <TouchableOpacity style={styles.bottomContainer}>
+    <TouchableOpacity style={styles.buttonContainer}>
         <Text style={styles.buttomText}>{ titulo }</Text>
     </TouchableOpacity>
   )
 }
 
 const styles = StyleSheet.create({
-    bottomContainer: {
+    buttonContainer: {
         backgroundColor: "purple",
         width: "100%",
         paddingVertical: verticalScale(10),
@@ -26,4 +26,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default BottomComponent
+export default ButtonComponent

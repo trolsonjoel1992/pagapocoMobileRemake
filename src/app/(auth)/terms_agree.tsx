@@ -1,4 +1,4 @@
-import BottomComponent from "@/src/components/atoms/BottomComponent";
+import BottomComponent from "@/src/components/atoms/ButtonComponent";
 import ImagesPath from "@/src/constants/ImagesPath";
 import React from "react";
 import { Image, StyleSheet, Text, View } from "react-native";
