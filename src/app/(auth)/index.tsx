@@ -6,11 +6,15 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const Auth = () => {
-
+  
   const [isLoading, setIsLoading] = useState(false);
 
   let navigateToTermsAgree = () => { 
-    router.push("/(auth)/terms_agree");
+    //router.push("/(main)/mainScreen");
+    router.push("/(auth)/login");
+    //router.push("/(auth)/(login)/FormLogin");
+    //router.push("/(auth)/(register)/InputEmail");
+    //router.push("/(auth)/(register)/InputPassword");
   }
 
   let loadingTimeout = () => {
@@ -50,7 +54,6 @@ const Auth = () => {
         )} */}
         <Text style={styles.textFrom}>@2025 | PagaPoco</Text>
       </View>
-
     </SafeAreaView>
   );
 };
@@ -67,7 +70,7 @@ const styles = StyleSheet.create({
   header: {},
   body: {
     alignItems: "center",
-    gap: verticalScale(7),
+    gap: verticalScale(20), // 7
   },
   footer: {
     alignItems: "center",

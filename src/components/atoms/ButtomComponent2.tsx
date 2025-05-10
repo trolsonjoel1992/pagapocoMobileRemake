@@ -4,7 +4,7 @@ import { moderateScale, verticalScale } from 'react-native-size-matters';
 
 const BottomComponent = ( { titulo } : any) => {
   return (
-    <TouchableOpacity style={styles.buttonContainer}>
+    <TouchableOpacity style={styles.bottomContainer}>
         <Text style={styles.buttomText}>{ titulo }</Text>
     </TouchableOpacity>
   );
@@ -12,7 +12,7 @@ const BottomComponent = ( { titulo } : any) => {
 
 const styles = StyleSheet.create({
     bottomContainer: {
-        backgroundColor: "#A230C7",
+        backgroundColor: "#ECE6F0",
         width: "100%",
         paddingVertical: verticalScale(10),
         paddingHorizontal: verticalScale(10),
@@ -20,10 +20,10 @@ const styles = StyleSheet.create({
         alignItems: "center",
     },
     buttomText: {
-        color: "white",
+        color: "black",
         fontSize: moderateScale(13),
         fontWeight: "bold",
     }
 });
 
-export default ButtonComponent
+export default BottomComponent
