@@ -89,7 +89,7 @@ const InputPassword = () => {
               style={styles.modalButton}
               onPress={() => {
                 setIsModalVisible(false);
-                router.push("/(main)/mainScreen"); // navega hacia la pantalla principal
+                router.push("/(tabs)/home"); // navega hacia la pantalla principal
               }}
             >
               <Text style={styles.modalButtonText}>Continuar</Text>
