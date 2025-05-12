@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Text } from 'react-native';
+import { Text, View } from 'react-native';
 
 const stats = () => {
     return (
@@ -10,3 +10,4 @@ const stats = () => {
 };
 
 export default stats;
+
