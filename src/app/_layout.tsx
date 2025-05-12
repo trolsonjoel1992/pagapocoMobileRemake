@@ -7,8 +7,8 @@ const RootNavigation = () => {
 
   return (
     <>
-      <Stack screenOptions={{ headerShown: true }}></Stack>
-      {isLogin ? <Redirect href='/(tabs)' /> : <Redirect href='/(auth)' />}
+      <Stack screenOptions={{ headerShown: false }}></Stack>
+      {isLogin ? <Redirect href='/(main)' /> : <Redirect href='/(auth)' />}
     </>
   );
 
