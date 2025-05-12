@@ -23,13 +23,14 @@ const FormLogin = () => {
       <HeaderMainComponent titulo="Iniciar Sesión" />
 
       <View style={styles.body}>
+
+        <Text style={styles.textLogin}>Ingresar</Text>
+
         <Image
           source={ImagesPath.logo}
           style={styles.logoStyle}
           resizeMode="contain"
         />
-
-        <Text style={styles.textLogin}>Iniciar sesión</Text>
 
         <TextInput
           style={styles.inputContainer}
@@ -60,9 +61,9 @@ const FormLogin = () => {
           {/* Descarto uso de componentes - (solo de momento) */}
           <TouchableOpacity
             style={styles.buttomSiguienteContainer}
-            onPress={() => router.push("/(main)/mainScreen")} // navega a pantalla principal
+            onPress={() => router.push("/(publications)/publicationIndividual")} // navega a pantalla principal
           >
-            <Text style={styles.buttomSiguienteText}>Siguiente</Text>
+            <Text style={styles.buttomSiguienteText}>Ingresar</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -84,7 +85,7 @@ const styles = StyleSheet.create({
     width: "80%",
     justifyContent: "center",
     alignItems: "center",
-    gap: verticalScale(5),
+    gap: verticalScale(30),
     marginTop: verticalScale(15),
   },
   footer: {
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
     height: verticalScale(120),
   },
   textLogin: {
-    fontSize: verticalScale(20),
+    fontSize: verticalScale(32),
     color: "black",
     fontWeight: "bold",
   },
