@@ -10,6 +10,7 @@ const Login = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      
       <View style={styles.header}>
         <Text style={styles.textoBienvenidaStyles}>¡Hola!</Text>
         <Text style={styles.textoBienvenidaStyles}>Ingresa nuestra app</Text>
@@ -52,9 +53,9 @@ const Login = () => {
         </View> */}
         <View style={{ width: moderateScale(300) }}>
           {/* Descarto uso de componentes - (solo de momento) */}
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.buttomGoogleContainer}
-            onPress={() => router.push("/(auth)/google_login")} 
+            onPress={() => router.push("/(auth)/google_login")}
           >
             <Image
               source={ImagesPath.iconGoogle}
@@ -66,12 +67,9 @@ const Login = () => {
               Iniciar sesión con Google
             </Text>
           </TouchableOpacity>
-
         </View>
-
-        
-
       </View>
+
     </SafeAreaView>
   );
 };

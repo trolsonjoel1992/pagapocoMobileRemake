@@ -17,10 +17,17 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const PublicationIndividual = () => {
-  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const [isModalLoginVisible, setIsModalLoginVisible] = useState(false);
+
+  const handleLogin = () => {
+    setIsModalLoginVisible(true);
+  };
+
+  const [isModalContactVisible, setIsModalContactVisible] = useState(false);
 
   const handleContact = () => {
-    setIsModalVisible(true);
+    setIsModalContactVisible(true);
   };
 
   return (
@@ -73,7 +80,7 @@ const PublicationIndividual = () => {
 
           <TouchableOpacity 
             style={styles.actionButton}
-            onPress={() => { router.push("/(auth)/FormLogin") }}  
+            onPress={handleLogin}  // () => { router.push("/(auth)/FormLogin") }
           >
             <AntDesign name="login" size={moderateScale(20)} color="gray" />
             <Text style={styles.textActionsIcon}>Iniciar Sesión</Text>
@@ -170,12 +177,52 @@ const PublicationIndividual = () => {
         </View>
       </View> */}
 
-      {/* Modal de éxito */}
+      {/* Modal de Login */}
       <Modal
         animationType="fade"
         transparent={true}
-        visible={isModalVisible}
-        onRequestClose={() => setIsModalVisible(false)}
+        visible={isModalLoginVisible}
+        onRequestClose={() => setIsModalLoginVisible(false)}
+      >
+        <View style={styles.centeredView}>
+          <View style={styles.modalView}>
+            <Image
+              source={ImagesPath.iconLogin}
+              style={{ width: moderateScale(110), height: moderateScale(110) }}
+              resizeMode="contain"
+            />
+
+            {/* <Text style={styles.modalTitle}>¡IMPORTANTE!</Text> */}
+            <Text style={styles.modalText}>
+              Inicia Sesión
+            </Text>
+            <Text style={styles.modalText}>
+              o
+            </Text>
+            <Text style={styles.modalText}>
+              create una cuenta.
+            </Text>
+
+            {/* Botón del modal */}
+            <TouchableOpacity
+              style={styles.modalButton}
+              onPress={() => {
+                setIsModalLoginVisible(false);
+                router.push("/(auth)/login");
+              }}
+            >
+              <Text style={styles.modalButtonText}>Entendido</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Modal de Contact */}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={isModalContactVisible}
+        onRequestClose={() => setIsModalContactVisible(false)}
       >
         <View style={styles.centeredView}>
           <View style={styles.modalView}>
@@ -197,7 +244,7 @@ const PublicationIndividual = () => {
             <TouchableOpacity
               style={styles.modalButton}
               onPress={() => {
-                setIsModalVisible(false);
+                setIsModalContactVisible(false);
                 router.push("/(auth)/login"); // navega hacia la pantalla principal
               }}
             >
@@ -206,6 +253,7 @@ const PublicationIndividual = () => {
           </View>
         </View>
       </Modal>
+
     </SafeAreaView>
   );
 };

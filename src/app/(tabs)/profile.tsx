@@ -78,11 +78,11 @@ const Profile = () => {
               resizeMode="contain"
             />
 
-            <Text style={styles.modalTitle}>¡IMPORTANTE!</Text>
+            {/* <Text style={styles.modalTitle}>¡IMPORTANTE!</Text> */}
             <Text style={styles.modalText}>
-              Se requiere autenticación para ver su perfil
+              Para poder utilizar ésta función,
             </Text>
-            <Text style={styles.modalText}>Inicia sesión o registrate</Text>
+            <Text style={styles.modalText}>Ingrese a su cuenta</Text>
 
             <TouchableOpacity
               style={styles.modalButton}
@@ -170,6 +170,7 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     marginBottom: 10,
     textAlign: "center",
+    fontWeight: "bold"
   },
   modalButton: {
     backgroundColor: "#A230C7",
