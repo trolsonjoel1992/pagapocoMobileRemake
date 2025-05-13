@@ -22,19 +22,29 @@ const Profile = () => {
   };
 
   // logica si esta o no logeado
-  const [isLogin, setIsLogin] = useState(false);
+  //const [isLogin, setIsLogin] = useState(true);
+  let isLogin = true;
 
   // si esta logeado
   if (isLogin) {
     return (
       <SafeAreaView style={styles.container}>
-        <View style={styles.header}></View>
-
-        <View style={styles.body}>
-          <Text>TUS DATOS DE LA CUENTA</Text>
+       
+        <View style={styles.header}>
+          <Text>
+            <Text>Header</Text>
+          </Text>
         </View>
 
-        <View style={styles.footer}></View>
+        <View style={styles.body}>
+          <Text>Body</Text>
+          <Text style={{ fontSize: 24, color: "white" }}>Perfil</Text>
+        </View>
+
+        <View style={styles.footer}>
+          <Text>Footer</Text>
+        </View>
+
       </SafeAreaView>
     );
   }
@@ -47,15 +57,20 @@ const Profile = () => {
 
         {/* Relleno de la pantalla de atras */}
         <Text style={styles.modalText}>
-          No has iniciado sesión para ver tu perfil
+          <Text>Header</Text>
         </Text>
 
       </View>
 
       <View style={styles.body}>
-
         {/* Relleno de la pantalla de atras */}
-        
+        <Text>Body</Text>
+        <Text style={{ fontSize: 24, color: "white" }}>Perfil</Text>
+      </View>
+
+      <View style={styles.footer}>
+        {/* Relleno de la pantalla de atras */}
+        <Text>Footer</Text>
       </View>
 
       {/* Modal */}
@@ -100,10 +115,6 @@ const Profile = () => {
 
       </Modal>
 
-      <View style={styles.footer}>
-        {/* Relleno de la pantalla de atras */}
-      </View>
-
     </SafeAreaView>
   );
 };
@@ -111,21 +122,35 @@ const Profile = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#fff",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingVertical: moderateScale(30),
-    paddingHorizontal: moderateScale(30),
+    paddingVertical: verticalScale(70),
   },
   header: {
+    height: moderateScale(40),
+    width: "100%",
+    backgroundColor: "red",
+    textAlign: "center",
+    justifyContent: "center",
     alignItems: "center",
   },
   body: {
+    height: moderateScale(60),
+    width: "100%",
+    backgroundColor: "gray",
+    textAlign: "center",
+    justifyContent: "center",
     alignItems: "center",
-    height: verticalScale(400),
-    gap: verticalScale(40),
   },
-  footer: {},
+  footer: {
+    height: moderateScale(40),
+    width: "100%",
+    backgroundColor: "red",
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
+  },
   // estilos de botones
   buttomSiguienteContainer: {
     backgroundColor: "#A230C7",
