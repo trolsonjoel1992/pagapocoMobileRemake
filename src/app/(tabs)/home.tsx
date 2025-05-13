@@ -1,27 +1,31 @@
 import SkeletorComponent from "@/src/components/atoms/SkeletorComponent";
-import ImagesPath from "@/src/constants/ImagesPath";
 import { AntDesign, Feather, Ionicons } from "@expo/vector-icons";
+import Entypo from '@expo/vector-icons/Entypo';
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
-  Image,
-  Modal,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const HomeScreen = () => {
+
+  // logica boton iniciar sesion
+  let isLogin = false;
+
+  // logica modal
   const [isModalLoginVisible, setIsModalLoginVisible] = useState(false);
 
   const handleLogin = () => {
     setIsModalLoginVisible(true);
   };
 
+  // logica skeleton
   const [showSkeleton, setShowSkeleton] = useState(true);
 
   useEffect(() => {
@@ -77,6 +81,7 @@ const HomeScreen = () => {
 
         {/* Botones de acciones - login y ubicacion */}
         <View style={styles.actionsContainer}>
+
           <TouchableOpacity style={styles.actionButton}>
             <Ionicons
               name="location-outline"
@@ -86,15 +91,32 @@ const HomeScreen = () => {
             <Text style={styles.textActionsIcon}>Elige tu ciudad</Text>
           </TouchableOpacity>
 
-          <View style={styles.separator} />
+          {/* solo aparece si NO esta logeado */}
+          { !isLogin && <View style={styles.separator} /> }
+          
+          {/* solo aparece si NO esta logeado */}
+          { isLogin ? (
+            <TouchableOpacity
+              style={styles.actionButton}
+              onPress={() => router.push("/(tabs)/store")} // () => { router.push("/(auth)/FormLogin") }
+            >
+              <Entypo name="new-message" size={moderateScale(20)} color="gray" />
+              <Text style={styles.textActionsIcon}>Vender</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.actionButton}
+              /*
+              ahora lleva al formulario de login directame, no abre el modal
+              el onPress={handleLogin} abria el modal
+              */
+              onPress={() => { router.push("/(auth)/FormLogin") }} 
+            >
+              <AntDesign name="login" size={moderateScale(20)} color="gray" />
+              <Text style={styles.textActionsIcon}>Iniciar Sesión</Text>
+            </TouchableOpacity>
+          )}
 
-          <TouchableOpacity
-            style={styles.actionButton}
-            onPress={handleLogin} // () => { router.push("/(auth)/FormLogin") }
-          >
-            <AntDesign name="login" size={moderateScale(20)} color="gray" />
-            <Text style={styles.textActionsIcon}>Iniciar Sesión</Text>
-          </TouchableOpacity>
         </View>
       </View>
 
@@ -112,8 +134,11 @@ const HomeScreen = () => {
         </View>
       </View>
 
-      {/* Modal de Login */}
-      <Modal
+      {/* 
+      Modal de Login
+      Descartado de momento (para ser mas directo)
+      */}
+      {/* <Modal
         animationType="fade"
         transparent={true}
         visible={isModalLoginVisible}
@@ -127,12 +152,10 @@ const HomeScreen = () => {
               resizeMode="contain"
             />
 
-            {/* <Text style={styles.modalTitle}>¡IMPORTANTE!</Text> */}
             <Text style={styles.modalText}>Inicia Sesión</Text>
             <Text style={styles.modalText}>o</Text>
             <Text style={styles.modalText}>create una cuenta.</Text>
 
-            {/* Botón del modal */}
             <TouchableOpacity
               style={styles.modalButton}
               onPress={() => {
@@ -144,7 +167,8 @@ const HomeScreen = () => {
             </TouchableOpacity>
           </View>
         </View>
-      </Modal>
+      </Modal> */}
+
     </SafeAreaView>
   );
 };
@@ -154,6 +178,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: "space-between",
     backgroundColor: "#fff",
+    paddingVertical: verticalScale(10),
   },
   header: {
     width: "100%",
@@ -254,20 +279,20 @@ const styles = StyleSheet.create({
   modalTitle: {
     fontSize: moderateScale(20),
     fontWeight: "bold",
-    marginBottom: 15,
+    marginBottom: moderateScale(15),
     textAlign: "center",
   },
   modalText: {
     fontSize: moderateScale(16),
-    marginBottom: 10,
+    marginBottom: moderateScale(5),
     textAlign: "center",
     fontWeight: "bold",
   },
   modalButton: {
     backgroundColor: "#A230C7",
-    borderRadius: 10,
-    padding: 12,
-    marginTop: 15,
+    borderRadius: moderateScale(20),
+    padding: moderateScale(12),
+    marginTop: moderateScale(15),
     width: "100%",
     alignItems: "center",
   },

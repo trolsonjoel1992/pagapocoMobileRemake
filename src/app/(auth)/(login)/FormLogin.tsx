@@ -71,6 +71,10 @@ const FormLogin = () => {
             <Text style={styles.buttomSiguienteText}>Ingresar</Text>
           </TouchableOpacity>
         </View>
+
+        <Text>Crean cuenta</Text>
+        <Text>Ingresar con Google</Text>
+
       </View>
 
       {/* Modal de éxito */}
@@ -126,14 +130,14 @@ const styles = StyleSheet.create({
     width: "80%",
     justifyContent: "center",
     alignItems: "center",
-    gap: verticalScale(30),
-    marginTop: verticalScale(15),
+    gap: verticalScale(10),
+    //marginTop: verticalScale(15),
   },
   footer: {
     alignItems: "center",
     height: verticalScale(100),
     //justifyContent: "center",
-    gap: verticalScale(40),
+    gap: verticalScale(5),
   },
   logoStyle: {
     width: verticalScale(120),
