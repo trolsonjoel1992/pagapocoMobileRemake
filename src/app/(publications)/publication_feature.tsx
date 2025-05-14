@@ -6,14 +6,13 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const Publication_feature = () => {
+
   return (
     <SafeAreaView style={styles.container}>
 
       <HeaderMainComponent titulo="Caracteristicas de la publicación" />
 
-      <View style={styles.header}>
-
-      </View>
+      <View style={styles.header}></View>
 
       <View style={styles.body}>
 
@@ -78,24 +77,22 @@ const Publication_feature = () => {
             <Text style={{ fontWeight: "bold" }}>Estado</Text>
             <Text>----</Text>
           </View>
-
         </View>
-
       </View>
 
       <View style={styles.footer}>
-        
         <View style={{ width: moderateScale(150) }}>
           <TouchableOpacity
             style={styles.buttomVolverContainer}
-            onPress={() => router.back("/(publications)/publicationIndividual")} 
+            onPress={() => router.back("/(publications)/publicationIndividual")}
           >
             <Text style={styles.buttomVolverText}>Volver</Text>
           </TouchableOpacity>
         </View>
-
       </View>
 
+      
+      
     </SafeAreaView>
   );
 };

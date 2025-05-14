@@ -6,4 +6,6 @@ export default {
     iconWarning: require("@/src/assets/images/warning-icon.png"),
     imageGoogle: require("@/src/assets/images/imagen-google.png"),
     imageCar1: require("@/src/assets/images/ImagePublication/car/auto1.png"),
+    iconLogin: require("@/src/assets/images/login-icon.png"),
+    imageFavoritesNotLogin: require("@/src/assets/images/ImagesNotLogin/imagen-favoritos-no-login.png"),
 }
