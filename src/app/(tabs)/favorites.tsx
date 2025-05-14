@@ -1,6 +1,7 @@
 import ImagesPath from '@/src/constants/ImagesPath';
+import { router } from 'expo-router';
 import React from 'react';
-import { Image, StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
 
@@ -32,26 +33,36 @@ const Favorities = () => {
             <SafeAreaView style={styles.container}>
 
             <View style={styles.header}>
-                <Text>Header</Text>
+                {/* <Text>Header</Text> */}
             </View>
             
             <View style={styles.body}>
+
                 {/* <Text>Body</Text>
                 <Text style={{ fontSize: 24, color: "white" }}>Mis NO Favoritos</Text> */}
+                
                 <Image 
                     source={ImagesPath.imageFavoritesNotLogin}
                     style={styles.imageNotLogin}
                     resizeMode='contain'
                 />
 
-                <Text style={{ fontSize: 16, fontWeight: "bold" }}>¿Querés ver tus favoritos?</Text>
+                <View style={styles.textContainer}>
 
-                <Text style={{ color: "blue" }}>Ingresá a tu cuenta</Text>
-
+                  <Text style={{ fontSize: 24, fontWeight: "bold" }}>¿Querés ver tus favoritos?</Text>
+                  
+                  <TouchableOpacity
+                    onPress={() => router.push("/(auth)/FormLogin")}
+                  >
+                    <Text style={{ fontSize: 14, color: "blue" }}>Ingresá a tu cuenta</Text>
+                  </TouchableOpacity>
+                
+                </View>
+                
             </View>
             
             <View style={styles.footer}>
-                <Text>Footer</Text>
+                {/* <Text>Footer</Text> */}
             </View>
 
             </SafeAreaView>
@@ -63,7 +74,7 @@ const Favorities = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: "#F5F4F2",
     justifyContent: "space-between",
     alignItems: "center",
     paddingVertical: verticalScale(70),
@@ -71,7 +82,7 @@ const styles = StyleSheet.create({
   header: {
     height: moderateScale(40),
     width: "100%",
-    backgroundColor: "red",
+    //backgroundColor: "red",
     textAlign: "center",
     justifyContent: "center",
     alignItems: "center",
@@ -87,7 +98,7 @@ const styles = StyleSheet.create({
   footer: {
     height: moderateScale(40),
     width: "100%",
-    backgroundColor: "red",
+    //backgroundColor: "red",
     textAlign: "center",
     justifyContent: "center",
     alignItems: "center",
@@ -95,6 +106,11 @@ const styles = StyleSheet.create({
   imageNotLogin: {
     width: moderateScale(300),
     height: moderateScale(300),
+  },
+  textContainer: {
+    justifyContent: "center",
+    gap: moderateScale(15),
+    alignItems: "center"
   }
 });
 

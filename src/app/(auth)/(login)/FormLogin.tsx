@@ -4,7 +4,6 @@ import { router } from "expo-router";
 import React, { useState } from "react";
 import {
   Image,
-  Modal,
   StyleSheet,
   Text,
   TextInput,
@@ -15,207 +14,259 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const FormLogin = () => {
-  
-  const [isModalVisible, setIsModalVisible] = useState(false);
-
-  const handleLogin = () => {
-    setIsModalVisible(true);
-  };
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderMainComponent titulo="Iniciar Sesión" />
 
+      {/* No hay header pero usamos el componente */}
+      <HeaderMainComponent titulo="Inicio de sesión" />
+
+      {/* <View style={styles.header}>
+
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+
+          </View> */}
+
+      {/* Body */}
       <View style={styles.body}>
-        <Text style={styles.textLogin}>Ingresar</Text>
+        {/* <Text style={{ fontSize: 24 }}>Ingresar</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text>
+            <Text>Hola</Text> */}
 
+        {/* Titulo */}
+        <Text style={styles.textTitulo}>Bienvenido de nuevo</Text>
+
+        {/* Logo */}
         <Image
           source={ImagesPath.logo}
-          style={styles.logoStyle}
+          style={styles.logoPagaPoco}
           resizeMode="contain"
         />
 
-        <TextInput
-          style={styles.inputContainer}
-          onChangeText={setEmail}
-          value={email}
-          placeholder="Email"
-          keyboardType="email-address"
-          autoCapitalize="none"
-        />
+        {/* Inputs */}
+        <View style={styles.inputContainer}>
 
-        <TextInput
-          style={styles.inputContainer}
-          onChangeText={setPassword}
-          value={password}
-          placeholder="Contraseña"
-          secureTextEntry
-        />
-      </View>
+          <TextInput
+            style={styles.input}
+            onChangeText={setEmail}
+            value={email}
+            placeholder="Email"
+            keyboardType="email-address"
+            autoCapitalize="none"
+          />
 
-      <View style={styles.footer}>
-        {/* Uso de componente */}
-        {/* <View style={{ width: moderateScale(150) }}>
-          <BottomComponent titulo="Ingresar" />
-        </View> */}
+          {/* <Text>Contraseña</Text> */}
+          <TextInput
+            style={styles.input}
+            onChangeText={setPassword}
+            value={password}
+            placeholder="Contraseña"
+            secureTextEntry
+          />
 
-        <View style={{ width: moderateScale(150) }}>
-          {/* Descarto uso de componentes - (solo de momento) */}
+        </View>
+        
+        {/* Boton para acceder */}
+        <View style={styles.buttomAccederContainer}>
           <TouchableOpacity
-            style={styles.buttomSiguienteContainer}
-            onPress={handleLogin}
+            style={styles.buttomAcceder}
+            // onPress={handleLogin} // abre modal
           >
-            <Text style={styles.buttomSiguienteText}>Ingresar</Text>
+            <Text style={styles.buttomAccederText}>Continuar</Text>
           </TouchableOpacity>
         </View>
 
-        <Text>Crean cuenta</Text>
-        <Text>Ingresar con Google</Text>
+        {/* Texto para que se registre */}
+        <View style={styles.textDePregunta}>
+          <Text>¿No tienes una cuenta? </Text>
+          <TouchableOpacity>
+            <Text style={styles.textRegistrate}>Registrate</Text>
+          </TouchableOpacity>
+        </View>
 
-      </View>
+        {/* Separador */}
+        <View style={styles.separatorContainer}>
+          <View style={styles.separator} />
+          <Text>O</Text>
+          <View style={styles.separator} />
+        </View>
 
-      {/* Modal de éxito */}
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={isModalVisible}
-        onRequestClose={() => setIsModalVisible(false)}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
+        {/* Botones de continar con google */}
+        <View style={{ width: moderateScale(300) }}>
+          <TouchableOpacity
+            style={styles.buttomGoogleContainer}
+            onPress={() => router.push("/(auth)/google_login")}
+          >
             <Image
-              source={ImagesPath.iconConfirmed}
-              style={{ width: moderateScale(110), height: moderateScale(110) }}
+              source={ImagesPath.iconGoogle}
+              style={styles.iconGoogleStyle}
               resizeMode="contain"
             />
 
-            <Text style={styles.modalTitle}>¡Bienvenido!</Text>
-            <Text style={styles.modalText}>
-              ¡Has iniciado sesión correctamente!
+            <Text style={styles.buttomGoogleText}>
+              Continuar Google
             </Text>
-            {/* <Text style={styles.modalText}>
-              Ahora podes disfrutar de nuestra App.
-            </Text> */}
-
-            {/* Botón del modal */}
-            <TouchableOpacity
-              style={styles.modalButton}
-              onPress={() => {
-                setIsModalVisible(false);
-                router.push("/(tabs)/home"); // navega hacia la pantalla principal
-              }}
-            >
-              <Text style={styles.modalButtonText}>Continuar</Text>
-            </TouchableOpacity>
-          </View>
+          </TouchableOpacity>
         </View>
-      </Modal>
+
+      </View>
+
+      <View style={styles.footer}>
+        <Text>Footer</Text>
+      </View>
+
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  // estilos de la estructura
   container: {
     flex: 1,
+    backgroundColor: "#fff",
     justifyContent: "space-between",
     alignItems: "center",
+    //paddingVertical: verticalScale(20),
   },
   header: {
+    height: moderateScale(40),
+    width: "100%",
+    backgroundColor: "red",
+    textAlign: "center",
+    justifyContent: "center",
     alignItems: "center",
   },
   body: {
+    height: moderateScale(550),
     width: "80%",
+    backgroundColor: "yellow",
+    textAlign: "center",
     justifyContent: "center",
     alignItems: "center",
-    gap: verticalScale(10),
-    //marginTop: verticalScale(15),
   },
   footer: {
+    height: moderateScale(100),
+    width: "100%",
+    backgroundColor: "red",
+    textAlign: "center",
+    justifyContent: "center",
     alignItems: "center",
-    height: verticalScale(100),
-    //justifyContent: "center",
-    gap: verticalScale(5),
   },
-  logoStyle: {
-    width: verticalScale(120),
-    height: verticalScale(120),
-  },
-  textLogin: {
-    fontSize: verticalScale(32),
-    color: "black",
+  // estilos del titulo
+  textTitulo: {
+    fontSize: 24,
+    marginBottom: moderateScale(10),
     fontWeight: "bold",
   },
+  // estilo del logo
+  logoPagaPoco: {
+    width: moderateScale(120),
+    height: moderateScale(120),
+    marginBottom: verticalScale(20),
+  },
+  // estilos para los inputs
   inputContainer: {
+    width: "100%",
+    backgroundColor: "green",
+  },
+  input: {
     width: "100%",
     padding: verticalScale(10),
     borderRadius: verticalScale(20),
     borderWidth: verticalScale(1),
-    borderColor: "gray",
+    borderColor: "black",
     marginBottom: verticalScale(10),
   },
-  logoSpacer: {
-    height: verticalScale(20), // Espacio fijo arriba del logo
-  },
   // estilos de botones
-  buttomSiguienteContainer: {
+  buttomAccederContainer: {
+    width: "100%", // moderateScale(150)
+    backgroundColor: "red",
+  },
+  buttomAcceder: {
     backgroundColor: "#A230C7",
     width: "100%",
     paddingVertical: verticalScale(10),
     paddingHorizontal: verticalScale(10),
     borderRadius: moderateScale(20),
     alignItems: "center",
+    marginBottom: verticalScale(10),
   },
-  buttomSiguienteText: {
+  buttomAccederText: {
     color: "white",
     fontSize: moderateScale(13),
     fontWeight: "bold",
   },
-  // Estilos para el modal
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+  // estilos del registro
+  textDePregunta: {
+    flexDirection: "row",
+    alignItems: "center",
+    marginBottom: verticalScale(10),
   },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-    width: '80%',
+  textRegistrate: {
+    color: "blue",
+    fontWeight: "bold",
   },
-  modalTitle: {
-    fontSize: moderateScale(20),
-    fontWeight: 'bold',
-    marginBottom: 15,
-    textAlign: 'center',
+  // estilos del separador
+  separatorContainer: {
+    width: "100%",
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "red",
+    marginBottom: verticalScale(10),
   },
-  modalText: {
+  separator: {
+    width: moderateScale(140), // 46%
+    height: moderateScale(1.5),
+    backgroundColor: "black",
+    marginHorizontal: moderateScale(4),
+  },
+  // estilos boton google
+  buttomGoogleContainer: {
+    backgroundColor: "#fff",
+    width: "100%",
+    paddingVertical: verticalScale(10),
+    paddingHorizontal: verticalScale(10),
+    borderRadius: moderateScale(20),
+    alignItems: "center",
+    flexDirection: "row",
+    //elevation: 5,
+    borderWidth: verticalScale(1),
+    borderColor: "black",
+  },
+  buttomGoogleText: {
+    color: "black",
     fontSize: moderateScale(16),
-    marginBottom: 10,
-    textAlign: 'center',
+    paddingHorizontal: moderateScale(40),
+    fontWeight: "bold",
   },
-  modalButton: {
-    backgroundColor: '#A230C7',
-    borderRadius: 10,
-    padding: 12,
-    marginTop: 15,
-    width: '100%',
-    alignItems: 'center',
-  },
-  modalButtonText: {
-    color: 'white',
-    fontSize: moderateScale(16),
-    fontWeight: 'bold',
+  iconGoogleStyle: {
+    paddingHorizontal: moderateScale(24),
+    width: moderateScale(20),
+    height: moderateScale(20),
   },
 });
 
