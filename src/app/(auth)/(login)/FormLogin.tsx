@@ -1,6 +1,8 @@
 import HeaderMainComponent from "@/src/components/atoms/HeaderMainComponent";
 import ImagesPath from "@/src/constants/ImagesPath";
-import { router } from "expo-router";
+import AntDesign from '@expo/vector-icons/AntDesign';
+import Feather from '@expo/vector-icons/Feather';
+import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import React, { useState } from "react";
 import {
   Image,
@@ -104,7 +106,7 @@ const FormLogin = () => {
         <View style={styles.textDePregunta}>
           <Text>¿No tienes una cuenta? </Text>
           <TouchableOpacity>
-            <Text style={styles.textRegistrate}>Registrate</Text>
+            <Text style={styles.textLinks}>Registrate</Text>
           </TouchableOpacity>
         </View>
 
@@ -115,28 +117,88 @@ const FormLogin = () => {
           <View style={styles.separator} />
         </View>
 
-        {/* Botones de continar con google */}
-        <View style={{ width: moderateScale(300) }}>
-          <TouchableOpacity
-            style={styles.buttomGoogleContainer}
-            onPress={() => router.push("/(auth)/google_login")}
-          >
-            <Image
-              source={ImagesPath.iconGoogle}
-              style={styles.iconGoogleStyle}
-              resizeMode="contain"
-            />
+        {/* Botones de otros inicios de sesion */}
+        <View style={styles.buttomContainerOtrosLogin}>
 
-            <Text style={styles.buttomGoogleText}>
-              Continuar Google
-            </Text>
-          </TouchableOpacity>
+          {/* Boton de google */}
+          <View style={styles.buttomOtrosContainer}>
+            <TouchableOpacity
+              style={styles.buttomOtros}
+              //onPress={() => router.push("/(auth)/google_login")}
+            >
+              {/* <Image
+                source={ImagesPath.iconGoogle}
+                style={styles.iconGoogleStyle}
+                resizeMode="contain"
+              /> */}
+
+              <AntDesign name="google" size={moderateScale(18)} color="black" />
+              
+              <Text style={styles.buttomOtrosText}>
+                Continuar Google
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          {/* Boton de microsoft */}
+          <View style={styles.buttomOtrosContainer}>
+            <TouchableOpacity
+              style={styles.buttomOtros}
+              //onPress={() => router.push("/(auth)/google_login")}
+            >
+              {/* <Image
+                source={ImagesPath.iconGoogle}
+                style={styles.iconGoogleStyle}
+                resizeMode="contain"
+              /> */}
+
+              <FontAwesome5 name="microsoft" size={moderateScale(18)} color="black" />
+
+              <Text style={styles.buttomOtrosText}>
+                Continuar Microsoft
+              </Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.buttomOtrosContainer}>
+            <TouchableOpacity
+              style={styles.buttomOtros}
+              //onPress={() => router.push("/(auth)/google_login")}
+            >
+              {/* <Image
+                source={ImagesPath.iconGoogle}
+                style={styles.iconGoogleStyle}
+                resizeMode="contain"
+              /> */}
+
+              <Feather name="phone" size={moderateScale(18)} color="black" />
+
+              <Text style={styles.buttomOtrosText}>
+                Continuar con el teléfono
+              </Text>
+            </TouchableOpacity>
+          </View>
+
         </View>
-
+        
       </View>
 
+      {/* Footer */}
       <View style={styles.footer}>
-        <Text>Footer</Text>
+
+        {/* <Text>Footer</Text> */}
+        <View style={styles.ButtomFooterContainer}>
+
+          <TouchableOpacity>
+            <Text style={styles.textLinks}>Términos de uso</Text>
+          </TouchableOpacity>
+          <View style={styles.separatorButtomFooter} />
+          <TouchableOpacity>
+            <Text style={styles.textLinks}>Política de privacidad</Text>
+          </TouchableOpacity>
+
+        </View>
+      
       </View>
 
     </SafeAreaView>
@@ -155,25 +217,25 @@ const styles = StyleSheet.create({
   header: {
     height: moderateScale(40),
     width: "100%",
-    backgroundColor: "red",
+    //backgroundColor: "red",
     textAlign: "center",
     justifyContent: "center",
     alignItems: "center",
   },
   body: {
-    height: moderateScale(550),
+    height: moderateScale(600),
     width: "80%",
-    backgroundColor: "yellow",
+    //backgroundColor: "yellow",
     textAlign: "center",
     justifyContent: "center",
     alignItems: "center",
   },
   footer: {
-    height: moderateScale(100),
+    height: moderateScale(80),
     width: "100%",
-    backgroundColor: "red",
+    //backgroundColor: "red",
     textAlign: "center",
-    justifyContent: "center",
+    justifyContent: "flex-start",
     alignItems: "center",
   },
   // estilos del titulo
@@ -191,7 +253,8 @@ const styles = StyleSheet.create({
   // estilos para los inputs
   inputContainer: {
     width: "100%",
-    backgroundColor: "green",
+    //backgroundColor: "green",
+    gap: moderateScale(5),
   },
   input: {
     width: "100%",
@@ -201,10 +264,11 @@ const styles = StyleSheet.create({
     borderColor: "black",
     marginBottom: verticalScale(10),
   },
-  // estilos de botones
+  // estilos del boton de Acceder
   buttomAccederContainer: {
     width: "100%", // moderateScale(150)
-    backgroundColor: "red",
+    //backgroundColor: "red",
+    marginBottom: verticalScale(10),
   },
   buttomAcceder: {
     backgroundColor: "#A230C7",
@@ -213,7 +277,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: verticalScale(10),
     borderRadius: moderateScale(20),
     alignItems: "center",
-    marginBottom: verticalScale(10),
+    //marginBottom: verticalScale(10),
   },
   buttomAccederText: {
     color: "white",
@@ -226,7 +290,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginBottom: verticalScale(10),
   },
-  textRegistrate: {
+  textLinks: {
     color: "blue",
     fontWeight: "bold",
   },
@@ -235,7 +299,7 @@ const styles = StyleSheet.create({
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
-    backgroundColor: "red",
+    //backgroundColor: "red",
     marginBottom: verticalScale(10),
   },
   separator: {
@@ -244,30 +308,58 @@ const styles = StyleSheet.create({
     backgroundColor: "black",
     marginHorizontal: moderateScale(4),
   },
+  // estilos de los demas inicios de sesion
+  buttomContainerOtrosLogin: {
+    width: "100%",
+    //backgroundColor: "red",
+    //marginBottom: verticalScale(10),
+    gap: moderateScale(10)
+  },
   // estilos boton google
-  buttomGoogleContainer: {
+  buttomOtrosContainer: {
+    width: "100%",
+    //backgroundColor: "green",
+  },
+  buttomOtros: {
     backgroundColor: "#fff",
     width: "100%",
-    paddingVertical: verticalScale(10),
-    paddingHorizontal: verticalScale(10),
+    paddingVertical: verticalScale(8),
+    paddingHorizontal: verticalScale(15),
     borderRadius: moderateScale(20),
     alignItems: "center",
     flexDirection: "row",
-    //elevation: 5,
+    //elevation: 5, // sombreado
     borderWidth: verticalScale(1),
     borderColor: "black",
-  },
-  buttomGoogleText: {
-    color: "black",
-    fontSize: moderateScale(16),
-    paddingHorizontal: moderateScale(40),
-    fontWeight: "bold",
   },
   iconGoogleStyle: {
     paddingHorizontal: moderateScale(24),
     width: moderateScale(20),
     height: moderateScale(20),
   },
+  buttomOtrosText: {
+    color: "black",
+    fontSize: moderateScale(16),
+    paddingHorizontal: moderateScale(20),
+    fontWeight: "bold",
+  },
+  // estilos de los botones del footer
+  ButtomFooterContainer: {
+    width: "100%",
+    height: moderateScale(30),
+    flexDirection: "row",
+    //backgroundColor: "green",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: moderateScale(10),
+  },
+  // estilo del separador de los botones del footer
+  separatorButtomFooter: {
+    width: moderateScale(2), // 46%
+    height: moderateScale(15),
+    backgroundColor: "black",
+    marginHorizontal: moderateScale(4),
+  }
 });
 
 export default FormLogin;
