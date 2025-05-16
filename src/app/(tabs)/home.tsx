@@ -1,6 +1,5 @@
 import SkeletorComponent from "@/src/components/atoms/SkeletorComponent";
-import { AntDesign, Feather, Ionicons } from "@expo/vector-icons";
-import Entypo from '@expo/vector-icons/Entypo';
+import { AntDesign, Entypo, Feather, Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
@@ -8,13 +7,12 @@ import {
   Text,
   TextInput,
   TouchableOpacity,
-  View
+  View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const HomeScreen = () => {
-
   // logica boton iniciar sesion
   let isLogin = false;
 
@@ -81,7 +79,6 @@ const HomeScreen = () => {
 
         {/* Botones de acciones - login y ubicacion */}
         <View style={styles.actionsContainer}>
-
           <TouchableOpacity style={styles.actionButton}>
             <Ionicons
               name="location-outline"
@@ -92,15 +89,19 @@ const HomeScreen = () => {
           </TouchableOpacity>
 
           {/* solo aparece si NO esta logeado */}
-          { !isLogin && <View style={styles.separator} /> }
-          
+          {!isLogin && <View style={styles.separator} />}
+
           {/* solo aparece si NO esta logeado */}
-          { isLogin ? (
+          {isLogin ? (
             <TouchableOpacity
               style={styles.actionButton}
               onPress={() => router.push("/(tabs)/store")} // () => { router.push("/(auth)/FormLogin") }
             >
-              <Entypo name="new-message" size={moderateScale(20)} color="gray" />
+              <Entypo
+                name="new-message"
+                size={moderateScale(20)}
+                color="gray"
+              />
               <Text style={styles.textActionsIcon}>Vender</Text>
             </TouchableOpacity>
           ) : (
@@ -110,80 +111,96 @@ const HomeScreen = () => {
               ahora lleva al formulario de login directame, no abre el modal
               el onPress={handleLogin} abria el modal
               */
-              onPress={() => { router.push("/(auth)/FormLogin") }} 
+              onPress={() => {
+                router.push("/(auth)/FormLogin");
+              }}
             >
               <AntDesign name="login" size={moderateScale(20)} color="gray" />
               <Text style={styles.textActionsIcon}>Iniciar Sesión</Text>
             </TouchableOpacity>
           )}
-
         </View>
       </View>
 
       <View style={styles.body}>
-        <Text style={{ textAlign: "center" }}>Body</Text>
-        <Text style={{ textAlign: "center" }}>Publicaciones</Text>
 
-        <View style={{ width: moderateScale(150) }}>
+        <View style={styles.buttomContainer}>
+
           <TouchableOpacity
-            style={styles.buttomPublicacionContainer}
-            onPress={() => router.push("/(publications)/publicationIndividual")}
+            style={styles.buttom}
+            //onPress={() => router.push("/(tabs)/profile")} // cambiar por la ubicacion de su pantalla
           >
-            <Text style={styles.buttomPublicacionText}>Publicacion 1</Text>
+            <Text style={styles.buttomText}>Diego</Text>
           </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.buttom}
+            //onPress={() => router.push("/(tabs)/profile")} // cambiar por la ubicacion de su pantalla
+          >
+            <Text style={styles.buttomText}>Joel</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.buttom}
+            //onPress={() => router.push("/(tabs)/profile")} // cambiar por la ubicacion de su pantalla
+          >
+            <Text style={styles.buttomText}>Matias</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.buttom}
+            //onPress={() => router.push("/(tabs)/profile")} // cambiar por la ubicacion de su pantalla
+          >
+            <Text style={styles.buttomText}>Hugo</Text>
+          </TouchableOpacity>
+
+          <TouchableOpacity
+            style={styles.buttom}
+            //onPress={() => router.push("/(tabs)/profile")} // cambiar por la ubicacion de su pantalla
+          >
+            <Text style={styles.buttomText}>Lautaro</Text>
+          </TouchableOpacity>
+
         </View>
+
       </View>
 
-      {/* 
-      Modal de Login
-      Descartado de momento (para ser mas directo)
-      */}
-      {/* <Modal
-        animationType="fade"
-        transparent={true}
-        visible={isModalLoginVisible}
-        onRequestClose={() => setIsModalLoginVisible(false)}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Image
-              source={ImagesPath.iconLogin}
-              style={{ width: moderateScale(110), height: moderateScale(110) }}
-              resizeMode="contain"
-            />
-
-            <Text style={styles.modalText}>Inicia Sesión</Text>
-            <Text style={styles.modalText}>o</Text>
-            <Text style={styles.modalText}>create una cuenta.</Text>
-
-            <TouchableOpacity
-              style={styles.modalButton}
-              onPress={() => {
-                setIsModalLoginVisible(false);
-                router.push("/(auth)/login");
-              }}
-            >
-              <Text style={styles.modalButtonText}>Entendido</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal> */}
-
+      <View style={styles.footer}></View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  // estilos de la estructura
   container: {
     flex: 1,
+    backgroundColor: "#fff", // purple
     justifyContent: "space-between",
-    backgroundColor: "#fff",
-    paddingVertical: verticalScale(10),
+    alignItems: "center",
   },
   header: {
+    height: moderateScale(120),
     width: "100%",
-    //paddingVertical: verticalScale(10),
-    paddingHorizontal: moderateScale(10),
+    //backgroundColor: "red",
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  body: {
+    height: moderateScale(540),
+    width: "90%",
+    //backgroundColor: "aqua",
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  footer: {
+    height: moderateScale(20),
+    width: "100%",
+    //backgroundColor: "blue",
+    textAlign: "center",
+    justifyContent: "flex-start",
+    alignItems: "center",
   },
   searchContainer: {
     width: "100%",
@@ -246,16 +263,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#E0E0E0",
     marginHorizontal: moderateScale(4),
   },
-  body: {
-    flex: 1,
-    width: "100%",
-    paddingVertical: verticalScale(20),
-    paddingHorizontal: moderateScale(10),
-  },
-  footer: {
-    width: "100%",
-    marginBottom: verticalScale(20),
-  },
   // Estilos para el modal
   centeredView: {
     flex: 1,
@@ -302,17 +309,26 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   // estilos botones
-  buttomPublicacionContainer: {
-    backgroundColor: "#A230C7",
-    width: "100%",
+  buttomContainer: {
+    width: "100%", // moderateScale(150)
+    height: moderateScale(300),
+    //backgroundColor: "red",
+    marginBottom: verticalScale(10),
+    justifyContent: "center",
+    gap: moderateScale(10)
+  },
+  buttom: {
+    backgroundColor: "blue",
+    width: "50%",
     paddingVertical: verticalScale(10),
     paddingHorizontal: verticalScale(10),
     borderRadius: moderateScale(20),
     alignItems: "center",
+    //marginBottom: verticalScale(10),
   },
-  buttomPublicacionText: {
+  buttomText: {
     color: "white",
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(13),
     fontWeight: "bold",
   },
   // estilos del skeletor
