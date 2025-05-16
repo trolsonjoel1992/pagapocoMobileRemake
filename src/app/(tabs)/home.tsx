@@ -124,8 +124,10 @@ const HomeScreen = () => {
 
       <View style={styles.body}>
 
+        {/* Contenedor de botones */}
         <View style={styles.buttomContainer}>
 
+          {/* Boton Diego */}
           <TouchableOpacity
             style={styles.buttom}
             //onPress={() => router.push("/(tabs)/profile")} // cambiar por la ubicacion de su pantalla
@@ -133,6 +135,7 @@ const HomeScreen = () => {
             <Text style={styles.buttomText}>Diego</Text>
           </TouchableOpacity>
 
+          {/* Boton Joel */}
           <TouchableOpacity
             style={styles.buttom}
             //onPress={() => router.push("/(tabs)/profile")} // cambiar por la ubicacion de su pantalla
@@ -140,6 +143,7 @@ const HomeScreen = () => {
             <Text style={styles.buttomText}>Joel</Text>
           </TouchableOpacity>
 
+          {/* Boton Matias */}
           <TouchableOpacity
             style={styles.buttom}
             //onPress={() => router.push("/(tabs)/profile")} // cambiar por la ubicacion de su pantalla
@@ -147,6 +151,7 @@ const HomeScreen = () => {
             <Text style={styles.buttomText}>Matias</Text>
           </TouchableOpacity>
 
+          {/* Boton Hugo */}
           <TouchableOpacity
             style={styles.buttom}
             //onPress={() => router.push("/(tabs)/profile")} // cambiar por la ubicacion de su pantalla
@@ -154,6 +159,7 @@ const HomeScreen = () => {
             <Text style={styles.buttomText}>Hugo</Text>
           </TouchableOpacity>
 
+          {/* Boton Lautaro */}
           <TouchableOpacity
             style={styles.buttom}
             //onPress={() => router.push("/(tabs)/profile")} // cambiar por la ubicacion de su pantalla
