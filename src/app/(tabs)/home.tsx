@@ -1,13 +1,16 @@
 import SkeletorComponent from "@/src/components/atoms/SkeletorComponent";
+import ImagesPath from "@/src/constants/ImagesPath";
 import { AntDesign, Entypo, Feather, Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
+  FlatList,
+  Image,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
-  View,
+  View
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, verticalScale } from "react-native-size-matters";
@@ -42,6 +45,67 @@ const HomeScreen = () => {
     );
   }
 
+  // Datos de ejemplo para las publicaciones
+  const mockPublications = [
+    {
+      id: 1,
+      title: "Volkswagen Polo",
+      price: "$15.000.000",
+      //image: "https://example.com/iphone.jpg",
+      location: "Resistencia, Chaco",
+    },
+    {
+      id: 2,
+      title: "Honda Wave",
+      price: "$2.500.000",
+      //image: "https://example.com/sofa.jpg",
+      location: "Barranqueras, Chaco",
+    },
+    {
+      id: 3,
+      title: "Toyota Hilux",
+      price: "$38.000.000",
+      //image: "https://example.com/bike.jpg",
+      location: "Resistencia, Chaco",
+    },
+    {
+      id: 4,
+      title: "Ranger Raptor",
+      price: "$58.000.000",
+      //image: "https://example.com/laptop.jpg",
+      location: "Fontana, Chaco",
+    },
+    {
+      id: 5,
+      title: "Toyota SW4",
+      price: "$38.000.000",
+      //image: "https://example.com/bike.jpg",
+      location: "Resistencia, Chaco",
+    },
+    {
+      id: 6,
+      title: "Honda Biz",
+      price: "$3.000.000",
+      //image: "https://example.com/laptop.jpg",
+      location: "Fontana, Chaco",
+    },
+    {
+      id: 7,
+      title: "Honda Tornado",
+      price: "$12.000.000",
+      //image: "https://example.com/bike.jpg",
+      location: "Resistencia, Chaco",
+    },
+    {
+      id: 8,
+      title: "Volkswagen Amarok",
+      price: "$45.000.000",
+      //image: "https://example.com/laptop.jpg",
+      location: "Fontana, Chaco",
+    },
+    // Agrega más publicaciones según necesites
+  ];
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -67,7 +131,10 @@ const HomeScreen = () => {
               <Feather name="filter" size={moderateScale(24)} color="gray" />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.actionIcon}>
+            <TouchableOpacity 
+              style={styles.actionIcon}
+              onPress={() => router.push("/(notifications)/notification")}  
+            >
               <Ionicons
                 name="notifications-outline"
                 size={moderateScale(24)}
@@ -122,50 +189,41 @@ const HomeScreen = () => {
         </View>
       </View>
 
+      {/* Body con FlatList para las publicaciones */}
       <View style={styles.body}>
-
-        <View style={styles.buttomContainer}>
-
-          <TouchableOpacity
-            style={styles.buttom}
-            //onPress={() => router.push("/(tabs)/profile")} // cambiar por la ubicacion de su pantalla
-          >
-            <Text style={styles.buttomText}>Diego</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.buttom}
-            //onPress={() => router.push("/(tabs)/profile")} // cambiar por la ubicacion de su pantalla
-          >
-            <Text style={styles.buttomText}>Joel</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.buttom}
-            //onPress={() => router.push("/(tabs)/profile")} // cambiar por la ubicacion de su pantalla
-          >
-            <Text style={styles.buttomText}>Matias</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.buttom}
-            //onPress={() => router.push("/(tabs)/profile")} // cambiar por la ubicacion de su pantalla
-          >
-            <Text style={styles.buttomText}>Hugo</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={styles.buttom}
-            //onPress={() => router.push("/(tabs)/profile")} // cambiar por la ubicacion de su pantalla
-          >
-            <Text style={styles.buttomText}>Lautaro</Text>
-          </TouchableOpacity>
-
-        </View>
-
+        <FlatList
+          data={mockPublications}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.publicationCard}
+              onPress={() => router.push("/(publications)/publication1")} // `/ (publications)/publication${item.id}`
+            >
+              <Image
+                source={ImagesPath.imageDefault} // { uri: item.image }
+                style={styles.publicationImage}
+                resizeMode="contain" // "cover"
+              />
+              <View style={styles.publicationInfo}>
+                <Text style={styles.publicationTitle} numberOfLines={1}>
+                  {item.title}
+                </Text>
+                <Text style={styles.publicationPrice}>{item.price}</Text>
+                <Text style={styles.publicationLocation} numberOfLines={1}>
+                  {item.location}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item) => item.id.toString()}
+          numColumns={2}
+          columnWrapperStyle={styles.columnWrapper}
+          contentContainerStyle={styles.listContent}
+          showsVerticalScrollIndicator={false}
+        />
       </View>
 
-      <View style={styles.footer}></View>
+      {/* <View style={styles.footer}></View> */}
+
     </SafeAreaView>
   );
 };
@@ -186,22 +244,27 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  body: {
+  /* body: {
     height: moderateScale(540),
     width: "90%",
     //backgroundColor: "aqua",
     textAlign: "center",
     justifyContent: "center",
     alignItems: "center",
+  }, */
+  body: {
+    flex: 1,  // Cambiado para que ocupe todo el espacio disponible
+    width: "90%",
   },
   footer: {
-    height: moderateScale(20),
+    height: moderateScale(10),
     width: "100%",
     //backgroundColor: "blue",
     textAlign: "center",
     justifyContent: "flex-start",
     alignItems: "center",
   },
+  // estilos del contenido del header
   searchContainer: {
     width: "100%",
     flexDirection: "row",
@@ -315,7 +378,7 @@ const styles = StyleSheet.create({
     //backgroundColor: "red",
     marginBottom: verticalScale(10),
     justifyContent: "center",
-    gap: moderateScale(10)
+    gap: moderateScale(10),
   },
   buttom: {
     backgroundColor: "blue",
@@ -364,6 +427,52 @@ const styles = StyleSheet.create({
     width: moderateScale(150),
     height: verticalScale(15),
     backgroundColor: "#f0f0f0",
+  },
+  // Nuevos estilos para las publicaciones
+  listContent: {
+    paddingBottom: verticalScale(20),
+  },
+  columnWrapper: {
+    justifyContent: "space-between",
+    marginBottom: verticalScale(5),
+  },
+  publicationCard: {
+    width: "48%", // 48% // Para dejar un pequeño espacio entre las columnas
+    backgroundColor: "#FFF",
+    borderRadius: moderateScale(8),
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5,
+    marginBottom: verticalScale(12),
+  },
+  publicationImage: {
+    width: "100%", // "100%"
+    height: verticalScale(120),
+    backgroundColor: "#F5F5F5",  // Color de fondo mientras carga la imagen
+  },
+  publicationInfo: {
+    padding: moderateScale(10),
+  },
+  publicationTitle: {
+    fontSize: moderateScale(14),
+    fontWeight: "500",
+    marginBottom: verticalScale(4),
+  },
+  publicationPrice: {
+    fontSize: moderateScale(16),
+    fontWeight: "bold",
+    color: "#A230C7",  // Puedes cambiar este color
+    marginBottom: verticalScale(4),
+  },
+  publicationLocation: {
+    fontSize: moderateScale(12),
+    color: "#666",
   },
 });
 
