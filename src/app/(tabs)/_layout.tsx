@@ -81,6 +81,20 @@ const TabsLayout = () => {
           },
         })} */
       />
+      <Tabs.Screen 
+        name="(publications)/publication1"
+        options={{ 
+          tabBarButton: () => null,  // Oculta el tab
+          //tabBarStyle: { display: "none" } 
+        }}
+      />
+      <Tabs.Screen 
+        name="(publications)/publicationDetails"
+        options={{ 
+          tabBarButton: () => null,  // Oculta el tab
+          //tabBarStyle: { display: "none" } 
+        }}
+      />
     </Tabs>
   );
 };

@@ -5,7 +5,7 @@ import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
-const Publication_feature = () => {
+const PublicationDetails1 = () => {
 
   return (
     <SafeAreaView style={styles.container}>
@@ -84,7 +84,7 @@ const Publication_feature = () => {
         <View style={{ width: moderateScale(150) }}>
           <TouchableOpacity
             style={styles.buttomVolverContainer}
-            onPress={() => router.back("/(publications)/publicationIndividual")}
+            onPress={() => router.back("/(tabs)/(publications)/publication1")}
           >
             <Text style={styles.buttomVolverText}>Volver</Text>
           </TouchableOpacity>
@@ -150,4 +150,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Publication_feature;
+export default PublicationDetails1;

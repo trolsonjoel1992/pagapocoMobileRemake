@@ -16,7 +16,7 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
-const PublicationIndividual = () => {
+const Publication1 = () => {
 
   const [isModalLoginVisible, setIsModalLoginVisible] = useState(false);
 
@@ -101,7 +101,7 @@ const PublicationIndividual = () => {
           </View>
 
           <Image
-            source={ImagesPath.imageCar1}
+            source={ImagesPath.imageDefault}
             style={styles.imagePublication}
             resizeMode="contain"
           />
@@ -129,10 +129,10 @@ const PublicationIndividual = () => {
           >
             <TouchableOpacity 
               style={styles.buttomCarateristicaContainer}
-              onPress={() => router.push("/(publications)/publication_feature")}
+              onPress={() => router.push("/(tabs)/(publications)/publicationDetails")}
             >
               <Text style={styles.textButtonCaracteristica}>
-                Caracteristicas
+                Más detalles
               </Text>
             </TouchableOpacity>
           </View>
@@ -446,4 +446,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default PublicationIndividual;
+export default Publication1;
