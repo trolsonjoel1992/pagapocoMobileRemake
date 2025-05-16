@@ -12,4 +12,9 @@ export default {
     imageDefault2: require("@/src/assets/images/ImagePublication/imagen-default2.jpg"),
     iconLogin: require("@/src/assets/images/login-icon.png"),
     imageFavoritesNotLogin: require("@/src/assets/images/ImagesNotLogin/imagen-favoritos-no-login.png"),
+    iconCamion: require("@/src/assets/images/imageCategoria/icon-camion.png"),
+    iconCamioneta: require("@/src/assets/images/imageCategoria/icon-camioneta.png"),
+    iconAuto: require("@/src/assets/images/imageCategoria/icon-auto.png"),
+    iconMoto: require("@/src/assets/images/imageCategoria/icon-moto.png"),
+    iconPieza: require("@/src/assets/images/imageCategoria/icon-pieza.png"),
 }
