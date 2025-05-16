@@ -187,6 +187,139 @@ const HomeScreen = () => {
             </TouchableOpacity>
           )}
         </View>
+
+        <View style={styles.categoriasContainer}>
+
+          {/* <Text>Categorias</Text> */}
+          <View style={styles.categoriaContainer}>
+            
+            {/* <AntDesign name="login" size={moderateScale(20)} color="black" /> */}
+
+            <TouchableOpacity
+              style={{ justifyContent: "center", alignItems: "center" }}
+            >
+              <Image 
+                source={ImagesPath.iconCamion}
+                style={styles.iconCategorias}
+                resizeMode="contain"
+              />
+
+              <Text>Camiones</Text>
+            </TouchableOpacity>
+
+            {/* <Image 
+              source={ImagesPath.iconCamion}
+              style={styles.iconCategorias}
+              resizeMode="contain"
+            />
+
+            <Text>Camiones</Text> */}
+
+          </View>
+
+          <View style={styles.categoriaContainer}>
+            
+            {/* <AntDesign name="login" size={moderateScale(20)} color="black" /> */}
+
+            <TouchableOpacity
+              style={{ justifyContent: "center", alignItems: "center" }}
+            >
+              <Image 
+                source={ImagesPath.iconCamioneta}
+                style={styles.iconCategorias}
+                resizeMode="contain"
+              />
+
+              <Text>Camionetas</Text>
+            </TouchableOpacity>
+
+            {/* <Image 
+              source={ImagesPath.iconCamioneta}
+              style={styles.iconCategorias}
+              resizeMode="contain"
+            />
+
+            <Text>Camioneta</Text> */}
+
+          </View>
+
+          <View style={styles.categoriaContainer}>
+            
+            {/* <AntDesign name="login" size={moderateScale(20)} color="black" /> */}
+
+            <TouchableOpacity
+              style={{ justifyContent: "center", alignItems: "center" }}
+            >
+              <Image 
+                source={ImagesPath.iconAuto}
+                style={styles.iconCategorias}
+                resizeMode="contain"
+              />
+
+              <Text>Autos</Text>
+            </TouchableOpacity>
+
+            {/* <Image 
+              source={ImagesPath.iconAuto}
+              style={styles.iconCategorias}
+              resizeMode="contain"
+            />
+            <Text>Auto</Text> */}
+
+          </View>
+
+          <View style={styles.categoriaContainer}>
+            
+            {/* <AntDesign name="login" size={moderateScale(20)} color="black" /> */}
+            
+            <TouchableOpacity
+              style={{ justifyContent: "center", alignItems: "center" }}
+            >
+              <Image 
+                source={ImagesPath.iconMoto}
+                style={styles.iconCategorias}
+                resizeMode="contain"
+              />
+
+              <Text>Motos</Text>
+            </TouchableOpacity>
+
+            {/* <Image 
+              source={ImagesPath.iconMoto}
+              style={styles.iconCategorias}
+              resizeMode="contain"
+            />
+            <Text>Moto</Text> */}
+
+          </View>
+
+          <View style={styles.categoriaContainer}>
+            
+            {/* <AntDesign name="login" size={moderateScale(20)} color="black" /> */}
+            
+            <TouchableOpacity
+              style={{ justifyContent: "center", alignItems: "center" }}
+            >
+              <Image 
+                source={ImagesPath.iconPieza}
+                style={styles.iconCategorias}
+                resizeMode="contain"
+              />
+
+              <Text>Piezas</Text>
+            </TouchableOpacity>
+
+            {/* <Image 
+              source={ImagesPath.iconPieza}
+              style={styles.iconCategorias}
+              resizeMode="contain"
+            />
+            <Text>Piezas</Text> */}
+
+          </View>
+
+        </View>
+
       </View>
 
       {/* Body con FlatList para las publicaciones */}
@@ -237,7 +370,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   header: {
-    height: moderateScale(120),
+    height: moderateScale(170),
     width: "100%",
     //backgroundColor: "red",
     textAlign: "center",
@@ -274,6 +407,7 @@ const styles = StyleSheet.create({
     height: moderateScale(40),
     gap: moderateScale(4),
     marginBottom: verticalScale(16),
+    //backgroundColor: "yellow",
   },
   searchIcon: {
     marginRight: moderateScale(10),
@@ -303,6 +437,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     paddingHorizontal: moderateScale(8),
+    //backgroundColor: "green",
+    marginBottom: moderateScale(10),
   },
   actionButton: {
     flexDirection: "row",
@@ -325,6 +461,25 @@ const styles = StyleSheet.create({
     height: moderateScale(24),
     backgroundColor: "#E0E0E0",
     marginHorizontal: moderateScale(4),
+  },
+  categoriasContainer: {
+    width: "100%",
+    height: moderateScale(40),
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    paddingHorizontal: moderateScale(8),
+    //backgroundColor: "blue",
+    gap: moderateScale(10),
+  },
+  categoriaContainer: {
+    //backgroundColor: "green",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  iconCategorias: {
+    width: moderateScale(30),
+    height: moderateScale(24),
   },
   // Estilos para el modal
   centeredView: {
