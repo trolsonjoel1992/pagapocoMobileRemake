@@ -1,12 +1,9 @@
 import ImagesPath from "@/src/constants/ImagesPath";
-import { Feather } from "@expo/vector-icons";
-import AntDesign from "@expo/vector-icons/AntDesign";
-import Ionicons from "@expo/vector-icons/Ionicons";
+import { AntDesign, Entypo, Feather, Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
-import React, { useState } from "react";
+import React from "react";
 import {
   Image,
-  Modal,
   StyleSheet,
   Text,
   TextInput,
@@ -17,18 +14,8 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const Publication1 = () => {
-
-  const [isModalLoginVisible, setIsModalLoginVisible] = useState(false);
-
-  const handleLogin = () => {
-    setIsModalLoginVisible(true);
-  };
-
-  const [isModalContactVisible, setIsModalContactVisible] = useState(false);
-
-  const handleContact = () => {
-    setIsModalContactVisible(true);
-  };
+  // logica boton iniciar sesion
+  let isLogin = false;
 
   return (
     <SafeAreaView style={styles.container}>
@@ -55,7 +42,10 @@ const Publication1 = () => {
               <Feather name="filter" size={moderateScale(24)} color="gray" />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.actionIcon}>
+            <TouchableOpacity
+              style={styles.actionIcon}
+              onPress={() => router.push("/(notifications)/notification")}
+            >
               <Ionicons
                 name="notifications-outline"
                 size={moderateScale(24)}
@@ -76,35 +66,55 @@ const Publication1 = () => {
             <Text style={styles.textActionsIcon}>Elige tu ciudad</Text>
           </TouchableOpacity>
 
-          <View style={styles.separator} />
+          {/* solo aparece si NO esta logeado */}
+          {!isLogin && <View style={styles.separator} />}
 
-          <TouchableOpacity 
-            style={styles.actionButton}
-            onPress={handleLogin}  // () => { router.push("/(auth)/FormLogin") }
-          >
-            <AntDesign name="login" size={moderateScale(20)} color="gray" />
-            <Text style={styles.textActionsIcon}>Iniciar Sesión</Text>
-          </TouchableOpacity>
+          {/* solo aparece si NO esta logeado */}
+          {isLogin ? (
+            <TouchableOpacity
+              style={styles.actionButton}
+              onPress={() => router.push("/(tabs)/store")} // () => { router.push("/(auth)/FormLogin") }
+            >
+              <Entypo
+                name="new-message"
+                size={moderateScale(20)}
+                color="gray"
+              />
+              <Text style={styles.textActionsIcon}>Vender</Text>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity
+              style={styles.actionButton}
+              /*
+              ahora lleva al formulario de login directame, no abre el modal
+              el onPress={handleLogin} abria el modal
+              */
+              onPress={() => {
+                router.push("/(auth)/FormLogin");
+              }}
+            >
+              <AntDesign name="login" size={moderateScale(20)} color="gray" />
+              <Text style={styles.textActionsIcon}>Iniciar Sesión</Text>
+            </TouchableOpacity>
+          )}
         </View>
       </View>
 
       <View style={styles.body}>
-        {/* Ubicacion, Titulo Publicacion, Imagen, precio, descripcion, boton carateristicas */}
-
         <View style={styles.publicationContainer}>
-          <View style={styles.labelPublicationContainer}>
-            <Text>2023 | 16.000 km - Publicado hace 2 meses</Text>
+          <Text>2023 | 16.000 km - Publicado hace 2 meses</Text>
 
-            <Text style={{ fontSize: moderateScale(24), fontWeight: "bold" }}>
-              Volkswagen Polo
-            </Text>
+          <Text style={{ fontSize: moderateScale(24), fontWeight: "bold" }}>
+            Volkswagen Polo
+          </Text>
+
+          <View style={styles.imagePublicationContainer}>
+            <Image
+              source={ImagesPath.imageDefault2}
+              style={styles.imagePublication}
+              resizeMode="contain"
+            />
           </View>
-
-          <Image
-            source={ImagesPath.imageDefault}
-            style={styles.imagePublication}
-            resizeMode="contain"
-          />
 
           <View
             style={[
@@ -119,155 +129,73 @@ const Publication1 = () => {
               Descripcion
             </Text>
             <Text>En perfecto estado. Papeles al dia</Text>
-          </View>
-
-          <View
-            style={[
-              styles.caracteristicasButtonWrapper,
-              { width: moderateScale(340) },
-            ]}
-          >
-            <TouchableOpacity 
-              style={styles.buttomCarateristicaContainer}
-              onPress={() => router.push("/(tabs)/(publications)/publicationDetails")}
-            >
-              <Text style={styles.textButtonCaracteristica}>
-                Más detalles
-              </Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-
-        <View style={styles.buttomFooter}>
-          <View style={styles.footerButtonWrapper}>
-            <TouchableOpacity 
-              style={styles.buttomPreguntarContainer}
-              onPress={handleContact}
-            >
-              <Text style={styles.buttomPreguntarText}>Preguntar</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.footerButtonWrapper}>
-            <TouchableOpacity 
-              style={styles.buttomPreguntarContainer}
-              onPress={handleContact}
-            >
-              <Text style={styles.buttomPreguntarText}>Whatshapp</Text>
-            </TouchableOpacity>
+            <Text>
+              ¡Calidad alemana, bajo consumo y alto valor de reventa! Perfecto para quien busca practicidad sin 
+              dejar de lucir estilo. ¡Contáctanos y llévatelo! 
+            </Text>
           </View>
         </View>
       </View>
 
-      {/* boton preguntar y whatsap */}
-      {/* <View style={styles.footer}>
-        
-        <View style={styles.buttomFooter}>
-          <View style={styles.footerButtonWrapper}>
-            <TouchableOpacity style={styles.buttomPreguntarContainer}>
-              <Text style={styles.buttomPreguntarText}>Preguntar</Text>
-            </TouchableOpacity>
-          </View>
-
-          <View style={styles.footerButtonWrapper}>
-            <TouchableOpacity style={styles.buttomPreguntarContainer}>
-              <Text style={styles.buttomPreguntarText}>Whatshapp</Text>
-            </TouchableOpacity>
-          </View>
+      <View style={styles.footer}>
+        <View style={styles.buttomDetallesContainer}>
+          <TouchableOpacity 
+            style={styles.buttomDetalles}
+            onPress={() => router.push("/(tabs)/(publications)/publicationDetails")}
+          >
+            <Text style={styles.buttomDetallesText}>Más Detalles</Text>
+          </TouchableOpacity>
         </View>
-      </View> */}
 
-      {/* Modal de Login */}
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={isModalLoginVisible}
-        onRequestClose={() => setIsModalLoginVisible(false)}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Image
-              source={ImagesPath.iconLogin}
-              style={{ width: moderateScale(110), height: moderateScale(110) }}
-              resizeMode="contain"
-            />
+        <View style={styles.buttomContactContainer}>
+          <TouchableOpacity style={styles.buttomContact}>
+            <Text style={styles.buttomContactText}>Preguntar</Text>
+          </TouchableOpacity>
 
-            {/* <Text style={styles.modalTitle}>¡IMPORTANTE!</Text> */}
-            <Text style={styles.modalText}>
-              Inicia Sesión
-            </Text>
-            <Text style={styles.modalText}>
-              o
-            </Text>
-            <Text style={styles.modalText}>
-              create una cuenta.
-            </Text>
-
-            {/* Botón del modal */}
-            <TouchableOpacity
-              style={styles.modalButton}
-              onPress={() => {
-                setIsModalLoginVisible(false);
-                router.push("/(auth)/login");
-              }}
-            >
-              <Text style={styles.modalButtonText}>Entendido</Text>
-            </TouchableOpacity>
-          </View>
+          <TouchableOpacity style={styles.buttomContact}>
+            <Text style={styles.buttomContactText}>Whatshapp</Text>
+          </TouchableOpacity>
         </View>
-      </Modal>
-
-      {/* Modal de Contact */}
-      <Modal
-        animationType="fade"
-        transparent={true}
-        visible={isModalContactVisible}
-        onRequestClose={() => setIsModalContactVisible(false)}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Image
-              source={ImagesPath.iconWarning}
-              style={{ width: moderateScale(110), height: moderateScale(110) }}
-              resizeMode="contain"
-            />
-
-            {/* <Text style={styles.modalTitle}>¡IMPORTANTE!</Text> */}
-            <Text style={styles.modalText}>
-              Para contactar al vendedor,
-            </Text>
-            <Text style={styles.modalText}>
-              Ingrese a tu cuenta.
-            </Text>
-
-            {/* Botón del modal */}
-            <TouchableOpacity
-              style={styles.modalButton}
-              onPress={() => {
-                setIsModalContactVisible(false);
-                router.push("/(auth)/login"); // navega hacia la pantalla principal
-              }}
-            >
-              <Text style={styles.modalButtonText}>Entendido</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </Modal>
-
+      </View>
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  // estilos de la estructura
   container: {
     flex: 1,
+    backgroundColor: "#fff",
     justifyContent: "space-between",
+    alignItems: "center",
+    //paddingVertical: verticalScale(20),
   },
   header: {
+    height: moderateScale(120),
     width: "100%",
-    paddingVertical: verticalScale(10),
-    paddingHorizontal: moderateScale(10),
+    //backgroundColor: "red",
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
+  body: {
+    height: moderateScale(430),
+    width: "100%",
+    //backgroundColor: "yellow",
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  footer: {
+    height: moderateScale(120),
+    width: "100%",
+    //backgroundColor: "red",
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
+    gap: moderateScale(10),
+  },
+  // estilos del contenido del header
   searchContainer: {
     width: "100%",
     flexDirection: "row",
@@ -329,120 +257,77 @@ const styles = StyleSheet.create({
     backgroundColor: "#E0E0E0",
     marginHorizontal: moderateScale(4),
   },
-  body: {
-    flex: 1,
-    width: "100%",
-    paddingVertical: verticalScale(20),
-    paddingHorizontal: moderateScale(10),
+  // estilo para la publicacion
+  publicationContainer: {
+    width: "90%",
+    //height: moderateScale(450),
+    //backgroundColor: "red",
+    justifyContent: "center",
+    //gap: moderateScale(5)
   },
-  footer: {
-    width: "100%",
-    marginBottom: verticalScale(20),
+  imagePublicationContainer: {
+    height: moderateScale(220),
+    backgroundColor: "black",
+    justifyContent: "center",
+    alignItems: "center",
+    borderRadius: moderateScale(10),
   },
   imagePublication: {
-    width: moderateScale(320),
-    height: moderateScale(260),
-  },
-  publicationContainer: {
-    width: "100%",
-    alignItems: "center",
-    paddingHorizontal: moderateScale(10),
-    gap: moderateScale(4),
+    width: moderateScale(300),
+    height: moderateScale(210),
   },
   labelPublicationContainer: {
     width: "100%",
     textAlign: "left",
-    paddingHorizontal: moderateScale(10),
+    //paddingHorizontal: moderateScale(10),
   },
-  caracteristicasButtonWrapper: {
-    width: moderateScale(200),
-    alignSelf: "flex-start",
-    paddingHorizontal: moderateScale(10),
-  },
-  buttomCarateristicaContainer: {
-    backgroundColor: "#ECECEC",
-    width: "100%",
-    paddingVertical: verticalScale(8),
-    paddingHorizontal: verticalScale(10),
-    borderRadius: moderateScale(20),
+  // estilos para los botones de mas detalles
+  buttomDetallesContainer: {
+    justifyContent: "center",
+    flexDirection: "row",
     alignItems: "center",
-    marginBottom: verticalScale(10),
+    gap: moderateScale(20),
+    //paddingHorizontal: moderateScale(90),
+    //marginTop: verticalScale(10),
+    //marginBottom: verticalScale(10),
+    //backgroundColor: "yellow",
   },
-  textButtonCaracteristica: {
-    color: "#1A73E9",
-    fontSize: moderateScale(16),
-    paddingHorizontal: moderateScale(40),
-    fontWeight: "bold",
-  },
-  footerButtonWrapper: {
-    width: moderateScale(150),
-  },
-  buttomPreguntarContainer: {
-    backgroundColor: "#A230C7",
-    width: "100%",
+  buttomDetalles: {
+    backgroundColor: "#F5F5F5",
+    width: moderateScale(330),
     paddingVertical: verticalScale(10),
     paddingHorizontal: verticalScale(10),
     borderRadius: moderateScale(20),
     alignItems: "center",
   },
-  buttomPreguntarText: {
-    color: "white",
+  buttomDetallesText: {
+    color: "#1A73E9",
     fontSize: moderateScale(16),
     fontWeight: "bold",
   },
-  buttomFooter: {
+  // estilos para los botones de contacto
+  buttomContactContainer: {
     justifyContent: "center",
     flexDirection: "row",
     alignItems: "center",
     gap: moderateScale(20),
-    paddingHorizontal: moderateScale(10),
+    //paddingHorizontal: moderateScale(10),
     //marginTop: verticalScale(10),
-    marginBottom: verticalScale(10),
+    //marginBottom: verticalScale(10),
+    //backgroundColor: "yellow",
   },
-  // Estilos para el modal
-  centeredView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-    backgroundColor: 'rgba(0,0,0,0.5)',
+  buttomContact: {
+    backgroundColor: "#A230C7",
+    width: moderateScale(155),
+    paddingVertical: verticalScale(10),
+    paddingHorizontal: verticalScale(10),
+    borderRadius: moderateScale(20),
+    alignItems: "center",
   },
-  modalView: {
-    margin: 20,
-    backgroundColor: 'white',
-    borderRadius: 20,
-    padding: 35,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.25,
-    shadowRadius: 4,
-    elevation: 5,
-    width: '80%',
-  },
-  modalTitle: {
-    fontSize: moderateScale(20),
-    fontWeight: 'bold',
-    marginBottom: 15,
-    textAlign: 'center',
-  },
-  modalText: {
+  buttomContactText: {
+    color: "white",
     fontSize: moderateScale(16),
-    marginBottom: 10,
-    textAlign: 'center',
-    fontWeight: "bold"
-  },
-  modalButton: {
-    backgroundColor: '#A230C7',
-    borderRadius: 10,
-    padding: 12,
-    marginTop: 15,
-    width: '100%',
-    alignItems: 'center',
-  },
-  modalButtonText: {
-    color: 'white',
-    fontSize: moderateScale(16),
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 

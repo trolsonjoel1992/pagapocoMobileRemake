@@ -131,7 +131,10 @@ const HomeScreen = () => {
               <Feather name="filter" size={moderateScale(24)} color="gray" />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.actionIcon}>
+            <TouchableOpacity 
+              style={styles.actionIcon}
+              onPress={() => router.push("/(notifications)/notification")}  
+            >
               <Ionicons
                 name="notifications-outline"
                 size={moderateScale(24)}
@@ -261,6 +264,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     alignItems: "center",
   },
+  // estilos del contenido del header
   searchContainer: {
     width: "100%",
     flexDirection: "row",
@@ -433,7 +437,7 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(5),
   },
   publicationCard: {
-    width: "48%",  // Para dejar un pequeño espacio entre las columnas
+    width: "48%", // 48% // Para dejar un pequeño espacio entre las columnas
     backgroundColor: "#FFF",
     borderRadius: moderateScale(8),
     overflow: "hidden",
