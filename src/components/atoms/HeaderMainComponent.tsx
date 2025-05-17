@@ -38,7 +38,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingVertical: verticalScale(16),
+    paddingVertical: verticalScale(10), // 16
   },
   backButton: {
     paddingHorizontal: moderateScale(20),
