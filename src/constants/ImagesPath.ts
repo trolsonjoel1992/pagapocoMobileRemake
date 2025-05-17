@@ -1,6 +1,21 @@
 export default {
     logo: require("@/src/assets/images/icon.png"),
     iconGoogle: require("@/src/assets/images/icon-google.png"),
+    iconMicrosoft: require("@/src/assets/images/icon-microsoft.png"),
+    iconPhone: require("@/src/assets/images/icon-phone.png"),
     imageArrowBack: require("@/src/assets/images/arrow-back-black-icon.png"),
-    iconConfirmed: require("@/src/assets/images/confirm-icon.png")
+    iconConfirmed: require("@/src/assets/images/confirm-icon.png"),
+    iconWarning: require("@/src/assets/images/warning-icon.png"),
+    imageGoogle: require("@/src/assets/images/imagen-google.png"),
+    imageCar1: require("@/src/assets/images/ImagePublication/car/auto1.png"),
+    imageDefault: require("@/src/assets/images/ImagePublication/imagenDefault.png"),
+    imageDefault2: require("@/src/assets/images/ImagePublication/imagen-default2.jpg"),
+    iconLogin: require("@/src/assets/images/login-icon.png"),
+    imageFavoritesNotLogin: require("@/src/assets/images/ImagesNotLogin/imagen-favoritos-no-login.png"),
+    iconCamion: require("@/src/assets/images/imageCategoria/icon-camion.png"),
+    iconCamioneta: require("@/src/assets/images/imageCategoria/icon-camioneta.png"),
+    iconAuto: require("@/src/assets/images/imageCategoria/icon-auto.png"),
+    iconMoto: require("@/src/assets/images/imageCategoria/icon-moto.png"),
+    iconPieza: require("@/src/assets/images/imageCategoria/icon-pieza.png"),
+    iconTabsHome: require("@/src/assets/images/tabs-images/home-icon.png"),
 }

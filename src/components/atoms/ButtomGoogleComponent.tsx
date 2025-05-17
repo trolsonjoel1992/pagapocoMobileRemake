@@ -21,7 +21,7 @@ const ButtomGoogleComponent = ({ titulo } : any ) => {
 
 const styles = StyleSheet.create({
     buttomContainer: {
-        backgroundColor: "#FFFFFF",
+        backgroundColor: "#ECECEC",
         width: "100%",
         paddingVertical: verticalScale(10),
         paddingHorizontal: verticalScale(10),
@@ -33,10 +33,11 @@ const styles = StyleSheet.create({
     buttomText: {
         color: "black",
         fontSize: moderateScale(13),
-        paddingHorizontal: moderateScale(60),
+        paddingHorizontal: moderateScale(40),
         fontWeight: "bold",
     },
     iconGoogleStyle: {
+        paddingHorizontal: moderateScale(20),
         width: moderateScale(20),
         height: moderateScale(20),
         //marginRight: moderateScale(10),

@@ -1,17 +1,8 @@
-import { Redirect, Stack } from 'expo-router';
-import React, { useState } from 'react';
+import { Slot } from 'expo-router';
+import React from 'react';
 
-const RootNavigation = () => {
-
-  const [isLogin, setIsLogin] = useState(true);
-
-  return (
-    <>
-      <Stack screenOptions={{ headerShown: true }}></Stack>
-      {isLogin ? <Redirect href='/(tabs)' /> : <Redirect href='/(auth)' />}
-    </>
-  );
-
+const RootLayout = () => {
+  return <Slot />;
 };
 
-export default RootNavigation;
+export default RootLayout;
