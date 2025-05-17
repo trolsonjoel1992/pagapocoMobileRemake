@@ -2,6 +2,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from "react";
 //import { moderateScale } from "react-native-size-matters";
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 const TabsLayout = () => {
   return (
@@ -21,8 +22,21 @@ const TabsLayout = () => {
         name="home"
         options={{
           title: "Inicio",
-          tabBarIcon: ({ color, size }) => (
+          /* tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="home" color={color} size={size} />
+          ), */
+          /* tabBarIcon: ({ focused }) => (
+            <Image 
+              source={ImagesPath.iconTabsHome}
+              style={{
+                width: 24,
+                height: 24,
+                //tintColor: focused ? 'white' : 'light'
+              }}
+            />
+          ), */
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="home" size={size} color={color} />
           ),
         }}
       />
@@ -30,8 +44,11 @@ const TabsLayout = () => {
         name="stats"
         options={{
           title: "Publicaciones",
-          tabBarIcon: ({ color, size }) => (
+          /* tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="article" color={color} size={size} />
+          ), */
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="profile" size={size} color={color} />
           ),
         }}
       />
@@ -39,8 +56,11 @@ const TabsLayout = () => {
         name="store"
         options={{
           title: "Vender",
-          tabBarIcon: ({ color, size }) => (
+          /* tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="sell" color={color} size={size} />
+          ), */
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="form" size={size} color={color} />
           ),
         }}
         /* listeners={({ navigation }) => ({
@@ -62,7 +82,7 @@ const TabsLayout = () => {
         options={{
           title: "Favoritos",
           tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="favorite" color={color} size={size} />
+            <MaterialIcons name="favorite-border" color={color} size={size} />
           ),
         }}
       />
@@ -70,8 +90,11 @@ const TabsLayout = () => {
         name="profile"
         options={{
           title: "Perfil",
-          tabBarIcon: ({ color, size }) => (
+          /* tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="person" color={color} size={size} />
+          ), */
+          tabBarIcon: ({ color, size }) => (
+            <AntDesign name="user" size={size} color={color} />
           ),
         }}
         /* listeners={({ navigation }) => ({

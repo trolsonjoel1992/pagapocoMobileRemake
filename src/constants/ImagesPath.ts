@@ -17,4 +17,5 @@ export default {
     iconAuto: require("@/src/assets/images/imageCategoria/icon-auto.png"),
     iconMoto: require("@/src/assets/images/imageCategoria/icon-moto.png"),
     iconPieza: require("@/src/assets/images/imageCategoria/icon-pieza.png"),
+    iconTabsHome: require("@/src/assets/images/tabs-images/home-icon.png"),
 }

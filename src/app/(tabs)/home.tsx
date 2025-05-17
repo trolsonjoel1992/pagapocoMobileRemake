@@ -128,7 +128,8 @@ const HomeScreen = () => {
           {/* botones de filtro y notificaciones */}
           <View style={styles.searchActions}>
             <TouchableOpacity style={styles.actionIcon}>
-              <Feather name="filter" size={moderateScale(24)} color="gray" />
+              {/* <Feather name="filter" size={moderateScale(24)} color="gray" /> */}
+              <AntDesign name="bars" size={moderateScale(24)} color="gray" />
             </TouchableOpacity>
 
             <TouchableOpacity 
