@@ -1,9 +1,11 @@
 import SkeletorComponent from "@/src/components/atoms/SkeletorComponent";
-import { AntDesign, Feather, Ionicons } from "@expo/vector-icons";
-import Entypo from '@expo/vector-icons/Entypo';
+import ImagesPath from "@/src/constants/ImagesPath";
+import { AntDesign, Entypo, Feather, Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
+  FlatList,
+  Image,
   StyleSheet,
   Text,
   TextInput,
@@ -14,7 +16,6 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
 const HomeScreen = () => {
-
   // logica boton iniciar sesion
   let isLogin = false;
 
@@ -44,6 +45,67 @@ const HomeScreen = () => {
     );
   }
 
+  // Datos de ejemplo para las publicaciones
+  const mockPublications = [
+    {
+      id: 1,
+      title: "Volkswagen Polo",
+      price: "$15.000.000",
+      //image: "https://example.com/iphone.jpg",
+      location: "Resistencia, Chaco",
+    },
+    {
+      id: 2,
+      title: "Honda Wave",
+      price: "$2.500.000",
+      //image: "https://example.com/sofa.jpg",
+      location: "Barranqueras, Chaco",
+    },
+    {
+      id: 3,
+      title: "Toyota Hilux",
+      price: "$38.000.000",
+      //image: "https://example.com/bike.jpg",
+      location: "Resistencia, Chaco",
+    },
+    {
+      id: 4,
+      title: "Ranger Raptor",
+      price: "$58.000.000",
+      //image: "https://example.com/laptop.jpg",
+      location: "Fontana, Chaco",
+    },
+    {
+      id: 5,
+      title: "Toyota SW4",
+      price: "$38.000.000",
+      //image: "https://example.com/bike.jpg",
+      location: "Resistencia, Chaco",
+    },
+    {
+      id: 6,
+      title: "Honda Biz",
+      price: "$3.000.000",
+      //image: "https://example.com/laptop.jpg",
+      location: "Fontana, Chaco",
+    },
+    {
+      id: 7,
+      title: "Honda Tornado",
+      price: "$12.000.000",
+      //image: "https://example.com/bike.jpg",
+      location: "Resistencia, Chaco",
+    },
+    {
+      id: 8,
+      title: "Volkswagen Amarok",
+      price: "$45.000.000",
+      //image: "https://example.com/laptop.jpg",
+      location: "Fontana, Chaco",
+    },
+    // Agrega más publicaciones según necesites
+  ];
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -69,7 +131,10 @@ const HomeScreen = () => {
               <Feather name="filter" size={moderateScale(24)} color="gray" />
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.actionIcon}>
+            <TouchableOpacity 
+              style={styles.actionIcon}
+              onPress={() => router.push("/(notifications)/notification")}  
+            >
               <Ionicons
                 name="notifications-outline"
                 size={moderateScale(24)}
@@ -81,7 +146,6 @@ const HomeScreen = () => {
 
         {/* Botones de acciones - login y ubicacion */}
         <View style={styles.actionsContainer}>
-
           <TouchableOpacity style={styles.actionButton}>
             <Ionicons
               name="location-outline"
@@ -92,15 +156,19 @@ const HomeScreen = () => {
           </TouchableOpacity>
 
           {/* solo aparece si NO esta logeado */}
-          { !isLogin && <View style={styles.separator} /> }
-          
+          {!isLogin && <View style={styles.separator} />}
+
           {/* solo aparece si NO esta logeado */}
-          { isLogin ? (
+          {isLogin ? (
             <TouchableOpacity
               style={styles.actionButton}
               onPress={() => router.push("/(tabs)/store")} // () => { router.push("/(auth)/FormLogin") }
             >
-              <Entypo name="new-message" size={moderateScale(20)} color="gray" />
+              <Entypo
+                name="new-message"
+                size={moderateScale(20)}
+                color="gray"
+              />
               <Text style={styles.textActionsIcon}>Vender</Text>
             </TouchableOpacity>
           ) : (
@@ -110,81 +178,226 @@ const HomeScreen = () => {
               ahora lleva al formulario de login directame, no abre el modal
               el onPress={handleLogin} abria el modal
               */
-              onPress={() => { router.push("/(auth)/FormLogin") }} 
+              onPress={() => {
+                router.push("/(auth)/FormLogin");
+              }}
             >
               <AntDesign name="login" size={moderateScale(20)} color="gray" />
               <Text style={styles.textActionsIcon}>Iniciar Sesión</Text>
             </TouchableOpacity>
           )}
-
         </View>
-      </View>
 
-      <View style={styles.body}>
-        <Text style={{ textAlign: "center" }}>Body</Text>
-        <Text style={{ textAlign: "center" }}>Publicaciones</Text>
+        <View style={styles.categoriasContainer}>
 
-        <View style={{ width: moderateScale(150) }}>
-          <TouchableOpacity
-            style={styles.buttomPublicacionContainer}
-            onPress={() => router.push("/(publications)/publicationIndividual")}
-          >
-            <Text style={styles.buttomPublicacionText}>Publicacion 1</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+          {/* <Text>Categorias</Text> */}
+          <View style={styles.categoriaContainer}>
+            
+            {/* <AntDesign name="login" size={moderateScale(20)} color="black" /> */}
 
-      {/* 
-      Modal de Login
-      Descartado de momento (para ser mas directo)
-      */}
-      {/* <Modal
-        animationType="fade"
-        transparent={true}
-        visible={isModalLoginVisible}
-        onRequestClose={() => setIsModalLoginVisible(false)}
-      >
-        <View style={styles.centeredView}>
-          <View style={styles.modalView}>
-            <Image
-              source={ImagesPath.iconLogin}
-              style={{ width: moderateScale(110), height: moderateScale(110) }}
+            <TouchableOpacity
+              style={{ justifyContent: "center", alignItems: "center" }}
+            >
+              <Image 
+                source={ImagesPath.iconCamion}
+                style={styles.iconCategorias}
+                resizeMode="contain"
+              />
+
+              <Text>Camiones</Text>
+            </TouchableOpacity>
+
+            {/* <Image 
+              source={ImagesPath.iconCamion}
+              style={styles.iconCategorias}
               resizeMode="contain"
             />
 
-            <Text style={styles.modalText}>Inicia Sesión</Text>
-            <Text style={styles.modalText}>o</Text>
-            <Text style={styles.modalText}>create una cuenta.</Text>
+            <Text>Camiones</Text> */}
+
+          </View>
+
+          <View style={styles.categoriaContainer}>
+            
+            {/* <AntDesign name="login" size={moderateScale(20)} color="black" /> */}
 
             <TouchableOpacity
-              style={styles.modalButton}
-              onPress={() => {
-                setIsModalLoginVisible(false);
-                router.push("/(auth)/login");
-              }}
+              style={{ justifyContent: "center", alignItems: "center" }}
             >
-              <Text style={styles.modalButtonText}>Entendido</Text>
+              <Image 
+                source={ImagesPath.iconCamioneta}
+                style={styles.iconCategorias}
+                resizeMode="contain"
+              />
+
+              <Text>Camionetas</Text>
             </TouchableOpacity>
+
+            {/* <Image 
+              source={ImagesPath.iconCamioneta}
+              style={styles.iconCategorias}
+              resizeMode="contain"
+            />
+
+            <Text>Camioneta</Text> */}
+
           </View>
+
+          <View style={styles.categoriaContainer}>
+            
+            {/* <AntDesign name="login" size={moderateScale(20)} color="black" /> */}
+
+            <TouchableOpacity
+              style={{ justifyContent: "center", alignItems: "center" }}
+            >
+              <Image 
+                source={ImagesPath.iconAuto}
+                style={styles.iconCategorias}
+                resizeMode="contain"
+              />
+
+              <Text>Autos</Text>
+            </TouchableOpacity>
+
+            {/* <Image 
+              source={ImagesPath.iconAuto}
+              style={styles.iconCategorias}
+              resizeMode="contain"
+            />
+            <Text>Auto</Text> */}
+
+          </View>
+
+          <View style={styles.categoriaContainer}>
+            
+            {/* <AntDesign name="login" size={moderateScale(20)} color="black" /> */}
+            
+            <TouchableOpacity
+              style={{ justifyContent: "center", alignItems: "center" }}
+            >
+              <Image 
+                source={ImagesPath.iconMoto}
+                style={styles.iconCategorias}
+                resizeMode="contain"
+              />
+
+              <Text>Motos</Text>
+            </TouchableOpacity>
+
+            {/* <Image 
+              source={ImagesPath.iconMoto}
+              style={styles.iconCategorias}
+              resizeMode="contain"
+            />
+            <Text>Moto</Text> */}
+
+          </View>
+
+          <View style={styles.categoriaContainer}>
+            
+            {/* <AntDesign name="login" size={moderateScale(20)} color="black" /> */}
+            
+            <TouchableOpacity
+              style={{ justifyContent: "center", alignItems: "center" }}
+            >
+              <Image 
+                source={ImagesPath.iconPieza}
+                style={styles.iconCategorias}
+                resizeMode="contain"
+              />
+
+              <Text>Piezas</Text>
+            </TouchableOpacity>
+
+            {/* <Image 
+              source={ImagesPath.iconPieza}
+              style={styles.iconCategorias}
+              resizeMode="contain"
+            />
+            <Text>Piezas</Text> */}
+
+          </View>
+
         </View>
-      </Modal> */}
+
+      </View>
+
+      {/* Body con FlatList para las publicaciones */}
+      <View style={styles.body}>
+        <FlatList
+          data={mockPublications}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.publicationCard}
+              onPress={() => router.push("/(publications)/publication1")} // `/ (publications)/publication${item.id}`
+            >
+              <Image
+                source={ImagesPath.imageDefault} // { uri: item.image }
+                style={styles.publicationImage}
+                resizeMode="contain" // "cover"
+              />
+              <View style={styles.publicationInfo}>
+                <Text style={styles.publicationTitle} numberOfLines={1}>
+                  {item.title}
+                </Text>
+                <Text style={styles.publicationPrice}>{item.price}</Text>
+                <Text style={styles.publicationLocation} numberOfLines={1}>
+                  {item.location}
+                </Text>
+              </View>
+            </TouchableOpacity>
+          )}
+          keyExtractor={(item) => item.id.toString()}
+          numColumns={2}
+          columnWrapperStyle={styles.columnWrapper}
+          contentContainerStyle={styles.listContent}
+          showsVerticalScrollIndicator={false}
+        />
+      </View>
+
+      {/* <View style={styles.footer}></View> */}
 
     </SafeAreaView>
   );
 };
 
 const styles = StyleSheet.create({
+  // estilos de la estructura
   container: {
     flex: 1,
+    backgroundColor: "#fff", // purple
     justifyContent: "space-between",
-    backgroundColor: "#fff",
-    paddingVertical: verticalScale(10),
+    alignItems: "center",
   },
   header: {
+    height: moderateScale(170),
     width: "100%",
-    //paddingVertical: verticalScale(10),
-    paddingHorizontal: moderateScale(10),
+    //backgroundColor: "red",
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
   },
+  /* body: {
+    height: moderateScale(540),
+    width: "90%",
+    //backgroundColor: "aqua",
+    textAlign: "center",
+    justifyContent: "center",
+    alignItems: "center",
+  }, */
+  body: {
+    flex: 1,  // Cambiado para que ocupe todo el espacio disponible
+    width: "90%",
+  },
+  footer: {
+    height: moderateScale(10),
+    width: "100%",
+    //backgroundColor: "blue",
+    textAlign: "center",
+    justifyContent: "flex-start",
+    alignItems: "center",
+  },
+  // estilos del contenido del header
   searchContainer: {
     width: "100%",
     flexDirection: "row",
@@ -194,6 +407,7 @@ const styles = StyleSheet.create({
     height: moderateScale(40),
     gap: moderateScale(4),
     marginBottom: verticalScale(16),
+    //backgroundColor: "yellow",
   },
   searchIcon: {
     marginRight: moderateScale(10),
@@ -223,6 +437,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center",
     paddingHorizontal: moderateScale(8),
+    //backgroundColor: "green",
+    marginBottom: moderateScale(10),
   },
   actionButton: {
     flexDirection: "row",
@@ -246,15 +462,24 @@ const styles = StyleSheet.create({
     backgroundColor: "#E0E0E0",
     marginHorizontal: moderateScale(4),
   },
-  body: {
-    flex: 1,
+  categoriasContainer: {
     width: "100%",
-    paddingVertical: verticalScale(20),
-    paddingHorizontal: moderateScale(10),
+    height: moderateScale(40),
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center",
+    paddingHorizontal: moderateScale(8),
+    //backgroundColor: "blue",
+    gap: moderateScale(10),
   },
-  footer: {
-    width: "100%",
-    marginBottom: verticalScale(20),
+  categoriaContainer: {
+    //backgroundColor: "green",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  iconCategorias: {
+    width: moderateScale(30),
+    height: moderateScale(24),
   },
   // Estilos para el modal
   centeredView: {
@@ -302,17 +527,26 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   // estilos botones
-  buttomPublicacionContainer: {
-    backgroundColor: "#A230C7",
-    width: "100%",
+  buttomContainer: {
+    width: "100%", // moderateScale(150)
+    height: moderateScale(300),
+    //backgroundColor: "red",
+    marginBottom: verticalScale(10),
+    justifyContent: "center",
+    gap: moderateScale(10),
+  },
+  buttom: {
+    backgroundColor: "blue",
+    width: "50%",
     paddingVertical: verticalScale(10),
     paddingHorizontal: verticalScale(10),
     borderRadius: moderateScale(20),
     alignItems: "center",
+    //marginBottom: verticalScale(10),
   },
-  buttomPublicacionText: {
+  buttomText: {
     color: "white",
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(13),
     fontWeight: "bold",
   },
   // estilos del skeletor
@@ -348,6 +582,52 @@ const styles = StyleSheet.create({
     width: moderateScale(150),
     height: verticalScale(15),
     backgroundColor: "#f0f0f0",
+  },
+  // Nuevos estilos para las publicaciones
+  listContent: {
+    paddingBottom: verticalScale(20),
+  },
+  columnWrapper: {
+    justifyContent: "space-between",
+    marginBottom: verticalScale(5),
+  },
+  publicationCard: {
+    width: "48%", // 48% // Para dejar un pequeño espacio entre las columnas
+    backgroundColor: "#FFF",
+    borderRadius: moderateScale(8),
+    overflow: "hidden",
+    shadowColor: "#000",
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 5,
+    marginBottom: verticalScale(12),
+  },
+  publicationImage: {
+    width: "100%", // "100%"
+    height: verticalScale(120),
+    backgroundColor: "#F5F5F5",  // Color de fondo mientras carga la imagen
+  },
+  publicationInfo: {
+    padding: moderateScale(10),
+  },
+  publicationTitle: {
+    fontSize: moderateScale(14),
+    fontWeight: "500",
+    marginBottom: verticalScale(4),
+  },
+  publicationPrice: {
+    fontSize: moderateScale(16),
+    fontWeight: "bold",
+    color: "#A230C7",  // Puedes cambiar este color
+    marginBottom: verticalScale(4),
+  },
+  publicationLocation: {
+    fontSize: moderateScale(12),
+    color: "#666",
   },
 });
 

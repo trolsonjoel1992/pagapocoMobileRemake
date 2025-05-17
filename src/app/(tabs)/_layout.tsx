@@ -1,14 +1,20 @@
 import { MaterialIcons } from "@expo/vector-icons";
 import { Tabs } from "expo-router";
 import React from "react";
+//import { moderateScale } from "react-native-size-matters";
 
 const TabsLayout = () => {
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "#A230C7",
+        tabBarActiveTintColor: "white",
         tabBarInactiveTintColor: "light",
+        tabBarStyle: {
+          backgroundColor: "#A230C7",
+          //borderStartStartRadius: moderateScale(20),
+          //borderEndStartRadius: moderateScale(20),
+        }
       }}
     >
       <Tabs.Screen
@@ -80,6 +86,20 @@ const TabsLayout = () => {
 
           },
         })} */
+      />
+      <Tabs.Screen 
+        name="(publications)/publication1"
+        options={{ 
+          tabBarButton: () => null,  // Oculta el tab
+          //tabBarStyle: { display: "none" } 
+        }}
+      />
+      <Tabs.Screen 
+        name="(publications)/publicationDetails"
+        options={{ 
+          tabBarButton: () => null,  // Oculta el tab
+          //tabBarStyle: { display: "none" } 
+        }}
       />
     </Tabs>
   );

@@ -1,8 +1,6 @@
 import HeaderMainComponent from "@/src/components/atoms/HeaderMainComponent";
 import ImagesPath from "@/src/constants/ImagesPath";
-import AntDesign from '@expo/vector-icons/AntDesign';
-import Feather from '@expo/vector-icons/Feather';
-import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
+import { router } from "expo-router";
 import React, { useState } from "react";
 import {
   Image,
@@ -105,7 +103,9 @@ const FormLogin = () => {
         {/* Texto para que se registre */}
         <View style={styles.textDePregunta}>
           <Text>¿No tienes una cuenta? </Text>
-          <TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => router.push("/(auth)/(register)/InputEmail")}
+          >
             <Text style={styles.textLinks}>Registrate</Text>
           </TouchableOpacity>
         </View>
@@ -126,16 +126,16 @@ const FormLogin = () => {
               style={styles.buttomOtros}
               //onPress={() => router.push("/(auth)/google_login")}
             >
-              {/* <Image
+              <Image
                 source={ImagesPath.iconGoogle}
                 style={styles.iconGoogleStyle}
                 resizeMode="contain"
-              /> */}
+              />
 
-              <AntDesign name="google" size={moderateScale(18)} color="black" />
+              {/* <AntDesign name="google" size={moderateScale(18)} color="black" /> */}
               
               <Text style={styles.buttomOtrosText}>
-                Continuar Google
+                Continuar con Google
               </Text>
             </TouchableOpacity>
           </View>
@@ -146,16 +146,16 @@ const FormLogin = () => {
               style={styles.buttomOtros}
               //onPress={() => router.push("/(auth)/google_login")}
             >
-              {/* <Image
-                source={ImagesPath.iconGoogle}
+              <Image
+                source={ImagesPath.iconMicrosoft}
                 style={styles.iconGoogleStyle}
                 resizeMode="contain"
-              /> */}
+              />
 
-              <FontAwesome5 name="microsoft" size={moderateScale(18)} color="black" />
+              {/* <FontAwesome5 name="microsoft" size={moderateScale(18)} color="black" /> */}
 
               <Text style={styles.buttomOtrosText}>
-                Continuar Microsoft
+                Continuar con Microsoft
               </Text>
             </TouchableOpacity>
           </View>
@@ -165,13 +165,13 @@ const FormLogin = () => {
               style={styles.buttomOtros}
               //onPress={() => router.push("/(auth)/google_login")}
             >
-              {/* <Image
-                source={ImagesPath.iconGoogle}
+              <Image
+                source={ImagesPath.iconPhone}
                 style={styles.iconGoogleStyle}
                 resizeMode="contain"
-              /> */}
+              />
 
-              <Feather name="phone" size={moderateScale(18)} color="black" />
+              {/* <Feather name="phone" size={moderateScale(18)} color="black" /> */}
 
               <Text style={styles.buttomOtrosText}>
                 Continuar con el teléfono
@@ -303,7 +303,7 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(10),
   },
   separator: {
-    width: moderateScale(140), // 46%
+    width: moderateScale(135), // 46%
     height: moderateScale(1.5),
     backgroundColor: "black",
     marginHorizontal: moderateScale(4),
