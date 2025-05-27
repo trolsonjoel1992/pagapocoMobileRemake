@@ -1,16 +1,21 @@
-import HeaderMainComponent from "@/src/components/atoms/HeaderMainComponent";
-import { router } from "expo-router";
-import React, { useState } from "react";
-import { StyleSheet, Text, TextInput, TouchableOpacity, View } from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { moderateScale, verticalScale } from "react-native-size-matters";
+import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import { router } from 'expo-router'
+import React, { useState } from 'react'
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 const InputEmail = () => {
-  const [email, setEmail] = useState("");
+  const [email, setEmail] = useState('')
 
   return (
     <SafeAreaView style={styles.container}>
-
       {/* Header */}
       <HeaderMainComponent titulo="Cuenta" />
 
@@ -35,7 +40,7 @@ const InputEmail = () => {
           {/* Descarto uso de componentes - (solo de momento) */}
           <TouchableOpacity
             style={styles.buttomSiguienteContainer}
-            onPress={() => router.push("/(auth)/(register)/InputPassword")}
+            onPress={() => router.push('/(auth)/(register)/InputPassword')}
           >
             <Text style={styles.buttomSiguienteText}>Siguiente</Text>
           </TouchableOpacity>
@@ -44,54 +49,53 @@ const InputEmail = () => {
 
       {/* Footer */}
       <View style={styles.footer}></View>
-      
     </SafeAreaView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    justifyContent: "space-between",
-    alignItems: "center",
-    backgroundColor: "#F5F5F5",
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#F5F5F5',
   },
   body: {
-    justifyContent: "center",
-    alignItems: "center",
-    width: "100%",
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
     paddingVertical: moderateScale(20),
     gap: verticalScale(30),
   },
   footer: {},
   textTitle: {
-    color: "black",
+    color: 'black',
     fontSize: moderateScale(25),
-    fontWeight: "bold",
+    fontWeight: 'bold',
     marginBottom: moderateScale(20),
   },
   inputContainer: {
-    width: "80%",
+    width: '80%',
     padding: verticalScale(10),
     borderRadius: verticalScale(20),
     borderWidth: verticalScale(1),
-    borderColor: "gray",
+    borderColor: 'gray',
     marginBottom: verticalScale(10),
   },
   // estilos de botones
   buttomSiguienteContainer: {
-        backgroundColor: "#A230C7",
-        width: "100%",
-        paddingVertical: verticalScale(10),
-        paddingHorizontal: verticalScale(10),
-        borderRadius: moderateScale(20),
-        alignItems: "center",
-    },
-    buttomSiguienteText: {
-        color: "white",
-        fontSize: moderateScale(13),
-        fontWeight: "bold",
-    }
-});
+    backgroundColor: '#A230C7',
+    width: '100%',
+    paddingVertical: verticalScale(10),
+    paddingHorizontal: verticalScale(10),
+    borderRadius: moderateScale(20),
+    alignItems: 'center',
+  },
+  buttomSiguienteText: {
+    color: 'white',
+    fontSize: moderateScale(13),
+    fontWeight: 'bold',
+  },
+})
 
-export default InputEmail;
+export default InputEmail
