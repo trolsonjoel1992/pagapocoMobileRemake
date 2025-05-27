@@ -53,7 +53,7 @@ const TabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="store"
+        name="(sell)/index"
         options={{
           title: "Vender",
           /* tabBarIcon: ({ color, size }) => (
