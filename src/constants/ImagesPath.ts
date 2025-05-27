@@ -18,4 +18,12 @@ export default {
     iconMoto: require("@/src/assets/images/imageCategoria/icon-moto.png"),
     iconPieza: require("@/src/assets/images/imageCategoria/icon-pieza.png"),
     iconTabsHome: require("@/src/assets/images/tabs-images/home-icon.png"),
+    // iconos del tab Vender
+    iconTruck:require('@/src/assets/images/imageSell/TruckIcon.png'),
+    iconCarProfile:require('@/src/assets/images/imageSell/CarProfileIcon.png'),
+    iconCar:require('@/src/assets/images/imageSell/CarIcon.png'),
+    iconMotorcycle:require('@/src/assets/images/imageSell/MotorcycleIcon.png'),
+    iconGear:require('@/src/assets/images/imageSell/GearIcon.png'),
+    // iconos globales
+    iconNotePencil:require('@/src/assets/images/NotePencilIcon.png')
 }
