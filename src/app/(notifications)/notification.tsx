@@ -36,7 +36,8 @@ const Notification = () => {
           {/* Boton Matias */}
           <TouchableOpacity
             style={styles.buttom}
-            //onPress={() => router.push("/(tabs)/profile")} // cambiar por la ubicacion de su pantalla
+            onPress={() => router.push("/(trabajo_matias)/contacta_con_el_vendedor")} // cambiar por la ubicacion de su pantalla
+            
           >
             <Text style={styles.buttomText}>Matias</Text>
           </TouchableOpacity>
