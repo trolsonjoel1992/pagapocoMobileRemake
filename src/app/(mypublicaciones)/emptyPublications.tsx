@@ -1,4 +1,3 @@
-import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { router } from 'expo-router'
 import React from 'react'
@@ -16,10 +15,6 @@ import { moderateScale, verticalScale } from 'react-native-size-matters'
 const EmptyPublications = () => {
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
-      <View style={styles.headerWrapper}>
-        <HeaderMainComponent titulo="Publicaciones" />
-      </View>
       {/* Barra de búsqueda */}
       <View style={styles.searchContainer}>
         <TextInput
@@ -41,15 +36,18 @@ const EmptyPublications = () => {
           />
         </TouchableOpacity>
       </View>
-      {/* Estado vacío */}src/app/(mypublicaciones)/emptyPublications.tsx
+
       <View style={styles.emptyContainer}>
         <Image
           source={ImagesPath.imageNopublication}
           style={styles.emptyImage}
           resizeMode="contain"
         />
-
-        <Text style={styles.emptyTitle}>¡No hay publicaciones!</Text>
+        <TouchableOpacity
+          onPress={() => router.push('/(mypublicaciones)/myPublications')}
+        >
+          <Text style={styles.emptyTitle}>¡No hay publicaciones!</Text>
+        </TouchableOpacity>
         <Text style={styles.emptyText}>
           Podés crear una y empezar a vender cuando quieras.
         </Text>

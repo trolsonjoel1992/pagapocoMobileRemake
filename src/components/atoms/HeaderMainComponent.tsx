@@ -9,6 +9,15 @@ type HeaderProps = {
 };
 
 const HeaderMainComponent = ({ titulo, onBackPress }: HeaderProps) => {
+
+  const handleBackPress = () => {
+    if (onBackPress) {
+      onBackPress();
+    } else {
+      console.warn("No se proporciono funcion onBackPress");
+    }
+  }
+
   return (
     <View style={styles.header}>
       <TouchableOpacity
