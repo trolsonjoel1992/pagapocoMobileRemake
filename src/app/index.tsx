@@ -1,11 +1,21 @@
-import { Redirect } from 'expo-router';
-import React from 'react';
+import { Redirect } from 'expo-router'
+import React from 'react'
+import { ActivityIndicator, View } from 'react-native'
+import { useAuth } from '../hooks/useAuth'
 
-export default function Home() {
-  // Redirigir directamente a la página principal sin autenticación
-  //return <Redirect href="(tabs)/home" />;
+export default function Index() {
+  const { user, isLoading } = useAuth()
 
-  // Redirigir a la pantalla splash primero
-  return <Redirect href="/splash" />;
+  // Si está cargando, muestra un indicador
+  if (isLoading) {
+    return (
+      <View style={{ flex: 1, justifyContent: 'center', alignItems: 'center' }}>
+        <ActivityIndicator size="large" />
+      </View>
+    )
+  }
 
+  // Redirige a splash primero (como en tu versión actual)
+  // Pero ahora con conocimiento del estado de autenticación
+  return <Redirect href="/splash" />
 }
