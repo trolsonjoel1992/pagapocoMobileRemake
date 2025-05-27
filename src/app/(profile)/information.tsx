@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-nativ
 import Icon from 'react-native-vector-icons/Ionicons';
 import { router } from "expo-router";
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 const AccountInfoScreen = () => {
   return (
@@ -21,6 +22,8 @@ const AccountInfoScreen = () => {
       </View> */}
 
       {/* Información del usuario */}
+      <View style={styles.body}>
+     
       <View style={styles.userInfo}>
         <Icon name="person-circle-outline" size={50} color="#888" style={styles.avatarIcon} />
         <View>
@@ -43,6 +46,8 @@ const AccountInfoScreen = () => {
       <TouchableOpacity style={styles.button} onPress={() => {router.push({ href: "/profile/index" })}}>
         <Text style={styles.buttonText}>Regresar al perfil</Text>
       </TouchableOpacity>
+
+      </View>
     </View>
   );
 };
@@ -51,7 +56,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 20,
   },
   header: {
     flexDirection: 'row',
@@ -59,20 +63,22 @@ const styles = StyleSheet.create({
     backgroundColor: '#9C27B0',
     paddingVertical: 15,
     paddingHorizontal: 20,
-    borderRadius: 5,
-    marginHorizontal: -20,
-    marginBottom: 20,
   },
   headerTitle: {
     color: '#fff',
-    fontSize: 16,
-    fontWeight: 'bold',
+    fontSize: 18,
     marginLeft: 10,
+    fontWeight: 'bold',
+  },
+  body: {
+    flex: 1,
+    padding: 20,
   },
   userInfo: {
     flexDirection: 'row',
     alignItems: 'center',
     marginBottom: 25,
+    padding: 15,
   },
   avatarIcon: {
     marginRight: 15,
