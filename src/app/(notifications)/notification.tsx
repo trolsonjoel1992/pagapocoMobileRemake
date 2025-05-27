@@ -50,7 +50,7 @@ const Notification = () => {
           {/* Boton Lautaro */}
           <TouchableOpacity
             style={styles.buttom}
-            //onPress={() => router.push("/(tabs)/profile")} // cambiar por la ubicacion de su pantalla
+            onPress={() => router.push("/(profile)/profile")} // cambiar por la ubicacion de su pantalla
           >
             <Text style={styles.buttomText}>Lautaro</Text>
           </TouchableOpacity>
