@@ -13,76 +13,38 @@ import {
 import { SafeAreaView } from "react-native-safe-area-context";
 import { moderateScale, verticalScale } from "react-native-size-matters";
 
-const FormLogin = () => {
+const InputEmail = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   return (
     <SafeAreaView style={styles.container}>
-
-      {/* No hay header pero usamos el componente */}
       <HeaderMainComponent 
-        titulo="Inicio de sesión"
-        onBackPress={() => router.back()} //router.push("/(tabs)/home")
+        titulo="Registrarse"
+        onBackPress={() => router.back()}
       />
 
-      {/* <View style={styles.header}>
+      {/* <View style={styles.header}></View> */}
 
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-
-          </View> */}
-
-      {/* Body */}
       <View style={styles.body}>
-        {/* <Text style={{ fontSize: 24 }}>Ingresar</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text>
-            <Text>Hola</Text> */}
+        <Text style={styles.textTitulo}>Crea una cuenta</Text>
 
-        {/* Titulo */}
-        <Text style={styles.textTitulo}>Bienvenido de nuevo</Text>
-
-        {/* Logo */}
         <Image
           source={ImagesPath.logo}
-          style={styles.logoPagaPoco}
+          style={styles.logoStyle}
           resizeMode="contain"
         />
 
-        {/* Inputs */}
-        <View style={styles.inputContainer}>
-
+        <View style={styles.inputConteiner}>
           <TextInput
             style={styles.input}
             onChangeText={setEmail}
             value={email}
-            placeholder="Email"
+            placeholder="Ingrese un email"
             keyboardType="email-address"
             autoCapitalize="none"
           />
 
-          {/* <Text>Contraseña</Text> */}
           <TextInput
             style={styles.input}
             onChangeText={setPassword}
@@ -91,38 +53,44 @@ const FormLogin = () => {
             secureTextEntry
           />
 
+          <TextInput
+            style={styles.input}
+            onChangeText={setPassword}
+            value={password}
+            placeholder="Confirmar contraseña"
+            secureTextEntry
+          />
         </View>
-        
+
         {/* Boton para acceder */}
-        <View style={styles.buttomAccederContainer}>
+        <View style={styles.buttomRegistrarContainer}>
           <TouchableOpacity
-            style={styles.buttomAcceder}
+            style={styles.buttomRegistrar}
             // onPress={handleLogin} // abre modal
           >
-            <Text style={styles.buttomAccederText}>Continuar</Text>
+            <Text style={styles.buttomRegistrarText}>Continuar</Text>
           </TouchableOpacity>
         </View>
 
-        {/* Texto para que se registre */}
-        <View style={styles.textDePregunta}>
-          <Text>¿No tienes una cuenta? </Text>
+        {/* Texto iniciar sesion */}
+        <View style={styles.textIniciarSesionContainer}>
+          <Text style={{ fontWeight: "bold" }}>¿Ya tienes una cuenta?</Text>
           <TouchableOpacity
-            onPress={() => router.push("/(auth)/(register)/FormRegister")}
+            onPress={() => router.push("/(auth)/(login)/FormLogin")}
           >
-            <Text style={styles.textLinks}>Registrate</Text>
+            <Text style={[styles.textLink, { fontWeight: "bold" }]}> Inicia sesión</Text>
           </TouchableOpacity>
         </View>
 
         {/* Separador */}
         <View style={styles.separatorContainer}>
-          <View style={styles.separator} />
-          <Text>O</Text>
-          <View style={styles.separator} />
+          <View style={styles.separator}></View>
+          <Text> O </Text>
+          <View style={styles.separator}></View>
         </View>
 
         {/* Botones de otros inicios de sesion */}
         <View style={styles.buttomContainerOtrosLogin}>
-
           {/* Boton de google */}
           <View style={styles.buttomOtrosContainer}>
             <TouchableOpacity
@@ -136,30 +104,10 @@ const FormLogin = () => {
               />
 
               {/* <AntDesign name="google" size={moderateScale(18)} color="black" /> */}
-              
-              <Text style={styles.buttomOtrosText}>
-                Continuar con Google
-              </Text>
+
+              <Text style={styles.buttomOtrosText}>Continuar con Google</Text>
             </TouchableOpacity>
           </View>
-
-          {/* Boton de microsoft */}
-          {/* <View style={styles.buttomOtrosContainer}>
-            <TouchableOpacity
-              style={styles.buttomOtros}
-              //onPress={() => router.push("/(auth)/google_login")}
-            >
-              <Image
-                source={ImagesPath.iconMicrosoft}
-                style={styles.iconGoogleStyle}
-                resizeMode="contain"
-              />
-
-              <Text style={styles.buttomOtrosText}>
-                Continuar con Microsoft
-              </Text>
-            </TouchableOpacity>
-          </View> */}
 
           <View style={styles.buttomOtrosContainer}>
             <TouchableOpacity
@@ -179,29 +127,20 @@ const FormLogin = () => {
               </Text>
             </TouchableOpacity>
           </View>
-
         </View>
-        
       </View>
 
-      {/* Footer */}
       <View style={styles.footer}>
-
-        {/* <Text>Footer</Text> */}
         <View style={styles.ButtomFooterContainer}>
-
           <TouchableOpacity>
-            <Text style={styles.textLinks}>Términos de uso</Text>
+            <Text style={styles.textLink}>Términos de uso</Text>
           </TouchableOpacity>
           <View style={styles.separatorButtomFooter} />
           <TouchableOpacity>
-            <Text style={styles.textLinks}>Política de privacidad</Text>
+            <Text style={styles.textLink}>Política de privacidad</Text>
           </TouchableOpacity>
-
         </View>
-      
       </View>
-
     </SafeAreaView>
   );
 };
@@ -210,7 +149,7 @@ const styles = StyleSheet.create({
   // estilos de la estructura
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    //backgroundColor: "aqua",
     justifyContent: "space-between",
     alignItems: "center",
     //paddingVertical: verticalScale(20),
@@ -224,38 +163,37 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
   body: {
-    height: moderateScale(600),
+    height: moderateScale(550),
     width: "80%",
     //backgroundColor: "yellow",
     textAlign: "center",
     justifyContent: "center",
     alignItems: "center",
+    gap: moderateScale(10),
   },
   footer: {
     height: moderateScale(80),
     width: "100%",
     //backgroundColor: "red",
     textAlign: "center",
-    justifyContent: "flex-start",
+    justifyContent: "center",
     alignItems: "center",
   },
-  // estilos del titulo
+  // estilo del titulo
   textTitulo: {
     fontSize: 24,
-    marginBottom: moderateScale(10),
     fontWeight: "bold",
+    //color: "red",
   },
-  // estilo del logo
-  logoPagaPoco: {
+  logoStyle: {
     width: moderateScale(120),
     height: moderateScale(120),
-    marginBottom: verticalScale(20),
+    //marginBottom: moderateScale(20),
   },
-  // estilos para los inputs
-  inputContainer: {
+  inputConteiner: {
     width: "100%",
-    //backgroundColor: "green",
-    gap: moderateScale(5),
+    //backgroundColor: "blue",
+    gap: moderateScale(10),
   },
   input: {
     width: "100%",
@@ -263,15 +201,16 @@ const styles = StyleSheet.create({
     borderRadius: verticalScale(20),
     borderWidth: verticalScale(1),
     borderColor: "black",
-    marginBottom: verticalScale(10),
+    //backgroundColor: "red",
+    //marginBottom: verticalScale(10),
   },
   // estilos del boton de Acceder
-  buttomAccederContainer: {
+  buttomRegistrarContainer: {
     width: "100%", // moderateScale(150)
     //backgroundColor: "red",
-    marginBottom: verticalScale(10),
+    //marginBottom: verticalScale(10),
   },
-  buttomAcceder: {
+  buttomRegistrar: {
     backgroundColor: "#A230C7",
     width: "100%",
     paddingVertical: verticalScale(10),
@@ -280,41 +219,40 @@ const styles = StyleSheet.create({
     alignItems: "center",
     //marginBottom: verticalScale(10),
   },
-  buttomAccederText: {
+  buttomRegistrarText: {
     color: "white",
     fontSize: moderateScale(13),
     fontWeight: "bold",
   },
-  // estilos del registro
-  textDePregunta: {
+  // estilo del texto de iniciar sesion
+  textIniciarSesionContainer: {
+    //backgroundColor: "red",
     flexDirection: "row",
+    justifyContent: "center",
     alignItems: "center",
-    marginBottom: verticalScale(10),
   },
-  textLinks: {
+  textLink: {
     color: "blue",
-    fontWeight: "bold",
   },
   // estilos del separador
   separatorContainer: {
     width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
     //backgroundColor: "red",
-    marginBottom: verticalScale(10),
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
   },
   separator: {
-    width: moderateScale(135), // 46%
-    height: moderateScale(1.5),
+    width: moderateScale(138),
+    height: moderateScale(1),
     backgroundColor: "black",
-    marginHorizontal: moderateScale(4),
   },
   // estilos de los demas inicios de sesion
   buttomContainerOtrosLogin: {
     width: "100%",
     //backgroundColor: "red",
     //marginBottom: verticalScale(10),
-    gap: moderateScale(10)
+    gap: moderateScale(10),
   },
   // estilos boton google
   buttomOtrosContainer: {
@@ -363,4 +301,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default FormLogin;
+export default InputEmail;

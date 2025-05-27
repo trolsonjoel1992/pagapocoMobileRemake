@@ -22,4 +22,13 @@ export default {
   iconSearchBar: require('@/src/assets/images/searchBar/searchiconglass.png'),
   imageMyPublication: require('@/src/assets/images/publicationsbuton/imagePremiunpublication.png'),
   imageFrePublication: require('@/src/assets/images/publicationsbuton/imageFreepublication.png'),
+  adNikeBanner: require('@/src/assets/images/ImagePublication/ads-nike-add.png'),
+  // iconos del tab Vender
+  iconTruck: require('@/src/assets/images/imageSell/TruckIcon.png'),
+  iconCarProfile: require('@/src/assets/images/imageSell/CarProfileIcon.png'),
+  iconCar: require('@/src/assets/images/imageSell/CarIcon.png'),
+  iconMotorcycle: require('@/src/assets/images/imageSell/MotorcycleIcon.png'),
+  iconGear: require('@/src/assets/images/imageSell/GearIcon.png'),
+  // iconos globales
+  iconNotePencil: require('@/src/assets/images/NotePencilIcon.png'),
 }
