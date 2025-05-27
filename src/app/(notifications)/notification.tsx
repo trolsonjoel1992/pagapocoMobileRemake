@@ -57,6 +57,13 @@ const Notification = () => {
             <Text style={styles.buttomText}>Lautaro</Text>
           </TouchableOpacity>
 
+          <TouchableOpacity
+            style={styles.buttom}
+            onPress={() => router.push("/(favorites)/emptyScreen")} // cambiar por la ubicacion de su pantalla
+          >
+            <Text style={styles.buttomText}>Lautaro2</Text>
+          </TouchableOpacity>
+
         </View>
 
       </View>

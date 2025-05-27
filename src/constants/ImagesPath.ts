@@ -17,4 +17,6 @@ export default {
     iconAuto: require("@/src/assets/images/imageCategoria/icon-auto.png"),
     iconMoto: require("@/src/assets/images/imageCategoria/icon-moto.png"),
     iconPieza: require("@/src/assets/images/imageCategoria/icon-pieza.png"),
+    imageHeart: require("@/src/assets/images/favorites-images/heart-screen.png"),
+    imagePlaceholder: require("@/src/assets/images/favorites-images/image-placeholder.png"),
 }
