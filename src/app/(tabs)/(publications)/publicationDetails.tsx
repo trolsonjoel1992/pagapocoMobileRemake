@@ -8,10 +8,12 @@ import { moderateScale, verticalScale } from "react-native-size-matters";
 const PublicationDetails1 = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderMainComponent titulo="Caracteristicas de la publicación" />
+      <HeaderMainComponent 
+        titulo="Caracteristicas de la publicación"
+        onBackPress={() => router.push("/(publications)/publication1")} // router.back()
+      />
 
       {/* <View style={styles.header}></View> */}
-
       <View style={styles.body}>
 
         <View style={styles.attributes}>
