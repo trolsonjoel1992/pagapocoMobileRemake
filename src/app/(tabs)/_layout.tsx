@@ -10,7 +10,7 @@ const TabsLayout = () => {
       screenOptions={{
         headerShown: false,
         tabBarActiveTintColor: "white",
-        tabBarInactiveTintColor: "light",
+        tabBarInactiveTintColor: "white",
         tabBarStyle: {
           backgroundColor: "#A230C7",
           //borderStartStartRadius: moderateScale(20),
