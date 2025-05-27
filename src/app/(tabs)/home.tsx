@@ -1,6 +1,6 @@
 import SkeletorComponent from "@/src/components/atoms/SkeletorComponent";
 import ImagesPath from "@/src/constants/ImagesPath";
-import { AntDesign, Entypo, Feather, Ionicons } from "@expo/vector-icons";
+import { AntDesign, Feather, Ionicons } from "@expo/vector-icons";
 import { router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import {
@@ -47,6 +47,12 @@ const HomeScreen = () => {
 
   // Datos de ejemplo para las publicaciones
   const mockPublications = [
+    /* {
+      id: 'ad-1',
+      type: 'full-width-ad',
+      title: "Anuncio Especial",
+      content: "Este es un anuncio que ocupa todo el ancho",
+    }, */
     {
       id: 1,
       title: "Volkswagen Polo",
@@ -128,7 +134,8 @@ const HomeScreen = () => {
           {/* botones de filtro y notificaciones */}
           <View style={styles.searchActions}>
             <TouchableOpacity style={styles.actionIcon}>
-              <Feather name="filter" size={moderateScale(24)} color="gray" />
+              {/* <Feather name="filter" size={moderateScale(24)} color="gray" /> */}
+              <AntDesign name="bars" size={moderateScale(24)} color="gray" />
             </TouchableOpacity>
 
             <TouchableOpacity 
@@ -160,17 +167,7 @@ const HomeScreen = () => {
 
           {/* solo aparece si NO esta logeado */}
           {isLogin ? (
-            <TouchableOpacity
-              style={styles.actionButton}
-              onPress={() => router.push("/(tabs)/store")} // () => { router.push("/(auth)/FormLogin") }
-            >
-              <Entypo
-                name="new-message"
-                size={moderateScale(20)}
-                color="gray"
-              />
-              <Text style={styles.textActionsIcon}>Vender</Text>
-            </TouchableOpacity>
+            <View style={styles.mismoEspacio}></View>
           ) : (
             <TouchableOpacity
               style={styles.actionButton}
@@ -447,6 +444,18 @@ const styles = StyleSheet.create({
     paddingHorizontal: moderateScale(12),
     borderRadius: moderateScale(20),
     backgroundColor: "#F5F5F5",
+    flex: 1,
+    justifyContent: "center",
+    marginHorizontal: moderateScale(4),
+  },
+  // agrega un contenedor con el mismo espacio del boton de iniciar sesion
+  mismoEspacio:{
+    flexDirection: "row",
+    alignItems: "center",
+    paddingVertical: verticalScale(8),
+    paddingHorizontal: moderateScale(12),
+    borderRadius: moderateScale(20),
+    //backgroundColor: "#F5F5F5",
     flex: 1,
     justifyContent: "center",
     marginHorizontal: moderateScale(4),
