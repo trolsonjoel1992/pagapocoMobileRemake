@@ -1,27 +1,27 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import { Tabs } from "expo-router";
-import React from "react";
+import { MaterialIcons } from '@expo/vector-icons'
+import { Tabs } from 'expo-router'
+import React from 'react'
 //import { moderateScale } from "react-native-size-matters";
-import AntDesign from '@expo/vector-icons/AntDesign';
+import AntDesign from '@expo/vector-icons/AntDesign'
 
 const TabsLayout = () => {
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: "white",
-        tabBarInactiveTintColor: "white",
+        tabBarActiveTintColor: 'white',
+        tabBarInactiveTintColor: 'white',
         tabBarStyle: {
-          backgroundColor: "#A230C7",
+          backgroundColor: '#A230C7',
           //borderStartStartRadius: moderateScale(20),
           //borderEndStartRadius: moderateScale(20),
-        }
+        },
       }}
     >
       <Tabs.Screen
         name="home"
         options={{
-          title: "Inicio",
+          title: 'Inicio',
           /* tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="home" color={color} size={size} />
           ), */
@@ -41,9 +41,9 @@ const TabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="stats"
+        name="(myPublications)/emptyMyPublication"
         options={{
-          title: "Publicaciones",
+          title: 'Publicaciones',
           /* tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="article" color={color} size={size} />
           ), */
@@ -55,7 +55,7 @@ const TabsLayout = () => {
       <Tabs.Screen
         name="(sell)/index"
         options={{
-          title: "Vender",
+          title: 'Vender',
           /* tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="sell" color={color} size={size} />
           ), */
@@ -80,7 +80,7 @@ const TabsLayout = () => {
       <Tabs.Screen
         name="favorites"
         options={{
-          title: "Favoritos",
+          title: 'Favoritos',
           tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="favorite-border" color={color} size={size} />
           ),
@@ -89,7 +89,7 @@ const TabsLayout = () => {
       <Tabs.Screen
         name="profile"
         options={{
-          title: "Perfil",
+          title: 'Perfil',
           /* tabBarIcon: ({ color, size }) => (
             <MaterialIcons name="person" color={color} size={size} />
           ), */
@@ -110,22 +110,22 @@ const TabsLayout = () => {
           },
         })} */
       />
-      <Tabs.Screen 
+      <Tabs.Screen
         name="(publications)/publication1"
-        options={{ 
-          tabBarButton: () => null,  // Oculta el tab
-          //tabBarStyle: { display: "none" } 
+        options={{
+          tabBarButton: () => null, // Oculta el tab
+          //tabBarStyle: { display: "none" }
         }}
       />
-      <Tabs.Screen 
+      <Tabs.Screen
         name="(publications)/publicationDetails"
-        options={{ 
-          tabBarButton: () => null,  // Oculta el tab
-          //tabBarStyle: { display: "none" } 
+        options={{
+          tabBarButton: () => null, // Oculta el tab
+          //tabBarStyle: { display: "none" }
         }}
       />
     </Tabs>
-  );
-};
+  )
+}
 
-export default TabsLayout;
+export default TabsLayout
