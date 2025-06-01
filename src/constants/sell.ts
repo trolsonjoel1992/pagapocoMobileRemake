@@ -5,8 +5,8 @@ import { moderateScale, verticalScale } from 'react-native-size-matters'
 // CONSTANTES PARA TAB SELL
 
 export const categories: Category[] = [
-  { label: 'Camiones', icon: 'iconTruck', route: '/(sell)/FormTruck' },
-  { label: 'Camionetas', icon: 'iconCarProfile', route: '/(sell)/FormPickup' },
+  { label: 'Camiones', icon: 'iconTruck', route: '/(sell)/FormVehicle' },
+  { label: 'Camionetas', icon: 'iconCarProfile', route: '/(sell)/FormVehicle' },
   { label: 'Autos', icon: 'iconCar', route: '/(sell)/FormVehicle' },
   { label: 'Motos', icon: 'iconMotorcycle', route: '/(sell)/FormMotorcycle' },
   { label: 'Piezas', icon: 'iconGear', route: '/(sell)/FormGear' },
