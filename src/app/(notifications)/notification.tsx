@@ -33,8 +33,9 @@ const Notification = () => {
           {/* Boton Matias */}
           <TouchableOpacity
             style={styles.buttom}
-            onPress={() => router.push("/(trabajo_matias)/contacta_con_el_vendedor")} // cambiar por la ubicacion de su pantalla
-            
+            onPress={() =>
+              router.push('/(trabajo_matias)/contacta_con_el_vendedor')
+            } // cambiar por la ubicacion de su pantalla
           >
             <Text style={styles.buttomText}>Matias</Text>
           </TouchableOpacity>
@@ -42,7 +43,7 @@ const Notification = () => {
           {/* Boton Hugo */}
           <TouchableOpacity
             style={styles.buttom}
-            onPress={() => router.push("/(tabs)/(sell)")} // cambiar por la ubicacion de su pantalla
+            onPress={() => router.push('/(tabs)/sell')} // cambiar por la ubicacion de su pantalla
           >
             <Text style={styles.buttomText}>Hugo</Text>
           </TouchableOpacity>
@@ -50,7 +51,7 @@ const Notification = () => {
           {/* Boton Lautaro */}
           <TouchableOpacity
             style={styles.buttom}
-            onPress={() => router.push("/(profile)/profile")} // cambiar por la ubicacion de su pantalla
+            onPress={() => router.push('/(profile)/profile')} // cambiar por la ubicacion de su pantalla
           >
             <Text style={styles.buttomText}>Lautaro</Text>
           </TouchableOpacity>
