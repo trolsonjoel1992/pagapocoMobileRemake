@@ -1,4 +1,4 @@
-export default {
+const ImagesPath = {
   logo: require('@/src/assets/images/icon.png'),
   iconGoogle: require('@/src/assets/images/icon-google.png'),
   iconMicrosoft: require('@/src/assets/images/icon-microsoft.png'),
@@ -32,3 +32,7 @@ export default {
   // iconos globales
   iconNotePencil: require('@/src/assets/images/NotePencilIcon.png'),
 }
+
+export default ImagesPath
+
+export type ImagePathKey = keyof typeof ImagesPath
