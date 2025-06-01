@@ -41,7 +41,7 @@ const TabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="stats"
+        name="(myPublications)/emptyMyPublication"
         options={{
           title: 'Publicaciones',
           /* tabBarIcon: ({ color, size }) => (

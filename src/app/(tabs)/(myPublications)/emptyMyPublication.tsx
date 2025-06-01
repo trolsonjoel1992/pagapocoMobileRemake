@@ -1,4 +1,3 @@
-import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { router } from 'expo-router'
 import React from 'react'
@@ -16,10 +15,6 @@ import { moderateScale, verticalScale } from 'react-native-size-matters'
 const EmptyPublications = () => {
   return (
     <SafeAreaView style={styles.container}>
-      {/* Header */}
-      <View style={styles.headerWrapper}>
-        <HeaderMainComponent titulo="Publicaciones" />
-      </View>
       {/* Barra de búsqueda */}
       <View style={styles.searchContainer}>
         <TextInput
@@ -48,23 +43,19 @@ const EmptyPublications = () => {
           style={styles.emptyImage}
           resizeMode="contain"
         />
-
-        <Text style={styles.emptyTitle}>¡No hay publicaciones!</Text>
+        <TouchableOpacity>
+          <Text style={styles.emptyTitle}>¡No hay publicaciones!</Text>
+        </TouchableOpacity>
         <Text style={styles.emptyText}>
           Podés crear una y empezar a vender cuando quieras.
         </Text>
 
         {/* Botón "Publicar ahora" */}
-        <TouchableOpacity style={styles.publishButton}>
-          <Text style={styles.publishButtonText}>Publicar ahora</Text>
-        </TouchableOpacity>
-
-        {/* Botón "Volver" */}
         <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => router.back()}
+          onPress={() => router.push('/(tabs)/(sell)')}
+          style={styles.publishButton}
         >
-          <Text style={styles.backButtonText}>Volver</Text>
+          <Text style={styles.publishButtonText}>Publicar ahora</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -136,20 +127,6 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     color: 'blue',
     fontWeight: '500',
-  },
-  backButton: {
-    backgroundColor: '#A230C7',
-    borderRadius: moderateScale(25),
-    paddingVertical: verticalScale(14),
-    paddingHorizontal: moderateScale(32),
-    width: '50%',
-    maxWidth: moderateScale(280),
-  },
-  backButtonText: {
-    color: '#FFFFFF',
-    fontSize: moderateScale(16),
-    fontWeight: 'bold',
-    textAlign: 'center',
   },
 })
 

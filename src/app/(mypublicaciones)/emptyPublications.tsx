@@ -56,14 +56,6 @@ const EmptyPublications = () => {
         <TouchableOpacity style={styles.publishButton}>
           <Text style={styles.publishButtonText}>Publicar ahora</Text>
         </TouchableOpacity>
-
-        {/* Botón "Volver" */}
-        <TouchableOpacity
-          style={styles.backButton}
-          onPress={() => router.back()}
-        >
-          <Text style={styles.backButtonText}>Volver</Text>
-        </TouchableOpacity>
       </View>
     </SafeAreaView>
   )
@@ -100,7 +92,6 @@ const styles = StyleSheet.create({
     color: '#A0A0A0',
     marginLeft: 40,
   },
-
   emptyContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -111,21 +102,21 @@ const styles = StyleSheet.create({
   emptyImage: {
     width: moderateScale(180),
     height: moderateScale(180),
-    marginBottom: verticalScale(32),
+    marginBottom: verticalScale(50),
   },
   emptyTitle: {
     fontSize: moderateScale(22),
     fontWeight: 'bold',
     color: '#333333',
-    marginBottom: verticalScale(12),
+    marginBottom: verticalScale(25),
     textAlign: 'center',
   },
   emptyText: {
     fontSize: moderateScale(16),
     color: '#666666',
     textAlign: 'center',
-    marginBottom: verticalScale(40),
-    lineHeight: verticalScale(24),
+    marginBottom: verticalScale(50),
+    lineHeight: verticalScale(25),
   },
   publishButton: {
     marginBottom: verticalScale(50),
@@ -134,20 +125,6 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     color: 'blue',
     fontWeight: '500',
-  },
-  backButton: {
-    backgroundColor: '#A230C7',
-    borderRadius: moderateScale(25),
-    paddingVertical: verticalScale(14),
-    paddingHorizontal: moderateScale(32),
-    width: '50%',
-    maxWidth: moderateScale(280),
-  },
-  backButtonText: {
-    color: '#FFFFFF',
-    fontSize: moderateScale(16),
-    fontWeight: 'bold',
-    textAlign: 'center',
   },
 })
 
