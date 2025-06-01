@@ -1,134 +1,159 @@
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import React from 'react';
-import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
+import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import { Ionicons } from '@expo/vector-icons'
+import { useRouter } from 'expo-router'
+import React from 'react'
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
-export default function ContactarConVendedor() {
-  const router = useRouter();
+const ContactaConElVendedor = () => {
+  const router = useRouter()
 
   return (
-    <ScrollView contentContainerStyle={styles.container}>
-      {/* header */}
-      <View style={styles.header}>
-        <TouchableOpacity onPress={() => router.back()}>
-          <Ionicons name="arrow-back" size={24} color="black" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Contactá con el vendedor</Text>
-      </View>
+    <SafeAreaView style={styles.container}>
+      <HeaderMainComponent
+        titulo="Hacé tu consulta"
+        onBackPress={() => router.back()}
+      />
 
-      <Text style={styles.subtitle}>Completá tus datos de contacto</Text>
+      <ScrollView
+        contentContainerStyle={styles.scrollContainer}
+        keyboardShouldPersistTaps="handled"
+      >
+        <View style={styles.contentContainer}>
+          <Text style={styles.subtitle}>Completá tus datos de contacto</Text>
 
-      {['Nombre', 'Apellido', 'E-mail', 'Teléfono'].map((label, index) => (
-        <View key={index} style={styles.inputGroup}>
-          <Text style={styles.label}>{label}:</Text>
-          <View style={styles.inputContainer}>
-            <TextInput
-              style={styles.input}
-              placeholder={`Ingresá tu ${label.toLowerCase()}`}
-              placeholderTextColor="#aaa"
-            />
-            <Ionicons name="create-outline" size={20} color="#333" />
+          {['Nombre', 'Apellido', 'E-mail', 'Teléfono'].map((label, index) => (
+            <View key={index} style={styles.inputGroup}>
+              <Text style={styles.label}>{label}:</Text>
+              <View style={styles.inputContainer}>
+                <TextInput
+                  style={styles.input}
+                  placeholder={`Ingresá tu ${label.toLowerCase()}`}
+                  placeholderTextColor="#aaa"
+                />
+                <Ionicons name="create-outline" size={20} color="#333" />
+              </View>
+            </View>
+          ))}
+
+          <View style={styles.inputGroup}>
+            <Text style={styles.label}>Consulta:</Text>
+            <View style={styles.inputContainerLarge}>
+              <TextInput
+                style={styles.textArea}
+                placeholder="Escribí tu pregunta"
+                placeholderTextColor="#aaa"
+                multiline
+                numberOfLines={4}
+              />
+              <Ionicons name="create-outline" size={20} color="#333" />
+            </View>
+          </View>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => router.push('/(trabajo_matias)/plan_de_venta')}
+            >
+              <Text style={styles.buttonText}>Continuar</Text>
+            </TouchableOpacity>
           </View>
         </View>
-      ))}
-
-      <View style={styles.inputGroup}>
-        <Text style={styles.label}>Consulta:</Text>
-        <View style={styles.inputContainerLarge}>
-          <TextInput
-            style={styles.textArea}
-            placeholder="Escribí tu pregunta"
-            placeholderTextColor="#aaa"
-            multiline
-            numberOfLines={4}
-          />
-          <Ionicons name="create-outline" size={20} color="#333" />
-        </View>
-      </View>
-
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => router.push("/(trabajo_matias)/plan_de_venta")}
-      >
-        <Text style={styles.buttonText}>Continuar</Text>
-      </TouchableOpacity>
-    </ScrollView>
-  );
+      </ScrollView>
+    </SafeAreaView>
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    padding: 20,
     backgroundColor: '#fff',
+    flex: 1,
+  },
+  scrollContainer: {
     flexGrow: 1,
+    paddingBottom: 20,
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#b832e2',
-    paddingTop: 50,
-    paddingBottom: 15,
-    paddingHorizontal: 15,
-    gap: 10,
-  },
-  headerTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    color: '#000',
+  contentContainer: {
+    flex: 1,
+    paddingHorizontal: 25,
+    paddingTop: 20,
   },
   subtitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
-    marginVertical: 20,
+    marginVertical: 15,
+    textAlign: 'center',
+    color: '#333',
   },
   inputGroup: {
-    marginBottom: 15,
+    marginBottom: 20,
+    width: '100%',
   },
   label: {
     fontWeight: '600',
-    marginBottom: 5,
+    marginBottom: 8,
+    fontSize: 16,
+    color: '#444',
   },
   inputContainer: {
     backgroundColor: '#f1e8f8',
-    borderRadius: 15,
+    borderRadius: 12,
     flexDirection: 'row',
     alignItems: 'center',
     paddingHorizontal: 15,
     justifyContent: 'space-between',
+    height: 50,
   },
   inputContainerLarge: {
     backgroundColor: '#f1e8f8',
-    borderRadius: 15,
+    borderRadius: 12,
     flexDirection: 'row',
     padding: 15,
     justifyContent: 'space-between',
     alignItems: 'flex-start',
+    minHeight: 120,
   },
   input: {
     flex: 1,
-    paddingVertical: 10,
-    fontSize: 14,
+    fontSize: 16,
+    color: '#333',
+    paddingVertical: 12,
   },
   textArea: {
     flex: 1,
-    fontSize: 14,
+    fontSize: 16,
     textAlignVertical: 'top',
+    color: '#333',
+    maxHeight: 150,
+  },
+  buttonContainer: {
+    alignItems: 'center',
   },
   button: {
-    backgroundColor: '#c78ef0',
-    borderRadius: 15,
-    padding: 15,
+    backgroundColor: '#A230C7',
+    borderRadius: 20,
+    padding: 16,
     alignItems: 'center',
-    marginTop: 30,
+    marginTop: 25,
     shadowColor: '#000',
-    shadowOffset: { width: 2, height: 2 },
-    shadowOpacity: 0.3,
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 5,
+    width: 170,
+    height: 55,
   },
   buttonText: {
-    color: '#000',
+    color: '#fff',
     fontWeight: 'bold',
     fontSize: 16,
   },
-});
+})
+
+export default ContactaConElVendedor
