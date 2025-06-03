@@ -1,6 +1,7 @@
 import SearchBarComponent from '@/src/components/atoms/SearchBarComponent'
 import IconsPath from '@/src/constants/IconsPath'
 import ImagesPath from '@/src/constants/ImagesPath'
+import { router } from 'expo-router'
 import React, { useState } from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -118,7 +119,12 @@ const MyPublications = () => {
                     <View style={styles.buttonsRow}>
                       <View style={styles.iconContainer}>
                         {publication.type === 'free' && (
-                          <TouchableOpacity style={styles.iconButton}>
+                          <TouchableOpacity
+                            style={styles.iconButton}
+                            onPress={() =>
+                              router.push('/(mypublicaciones)/premium')
+                            }
+                          >
                             <Image
                               source={IconsPath.iconStar}
                               style={styles.icon}
@@ -126,7 +132,10 @@ const MyPublications = () => {
                           </TouchableOpacity>
                         )}
                       </View>
-                      <TouchableOpacity style={styles.iconButton}>
+                      <TouchableOpacity
+                        style={styles.iconButton}
+                        onPress={() => router.push('/(mypublicaciones)/edit')}
+                      >
                         <Image
                           source={IconsPath.iconEdit}
                           style={styles.icon}

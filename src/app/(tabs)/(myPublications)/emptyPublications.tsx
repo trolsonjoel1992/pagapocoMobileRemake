@@ -25,7 +25,6 @@ const EmptyPublications = () => {
         />
         <TouchableOpacity
           onPress={() => {
-            // Aquí puedes agregar la acción que quieres que realice al presionar la lupa
             console.log('Botón de búsqueda presionado')
           }}
         >
@@ -36,14 +35,16 @@ const EmptyPublications = () => {
           />
         </TouchableOpacity>
       </View>
-      {/* Estado vacío */}src/app/(mypublicaciones)/emptyPublications.tsx
+
       <View style={styles.emptyContainer}>
         <Image
           source={ImagesPath.imageNopublication}
           style={styles.emptyImage}
           resizeMode="contain"
         />
-        <TouchableOpacity>
+        <TouchableOpacity
+          onPress={() => router.push('/(tabs)/(myPublications)/myPublications')}
+        >
           <Text style={styles.emptyTitle}>¡No hay publicaciones!</Text>
         </TouchableOpacity>
         <Text style={styles.emptyText}>
@@ -51,10 +52,7 @@ const EmptyPublications = () => {
         </Text>
 
         {/* Botón "Publicar ahora" */}
-        <TouchableOpacity
-          onPress={() => router.push('/(tabs)/(sell)')}
-          style={styles.publishButton}
-        >
+        <TouchableOpacity style={styles.publishButton}>
           <Text style={styles.publishButtonText}>Publicar ahora</Text>
         </TouchableOpacity>
       </View>
@@ -93,7 +91,6 @@ const styles = StyleSheet.create({
     color: '#A0A0A0',
     marginLeft: 40,
   },
-
   emptyContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -104,21 +101,21 @@ const styles = StyleSheet.create({
   emptyImage: {
     width: moderateScale(180),
     height: moderateScale(180),
-    marginBottom: verticalScale(32),
+    marginBottom: verticalScale(50),
   },
   emptyTitle: {
     fontSize: moderateScale(22),
     fontWeight: 'bold',
     color: '#333333',
-    marginBottom: verticalScale(12),
+    marginBottom: verticalScale(25),
     textAlign: 'center',
   },
   emptyText: {
     fontSize: moderateScale(16),
     color: '#666666',
     textAlign: 'center',
-    marginBottom: verticalScale(40),
-    lineHeight: verticalScale(24),
+    marginBottom: verticalScale(50),
+    lineHeight: verticalScale(25),
   },
   publishButton: {
     marginBottom: verticalScale(50),

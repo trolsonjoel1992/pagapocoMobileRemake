@@ -18,10 +18,14 @@ const ImagesPath = {
   iconMoto: require('@/src/assets/images/imageCategoria/icon-moto.png'),
   iconPieza: require('@/src/assets/images/imageCategoria/icon-pieza.png'),
   iconTabsHome: require('@/src/assets/images/tabs-images/home-icon.png'),
-  imageNopublication: require('@/src/assets/images/publicationsbuton/nopublication.png'),
+  //lupa del buscador
   iconSearchBar: require('@/src/assets/images/searchBar/searchiconglass.png'),
+  //imagen emptyPublications
+  imageNopublication: require('@/src/assets/images/publicationsbuton/nopublication.png'),
+  //imagenes de los contenedores myPublications
   imageMyPublication: require('@/src/assets/images/publicationsbuton/imagePremiunpublication.png'),
   imageFrePublication: require('@/src/assets/images/publicationsbuton/imageFreepublication.png'),
+  //no se que onda esto
   adNikeBanner: require('@/src/assets/images/ImagePublication/ads-nike-add.png'),
   // iconos del tab Vender
   iconTruck: require('@/src/assets/images/imageSell/TruckIcon.png'),
@@ -31,6 +35,15 @@ const ImagesPath = {
   iconGear: require('@/src/assets/images/imageSell/GearIcon.png'),
   // iconos globales
   iconNotePencil: require('@/src/assets/images/NotePencilIcon.png'),
+  //imagen estrella premiun.tsx
+  imageStarP: require('@/src/assets/images/publicationsbuton/imageStar.png'),
+  //imagenes modal
+  modalConfirm: require('@/src/assets/images/modalVariants/modalConfirm.png'),
+  modalWarning: require('@/src/assets/images/modalVariants/modalWarning.png'),
+  modalAlert: require('@/src/assets/images/modalVariants/modalAlert.png'),
+  // imagenes selecionpara editar publics
+  imagePreS: require('@/src/assets/images/publicationsbuton/imagePremSel.png'),
+  imageFreS: require('@/src/assets/images/publicationsbuton/imageFreeSel.png'),
 }
 
 export default ImagesPath

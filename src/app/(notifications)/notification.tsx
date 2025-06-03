@@ -25,7 +25,9 @@ const Notification = () => {
           {/* Boton Joel */}
           <TouchableOpacity
             style={styles.buttom}
-            onPress={() => router.push('/(mypublicaciones)/emptyPublications')} // cambiar por la ubicacion de su pantalla
+            onPress={() =>
+              router.push('/(tabs)/(myPublications)/emptyPublications')
+            } // cambiar por la ubicacion de su pantalla
           >
             <Text style={styles.buttomText}>Joel</Text>
           </TouchableOpacity>
@@ -43,7 +45,7 @@ const Notification = () => {
           {/* Boton Hugo */}
           <TouchableOpacity
             style={styles.buttom}
-            onPress={() => router.push('/(tabs)/sell')} // cambiar por la ubicacion de su pantalla
+            onPress={() => router.push('/(mypublicaciones)/selectPict')} // cambiar por la ubicacion de su pantalla
           >
             <Text style={styles.buttomText}>Hugo</Text>
           </TouchableOpacity>

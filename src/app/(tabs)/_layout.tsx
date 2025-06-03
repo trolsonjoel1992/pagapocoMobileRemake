@@ -41,7 +41,7 @@ const TabsLayout = () => {
         }}
       />
       <Tabs.Screen
-        name="(myPublications)/emptyMyPublication"
+        name="(myPublications)/emptyPublications"
         options={{
           title: 'Publicaciones',
           /* tabBarIcon: ({ color, size }) => (
@@ -109,6 +109,13 @@ const TabsLayout = () => {
 
           },
         })} */
+      />
+      <Tabs.Screen
+        name="(myPublications)/myPublications"
+        options={{
+          tabBarButton: () => null, // Oculta el tab
+          //tabBarStyle: { display: "none" }
+        }}
       />
       <Tabs.Screen
         name="(publications)/publication1"
