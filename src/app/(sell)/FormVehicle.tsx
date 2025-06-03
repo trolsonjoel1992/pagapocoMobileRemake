@@ -1,38 +1,37 @@
+import Button from '@/src/components/atoms/Button'
+import ControlledInput from '@/src/components/atoms/ControlledInput'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import { inputs, styles } from '@/src/constants/formVehicle'
-import ImagesPath from '@/src/constants/ImagesPath'
-import { FormData } from '@/src/types/formVehicle'
-import { truckSchema } from '@/src/validations/truckSchema'
+import { VehicleData, vehicleSchema } from '@/src/validations/vehicleSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { router } from 'expo-router'
 import { useRef } from 'react'
-import { Controller, useForm } from 'react-hook-form'
-import {
-  Image,
-  ScrollView,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { useForm } from 'react-hook-form'
+import { ScrollView, TextInput, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
+import { moderateScale } from 'react-native-size-matters'
 
 const FormVehicle = () => {
   const {
     control,
     handleSubmit,
     formState: { errors },
-  } = useForm<FormData>({
-    resolver: yupResolver(truckSchema),
+  } = useForm<VehicleData>({
+    resolver: yupResolver(vehicleSchema),
   })
 
-  const refs: Record<keyof FormData, React.RefObject<TextInput | null>> = {
+  const refs: Record<keyof VehicleData, React.RefObject<TextInput | null>> = {
     brand: useRef<TextInput>(null),
     model: useRef<TextInput>(null),
     year: useRef<TextInput>(null),
     version: useRef<TextInput>(null),
     color: useRef<TextInput>(null),
     fuelType: useRef<TextInput>(null),
+    doors: useRef<TextInput>(null),
+    transmision: useRef<TextInput>(null),
+    engine: useRef<TextInput>(null),
+    kilometer: useRef<TextInput>(null),
+    description: useRef<TextInput>(null),
   }
 
   const inputsRef = inputs.map((input) => ({
@@ -40,7 +39,7 @@ const FormVehicle = () => {
     ref: refs[input.key],
   }))
 
-  const onSubmit = (data: FormData) => {
+  const onSubmit = (data: VehicleData) => {
     console.log('Datos del formulario:', data)
   }
 
@@ -51,46 +50,36 @@ const FormVehicle = () => {
         onBackPress={() => router.push('/(tabs)/sell')}
       />
 
-      <ScrollView style={styles.body}>
+      <ScrollView
+        style={styles.body}
+        contentContainerStyle={styles.contentBody}
+      >
         {inputsRef.map((item, i) => (
-          <Controller
+          <ControlledInput<VehicleData>
             key={item.key}
-            control={control}
             name={item.key}
-            render={({ field: { onChange, onBlur, value } }) => (
-              <View key={item.key} style={styles.inputGroup}>
-                <Text style={styles.label}>{item.label}</Text>
-                <View style={styles.inputContainer}>
-                  <TextInput
-                    ref={item.ref}
-                    placeholder={item.placeholder}
-                    placeholderTextColor="#999"
-                    keyboardType={item.keyboardType}
-                    style={styles.input}
-                    onChangeText={onChange}
-                    onBlur={onBlur}
-                    value={value ? String(value) : ''}
-                    returnKeyType={item.returnKeyType}
-                    onSubmitEditing={() =>
-                      inputsRef[i + 1]?.ref?.current?.focus()
-                    }
-                  />
-                  <Image source={ImagesPath.iconNotePencil} />
-                </View>
-                {errors[item.key] && (
-                  <Text style={styles.error}>{errors[item.key]?.message}</Text>
-                )}
-              </View>
-            )}
+            label={item.label}
+            placeholder={item.placeholder}
+            keyboardType={item.keyboardType}
+            returnKeyType={item.returnKeyType}
+            control={control}
+            error={errors[item.key]}
+            ref={item.ref}
+            onSubmitInput={() => inputsRef[i + 1]?.ref?.current?.focus()}
           />
         ))}
 
-        <TouchableOpacity
-          style={styles.button}
-          onPress={handleSubmit(onSubmit)}
+        <View
+          style={{ flex: 1, alignSelf: 'center', width: moderateScale(170) }}
         >
-          <Text style={styles.buttonText}>Continuar</Text>
-        </TouchableOpacity>
+          <Button
+            variant="contained"
+            fullWidth
+            onPress={handleSubmit(onSubmit)}
+          >
+            Continuar
+          </Button>
+        </View>
       </ScrollView>
     </SafeAreaView>
   )

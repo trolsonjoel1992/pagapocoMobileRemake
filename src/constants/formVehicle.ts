@@ -1,7 +1,8 @@
-import { Input } from '@/src/types/formVehicle'
+import { Input } from '@/src/components/atoms/ControlledInput'
+import { VehicleData } from '@/src/validations/vehicleSchema'
 import { StyleSheet } from 'react-native'
 
-export const inputs: Input[] = [
+export const inputs: Input<VehicleData>[] = [
   {
     key: 'brand',
     label: 'Marca:',
@@ -42,6 +43,41 @@ export const inputs: Input[] = [
     label: 'Tipo de combustible:',
     placeholder: 'Ingrese el tipo de combustible',
     keyboardType: 'default',
+    returnKeyType: 'next',
+  },
+  {
+    key: 'doors',
+    label: 'Puertas:',
+    placeholder: 'Ingrese el número de puertas',
+    keyboardType: 'numeric',
+    returnKeyType: 'next',
+  },
+  {
+    key: 'transmision',
+    label: 'Transmisión:',
+    placeholder: 'Ingrese la transmisión',
+    keyboardType: 'default',
+    returnKeyType: 'next',
+  },
+  {
+    key: 'engine',
+    label: 'Cilindrada:',
+    placeholder: 'Ingrese la cilindrada',
+    keyboardType: 'default',
+    returnKeyType: 'next',
+  },
+  {
+    key: 'kilometer',
+    label: 'Kilómetros:',
+    placeholder: 'Ingrese los kilómetros',
+    keyboardType: 'numeric',
+    returnKeyType: 'next',
+  },
+  {
+    key: 'description',
+    label: 'Descripción:',
+    placeholder: 'Ingrese una descripción',
+    keyboardType: 'default',
     returnKeyType: 'done',
   },
 ]
@@ -53,40 +89,9 @@ export const styles = StyleSheet.create({
   },
   body: {
     flex: 1,
+  },
+  contentBody: {
+    flexGrow: 1,
     padding: 20,
-    marginBottom: 20,
-  },
-  inputGroup: {
-    marginBottom: 14,
-  },
-  label: {
-    marginBottom: 6,
-    fontSize: 16,
-  },
-  inputContainer: {
-    flexDirection: 'row',
-    backgroundColor: '#F0EAF5',
-    borderRadius: 12,
-    alignItems: 'center',
-    paddingHorizontal: 12,
-  },
-  input: {
-    flex: 1,
-    height: 44,
-    fontSize: 16,
-    color: '#333',
-  },
-  error: { color: 'red', fontSize: 12, paddingLeft: 4 },
-  button: {
-    marginTop: 24,
-    backgroundColor: '#9C27B0',
-    paddingVertical: 12,
-    borderRadius: 24,
-    alignItems: 'center',
-  },
-  buttonText: {
-    color: 'white',
-    fontWeight: '600',
-    fontSize: 16,
   },
 })

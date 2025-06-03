@@ -1,8 +1,12 @@
-import { Category } from '@/src/types/sell'
+import { ImagePathKey } from '@/src/constants/ImagesPath'
 import { StyleSheet } from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-// CONSTANTES PARA TAB SELL
+export type Category = {
+  label: string
+  icon: ImagePathKey
+  route: string
+}
 
 export const categories: Category[] = [
   { label: 'Camiones', icon: 'iconTruck', route: '/(sell)/FormVehicle' },
