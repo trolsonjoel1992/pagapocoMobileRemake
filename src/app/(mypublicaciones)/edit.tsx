@@ -1,14 +1,36 @@
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import IconsPath from '@/src/constants/IconsPath'
-import { router } from 'expo-router'
+import { Href, router } from 'expo-router'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-const categories = [
-  { label: 'Categorias', icon: 'iconEdit2' },
-  { label: 'Datos', icon: 'iconEdit2' },
-  { label: 'Fotos', icon: 'iconEdit2' },
-  { label: 'Precio', icon: 'iconEdit2' },
+type Category = {
+  label: string
+  icon: keyof typeof IconsPath
+  route: Href // Usa el tipo Href para las rutas
+}
+
+const categories: Category[] = [
+  {
+    label: 'Categorias',
+    icon: 'iconEdit2',
+    route: '/(tabs)/(myPublications)/myPublications' as Href,
+  },
+  {
+    label: 'Datos',
+    icon: 'iconEdit2',
+    route: '/(tabs)/(myPublications)/myPublications' as Href,
+  },
+  {
+    label: 'Fotos',
+    icon: 'iconEdit2',
+    route: '/(mypublicaciones)/selectPict' as Href,
+  },
+  {
+    label: 'Precio',
+    icon: 'iconEdit2',
+    route: '/(tabs)/(myPublications)/myPublications' as Href,
+  },
 ] as const
 
 const Edit = () => {
@@ -24,7 +46,11 @@ const Edit = () => {
 
       <View style={styles.categoryList}>
         {categories.map((item) => (
-          <TouchableOpacity key={item.label} style={styles.card}>
+          <TouchableOpacity
+            key={item.label}
+            style={styles.card}
+            onPress={() => router.push(item.route)} // Navega a la ruta correspondiente
+          >
             <Image source={IconsPath[item.icon]} style={styles.icon} />
             <Text style={styles.cardText}>{item.label}</Text>
           </TouchableOpacity>
@@ -88,8 +114,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   buttonBack: {
-    width: 170,
-    height: 55,
+    width: moderateScale(170),
+    height: moderateScale(55),
     alignItems: 'center',
     justifyContent: 'center',
     borderRadius: moderateScale(20),

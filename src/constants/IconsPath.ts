@@ -13,4 +13,9 @@ export default {
   checkSelect: require('@/src/assets/images/publicationsbuton/checks/CheckSelect.png'),
   checkSelected: require('@/src/assets/images/publicationsbuton/checks/CheckSelected.png'),
   checkImageSelect: require('@/src/assets/images/publicationsbuton/checks/CheckImageSelect.png'),
+  //botones editar imagenes
+  loadIcon: require('@/src/assets/images/publicationsbuton/icons/loadIcon.png'),
+  cameraicon: require('@/src/assets/images/publicationsbuton/icons/cameraIcon.png'),
+  yDeleteIcon: require('@/src/assets/images/publicationsbuton/icons/yDeleteIcon.png'),
+  nDeleteIcon: require('@/src/assets/images/publicationsbuton/icons/nDeleteIcon.png'),
 }
