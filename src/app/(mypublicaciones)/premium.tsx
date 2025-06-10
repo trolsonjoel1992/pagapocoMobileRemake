@@ -1,199 +1,89 @@
-import GenericModal from '@/src/components/atoms/GenericModal'
+import GenericModal from '@/src//components/atoms/GenericModal'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import IconsPath from '@/src/constants/IconsPath'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { router } from 'expo-router'
-import React, { useRef, useState } from 'react'
+import React, { useState } from 'react'
 import {
-  Dimensions,
-  FlatList,
   Image,
   Modal,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
-  ViewToken,
 } from 'react-native'
-
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-const Publication1 = () => {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [isSold, setIsSold] = useState(false)
-  const [isPaused, setIsPaused] = useState(false)
-  const [showDeleteModal, setShowDeleteModal] = useState(false)
-  const flatListRef = useRef<FlatList>(null)
-  const images = [
-    ImagesPath.publImageF,
-    ImagesPath.publImageF,
-    ImagesPath.publImageF,
-    ImagesPath.publImageF,
-  ]
+const categories = [
+  { label: 'Exposición VIP' },
+  { label: 'Hasta 8 fotos' },
+  { label: 'Duracion de 90 dias' },
+  { label: 'Republicacion automatica' },
+] as const
 
-  const onViewableItemsChanged = useRef(
-    ({ viewableItems }: { viewableItems: ViewToken[] }) => {
-      if (viewableItems.length > 0) {
-        setCurrentIndex(viewableItems[0].index || 0)
-      }
-    }
-  ).current
+const Premium = () => {
+  const [modalVisible, setModalVisible] = useState(false)
 
-  const viewabilityConfig = {
-    itemVisiblePercentThreshold: 50,
+  const handleSubscribe = () => {
+    setModalVisible(true)
   }
 
-  const handleSoldButtonPress = () => {
-    setIsSold(!isSold)
+  const handleContinue = () => {
+    setModalVisible(false)
+    router.navigate('/(tabs)/(myPublications)/myPublications')
   }
 
-  const handlePauseButtonPress = () => {
-    setIsPaused(!isPaused)
+  const handleCancel = () => {
+    setModalVisible(false)
   }
-
-  const handleDeletePress = () => {
-    setShowDeleteModal(true)
-  }
-
-  const handleDeleteContinue = () => {
-    setShowDeleteModal(false)
-    // Aquí puedes agregar la lógica para eliminar la publicación
-    // Por ejemplo: router.push('/(tabs)/(myPublications)/myPublications')
-  }
-
-  const { width, height } = Dimensions.get('window')
 
   return (
     <View style={styles.container}>
-      <HeaderMainComponent
-        titulo="Tu publicación"
-        onBackPress={() =>
-          router.push('/(tabs)/(myPublications)/myPublications')
-        }
-      />
+      <HeaderMainComponent titulo="Premium" onBackPress={() => router.back()} />
+      <Text style={styles.title}>Suscribí tu publicación a{'\n'}¡Premium!</Text>
 
-      <View style={styles.publicationContainer}>
-        <View style={styles.labelPublicationContainer}>
-          {/* Aquí puedes poner información de la publicación */}
+      <View style={styles.body}>
+        <View style={styles.bodyStar}>
+          <Image source={ImagesPath.imageStarP} style={styles.starImage} />
         </View>
-        <View style={styles.imageContainer}>
-          <FlatList
-            ref={flatListRef}
-            data={images}
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(_, index) => index.toString()}
-            renderItem={({ item }) => (
-              <View style={styles.slide}>
-                <Image source={item} style={styles.image} />
-              </View>
-            )}
-            onViewableItemsChanged={onViewableItemsChanged}
-            viewabilityConfig={viewabilityConfig}
-          />
-          <View style={styles.pagination}>
-            {images.map((_, index) => (
-              <View
-                key={index}
-                style={[
-                  styles.paginationDot,
-                  currentIndex === index && styles.paginationDotActive,
-                ]}
-              />
-            ))}
-          </View>
-        </View>
-      </View>
-
-      <View style={styles.footer}>
-        <View style={styles.buttomContainer}>
-          <TouchableOpacity
-            style={[styles.buttomSold, isSold && styles.buttomSoldDisabled]}
-            onPress={handleSoldButtonPress}
-            disabled={isSold}
-          >
-            <Text
-              style={[styles.buttonText, isSold && styles.buttonTextDisabled]}
+        <Text style={styles.title}>Beneficios</Text>
+        <View style={styles.bodyContainer}>
+          {categories.map((item, index) => (
+            <View
+              key={index}
+              style={{ flexDirection: 'row', alignItems: 'center' }}
             >
-              {isSold ? 'Vendido' : 'Marcar como vendido'}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={handlePauseButtonPress}
-          >
-            <Text style={styles.buttonText}>
-              {isPaused ? 'Reanudar' : 'Pausar'}
-            </Text>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.iconsContainer}>
-          <TouchableOpacity>
-            <Image source={IconsPath.iconEdit} style={styles.icon} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleDeletePress}>
-            <Image source={IconsPath.iconDelete} style={styles.icon} />
-          </TouchableOpacity>
+              <Image source={IconsPath.iconBullet} />
+              <Text style={styles.bodyText}>{item.label}</Text>
+            </View>
+          ))}
+          <Text style={styles.titleB}>$3.000</Text>
+          <Text style={styles.title}>Cargo por publicación</Text>
         </View>
       </View>
 
-      <View>
-        <TouchableOpacity
-          style={styles.button}
-          onPress={() => router.push('/(tabs)/(myPublications)/myPublications')}
-        >
-          <Text style={styles.buttonText}>Volver</Text>
-        </TouchableOpacity>
-      </View>
+      <TouchableOpacity style={styles.buttonSusc} onPress={handleSubscribe}>
+        <Text style={styles.buttonText}>Suscribir</Text>
+      </TouchableOpacity>
 
-      {/* Modal/Overlay para publicación pausada */}
-      <Modal
-        visible={isPaused}
-        transparent={true}
-        animationType="fade"
-        onRequestClose={() => setIsPaused(false)}
-      >
-        <View style={[styles.overlay, { width, height }]}>
-          <Text style={styles.pausedText}>Publicación{'\n'}pausada</Text>
-          <View style={styles.iconsOverlayContainer}>
-            <TouchableOpacity onPress={handlePauseButtonPress}>
-              <Image source={IconsPath.iconPlay} style={styles.iconOverlay} />
-            </TouchableOpacity>
-            <TouchableOpacity onPress={handleDeletePress}>
-              <Image source={IconsPath.iconDelete} style={styles.iconOverlay} />
-            </TouchableOpacity>
-          </View>
-          <TouchableOpacity
-            style={styles.buttonOverlay}
-            onPress={() =>
-              router.push('/(tabs)/(myPublications)/myPublications')
-            }
-          >
-            <Text style={styles.buttonText}>Volver</Text>
-          </TouchableOpacity>
-        </View>
-      </Modal>
-
-      {/* GenericModal para confirmar eliminación */}
       <Modal
         animationType="fade"
         transparent={true}
-        visible={showDeleteModal}
-        onRequestClose={() => setShowDeleteModal(false)}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
       >
-        <View style={styles.overlay}>
+        <View style={styles.modalOverlay}>
           <GenericModal
             imageSource={ImagesPath.modalConfirm}
             messages={[
-              '¿Estás seguro que deseas eliminar la publicación?',
-              'Esta acción no se puede deshacer.',
+              '¡Suscripción exitosa!',
+              'Ahora tu publicación es Premium.',
+              'Disfruta de todos los beneficios.',
             ]}
-            showCancelButton={true}
-            onCancel={() => setShowDeleteModal(false)}
-            onContinue={handleDeleteContinue}
-            continueButtonText="Eliminar"
+            showCancelButton={false}
+            onContinue={handleContinue}
+            onCancel={handleCancel}
+            continueButtonText="Aceptar"
           />
         </View>
       </Modal>
@@ -203,148 +93,75 @@ const Publication1 = () => {
 
 const styles = StyleSheet.create({
   container: {
+    alignItems: 'center',
+    justifyContent: 'space-between',
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
   },
-  publicationContainer: {
-    marginTop: moderateScale(40),
-    justifyContent: 'space-between',
-    marginBottom: moderateScale(20),
+  title: {
+    fontSize: moderateScale(24),
+    fontWeight: '600',
+    textAlign: 'center',
+    marginBottom: verticalScale(10),
   },
-  labelPublicationContainer: {
-    width: '100%',
-    textAlign: 'left',
-    marginLeft: moderateScale(15),
-    marginTop: moderateScale(10),
-  },
-  imageContainer: {
-    width: moderateScale(360),
-    height: moderateScale(270),
-    marginVertical: moderateScale(15),
-    position: 'relative',
-  },
-  slide: {
-    width: moderateScale(360),
-    height: moderateScale(265),
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  image: {
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
-  },
-  pagination: {
-    position: 'absolute',
-    bottom: 5,
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  paginationDot: {
-    width: moderateScale(10),
-    height: moderateScale(10),
-    borderRadius: moderateScale(5),
+  body: {
+    width: moderateScale(330),
+    height: moderateScale(450),
+    borderWidth: 1,
+    borderRadius: moderateScale(20),
     backgroundColor: '#ECE6F0',
-    marginHorizontal: moderateScale(5),
+    borderColor: '#A230C7',
+    alignItems: 'center',
+    justifyContent: 'flex-start',
   },
-  paginationDotActive: {
+  bodyStar: {
+    width: moderateScale(330),
+    height: moderateScale(170),
+    borderWidth: 2,
+    borderRadius: moderateScale(20),
+    backgroundColor: '#ECE6F0',
+    borderColor: '#A230C7',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  starImage: {
+    width: moderateScale(70),
+    height: moderateScale(70),
+    resizeMode: 'contain',
+  },
+  bodyContainer: {
+    gap: 10,
+  },
+  bodyText: {
+    fontSize: moderateScale(16),
+    marginLeft: moderateScale(50),
+  },
+  titleB: {
+    fontSize: moderateScale(30),
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+  buttonSusc: {
+    width: 170,
+    height: 55,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: moderateScale(20),
+    marginBottom: moderateScale(20),
     backgroundColor: '#A230C7',
-    width: moderateScale(10),
-  },
-  icon: {
-    width: moderateScale(55),
-    height: moderateScale(55),
-    marginHorizontal: moderateScale(4),
-  },
-  footer: {
-    height: moderateScale(120),
-    width: '100%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: moderateScale(10),
-  },
-  buttomContainer: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: moderateScale(20),
   },
   buttonText: {
-    color: '#fff',
-    fontSize: moderateScale(20),
+    fontSize: moderateScale(16),
     fontWeight: 'bold',
-  },
-  buttonTextDisabled: {
-    color: '#4C4C4C',
-  },
-  buttomSold: {
-    backgroundColor: '#A230C7',
-    width: moderateScale(295),
-    paddingVertical: verticalScale(10),
-    paddingHorizontal: verticalScale(10),
-    borderRadius: moderateScale(20),
-    alignItems: 'center',
-  },
-  buttomSoldDisabled: {
-    backgroundColor: 'rgba(162, 48, 199, 0.4)',
-  },
-  iconsContainer: {
-    justifyContent: 'center',
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: moderateScale(20),
-    height: moderateScale(55),
-  },
-  hiddenIconsPlaceholder: {
-    width: moderateScale(55 * 4 + 20 * 3),
-    height: moderateScale(55),
-  },
-  button: {
-    alignItems: 'center',
-    justifyContent: 'center',
-    width: moderateScale(170),
-    height: moderateScale(55),
-    backgroundColor: '#A230C7',
-    borderRadius: moderateScale(20),
-    marginTop: moderateScale(20),
-  },
-  overlay: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'absolute',
-  },
-  pausedText: {
-    textAlign: 'center',
     color: 'white',
-    fontSize: moderateScale(40),
-    fontWeight: 'bold',
-    marginBottom: moderateScale(190),
+    textAlign: 'center',
   },
-  iconsOverlayContainer: {
-    flexDirection: 'row',
-    gap: moderateScale(27),
-    position: 'absolute',
-    bottom: moderateScale(126),
-    right: moderateScale(37),
-  },
-  iconOverlay: {
-    width: moderateScale(55),
-    height: moderateScale(55),
-  },
-  buttonOverlay: {
-    alignItems: 'center',
+  modalOverlay: {
+    flex: 1,
     justifyContent: 'center',
-    width: moderateScale(170),
-    height: moderateScale(55),
-    backgroundColor: '#A230C7',
-    borderRadius: moderateScale(20),
-    marginTop: moderateScale(371),
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 })
 
-export default Publication1
+export default Premium
