@@ -18,4 +18,7 @@ export default {
   cameraicon: require('@/src/assets/images/publicationsbuton/icons/cameraIcon.png'),
   yDeleteIcon: require('@/src/assets/images/publicationsbuton/icons/yDeleteIcon.png'),
   nDeleteIcon: require('@/src/assets/images/publicationsbuton/icons/nDeleteIcon.png'),
+  //iconos place precio
+  priceIcon: require('@/src/assets/images/publicationsbuton/icons/priceIcon.png'),
+  cityIcon: require('@/src/assets/images/publicationsbuton/icons/cityIcon.png'),
 }

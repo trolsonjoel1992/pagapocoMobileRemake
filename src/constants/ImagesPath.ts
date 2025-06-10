@@ -44,6 +44,11 @@ const ImagesPath = {
   // imagenes selecionpara editar publics
   imagePreS: require('@/src/assets/images/publicationsbuton/imagePremSel.png'),
   imageFreS: require('@/src/assets/images/publicationsbuton/imageFreeSel.png'),
+  // imagen editar precio
+  priceImage: require('@/src/assets/images/publicationsbuton/priceImage.png'),
+  // imagenes de tu publicacion
+  publImageF: require('@/src/assets/images/publicationsbuton/publicationImageF.png'),
+  publImageP: require('@/src/assets/images/publicationsbuton/publicationImageP.png'),
 }
 
 export default ImagesPath

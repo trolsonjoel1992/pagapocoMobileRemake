@@ -29,7 +29,7 @@ const categories: Category[] = [
   {
     label: 'Precio',
     icon: 'iconEdit2',
-    route: '/(tabs)/(myPublications)/myPublications' as Href,
+    route: '/(mypublicaciones)/price' as Href,
   },
 ] as const
 

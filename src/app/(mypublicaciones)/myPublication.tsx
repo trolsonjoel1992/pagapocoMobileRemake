@@ -74,68 +74,100 @@ const Publication1 = () => {
 
       <View style={styles.publicationContainer}>
         <View style={styles.labelPublicationContainer}>
-          {/* Aquí puedes poner información de la publicación */}
+          <Text style={{ fontSize: moderateScale(16), fontWeight: '400' }}>
+            2025 | 0.000 km - Publicado hace meses
+          </Text>
+          <Text style={{ fontSize: moderateScale(24), fontWeight: 'bold' }}>
+            Nombre publicación
+          </Text>
         </View>
+
         <View style={styles.imageContainer}>
           <FlatList
             ref={flatListRef}
             data={images}
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-            keyExtractor={(_, index) => index.toString()}
             renderItem={({ item }) => (
               <View style={styles.slide}>
                 <Image source={item} style={styles.image} />
               </View>
             )}
+            horizontal
+            pagingEnabled
+            showsHorizontalScrollIndicator={false}
+            keyExtractor={(item, index) => index.toString()}
             onViewableItemsChanged={onViewableItemsChanged}
             viewabilityConfig={viewabilityConfig}
           />
+
           <View style={styles.pagination}>
             {images.map((_, index) => (
               <View
                 key={index}
                 style={[
                   styles.paginationDot,
-                  currentIndex === index && styles.paginationDotActive,
+                  index === currentIndex && styles.paginationDotActive,
                 ]}
               />
             ))}
           </View>
+        </View>
+
+        <View style={styles.labelPublicationContainer}>
+          <Text style={{ fontSize: moderateScale(24), fontWeight: 'bold' }}>
+            $ 000.000
+          </Text>
+          <Text style={{ fontSize: moderateScale(20), fontWeight: '500' }}>
+            Descripcion
+          </Text>
+          <Text style={{ fontSize: moderateScale(16), fontWeight: '400' }}>
+            Una descripción agregada.
+          </Text>
         </View>
       </View>
 
       <View style={styles.footer}>
         <View style={styles.buttomContainer}>
           <TouchableOpacity
-            style={[styles.buttomSold, isSold && styles.buttomSoldDisabled]}
+            style={[
+              styles.buttomSold,
+              isSold ? styles.buttomSoldDisabled : null,
+            ]}
             onPress={handleSoldButtonPress}
-            disabled={isSold}
           >
             <Text
-              style={[styles.buttonText, isSold && styles.buttonTextDisabled]}
+              style={[
+                styles.buttonText,
+                isSold ? styles.buttonTextDisabled : null,
+              ]}
             >
-              {isSold ? 'Vendido' : 'Marcar como vendido'}
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.button}
-            onPress={handlePauseButtonPress}
-          >
-            <Text style={styles.buttonText}>
-              {isPaused ? 'Reanudar' : 'Pausar'}
+              {isSold ? 'publicar otro igual' : 'Marcar como vendido'}
             </Text>
           </TouchableOpacity>
         </View>
 
         <View style={styles.iconsContainer}>
-          <TouchableOpacity>
-            <Image source={IconsPath.iconEdit} style={styles.icon} />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={handleDeletePress}>
-            <Image source={IconsPath.iconDelete} style={styles.icon} />
-          </TouchableOpacity>
+          {!isSold ? (
+            <>
+              <TouchableOpacity
+                onPress={() => router.push('/(mypublicaciones)/premium')}
+              >
+                <Image source={IconsPath.iconStar} style={styles.icon} />
+              </TouchableOpacity>
+              <TouchableOpacity
+                onPress={() => router.push('/(mypublicaciones)/edit')}
+              >
+                <Image source={IconsPath.iconEdit} style={styles.icon} />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handlePauseButtonPress}>
+                <Image source={IconsPath.iconPause} style={styles.icon} />
+              </TouchableOpacity>
+              <TouchableOpacity onPress={handleDeletePress}>
+                <Image source={IconsPath.iconDelete} style={styles.icon} />
+              </TouchableOpacity>
+            </>
+          ) : (
+            <View style={styles.hiddenIconsPlaceholder} />
+          )}
         </View>
       </View>
 
@@ -185,10 +217,10 @@ const Publication1 = () => {
       >
         <View style={styles.overlay}>
           <GenericModal
-            imageSource={ImagesPath.modalConfirm}
+            imageSource={ImagesPath.modalAlert}
             messages={[
-              '¿Estás seguro que deseas eliminar la publicación?',
-              'Esta acción no se puede deshacer.',
+              '¿Estás seguro que deseas ',
+              'eliminar esta publicación?',
             ]}
             showCancelButton={true}
             onCancel={() => setShowDeleteModal(false)}
@@ -316,20 +348,19 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
     justifyContent: 'center',
     alignItems: 'center',
-    position: 'absolute',
   },
   pausedText: {
     textAlign: 'center',
     color: 'white',
     fontSize: moderateScale(40),
     fontWeight: 'bold',
-    marginBottom: moderateScale(190),
+    marginTop: moderateScale(200),
   },
   iconsOverlayContainer: {
     flexDirection: 'row',
     gap: moderateScale(27),
     position: 'absolute',
-    bottom: moderateScale(126),
+    bottom: moderateScale(104),
     right: moderateScale(37),
   },
   iconOverlay: {
@@ -343,7 +374,7 @@ const styles = StyleSheet.create({
     height: moderateScale(55),
     backgroundColor: '#A230C7',
     borderRadius: moderateScale(20),
-    marginTop: moderateScale(371),
+    marginTop: moderateScale(382),
   },
 })
 
