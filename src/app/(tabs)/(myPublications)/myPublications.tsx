@@ -22,31 +22,31 @@ const MyPublications = () => {
   const publications: Publication[] = [
     {
       id: 1,
-      name: 'Nombre del producto',
+      name: 'Nombre publicación',
       image: ImagesPath.imageMyPublication,
       type: 'prem',
     },
     {
       id: 2,
-      name: 'Nombre del producto',
+      name: 'Nombre publicación',
       image: ImagesPath.imageFrePublication,
       type: 'free',
     },
     {
       id: 3,
-      name: 'Nombre del producto',
+      name: 'Nombre publicación',
       image: ImagesPath.imageMyPublication,
       type: 'prem',
     },
     {
       id: 4,
-      name: 'Nombre del producto',
+      name: 'Nombre publicación',
       image: ImagesPath.imageFrePublication,
       type: 'free',
     },
   ]
   const handleImagePress = (publicationId: number) => {
-    console.log(`Imagen de la publicación ${publicationId} presionada`)
+    router.push('/(mypublicaciones)/myPublication')
   }
   const toggleSoldStatus = (publicationId: number) => {
     if (soldPublications.includes(publicationId)) {
