@@ -49,6 +49,9 @@ const ImagesPath = {
   // imagenes de tu publicacion
   publImageF: require('@/src/assets/images/publicationsbuton/publicationImageF.png'),
   publImageP: require('@/src/assets/images/publicationsbuton/publicationImageP.png'),
+  noFavorites: require('@/src/assets/images/imageFavorites/noFavorites.png'),
+  //imagen en el perfil
+  userimage: require('@/src/assets/images/imageProfile/userCircle.png'),
 }
 
 export default ImagesPath

@@ -1,4 +1,3 @@
-import SearchBarComponent from '@/src/components/atoms/SearchBarComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { router } from 'expo-router'
 import React from 'react'
@@ -6,33 +5,31 @@ import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-const EmptyPublications = () => {
+const EmptyFavorites = () => {
   return (
     <SafeAreaView style={styles.container}>
-      {/* Barra de búsqueda */}
-      <SearchBarComponent />
-
       <View style={styles.emptyContainer}>
         <Image
-          source={ImagesPath.imageNopublication}
+          source={ImagesPath.noFavorites}
           style={styles.emptyImage}
           resizeMode="contain"
         />
         <TouchableOpacity
-          onPress={() => router.push('/(tabs)/(myPublications)/myPublications')}
+          onPress={() => router.push('/(tabs)/(favorites)/myFavorites')}
         >
-          <Text style={styles.emptyTitle}>¡No hay publicaciones!</Text>
+          <Text style={styles.emptyTitle}>
+            ¡Todavia no tenes publicaciones favoritas!
+          </Text>
         </TouchableOpacity>
         <Text style={styles.emptyText}>
-          Podés crear una y empezar a vender cuando quieras.
+          Agregalas cliqueando en el corazón de la publicación
         </Text>
 
-        {/* Botón "Publicar ahora" */}
         <TouchableOpacity
           style={styles.publishButton}
-          onPress={() => router.push('/(tabs)/sell')}
+          //onPress={() => router.push()}
         >
-          <Text style={styles.publishButtonText}>Publicar ahora</Text>
+          <Text style={styles.publishButtonText}>Nuestros recomendados</Text>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -84,4 +81,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default EmptyPublications
+export default EmptyFavorites

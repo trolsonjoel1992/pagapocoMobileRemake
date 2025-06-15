@@ -1,8 +1,7 @@
-import TabsLayout from '@/src/app/(tabs)/_layout'
-import ImagesPath from '@/src/constants/ImagesPath'
+/* import TabsLayout from '@/src/app/(tabs)/_layout'
+ */ import ImagesPath from '@/src/constants/ImagesPath'
 import { categories, styles } from '@/src/constants/sell'
 import { router } from 'expo-router'
-
 import { Image, ScrollView, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 
@@ -26,8 +25,8 @@ const Sell = () => {
           ))}
         </View>
       </ScrollView>
-
-      <TabsLayout />
+      {/*       <TabsLayout />
+       */}
     </SafeAreaView>
   )
 }
