@@ -15,7 +15,6 @@ import {
   View,
   ViewToken,
 } from 'react-native'
-
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 const Publication1 = () => {
@@ -23,13 +22,27 @@ const Publication1 = () => {
   const [isSold, setIsSold] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
   const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [showPremiumLabel, setShowPremiumLabel] = useState(false)
+  const [showStarIcon, setShowStarIcon] = useState(true)
   const flatListRef = useRef<FlatList>(null)
-  const images = [
+
+  const normalImages = [
     ImagesPath.publImageF,
     ImagesPath.publImageF,
     ImagesPath.publImageF,
     ImagesPath.publImageF,
   ]
+  const premiumImages = [
+    ImagesPath.publImageP,
+    ImagesPath.publImageP,
+    ImagesPath.publImageP,
+    ImagesPath.publImageP,
+    ImagesPath.publImageP,
+    ImagesPath.publImageP,
+    ImagesPath.publImageP,
+    ImagesPath.publImageP,
+  ]
+  const [currentImages, setCurrentImages] = useState(normalImages)
 
   const onViewableItemsChanged = useRef(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
@@ -57,8 +70,14 @@ const Publication1 = () => {
 
   const handleDeleteContinue = () => {
     setShowDeleteModal(false)
-    // Aquí puedes agregar la lógica para eliminar la publicación
-    // Por ejemplo: router.push('/(tabs)/(myPublications)/myPublications')
+  }
+
+  const togglePremiumLabel = () => {
+    const isPremium = !showPremiumLabel
+    setShowPremiumLabel(isPremium)
+    setCurrentImages(isPremium ? premiumImages : normalImages)
+    setCurrentIndex(0)
+    setShowStarIcon(!showStarIcon)
   }
 
   const { width, height } = Dimensions.get('window')
@@ -71,21 +90,26 @@ const Publication1 = () => {
           router.push('/(tabs)/(myPublications)/myPublications')
         }
       />
-
+      <View style={styles.premiumLabelContainer}>
+        {showPremiumLabel && (
+          <Text style={styles.premiumLabelText}>Publicación premium</Text>
+        )}
+      </View>
       <View style={styles.publicationContainer}>
         <View style={styles.labelPublicationContainer}>
           <Text style={{ fontSize: moderateScale(16), fontWeight: '400' }}>
             2025 | 0.000 km - Publicado hace meses
           </Text>
-          <Text style={{ fontSize: moderateScale(24), fontWeight: 'bold' }}>
-            Nombre publicación
-          </Text>
+          <TouchableOpacity onPress={togglePremiumLabel}>
+            <Text style={{ fontSize: moderateScale(24), fontWeight: 'bold' }}>
+              Nombre publicación
+            </Text>
+          </TouchableOpacity>
         </View>
-
         <View style={styles.imageContainer}>
           <FlatList
             ref={flatListRef}
-            data={images}
+            data={currentImages}
             renderItem={({ item }) => (
               <View style={styles.slide}>
                 <Image source={item} style={styles.image} />
@@ -98,9 +122,8 @@ const Publication1 = () => {
             onViewableItemsChanged={onViewableItemsChanged}
             viewabilityConfig={viewabilityConfig}
           />
-
           <View style={styles.pagination}>
-            {images.map((_, index) => (
+            {currentImages.map((_, index) => (
               <View
                 key={index}
                 style={[
@@ -111,7 +134,6 @@ const Publication1 = () => {
             ))}
           </View>
         </View>
-
         <View style={styles.labelPublicationContainer}>
           <Text style={{ fontSize: moderateScale(24), fontWeight: 'bold' }}>
             $ 000.000
@@ -124,7 +146,6 @@ const Publication1 = () => {
           </Text>
         </View>
       </View>
-
       <View style={styles.footer}>
         <View style={styles.buttomContainer}>
           <TouchableOpacity
@@ -144,33 +165,43 @@ const Publication1 = () => {
             </Text>
           </TouchableOpacity>
         </View>
-
         <View style={styles.iconsContainer}>
           {!isSold ? (
             <>
-              <TouchableOpacity
-                onPress={() => router.push('/(mypublicaciones)/premium')}
-              >
-                <Image source={IconsPath.iconStar} style={styles.icon} />
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => router.push('/(mypublicaciones)/edit')}
-              >
-                <Image source={IconsPath.iconEdit} style={styles.icon} />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={handlePauseButtonPress}>
-                <Image source={IconsPath.iconPause} style={styles.icon} />
-              </TouchableOpacity>
-              <TouchableOpacity onPress={handleDeletePress}>
-                <Image source={IconsPath.iconDelete} style={styles.icon} />
-              </TouchableOpacity>
+              <View style={styles.iconWrapper}>
+                {showStarIcon ? (
+                  <TouchableOpacity
+                    onPress={() => router.push('/(mypublicaciones)/premium')}
+                  >
+                    <Image source={IconsPath.iconStar} style={styles.icon} />
+                  </TouchableOpacity>
+                ) : (
+                  <View style={styles.hiddenIcon} />
+                )}
+              </View>
+              <View style={styles.iconWrapper}>
+                <TouchableOpacity
+                  onPress={() => router.push('/(mypublicaciones)/edit')}
+                >
+                  <Image source={IconsPath.iconEdit} style={styles.icon} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.iconWrapper}>
+                <TouchableOpacity onPress={handlePauseButtonPress}>
+                  <Image source={IconsPath.iconPause} style={styles.icon} />
+                </TouchableOpacity>
+              </View>
+              <View style={styles.iconWrapper}>
+                <TouchableOpacity onPress={handleDeletePress}>
+                  <Image source={IconsPath.iconDelete} style={styles.icon} />
+                </TouchableOpacity>
+              </View>
             </>
           ) : (
             <View style={styles.hiddenIconsPlaceholder} />
           )}
         </View>
       </View>
-
       <View>
         <TouchableOpacity
           style={styles.button}
@@ -179,8 +210,6 @@ const Publication1 = () => {
           <Text style={styles.buttonText}>Volver</Text>
         </TouchableOpacity>
       </View>
-
-      {/* Modal/Overlay para publicación pausada */}
       <Modal
         visible={isPaused}
         transparent={true}
@@ -207,8 +236,6 @@ const Publication1 = () => {
           </TouchableOpacity>
         </View>
       </Modal>
-
-      {/* GenericModal para confirmar eliminación */}
       <Modal
         animationType="fade"
         transparent={true}
@@ -239,8 +266,20 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
   },
+  premiumLabelContainer: {
+    width: '100%',
+    height: moderateScale(30),
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: moderateScale(15),
+  },
+  premiumLabelText: {
+    fontSize: moderateScale(18),
+    fontWeight: 'bold',
+    color: '#1A73E9',
+  },
   publicationContainer: {
-    marginTop: moderateScale(40),
+    marginTop: moderateScale(15),
     justifyContent: 'space-between',
     marginBottom: moderateScale(20),
   },
@@ -253,7 +292,7 @@ const styles = StyleSheet.create({
   imageContainer: {
     width: moderateScale(360),
     height: moderateScale(270),
-    marginVertical: moderateScale(15),
+    marginVertical: moderateScale(10),
     position: 'relative',
   },
   slide: {
@@ -289,7 +328,16 @@ const styles = StyleSheet.create({
   icon: {
     width: moderateScale(55),
     height: moderateScale(55),
-    marginHorizontal: moderateScale(4),
+  },
+  iconWrapper: {
+    width: moderateScale(55),
+    height: moderateScale(55),
+    marginHorizontal: moderateScale(12),
+  },
+  hiddenIcon: {
+    width: moderateScale(55),
+    height: moderateScale(55),
+    opacity: 0,
   },
   footer: {
     height: moderateScale(120),
@@ -327,7 +375,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: moderateScale(20),
     height: moderateScale(55),
   },
   hiddenIconsPlaceholder: {
@@ -341,7 +388,7 @@ const styles = StyleSheet.create({
     height: moderateScale(55),
     backgroundColor: '#A230C7',
     borderRadius: moderateScale(20),
-    marginTop: moderateScale(20),
+    marginTop: moderateScale(10),
   },
   overlay: {
     flex: 1,
@@ -354,14 +401,14 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: moderateScale(40),
     fontWeight: 'bold',
-    marginTop: moderateScale(200),
+    marginTop: moderateScale(235),
   },
   iconsOverlayContainer: {
     flexDirection: 'row',
-    gap: moderateScale(27),
+    gap: moderateScale(24),
     position: 'absolute',
-    bottom: moderateScale(104),
-    right: moderateScale(37),
+    bottom: moderateScale(95),
+    right: moderateScale(44),
   },
   iconOverlay: {
     width: moderateScale(55),
@@ -374,7 +421,7 @@ const styles = StyleSheet.create({
     height: moderateScale(55),
     backgroundColor: '#A230C7',
     borderRadius: moderateScale(20),
-    marginTop: moderateScale(382),
+    marginTop: moderateScale(350),
   },
 })
 

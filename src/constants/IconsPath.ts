@@ -21,4 +21,19 @@ export default {
   //iconos place precio
   priceIcon: require('@/src/assets/images/publicationsbuton/icons/priceIcon.png'),
   cityIcon: require('@/src/assets/images/publicationsbuton/icons/cityIcon.png'),
+  // iconos para tabs
+  home: require('@/src/assets/images/TabsIcons/home.png'),
+  favorites: require('@/src/assets/images/TabsIcons/favorites.png'),
+  profile: require('@/src/assets/images/TabsIcons/profile.png'),
+  publications: require('@/src/assets/images/TabsIcons/publications.png'),
+  sell: require('@/src/assets/images/TabsIcons/sell.png'),
+  //icono boton whaap
+  wappIcon: require('@/src/assets/images/imageFavorites/WhatsappLogo.png'),
+  //iconos perfil
+  info: require('@/src/assets/images/imageProfile/information.png'),
+  setting: require('@/src/assets/images/imageProfile/settings.png'),
+  private: require('@/src/assets/images/imageProfile/privacity.png'),
+  profileIm: require('@/src/assets/images/imageProfile/imageProfile.png'),
+  drop: require('@/src/assets/images/imageProfile/dropAcount.png'),
+  close: require('@/src/assets/images/imageProfile/logout.png'),
 }
