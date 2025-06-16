@@ -2,32 +2,25 @@ import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import InputFilterComponent from '@/src/components/atoms/InputFilterComponent'
 import { router } from 'expo-router'
 import React from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-const filterRecommended = () => {
+// Solucionar el error de los componentes del body levantados cuando se abre el teclado en el celular
+
+const filterVehicles = () => {
   return (
     <View style={styles.container}>
       {/* header */}
       {/* <View style={styles.header}></View> */}
 
-      {/* Componente del header */}
       <HeaderMainComponent
-        titulo="Recomendados"
+        titulo="Vehiculos"
         onBackPress={() => router.back()}
       />
 
       {/* body */}
       <View style={styles.body}>
-        <View style={styles.imageContainer}>
-          <Image
-            source={require('@/src/assets/images/iconRecomendadoFigma.png')}
-            style={styles.imageStyle}
-            resizeMode="contain"
-          />
-        </View>
-
-        <Text style={styles.textTitle}>Filtrar Recomendados por:</Text>
+        <Text style={styles.textTitle}>Filtrar publicación por:</Text>
 
         <InputFilterComponent
           title="Precio"
@@ -45,6 +38,31 @@ const filterRecommended = () => {
           title="Color"
           keyboardType="default"
           backgroundColor="#f0f0f0"
+        />
+        <InputFilterComponent title="Versión" keyboardType="default" />
+        <InputFilterComponent
+          title="Puertas"
+          keyboardType="numeric"
+          backgroundColor="#f0f0f0"
+        />
+        <InputFilterComponent
+          title="Tipo de combustible"
+          keyboardType="default"
+        />
+        <InputFilterComponent
+          title="Cilindrada"
+          keyboardType="numeric"
+          backgroundColor="#f0f0f0"
+        />
+        <InputFilterComponent title="Transmisión" keyboardType="default" />
+        <InputFilterComponent
+          title="Kilometraje"
+          keyboardType="numeric"
+          backgroundColor="#f0f0f0"
+        />
+        <InputFilterComponent
+          title="Tipo de carrocería"
+          keyboardType="default"
         />
       </View>
 
@@ -70,7 +88,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     justifyContent: 'space-between',
     alignItems: 'center',
-    //paddingVertical: verticalScale(20),
   },
   header: {
     height: moderateScale(40),
@@ -83,28 +100,19 @@ const styles = StyleSheet.create({
   body: {
     height: moderateScale(500),
     width: '90%',
+    //paddingBottom: moderateScale(20),
     //backgroundColor: 'yellow',
     textAlign: 'right',
     justifyContent: 'center',
     //alignItems: 'center',
   },
   footer: {
-    height: moderateScale(150),
+    height: moderateScale(80),
     width: '100%',
     //backgroundColor: 'red',
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
-  },
-  imageContainer: {
-    justifyContent: 'center',
-    alignItems: 'center',
-    //backgroundColor: 'lightgray',
-    marginBottom: moderateScale(10),
-  },
-  imageStyle: {
-    width: moderateScale(100),
-    height: moderateScale(100),
   },
   textTitle: {
     fontSize: moderateScale(20),
@@ -132,4 +140,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default filterRecommended
+export default filterVehicles

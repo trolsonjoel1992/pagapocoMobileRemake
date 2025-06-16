@@ -61,22 +61,27 @@ const filter = () => {
           <ButtonCategoryComponent
             title="Camiones"
             image={ImagesPath.iconCamionFigma}
+            onPressFunction={() => router.push('/(filter)/filterVehicles')}
           />
           <ButtonCategoryComponent
             title="Camionetas"
             image={ImagesPath.iconCamionetaFigma}
+            onPressFunction={() => router.push('/(filter)/filterVehicles')}
           />
           <ButtonCategoryComponent
             title="Autos"
             image={ImagesPath.iconAutoFigma}
+            onPressFunction={() => router.push('/(filter)/filterVehicles')}
           />
           <ButtonCategoryComponent
             title="Motos"
             image={ImagesPath.iconMotoFigma}
+            onPressFunction={() => router.push('/(filter)/filterMotorcycles')}
           />
           <ButtonCategoryComponent
             title="Piezas"
             image={ImagesPath.iconPiezaFigma}
+            onPressFunction={() => router.push('/(filter)/filterPart')}
           />
         </View>
       </View>
