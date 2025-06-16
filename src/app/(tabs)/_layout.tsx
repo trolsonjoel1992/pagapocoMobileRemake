@@ -1,9 +1,11 @@
 import CustomTabs from '@/src/components/atoms/CustomTabs'
+import GenericModal from '@/src/components/atoms/GenericModal'
 import iconsPath from '@/src/constants/IconsPath'
+import ImagesPath from '@/src/constants/ImagesPath'
 import { useAuth } from '@/src/hooks/useAuth'
 import { Slot, useRouter, useSegments } from 'expo-router'
 import React, { useState } from 'react'
-import { Modal, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Modal, StyleSheet, View } from 'react-native'
 
 const TabsLayout = () => {
   const router = useRouter()
@@ -32,7 +34,14 @@ const TabsLayout = () => {
     { id: 'favorites', icon: iconsPath.favorites },
     { id: 'profile', icon: iconsPath.profile },
   ]
+  const handleContinue = () => {
+    setShowAuthModal(false)
+    router.navigate('/(auth)/(login)/FormLogin')
+  }
 
+  const handleCancel = () => {
+    setShowAuthModal(false)
+  }
   const handleTabPress = (tabId: string) => {
     if (tabId === 'home') {
       router.replace('/home')
@@ -64,64 +73,42 @@ const TabsLayout = () => {
 
   return (
     <View style={styles.container}>
-      {/* Contenido principal */}
       <View style={styles.content}>
-        {isLoading ? (
-          <View style={styles.skeleton}>
-            <Text>Cargando...</Text>
-          </View>
-        ) : (
-          <Slot />
-        )}
+        <Slot />
       </View>
 
-      {/* Modal de autenticación */}
       <Modal
         visible={showAuthModal}
         transparent
         animationType="fade"
         onRequestClose={() => setShowAuthModal(false)}
       >
-        <View style={modalStyles.overlay}>
-          <View style={modalStyles.content}>
-            <Text style={modalStyles.text}>
-              Debes iniciar sesión para acceder a esta función
-            </Text>
-            <View style={modalStyles.buttonsContainer}>
-              <TouchableOpacity
-                style={[modalStyles.button, modalStyles.primaryButton]}
-                onPress={() => {
-                  setShowAuthModal(false)
-                  router.replace('/(auth)/FormLogin')
-                }}
-              >
-                <Text style={modalStyles.buttonText}>Iniciar sesión</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[modalStyles.button, modalStyles.secondaryButton]}
-                onPress={() => setShowAuthModal(false)}
-              >
-                <Text style={[modalStyles.buttonText, { color: '#333' }]}>
-                  Cancelar
-                </Text>
-              </TouchableOpacity>
-            </View>
-          </View>
+        <View style={styles.modalOverlay}>
+          <GenericModal
+            imageSource={ImagesPath.modalWarning}
+            messages={[
+              'Para poder utilizar ésta función',
+              'ingresá a tu cuenta.',
+            ]}
+            showCancelButton={true}
+            onContinue={handleContinue}
+            onCancel={handleCancel}
+            continueButtonText="Aceptar"
+            cancelButtonText="Cancelar"
+          />
         </View>
       </Modal>
 
-      {/* Tabs personalizados con control de autenticación */}
       <CustomTabs
         tabs={tabs}
         activeTab={activeTab}
         onTabPress={handleTabPress}
-        isAuthenticated={!!user} // Pasa el estado de autenticación
+        isAuthenticated={!!user}
       />
     </View>
   )
 }
 
-// Estilos base
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -136,17 +123,13 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#f0f0f0',
   },
-})
-
-// Estilos del modal
-const modalStyles = StyleSheet.create({
   overlay: {
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: 'rgba(0,0,0,0.5)',
   },
-  content: {
+  modalContent: {
     width: '80%',
     backgroundColor: 'white',
     borderRadius: 10,
@@ -178,6 +161,12 @@ const modalStyles = StyleSheet.create({
   },
   buttonText: {
     fontWeight: '500',
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
   },
 })
 
