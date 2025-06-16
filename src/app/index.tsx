@@ -17,5 +17,5 @@ export default function Index() {
 
   // Redirige a splash
   // Pero ahora con conocimiento del estado de autenticación
-  return <Redirect href="/splash" /> // href="/splash" // href="/(filter)/filterCoincidences"
+  return <Redirect href="/(filter)/filterCoincidences" /> // href="/splash" // href="/(filter)/filterCoincidences"
 }
