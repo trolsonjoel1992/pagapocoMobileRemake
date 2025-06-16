@@ -1,111 +1,60 @@
+import SearchBarMainComponent from '@/src/components/atoms/SearchBarMainComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
-import { AntDesign, Entypo, Feather, Ionicons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 import React from 'react'
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 const Publication1 = () => {
-  // logica boton iniciar sesion
-  let isLogin = false
-
   return (
     <SafeAreaView style={styles.container}>
+      {/* header */}
       <View style={styles.header}>
-        {/* Buscador, Notificaciones, Login*/}
-
-        {/* Barra de busqueda */}
+        {/* Contenedor del buscador y boton de acciones */}
         <View style={styles.searchContainer}>
-          {/* Boton de busqueda */}
-          <TouchableOpacity style={styles.searchIconContainer}>
-            <Feather
-              name="search"
-              size={moderateScale(24)}
-              color="gray"
-              style={styles.searchIcon}
-            />
-          </TouchableOpacity>
-
-          <TextInput style={styles.searchInput} placeholder=" Buscar..." />
-
-          {/* botones de filtro y notificaciones */}
-          <View style={styles.searchActions}>
-            <TouchableOpacity style={styles.actionIcon}>
-              <Feather name="filter" size={moderateScale(24)} color="gray" />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.actionIcon}
-              onPress={() => router.push('/(notifications)/notification')}
-            >
-              <Ionicons
-                name="notifications-outline"
-                size={moderateScale(24)}
-                color="gray"
-              />
-            </TouchableOpacity>
-          </View>
+          {/* Componente del buscador */}
+          <SearchBarMainComponent
+            showBackButton
+            onBackPress={() => router.push('/(tabs)/home')}
+          />
         </View>
 
-        {/* Botones de acciones - login y ubicacion */}
+        {/* Botones de acciones - ubicacion y filtros */}
         <View style={styles.actionsContainer}>
           <TouchableOpacity style={styles.actionButton}>
-            <Ionicons
-              name="location-outline"
-              size={moderateScale(20)}
-              color="gray"
+            <Image
+              source={ImagesPath.iconUbicaionFigma}
+              style={styles.actionIcon}
+              resizeMode="contain"
             />
             <Text style={styles.textActionsIcon}>Elige tu ciudad</Text>
           </TouchableOpacity>
 
-          {/* solo aparece si NO esta logeado */}
-          {!isLogin && <View style={styles.separator} />}
-
-          {/* solo aparece si NO esta logeado */}
-          {isLogin ? (
-            <TouchableOpacity
-              style={styles.actionButton}
-              //onPress={() => router.push("/(tabs)/store")} // () => { router.push("/(auth)/FormLogin") }
-            >
-              <Entypo
-                name="new-message"
-                size={moderateScale(20)}
-                color="gray"
-              />
-              <Text style={styles.textActionsIcon}>Vender</Text>
-            </TouchableOpacity>
-          ) : (
-            <TouchableOpacity
-              style={styles.actionButton}
-              /*
-              ahora lleva al formulario de login directame, no abre el modal
-              el onPress={handleLogin} abria el modal
-              */
-              onPress={() => {
-                router.push('/(auth)/FormLogin')
-              }}
-            >
-              <AntDesign name="login" size={moderateScale(20)} color="gray" />
-              <Text style={styles.textActionsIcon}>Iniciar Sesión</Text>
-            </TouchableOpacity>
-          )}
+          <TouchableOpacity style={styles.actionButton}>
+            <Image
+              source={ImagesPath.iconFiltroFigma}
+              style={styles.actionIcon}
+              resizeMode="contain"
+            />
+            <Text style={styles.textActionsIcon}>Filtros</Text>
+          </TouchableOpacity>
         </View>
       </View>
 
+      {/* body */}
       <View style={styles.body}>
         <View style={styles.publicationContainer}>
-          <Text>2023 | 16.000 km - Publicado hace 2 meses</Text>
+          <Text>2025 | 0.000 km - Publicado hace meses</Text>
 
-          <Text style={{ fontSize: moderateScale(24), fontWeight: 'bold' }}>
-            Volkswagen Polo
+          <Text
+            style={{
+              fontSize: moderateScale(24),
+              fontWeight: 'bold',
+              marginBottom: verticalScale(10),
+            }}
+          >
+            Nombre publicación
           </Text>
 
           <View style={styles.imagePublicationContainer}>
@@ -123,17 +72,17 @@ const Publication1 = () => {
             ]}
           >
             <Text style={{ fontSize: moderateScale(24), fontWeight: 'bold' }}>
-              $ 15.000.000
+              $ 000.000
             </Text>
             <Text style={{ fontSize: moderateScale(20), fontWeight: 'bold' }}>
-              Descripcion
+              Descripción
             </Text>
-            <Text>En perfecto estado. Papeles al dia</Text>
-            <Text>
+            <Text>Una descripción agregada</Text>
+            {/* <Text>
               ¡Calidad alemana, bajo consumo y alto valor de reventa! Perfecto
               para quien busca practicidad sin dejar de lucir estilo.
               ¡Contáctanos y llévatelo!
-            </Text>
+            </Text> */}
           </View>
         </View>
       </View>
@@ -142,7 +91,7 @@ const Publication1 = () => {
         <View style={styles.buttomDetallesContainer}>
           <TouchableOpacity
             style={styles.buttomDetalles}
-            onPress={() => router.push('/(publications)/publication1')}
+            onPress={() => router.push('/(publications)/publicationDetails')}
           >
             <Text style={styles.buttomDetallesText}>Más Detalles</Text>
           </TouchableOpacity>
@@ -174,23 +123,23 @@ const styles = StyleSheet.create({
   header: {
     height: moderateScale(120),
     width: '100%',
-    //backgroundColor: "red",
+    //backgroundColor: 'red',
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
   },
   body: {
-    height: moderateScale(430),
+    height: moderateScale(370),
     width: '100%',
-    //backgroundColor: "yellow",
+    //backgroundColor: 'yellow',
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
   },
   footer: {
-    height: moderateScale(120),
+    height: moderateScale(250),
     width: '100%',
-    //backgroundColor: "red",
+    //backgroundColor: 'red',
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
@@ -242,7 +191,7 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(8),
     paddingHorizontal: moderateScale(12),
     borderRadius: moderateScale(20),
-    backgroundColor: '#F5F5F5',
+    //backgroundColor: '#F5F5F5',
     flex: 1,
     justifyContent: 'center',
     marginHorizontal: moderateScale(4),
@@ -272,6 +221,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
     borderRadius: moderateScale(10),
+    marginBottom: verticalScale(10),
   },
   imagePublication: {
     width: moderateScale(300),

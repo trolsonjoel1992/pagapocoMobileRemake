@@ -15,7 +15,7 @@ export default function Index() {
     )
   }
 
-  // Redirige a splash primero (como en tu versión actual)
+  // Redirige a splash
   // Pero ahora con conocimiento del estado de autenticación
-  return <Redirect href="/splash" />
+  return <Redirect href="/(filter)/filter" /> // /splash
 }

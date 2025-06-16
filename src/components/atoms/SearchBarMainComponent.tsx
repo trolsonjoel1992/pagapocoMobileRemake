@@ -26,9 +26,9 @@ const SearchBarMainComponent = ({
       <View style={styles.containerInputAndSearchIcon}>
         {showBackButton && (
           <TouchableOpacity
-            style={styles.backButton} // Estilo con área táctil amplia
-            onPress={onBackPress} // Funcionalidad opcional
-            activeOpacity={0.6} // Efecto visual al presionar
+            style={styles.backButton}
+            onPress={onBackPress}
+            activeOpacity={0.6}
           >
             <Image
               source={ImagesPath.imageArrowBack}
@@ -37,17 +37,6 @@ const SearchBarMainComponent = ({
             />
           </TouchableOpacity>
         )}
-        {/* <TouchableOpacity
-          style={styles.backButton} // Estilo con área táctil amplia
-          //onPress={onBackPress} // Funcionalidad opcional
-          activeOpacity={0.6} // Efecto visual al presionar
-        >
-          <Image
-            source={ImagesPath.imageArrowBack}
-            style={styles.logoArrowBackStyle}
-            resizeMode="contain"
-          />
-        </TouchableOpacity> */}
         <TextInput
           style={[
             styles.inputSearch,

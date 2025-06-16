@@ -1,9 +1,8 @@
 import SearchBarMainComponent from '@/src/components/atoms/SearchBarMainComponent'
-import SkeletorComponent from '@/src/components/atoms/SkeletorComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { useAuth } from '@/src/hooks/useAuth'
 import { router } from 'expo-router'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import {
   FlatList,
   Image,
@@ -30,7 +29,7 @@ const HomeScreen = () => {
   }
 
   // logica skeleton
-  const [showSkeleton, setShowSkeleton] = useState(true)
+  /* const [showSkeleton, setShowSkeleton] = useState(true)
 
   useEffect(() => {
     // mostrar skeleton durante 2 segundos
@@ -46,7 +45,7 @@ const HomeScreen = () => {
         <SkeletorComponent />
       </SafeAreaView>
     )
-  }
+  } */
 
   // Datos de ejemplo para las publicaciones
   const mockPublications = [
@@ -160,7 +159,10 @@ const HomeScreen = () => {
             </TouchableOpacity>
           )} */}
 
-          <TouchableOpacity style={styles.actionButton}>
+          <TouchableOpacity
+            style={styles.actionButton}
+            onPress={() => router.push('/(filter)/filter')}
+          >
             {/* <Ionicons
               name="location-outline"
               size={moderateScale(20)}

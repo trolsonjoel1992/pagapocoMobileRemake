@@ -64,6 +64,8 @@ const ImagesPath = {
   iconAutoFigma: require('@/src/assets/images/imageCategoria/iconAutoFigma.png'),
   iconMotoFigma: require('@/src/assets/images/imageCategoria/iconMotoFigma.png'),
   iconPiezaFigma: require('@/src/assets/images/imageCategoria/iconPiezaFigma.png'),
+  // icono para la pantalla del filtro
+  iconRecomendadoFigma: require('@/src/assets/images/iconRecomendadoFigma.png'),
 }
 
 export default ImagesPath
