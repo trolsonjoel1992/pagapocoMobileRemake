@@ -1,7 +1,7 @@
+import SearchBarMainComponent from '@/src/components/atoms/SearchBarMainComponent'
 import SkeletorComponent from '@/src/components/atoms/SkeletorComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { useAuth } from '@/src/hooks/useAuth'
-import { AntDesign, Feather, Ionicons } from '@expo/vector-icons'
 import { router } from 'expo-router'
 import React, { useEffect, useState } from 'react'
 import {
@@ -9,7 +9,6 @@ import {
   Image,
   StyleSheet,
   Text,
-  TextInput,
   TouchableOpacity,
   View,
 } from 'react-native'
@@ -59,59 +58,59 @@ const HomeScreen = () => {
     }, */
     {
       id: 1,
-      title: 'Volkswagen Polo',
-      price: '$15.000.000',
+      title: 'Nombre publicación',
+      price: '$000.000',
       //image: "https://example.com/iphone.jpg",
-      location: 'Resistencia, Chaco',
+      //location: 'Resistencia, Chaco',
     },
     {
       id: 2,
-      title: 'Honda Wave',
-      price: '$2.500.000',
+      title: 'Nombre publicación',
+      price: '$000.000',
       //image: "https://example.com/sofa.jpg",
-      location: 'Barranqueras, Chaco',
+      //location: 'Barranqueras, Chaco',
     },
     {
       id: 3,
-      title: 'Toyota Hilux',
-      price: '$38.000.000',
+      title: 'Nombre publicación',
+      price: '$000.000',
       //image: "https://example.com/bike.jpg",
-      location: 'Resistencia, Chaco',
+      //location: 'Resistencia, Chaco',
     },
     {
       id: 4,
-      title: 'Ranger Raptor',
-      price: '$58.000.000',
+      title: 'Nombre publicación',
+      price: '$000.000',
       //image: "https://example.com/laptop.jpg",
-      location: 'Fontana, Chaco',
+      //location: 'Fontana, Chaco',
     },
     {
       id: 5,
-      title: 'Toyota SW4',
-      price: '$38.000.000',
+      title: 'Nombre publicación',
+      price: '$000.000',
       //image: "https://example.com/bike.jpg",
-      location: 'Resistencia, Chaco',
+      //location: 'Resistencia, Chaco',
     },
     {
       id: 6,
-      title: 'Honda Biz',
-      price: '$3.000.000',
+      title: 'Nombre publicación',
+      price: '$000.000',
       //image: "https://example.com/laptop.jpg",
-      location: 'Fontana, Chaco',
+      //location: 'Fontana, Chaco',
     },
     {
       id: 7,
-      title: 'Honda Tornado',
-      price: '$12.000.000',
+      title: 'Nombre publicación',
+      price: '$000.000',
       //image: "https://example.com/bike.jpg",
-      location: 'Resistencia, Chaco',
+      //location: 'Resistencia, Chaco',
     },
     {
       id: 8,
-      title: 'Volkswagen Amarok',
-      price: '$45.000.000',
+      title: 'Nombre publicación',
+      price: '$000.000',
       //image: "https://example.com/laptop.jpg",
-      location: 'Fontana, Chaco',
+      //location: 'Fontana, Chaco',
     },
     // Agrega más publicaciones según necesites
   ]
@@ -119,64 +118,34 @@ const HomeScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
-        {/* Buscador, Notificaciones, Login*/}
-
-        {/* Barra de busqueda */}
+        {/* Componenente del buscador */}
         <View style={styles.searchContainer}>
-          {/* Boton de busqueda */}
-          <TouchableOpacity style={styles.searchIconContainer}>
-            <Feather
-              name="search"
-              size={moderateScale(24)}
-              color="gray"
-              style={styles.searchIcon}
-            />
-          </TouchableOpacity>
-
-          <TextInput style={styles.searchInput} placeholder=" Buscar..." />
-
-          {/* botones de filtro y notificaciones */}
-          <View style={styles.searchActions}>
-            <TouchableOpacity style={styles.actionIcon}>
-              {/* <Feather name="filter" size={moderateScale(24)} color="gray" /> */}
-              <AntDesign name="bars" size={moderateScale(24)} color="gray" />
-            </TouchableOpacity>
-
-            <TouchableOpacity
-              style={styles.actionIcon}
-              onPress={() => router.push('/(notifications)/notification')}
-            >
-              <Ionicons
-                name="notifications-outline"
-                size={moderateScale(24)}
-                color="gray"
-              />
-            </TouchableOpacity>
-          </View>
+          {/* <SearchBarMainComponent
+            showBackButton
+            onBackPress={() => router.push('/(auth)/FormLogin')}
+            placeholder="Buscar"
+          /> */}
+          <SearchBarMainComponent />
         </View>
 
         {/* Botones de acciones - login y ubicacion */}
         <View style={styles.actionsContainer}>
-          {/* <TouchableOpacity style={styles.actionButton}>
-            <Ionicons
+          <TouchableOpacity style={styles.actionButton}>
+            {/* <Ionicons
               name="location-outline"
               size={moderateScale(20)}
               color="gray"
+            /> */}
+            <Image
+              source={ImagesPath.iconUbicaionFigma}
+              style={styles.actionIcon}
+              resizeMode="contain"
             />
             <Text style={styles.textActionsIcon}>Elige tu ciudad</Text>
-          </TouchableOpacity> */}
-
-          <TouchableOpacity
-            style={styles.actionButton}
-            onPress={async () => {
-              await logout()
-              router.push('/(tabs)/home')
-            }}
-          >
-            <Text>Cerrar Sesión</Text>
           </TouchableOpacity>
 
-          {!user && <View style={styles.separator} />}
+          {/* Boton para iniciar sesion - antiguo */}
+          {/* {!user && <View style={styles.separator} />}
           {user ? (
             <View style={styles.mismoEspacio}></View>
           ) : (
@@ -189,7 +158,21 @@ const HomeScreen = () => {
               <AntDesign name="login" size={moderateScale(20)} color="gray" />
               <Text style={styles.textActionsIcon}>Iniciar Sesión</Text>
             </TouchableOpacity>
-          )}
+          )} */}
+
+          <TouchableOpacity style={styles.actionButton}>
+            {/* <Ionicons
+              name="location-outline"
+              size={moderateScale(20)}
+              color="gray"
+            /> */}
+            <Image
+              source={ImagesPath.iconFiltroFigma}
+              style={styles.actionIcon}
+              resizeMode="contain"
+            />
+            <Text style={styles.textActionsIcon}>Filtros</Text>
+          </TouchableOpacity>
         </View>
 
         <View style={styles.categoriasContainer}>
@@ -201,7 +184,7 @@ const HomeScreen = () => {
               style={{ justifyContent: 'center', alignItems: 'center' }}
             >
               <Image
-                source={ImagesPath.iconCamion}
+                source={ImagesPath.iconCamionFigma}
                 style={styles.iconCategorias}
                 resizeMode="contain"
               />
@@ -225,7 +208,7 @@ const HomeScreen = () => {
               style={{ justifyContent: 'center', alignItems: 'center' }}
             >
               <Image
-                source={ImagesPath.iconCamioneta}
+                source={ImagesPath.iconCamionetaFigma}
                 style={styles.iconCategorias}
                 resizeMode="contain"
               />
@@ -249,7 +232,7 @@ const HomeScreen = () => {
               style={{ justifyContent: 'center', alignItems: 'center' }}
             >
               <Image
-                source={ImagesPath.iconAuto}
+                source={ImagesPath.iconAutoFigma}
                 style={styles.iconCategorias}
                 resizeMode="contain"
               />
@@ -272,7 +255,7 @@ const HomeScreen = () => {
               style={{ justifyContent: 'center', alignItems: 'center' }}
             >
               <Image
-                source={ImagesPath.iconMoto}
+                source={ImagesPath.iconMotoFigma}
                 style={styles.iconCategorias}
                 resizeMode="contain"
               />
@@ -295,7 +278,7 @@ const HomeScreen = () => {
               style={{ justifyContent: 'center', alignItems: 'center' }}
             >
               <Image
-                source={ImagesPath.iconPieza}
+                source={ImagesPath.iconPiezaFigma}
                 style={styles.iconCategorias}
                 resizeMode="contain"
               />
@@ -323,7 +306,7 @@ const HomeScreen = () => {
               onPress={() => router.push('/(publications)/publication1')} // `/ (publications)/publication${item.id}`
             >
               <Image
-                source={ImagesPath.imageDefault} // { uri: item.image }
+                source={ImagesPath.imageDefault} // { uri: item.image } // imageDefault
                 style={styles.publicationImage}
                 resizeMode="contain" // "cover"
               />
@@ -332,9 +315,9 @@ const HomeScreen = () => {
                   {item.title}
                 </Text>
                 <Text style={styles.publicationPrice}>{item.price}</Text>
-                <Text style={styles.publicationLocation} numberOfLines={1}>
+                {/* <Text style={styles.publicationLocation} numberOfLines={1}>
                   {item.location}
-                </Text>
+                </Text> */}
               </View>
             </TouchableOpacity>
           )}
@@ -436,7 +419,7 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(8),
     paddingHorizontal: moderateScale(12),
     borderRadius: moderateScale(20),
-    backgroundColor: '#F5F5F5',
+    //backgroundColor: '#F5F5F5',
     flex: 1,
     justifyContent: 'center',
     marginHorizontal: moderateScale(4),
@@ -605,7 +588,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    elevation: 5,
+    //elevation: 5,
     marginBottom: verticalScale(12),
   },
   publicationImage: {
@@ -617,14 +600,14 @@ const styles = StyleSheet.create({
     padding: moderateScale(10),
   },
   publicationTitle: {
-    fontSize: moderateScale(14),
+    fontSize: moderateScale(15),
     fontWeight: '500',
     marginBottom: verticalScale(4),
   },
   publicationPrice: {
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(22),
     fontWeight: 'bold',
-    color: '#A230C7', // Puedes cambiar este color
+    //color: '#A230C7', // Puedes cambiar este color
     marginBottom: verticalScale(4),
   },
   publicationLocation: {

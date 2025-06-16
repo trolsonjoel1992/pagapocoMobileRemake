@@ -1,7 +1,7 @@
-import ImagesPath from "@/src/constants/ImagesPath";
-import { AntDesign, Entypo, Feather, Ionicons } from "@expo/vector-icons";
-import { router } from "expo-router";
-import React from "react";
+import ImagesPath from '@/src/constants/ImagesPath'
+import { AntDesign, Entypo, Feather, Ionicons } from '@expo/vector-icons'
+import { router } from 'expo-router'
+import React from 'react'
 import {
   Image,
   StyleSheet,
@@ -9,13 +9,13 @@ import {
   TextInput,
   TouchableOpacity,
   View,
-} from "react-native";
-import { SafeAreaView } from "react-native-safe-area-context";
-import { moderateScale, verticalScale } from "react-native-size-matters";
+} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 const Publication1 = () => {
   // logica boton iniciar sesion
-  let isLogin = false;
+  let isLogin = false
 
   return (
     <SafeAreaView style={styles.container}>
@@ -44,7 +44,7 @@ const Publication1 = () => {
 
             <TouchableOpacity
               style={styles.actionIcon}
-              onPress={() => router.push("/(notifications)/notification")}
+              onPress={() => router.push('/(notifications)/notification')}
             >
               <Ionicons
                 name="notifications-outline"
@@ -73,7 +73,7 @@ const Publication1 = () => {
           {isLogin ? (
             <TouchableOpacity
               style={styles.actionButton}
-              onPress={() => router.push("/(tabs)/store")} // () => { router.push("/(auth)/FormLogin") }
+              //onPress={() => router.push("/(tabs)/store")} // () => { router.push("/(auth)/FormLogin") }
             >
               <Entypo
                 name="new-message"
@@ -90,7 +90,7 @@ const Publication1 = () => {
               el onPress={handleLogin} abria el modal
               */
               onPress={() => {
-                router.push("/(auth)/FormLogin");
+                router.push('/(auth)/FormLogin')
               }}
             >
               <AntDesign name="login" size={moderateScale(20)} color="gray" />
@@ -104,7 +104,7 @@ const Publication1 = () => {
         <View style={styles.publicationContainer}>
           <Text>2023 | 16.000 km - Publicado hace 2 meses</Text>
 
-          <Text style={{ fontSize: moderateScale(24), fontWeight: "bold" }}>
+          <Text style={{ fontSize: moderateScale(24), fontWeight: 'bold' }}>
             Volkswagen Polo
           </Text>
 
@@ -122,16 +122,17 @@ const Publication1 = () => {
               styles.labelPublicationContainer,
             ]}
           >
-            <Text style={{ fontSize: moderateScale(24), fontWeight: "bold" }}>
+            <Text style={{ fontSize: moderateScale(24), fontWeight: 'bold' }}>
               $ 15.000.000
             </Text>
-            <Text style={{ fontSize: moderateScale(20), fontWeight: "bold" }}>
+            <Text style={{ fontSize: moderateScale(20), fontWeight: 'bold' }}>
               Descripcion
             </Text>
             <Text>En perfecto estado. Papeles al dia</Text>
             <Text>
-              ¡Calidad alemana, bajo consumo y alto valor de reventa! Perfecto para quien busca practicidad sin 
-              dejar de lucir estilo. ¡Contáctanos y llévatelo! 
+              ¡Calidad alemana, bajo consumo y alto valor de reventa! Perfecto
+              para quien busca practicidad sin dejar de lucir estilo.
+              ¡Contáctanos y llévatelo!
             </Text>
           </View>
         </View>
@@ -139,9 +140,9 @@ const Publication1 = () => {
 
       <View style={styles.footer}>
         <View style={styles.buttomDetallesContainer}>
-          <TouchableOpacity 
+          <TouchableOpacity
             style={styles.buttomDetalles}
-            onPress={() => router.push("/(tabs)/(publications)/publicationDetails")}
+            onPress={() => router.push('/(publications)/publication1')}
           >
             <Text style={styles.buttomDetallesText}>Más Detalles</Text>
           </TouchableOpacity>
@@ -158,48 +159,48 @@ const Publication1 = () => {
         </View>
       </View>
     </SafeAreaView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   // estilos de la estructura
   container: {
     flex: 1,
-    backgroundColor: "#fff",
-    justifyContent: "space-between",
-    alignItems: "center",
+    backgroundColor: '#fff',
+    justifyContent: 'space-between',
+    alignItems: 'center',
     //paddingVertical: verticalScale(20),
   },
   header: {
     height: moderateScale(120),
-    width: "100%",
+    width: '100%',
     //backgroundColor: "red",
-    textAlign: "center",
-    justifyContent: "center",
-    alignItems: "center",
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   body: {
     height: moderateScale(430),
-    width: "100%",
+    width: '100%',
     //backgroundColor: "yellow",
-    textAlign: "center",
-    justifyContent: "center",
-    alignItems: "center",
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   footer: {
     height: moderateScale(120),
-    width: "100%",
+    width: '100%',
     //backgroundColor: "red",
-    textAlign: "center",
-    justifyContent: "center",
-    alignItems: "center",
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
     gap: moderateScale(10),
   },
   // estilos del contenido del header
   searchContainer: {
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
     borderRadius: moderateScale(20),
     paddingHorizontal: moderateScale(10),
     height: moderateScale(40),
@@ -214,15 +215,15 @@ const styles = StyleSheet.create({
   },
   searchInput: {
     flex: 1,
-    height: "100%",
+    height: '100%',
     fontSize: moderateScale(16),
-    backgroundColor: "#F5F5F5",
+    backgroundColor: '#F5F5F5',
     borderRadius: moderateScale(20),
     paddingVertical: 0,
   },
   searchActions: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     marginLeft: moderateScale(12),
     gap: moderateScale(16),
   },
@@ -230,46 +231,46 @@ const styles = StyleSheet.create({
     padding: moderateScale(4),
   },
   actionsContainer: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center",
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+    alignItems: 'center',
     paddingHorizontal: moderateScale(8),
   },
   actionButton: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: 'row',
+    alignItems: 'center',
     paddingVertical: verticalScale(8),
     paddingHorizontal: moderateScale(12),
     borderRadius: moderateScale(20),
-    backgroundColor: "#F5F5F5",
+    backgroundColor: '#F5F5F5',
     flex: 1,
-    justifyContent: "center",
+    justifyContent: 'center',
     marginHorizontal: moderateScale(4),
   },
   textActionsIcon: {
     fontSize: moderateScale(14),
     marginLeft: moderateScale(8),
-    color: "#555",
+    color: '#555',
   },
   separator: {
     width: 1,
     height: moderateScale(24),
-    backgroundColor: "#E0E0E0",
+    backgroundColor: '#E0E0E0',
     marginHorizontal: moderateScale(4),
   },
   // estilo para la publicacion
   publicationContainer: {
-    width: "90%",
+    width: '90%',
     //height: moderateScale(450),
     //backgroundColor: "red",
-    justifyContent: "center",
+    justifyContent: 'center',
     //gap: moderateScale(5)
   },
   imagePublicationContainer: {
     height: moderateScale(220),
-    backgroundColor: "black",
-    justifyContent: "center",
-    alignItems: "center",
+    backgroundColor: 'black',
+    justifyContent: 'center',
+    alignItems: 'center',
     borderRadius: moderateScale(10),
   },
   imagePublication: {
@@ -277,15 +278,15 @@ const styles = StyleSheet.create({
     height: moderateScale(210),
   },
   labelPublicationContainer: {
-    width: "100%",
-    textAlign: "left",
+    width: '100%',
+    textAlign: 'left',
     //paddingHorizontal: moderateScale(10),
   },
   // estilos para los botones de mas detalles
   buttomDetallesContainer: {
-    justifyContent: "center",
-    flexDirection: "row",
-    alignItems: "center",
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: moderateScale(20),
     //paddingHorizontal: moderateScale(90),
     //marginTop: verticalScale(10),
@@ -293,23 +294,23 @@ const styles = StyleSheet.create({
     //backgroundColor: "yellow",
   },
   buttomDetalles: {
-    backgroundColor: "#F5F5F5",
+    backgroundColor: '#F5F5F5',
     width: moderateScale(330),
     paddingVertical: verticalScale(10),
     paddingHorizontal: verticalScale(10),
     borderRadius: moderateScale(20),
-    alignItems: "center",
+    alignItems: 'center',
   },
   buttomDetallesText: {
-    color: "#1A73E9",
+    color: '#1A73E9',
     fontSize: moderateScale(16),
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
   // estilos para los botones de contacto
   buttomContactContainer: {
-    justifyContent: "center",
-    flexDirection: "row",
-    alignItems: "center",
+    justifyContent: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
     gap: moderateScale(20),
     //paddingHorizontal: moderateScale(10),
     //marginTop: verticalScale(10),
@@ -317,18 +318,18 @@ const styles = StyleSheet.create({
     //backgroundColor: "yellow",
   },
   buttomContact: {
-    backgroundColor: "#A230C7",
+    backgroundColor: '#A230C7',
     width: moderateScale(155),
     paddingVertical: verticalScale(10),
     paddingHorizontal: verticalScale(10),
     borderRadius: moderateScale(20),
-    alignItems: "center",
+    alignItems: 'center',
   },
   buttomContactText: {
-    color: "white",
+    color: 'white',
     fontSize: moderateScale(16),
-    fontWeight: "bold",
+    fontWeight: 'bold',
   },
-});
+})
 
-export default Publication1;
+export default Publication1
