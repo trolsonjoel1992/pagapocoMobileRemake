@@ -5,17 +5,30 @@ import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-type FilterProps = {
+type FilterCategoryProps = {
   image?: any
   title?: string
+  onPressFunction?: () => void
 }
 
 const ButtonCategoryComponent = ({
   image = ImagesPath.iconCamionFigma,
   title = 'Camiones',
-}: FilterProps) => {
+  onPressFunction,
+}: FilterCategoryProps) => {
+  const handlePress = () => {
+    if (onPressFunction) {
+      onPressFunction()
+    } else {
+      console.warn('No se proporcionó una función onPress')
+    }
+  }
+
   return (
-    <TouchableOpacity style={styles.buttonCategoryContainer}>
+    <TouchableOpacity
+      style={styles.buttonCategoryContainer}
+      onPress={handlePress}
+    >
       <Text style={styles.textCategories}>{title}</Text>
       <Image
         source={image}
@@ -31,6 +44,8 @@ const filter = () => {
     <View style={styles.container}>
       {/* header */}
       {/* <View style={styles.header}></View> */}
+
+      {/* Componente del header */}
       <HeaderMainComponent titulo="Filtros" onBackPress={() => router.back()} />
 
       {/* body */}
@@ -41,6 +56,7 @@ const filter = () => {
           <ButtonCategoryComponent
             title="Recomendados"
             image={ImagesPath.iconRecomendadoFigma}
+            onPressFunction={() => router.push('/(filter)/filterRecommended')}
           />
           <ButtonCategoryComponent
             title="Camiones"
@@ -70,7 +86,7 @@ const filter = () => {
         <View style={styles.buttomVolverContainer}>
           <TouchableOpacity
             style={styles.buttomVolver}
-            onPress={() => router.push('/(tabs)/home')}
+            onPress={() => router.back()} // router.push('/(tabs)/home')
           >
             <Text style={styles.buttomVolverText}>Volver</Text>
           </TouchableOpacity>
