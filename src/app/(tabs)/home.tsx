@@ -14,6 +14,49 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
+// Dentro de HomeScreen.js o en un archivo separado si prefieres
+import AntDesign from '@expo/vector-icons/AntDesign'
+
+const PublicationCard = ({ item }) => {
+  const [isFavorite, setIsFavorite] = useState(false)
+
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite)
+  }
+
+  return (
+    <TouchableOpacity
+      style={styles.publicationCard}
+      onPress={() => router.push('/(publications)/publication1')}
+    >
+      <View style={styles.imageContainer}>
+        <Image
+          source={ImagesPath.imageDefault}
+          style={styles.publicationImage}
+          resizeMode="contain"
+        />
+        {/* Botón de favoritos */}
+        <TouchableOpacity
+          style={styles.favoriteButton}
+          onPress={toggleFavorite}
+        >
+          <AntDesign
+            name={isFavorite ? 'heart' : 'hearto'}
+            size={16}
+            color={isFavorite ? '#A230C7' : '#666'}
+          />
+        </TouchableOpacity>
+      </View>
+      <View style={styles.publicationInfo}>
+        <Text style={styles.publicationTitle} numberOfLines={1}>
+          {item.title}
+        </Text>
+        <Text style={styles.publicationPrice}>{item.price}</Text>
+      </View>
+    </TouchableOpacity>
+  )
+}
+
 const HomeScreen = () => {
   // logica boton iniciar sesion
   //let isLogin = false;
@@ -26,6 +69,13 @@ const HomeScreen = () => {
 
   const handleLogin = () => {
     setIsModalLoginVisible(true)
+  }
+
+  // logica boton favoritos
+  const [isFavorite, setIsFavorite] = useState(false)
+
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite)
   }
 
   // logica skeleton
@@ -298,31 +348,10 @@ const HomeScreen = () => {
         </View>
       </View>
 
-      {/* Body con FlatList para las publicaciones */}
       <View style={styles.body}>
         <FlatList
           data={mockPublications}
-          renderItem={({ item }) => (
-            <TouchableOpacity
-              style={styles.publicationCard}
-              onPress={() => router.push('/(publications)/publication1')} // `/ (publications)/publication${item.id}`
-            >
-              <Image
-                source={ImagesPath.imageDefault} // { uri: item.image } // imageDefault
-                style={styles.publicationImage}
-                resizeMode="contain" // "cover"
-              />
-              <View style={styles.publicationInfo}>
-                <Text style={styles.publicationTitle} numberOfLines={1}>
-                  {item.title}
-                </Text>
-                <Text style={styles.publicationPrice}>{item.price}</Text>
-                {/* <Text style={styles.publicationLocation} numberOfLines={1}>
-                  {item.location}
-                </Text> */}
-              </View>
-            </TouchableOpacity>
-          )}
+          renderItem={({ item }) => <PublicationCard item={item} />}
           keyExtractor={(item) => item.id.toString()}
           numColumns={2}
           columnWrapperStyle={styles.columnWrapper}
@@ -615,6 +644,33 @@ const styles = StyleSheet.create({
   publicationLocation: {
     fontSize: moderateScale(12),
     color: '#666',
+  },
+  imageContainer: {
+    position: 'relative',
+    width: '100%',
+    height: verticalScale(120),
+    backgroundColor: '#F5F5F5',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  favoriteButton: {
+    position: 'absolute',
+    top: moderateScale(5),
+    right: moderateScale(5),
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderRadius: moderateScale(15),
+    width: moderateScale(30),
+    height: moderateScale(30),
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 3,
+    shadowColor: '#000',
+    shadowOffset: {
+      width: 0,
+      height: 1,
+    },
+    shadowOpacity: 0.22,
+    shadowRadius: 2.22,
   },
 })
 

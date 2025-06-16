@@ -27,7 +27,7 @@ const PublicationComponent = () => {
         <View style={styles.imageContainer}>
           <TouchableOpacity
             style={styles.imagePublicationTouchable}
-            //onPress={() => router.push('/(publications)/publication1')}
+            onPress={() => router.push('/(publications)/publication1')}
           >
             <Image
               source={ImagesPath.imageDefault}
@@ -48,7 +48,7 @@ const PublicationComponent = () => {
             onPress={toggleFavorite}
           >
             <AntDesign
-              name="hearto"
+              name={isFavorite ? 'heart' : 'hearto'}
               size={16}
               color={isFavorite ? '#A230C7' : '#666'}
             />

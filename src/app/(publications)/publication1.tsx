@@ -16,7 +16,7 @@ const Publication1 = () => {
           {/* Componente del buscador */}
           <SearchBarMainComponent
             showBackButton
-            onBackPress={() => router.push('/(tabs)/home')}
+            onBackPress={() => router.back()} //push('/(tabs)/home')
           />
         </View>
 
