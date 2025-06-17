@@ -1,14 +1,8 @@
+import SearchBarComponent from '@/src/components/atoms/SearchBarComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { router } from 'expo-router'
 import React from 'react'
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
@@ -16,25 +10,7 @@ const EmptyPublications = () => {
   return (
     <SafeAreaView style={styles.container}>
       {/* Barra de búsqueda */}
-      <View style={styles.searchContainer}>
-        <TextInput
-          style={styles.searchPlaceholder}
-          placeholder="Busca tu publicación"
-          placeholderTextColor="#A0A0A0"
-          onFocus={() => console.log('Input activado')} // Opcional: acción al tocar
-        />
-        <TouchableOpacity
-          onPress={() => {
-            console.log('Botón de búsqueda presionado')
-          }}
-        >
-          <Image
-            source={ImagesPath.iconSearchBar}
-            style={styles.searchIcon}
-            resizeMode="contain"
-          />
-        </TouchableOpacity>
-      </View>
+      <SearchBarComponent />
 
       <View style={styles.emptyContainer}>
         <Image
@@ -52,7 +28,10 @@ const EmptyPublications = () => {
         </Text>
 
         {/* Botón "Publicar ahora" */}
-        <TouchableOpacity style={styles.publishButton}>
+        <TouchableOpacity
+          style={styles.publishButton}
+          onPress={() => router.push('/(tabs)/sell')}
+        >
           <Text style={styles.publishButtonText}>Publicar ahora</Text>
         </TouchableOpacity>
       </View>
@@ -63,34 +42,11 @@ const EmptyPublications = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    alignItems: 'center',
     backgroundColor: '#FFFFFF',
     paddingHorizontal: moderateScale(0),
   },
-  headerWrapper: {
-    paddingHorizontal: 0, // Elimina el padding horizontal
-    marginHorizontal: 0, // Elimina el margen horizontal
-  },
-  searchContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#ECE6F0',
-    borderRadius: moderateScale(20),
-    paddingHorizontal: moderateScale(16),
-    paddingVertical: verticalScale(12),
-    marginTop: verticalScale(16),
-    marginBottom: verticalScale(32),
-    marginHorizontal: moderateScale(30),
-  },
-  searchIcon: {
-    width: moderateScale(32),
-    height: moderateScale(32),
-  },
-  searchPlaceholder: {
-    flex: 1,
-    fontSize: moderateScale(16),
-    color: '#A0A0A0',
-    marginLeft: 40,
-  },
+
   emptyContainer: {
     flex: 1,
     justifyContent: 'center',
@@ -99,20 +55,21 @@ const styles = StyleSheet.create({
     paddingBottom: verticalScale(40),
   },
   emptyImage: {
-    width: moderateScale(180),
-    height: moderateScale(180),
-    marginBottom: verticalScale(50),
+    width: moderateScale(200),
+    height: moderateScale(200),
+    marginBottom: moderateScale(50),
+    marginTop: moderateScale(50),
   },
   emptyTitle: {
-    fontSize: moderateScale(22),
+    fontSize: moderateScale(30),
     fontWeight: 'bold',
-    color: '#333333',
+    color: 'black',
     marginBottom: verticalScale(25),
     textAlign: 'center',
   },
   emptyText: {
     fontSize: moderateScale(16),
-    color: '#666666',
+    color: '#9A9292',
     textAlign: 'center',
     marginBottom: verticalScale(50),
     lineHeight: verticalScale(25),
@@ -121,8 +78,8 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(50),
   },
   publishButtonText: {
-    fontSize: moderateScale(16),
-    color: 'blue',
+    fontSize: moderateScale(20),
+    color: '#1A73E9',
     fontWeight: '500',
   },
 })

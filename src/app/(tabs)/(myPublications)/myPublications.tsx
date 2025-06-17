@@ -3,7 +3,14 @@ import IconsPath from '@/src/constants/IconsPath'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { router } from 'expo-router'
 import React, { useState } from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import {
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
@@ -22,31 +29,31 @@ const MyPublications = () => {
   const publications: Publication[] = [
     {
       id: 1,
-      name: 'Nombre del producto',
+      name: 'Nombre publicación',
       image: ImagesPath.imageMyPublication,
       type: 'prem',
     },
     {
       id: 2,
-      name: 'Nombre del producto',
+      name: 'Nombre publicación',
       image: ImagesPath.imageFrePublication,
       type: 'free',
     },
     {
       id: 3,
-      name: 'Nombre del producto',
+      name: 'Nombre publicación',
       image: ImagesPath.imageMyPublication,
       type: 'prem',
     },
     {
       id: 4,
-      name: 'Nombre del producto',
+      name: 'Nombre publicación',
       image: ImagesPath.imageFrePublication,
       type: 'free',
     },
   ]
   const handleImagePress = (publicationId: number) => {
-    console.log(`Imagen de la publicación ${publicationId} presionada`)
+    router.push('/(mypublicaciones)/myPublication')
   }
   const toggleSoldStatus = (publicationId: number) => {
     if (soldPublications.includes(publicationId)) {
@@ -70,132 +77,138 @@ const MyPublications = () => {
   return (
     <SafeAreaView style={styles.container}>
       <SearchBarComponent />
-      <View style={styles.body}>
-        {publications.map((publication) => {
-          if (hiddenPublications.includes(publication.id)) {
-            return null
-          }
-          const isPaused = pausedPublications.includes(publication.id)
-          const isSold = soldPublications.includes(publication.id)
-          return (
-            <View
-              key={publication.id}
-              style={[
-                styles.publicationContainer,
-                isPaused && styles.pausedContainer,
-              ]}
-            >
-              <TouchableOpacity
-                style={styles.imageContainer}
-                onPress={() => handleImagePress(publication.id)}
+      <ScrollView>
+        <View style={styles.body}>
+          {publications.map((publication) => {
+            if (hiddenPublications.includes(publication.id)) {
+              return null
+            }
+            const isPaused = pausedPublications.includes(publication.id)
+            const isSold = soldPublications.includes(publication.id)
+            return (
+              <View
+                key={publication.id}
+                style={[
+                  styles.publicationContainer,
+                  isPaused && styles.pausedContainer,
+                ]}
               >
-                <Image
-                  source={publication.image}
-                  style={styles.publicationImage}
-                  resizeMode="cover"
-                />
-              </TouchableOpacity>
-
-              <View style={styles.rightContainer}>
-                <Text style={styles.publicationTitle}>{publication.name}</Text>
-
                 <TouchableOpacity
-                  style={[styles.actionButton, isSold && styles.soldButton]}
-                  onPress={() => toggleSoldStatus(publication.id)}
+                  style={styles.imageContainer}
+                  onPress={() => handleImagePress(publication.id)}
                 >
-                  <Text
-                    style={[
-                      styles.actionButtonText,
-                      isSold && styles.soldButtonText,
-                    ]}
-                  >
-                    {isSold ? 'Publicar otro igual' : 'Marcar como vendido'}
-                  </Text>
+                  <Image
+                    source={publication.image}
+                    style={styles.publicationImage}
+                    resizeMode="cover"
+                  />
                 </TouchableOpacity>
-                <View style={styles.bottomSection}>
-                  {isSold ? (
-                    <Text style={styles.soldText}>Publicación vendida</Text>
-                  ) : (
-                    <View style={styles.buttonsRow}>
-                      <View style={styles.iconContainer}>
-                        {publication.type === 'free' && (
-                          <TouchableOpacity
-                            style={styles.iconButton}
-                            onPress={() =>
-                              router.push('/(mypublicaciones)/premium')
+
+                <View style={styles.rightContainer}>
+                  <Text style={styles.publicationTitle}>
+                    {publication.name}
+                  </Text>
+
+                  <TouchableOpacity
+                    style={[styles.actionButton, isSold && styles.soldButton]}
+                    onPress={() => toggleSoldStatus(publication.id)}
+                  >
+                    <Text
+                      style={[
+                        styles.actionButtonText,
+                        isSold && styles.soldButtonText,
+                      ]}
+                    >
+                      {isSold ? 'Publicar otro igual' : 'Marcar como vendido'}
+                    </Text>
+                  </TouchableOpacity>
+                  <View style={styles.bottomSection}>
+                    {isSold ? (
+                      <Text style={styles.soldText}>Publicación vendida</Text>
+                    ) : (
+                      <View style={styles.buttonsRow}>
+                        <View style={styles.iconContainer}>
+                          {publication.type === 'free' && (
+                            <TouchableOpacity
+                              style={styles.iconButton}
+                              onPress={() =>
+                                router.push('/(mypublicaciones)/premium')
+                              }
+                            >
+                              <Image
+                                source={IconsPath.iconStar}
+                                style={styles.icon}
+                              />
+                            </TouchableOpacity>
+                          )}
+                        </View>
+                        <TouchableOpacity
+                          style={styles.iconButton}
+                          onPress={() => router.push('/(mypublicaciones)/edit')}
+                        >
+                          <Image
+                            source={IconsPath.iconEdit}
+                            style={styles.icon}
+                          />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={styles.iconButton}
+                          onPress={() => togglePauseStatus(publication.id)}
+                        >
+                          <Image
+                            source={
+                              isPaused
+                                ? IconsPath.iconPlay
+                                : IconsPath.iconPause
                             }
-                          >
-                            <Image
-                              source={IconsPath.iconStar}
-                              style={styles.icon}
-                            />
-                          </TouchableOpacity>
-                        )}
+                            style={styles.icon}
+                          />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={styles.iconButton}
+                          onPress={() => handleDelete(publication.id)}
+                        >
+                          <Image
+                            source={IconsPath.iconDelete}
+                            style={styles.icon}
+                          />
+                        </TouchableOpacity>
                       </View>
-                      <TouchableOpacity
-                        style={styles.iconButton}
-                        onPress={() => router.push('/(mypublicaciones)/edit')}
-                      >
-                        <Image
-                          source={IconsPath.iconEdit}
-                          style={styles.icon}
-                        />
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        style={styles.iconButton}
-                        onPress={() => togglePauseStatus(publication.id)}
-                      >
-                        <Image
-                          source={
-                            isPaused ? IconsPath.iconPlay : IconsPath.iconPause
-                          }
-                          style={styles.icon}
-                        />
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        style={styles.iconButton}
-                        onPress={() => handleDelete(publication.id)}
-                      >
-                        <Image
-                          source={IconsPath.iconDelete}
-                          style={styles.icon}
-                        />
-                      </TouchableOpacity>
-                    </View>
-                  )}
-                </View>
-              </View>
-              {isPaused && (
-                <View style={styles.pausedOverlay}>
-                  <View style={styles.overlayContent}>
-                    <Text style={styles.pausedText}>Publicación pausada</Text>
-                    <View style={styles.overlayButtonsContainer}>
-                      <TouchableOpacity
-                        style={styles.iconButton}
-                        onPress={() => togglePauseStatus(publication.id)}
-                      >
-                        <Image
-                          source={IconsPath.iconPlay}
-                          style={styles.icon}
-                        />
-                      </TouchableOpacity>
-                      <TouchableOpacity
-                        style={styles.iconButton}
-                        onPress={() => handleDelete(publication.id)}
-                      >
-                        <Image
-                          source={IconsPath.iconDelete}
-                          style={styles.icon}
-                        />
-                      </TouchableOpacity>
-                    </View>
+                    )}
                   </View>
                 </View>
-              )}
-            </View>
-          )
-        })}
-      </View>
+                {isPaused && (
+                  <View style={styles.pausedOverlay}>
+                    <View style={styles.overlayContent}>
+                      <Text style={styles.pausedText}>Publicación pausada</Text>
+                      <View style={styles.overlayButtonsContainer}>
+                        <TouchableOpacity
+                          style={styles.iconButton}
+                          onPress={() => togglePauseStatus(publication.id)}
+                        >
+                          <Image
+                            source={IconsPath.iconPlay}
+                            style={styles.icon}
+                          />
+                        </TouchableOpacity>
+                        <TouchableOpacity
+                          style={styles.iconButton}
+                          onPress={() => handleDelete(publication.id)}
+                        >
+                          <Image
+                            source={IconsPath.iconDelete}
+                            style={styles.icon}
+                          />
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  </View>
+                )}
+              </View>
+            )
+          })}
+        </View>
+      </ScrollView>
     </SafeAreaView>
   )
 }
@@ -214,22 +227,20 @@ const styles = StyleSheet.create({
     width: '100%',
     height: moderateScale(120),
     backgroundColor: '#ECE6F0',
-    borderRadius: moderateScale(15),
+    borderRadius: moderateScale(20),
     marginBottom: verticalScale(25),
     flexDirection: 'row',
     padding: moderateScale(12),
     overflow: 'hidden',
     position: 'relative',
   },
-  pausedContainer: {
-    opacity: 0.7,
-  },
   imageContainer: {
-    width: moderateScale(100),
+    backgroundColor: '#fff',
+    width: moderateScale(120),
     height: moderateScale(100),
     borderRadius: moderateScale(10),
     overflow: 'hidden',
-    marginRight: moderateScale(12),
+    marginRight: moderateScale(7),
   },
   publicationImage: {
     width: '100%',
@@ -246,20 +257,20 @@ const styles = StyleSheet.create({
     marginBottom: verticalScale(4),
   },
   actionButton: {
-    height: moderateScale(32),
+    height: moderateScale(35),
     backgroundColor: '#A230C7',
     borderRadius: moderateScale(20),
     justifyContent: 'center',
     alignItems: 'center',
-    marginBottom: verticalScale(8),
-  },
-  soldButton: {
-    backgroundColor: 'rgba(162, 48, 199, 0.4)',
+    marginBottom: moderateScale(5),
   },
   actionButtonText: {
     color: 'white',
     fontSize: moderateScale(18),
     fontWeight: 'bold',
+  },
+  soldButton: {
+    backgroundColor: 'rgba(162, 48, 199, 0.4)',
   },
   soldButtonText: {
     color: '#4C4C4C',
@@ -296,6 +307,9 @@ const styles = StyleSheet.create({
     color: '#4C4C4C',
     textAlign: 'center',
   },
+  pausedContainer: {
+    opacity: 1,
+  },
   pausedOverlay: {
     position: 'absolute',
     top: 0,
@@ -311,17 +325,18 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   pausedText: {
-    marginTop: moderateScale(39),
-    fontSize: moderateScale(24),
-    marginLeft: moderateScale(110),
+    marginTop: moderateScale(20),
+    fontSize: moderateScale(28),
+    marginLeft: moderateScale(10),
     fontWeight: 'bold',
     color: 'white',
-    marginBottom: moderateScale(10),
+    marginBottom: moderateScale(20),
   },
   overlayButtonsContainer: {
-    marginLeft: moderateScale(101),
+    marginBottom: moderateScale(5),
+    marginLeft: moderateScale(103),
     flexDirection: 'row',
-    gap: 18,
+    gap: 12,
     justifyContent: 'center',
     width: '100%',
   },

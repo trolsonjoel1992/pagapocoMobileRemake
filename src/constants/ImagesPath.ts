@@ -44,6 +44,28 @@ const ImagesPath = {
   // imagenes selecionpara editar publics
   imagePreS: require('@/src/assets/images/publicationsbuton/imagePremSel.png'),
   imageFreS: require('@/src/assets/images/publicationsbuton/imageFreeSel.png'),
+  // imagen editar precio
+  priceImage: require('@/src/assets/images/publicationsbuton/priceImage.png'),
+  // imagenes de tu publicacion
+  publImageF: require('@/src/assets/images/publicationsbuton/publicationImageF.png'),
+  publImageP: require('@/src/assets/images/publicationsbuton/publicationImageP.png'),
+  noFavorites: require('@/src/assets/images/imageFavorites/noFavorites.png'),
+  //imagen en el perfil
+  userimage: require('@/src/assets/images/imageProfile/userCircle.png'),
+  // Imagen de publicacion principal del inicio de prueba
+  imagePublicationPrueba: require('@/src/assets/images/ImagePublication/ImagePublicationPrueba.png'),
+  // iconos para el home principal
+  iconNotificationFigma: require('@/src/assets/images/iconNotificacionFigma.png'),
+  iconUbicaionFigma: require('@/src/assets/images/iconUbicacionFigma.png'),
+  iconFiltroFigma: require('@/src/assets/images/iconFiltroFigma.png'),
+  // iconos para las categorias del home principal
+  iconCamionFigma: require('@/src/assets/images/imageCategoria/iconCamionFigma.png'),
+  iconCamionetaFigma: require('@/src/assets/images/imageCategoria/iconCamionetaFigma.png'),
+  iconAutoFigma: require('@/src/assets/images/imageCategoria/iconAutoFigma.png'),
+  iconMotoFigma: require('@/src/assets/images/imageCategoria/iconMotoFigma.png'),
+  iconPiezaFigma: require('@/src/assets/images/imageCategoria/iconPiezaFigma.png'),
+  // icono para la pantalla del filtro
+  iconRecomendadoFigma: require('@/src/assets/images/iconRecomendadoFigma.png'),
 }
 
 export default ImagesPath

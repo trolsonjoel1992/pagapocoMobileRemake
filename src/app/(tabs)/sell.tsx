@@ -1,4 +1,3 @@
-import TabsLayout from '@/src/app/(tabs)/_layout'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { router } from 'expo-router'
 
@@ -58,8 +57,8 @@ const Sell = () => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
-      <TabsLayout />
+      {/*       <TabsLayout />
+       */}
     </SafeAreaView>
   )
 }
