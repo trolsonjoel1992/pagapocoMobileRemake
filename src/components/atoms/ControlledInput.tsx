@@ -1,74 +1,72 @@
-import ImagesPath from '@/src/constants/ImagesPath'
-import { Control, Controller, FieldError } from 'react-hook-form'
+import IconsPath from '@/src/constants/IconsPath'
+import React from 'react'
+import {
+  Controller,
+  FieldError,
+  FieldValues,
+  Path,
+  useFormContext,
+} from 'react-hook-form'
 import {
   Image,
-  KeyboardTypeOptions,
-  ReturnKeyTypeOptions,
   StyleSheet,
   Text,
   TextInput,
+  TextInputProps,
   View,
 } from 'react-native'
 
-interface ControlledInputProps<T extends Record<string, any>> {
-  name: keyof T
+export interface ControlledInputProps<T extends FieldValues>
+  extends TextInputProps {
+  name: Path<T>
   label: string
-  placeholder: string
-  keyboardType: KeyboardTypeOptions
-  returnKeyType: ReturnKeyTypeOptions
-  ref?: React.RefObject<TextInput | null>
-  control: Control<T>
+  nextInputName?: Path<T>
   error?: FieldError
-  onSubmitInput: () => void
 }
 
-export type Input<T> = {
-  key: keyof T
-  label: string
-  placeholder: string
-  ref?: React.RefObject<TextInput | null>
-  keyboardType: KeyboardTypeOptions
-  returnKeyType: ReturnKeyTypeOptions
-}
-
-const ControlledInput = <T extends Record<string, any>>(
-  props: ControlledInputProps<T>
-) => {
+const ControlledInput = <T extends FieldValues>({
+  name,
+  label,
+  nextInputName,
+  ...props
+}: ControlledInputProps<T>) => {
   const {
-    name,
     control,
-    error,
-    keyboardType,
-    label,
-    placeholder,
-    returnKeyType,
-    ref,
-    onSubmitInput,
-  } = props
-
+    setFocus,
+    formState: { isSubmitted },
+  } = useFormContext<T>()
   return (
     <Controller
+      name={name}
       control={control}
-      name={name as any}
-      render={({ field: { onChange, onBlur, value } }) => (
+      render={({ field, fieldState }) => (
         <View style={styles.inputGroup}>
           <Text style={styles.label}>{label}</Text>
           <View style={styles.inputContainer}>
             <TextInput
-              ref={ref}
-              placeholder={placeholder}
+              {...field}
+              {...props}
               placeholderTextColor="#999"
-              keyboardType={keyboardType}
               style={styles.input}
-              onChangeText={onChange}
-              onBlur={onBlur}
-              value={value ? String(value) : ''}
-              returnKeyType={returnKeyType}
-              onSubmitEditing={onSubmitInput}
+              onChangeText={field.onChange}
+              onBlur={field.onBlur}
+              value={field.value ? String(field.value) : ''}
+              returnKeyType={nextInputName ? 'next' : 'done'}
+              onSubmitEditing={() => {
+                if (nextInputName) setFocus(nextInputName)
+              }}
             />
-            <Image source={ImagesPath.iconNotePencil} />
+            {!isSubmitted && <Image source={IconsPath.notePencil} />}
+
+            {isSubmitted && !fieldState.error ? (
+              <Image source={IconsPath.checkSquare} />
+            ) : (
+              fieldState.error && <Image source={IconsPath.errorSquare} />
+            )}
           </View>
-          {error && <Text style={styles.error}>{error.message}</Text>}
+          {fieldState.error && (
+            <Text style={styles.error}>{fieldState.error.message}</Text>
+          )}
         </View>
       )}
     />
