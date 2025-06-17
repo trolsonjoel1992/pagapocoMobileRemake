@@ -36,4 +36,8 @@ export default {
   profileIm: require('@/src/assets/images/imageProfile/imageProfile.png'),
   drop: require('@/src/assets/images/imageProfile/dropAcount.png'),
   close: require('@/src/assets/images/imageProfile/logout.png'),
+  //inputs
+  notePencil: require('@/src/assets/images/NotePencilIcon.png'),
+  checkSquare: require('@/src/assets/images/CheckSquareOffset.png'),
+  errorSquare: require('@/src/assets/images/XSquare.png'),
 }
