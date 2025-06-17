@@ -13,4 +13,8 @@ export default {
   checkSelect: require('@/src/assets/images/publicationsbuton/checks/CheckSelect.png'),
   checkSelected: require('@/src/assets/images/publicationsbuton/checks/CheckSelected.png'),
   checkImageSelect: require('@/src/assets/images/publicationsbuton/checks/CheckImageSelect.png'),
+  //inputs
+  notePencil: require('@/src/assets/images/NotePencilIcon.png'),
+  checkSquare: require('@/src/assets/images/CheckSquareOffset.png'),
+  errorSquare: require('@/src/assets/images/XSquare.png'),
 }
