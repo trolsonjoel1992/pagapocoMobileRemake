@@ -1,15 +1,15 @@
-// ContactaConElVendedor.tsx
-import Button from '@/src/components/atoms/Button';
-import ControlledInput from '@/src/components/atoms/ControlledInput';
-import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent';
-import TextAreaWithIcon from '@/src/components/atoms/TextAreaWithIcon'; // componente nuevo
+import Button from '@/src/components/atoms/Button'; // botón personalizado
+import ControlledInput from '@/src/components/atoms/ControlledInput'; // input controlado con validación
+import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'; // encabezado reutilizable
+import TextAreaWithIcon from '@/src/components/atoms/TextAreaWithIcon'; // área de texto con ícono
 
-import { useRouter } from 'expo-router';
-import React from 'react';
-import { FormProvider, useForm } from 'react-hook-form';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router'; // hook para navegación
+import React from 'react'; // importación de react
+import { FormProvider, useForm } from 'react-hook-form'; // herramientas para formularios
+import { ScrollView, StyleSheet, Text, View } from 'react-native'; // componentes de interfaz de usuario
+import { SafeAreaView } from 'react-native-safe-area-context'; // vista segura para evitar solapamiento con el sistema
 
+// definición de los campos del formulario
 type FormFields = {
   nombre: string
   apellido: string
@@ -19,19 +19,19 @@ type FormFields = {
 }
 
 export default function ContactaConElVendedor() {
-  const router = useRouter()
-  const methods = useForm<FormFields>()
+  const router = useRouter() // inicializa el hook de navegación
+  const methods = useForm<FormFields>({ mode: 'onTouched' }) // inicializa el formulario con validación al tocar
 
   const onSubmit = (data: FormFields) => {
-    console.log('Datos del formulario:', data)
-    router.push('/(trabajo_matias)/plan_de_venta')
+    console.log('Datos del formulario:', data) // muestra los datos en consola
+    router.push('/(trabajo_matias)/plan_de_venta') // navega a la siguiente pantalla
   }
 
   return (
     <SafeAreaView style={styles.container}>
       <HeaderMainComponent
         titulo="Hacé tu consulta"
-        onBackPress={() => router.back()}
+        onBackPress={() => router.back()} // vuelve a la pantalla anterior
       />
 
       <FormProvider {...methods}>
@@ -39,26 +39,21 @@ export default function ContactaConElVendedor() {
           <View style={styles.contentContainer}>
             <Text style={styles.subtitle}>Completá tus datos de contacto</Text>
 
-            {/* Inputs reutilizables */}
             <ControlledInput name="nombre" label="Nombre" />
             <ControlledInput name="apellido" label="Apellido" />
-            <ControlledInput
-              name="email"
-              label="E-mail"
-              keyboardType="email-address"
-            />
-            <ControlledInput
-              name="telefono"
-              label="Teléfono"
-              keyboardType="phone-pad"
-            />
+            <ControlledInput name="email" label="E-mail" keyboardType="email-address" />
+            <ControlledInput name="telefono" label="Teléfono" keyboardType="phone-pad" />
 
-            {/* Campo de texto largo */}
             <TextAreaWithIcon name="consulta" label="Consulta" />
 
-            {/* Botón de continuar */}
             <View style={styles.buttonContainer}>
-              <Button variant="contained" onPress={methods.handleSubmit(onSubmit)}>
+              <Button
+                variant="contained"
+                onPress={() => {
+                  methods.handleSubmit(onSubmit)() // ejecuta el submit del formulario
+                  router.push('/(trabajo_matias)/plan_de_venta') // navegación directa
+                }}
+              >
                 Continuar
               </Button>
             </View>

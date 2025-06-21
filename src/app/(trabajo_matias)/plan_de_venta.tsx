@@ -1,33 +1,33 @@
-import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
-import PlanCard from '@/src/components/atoms/PlanCard'
-import { useRouter } from 'expo-router'
-import React, { useState } from 'react'
+import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'; // componente de encabezado principal
+import PlanCard from '@/src/components/atoms/PlanCard'; // componente reutilizable para mostrar planes
+import { useRouter } from 'expo-router'; // hook para navegación
+import React, { useState } from 'react'; // importación de react y hook de estado
 import {
   Alert,
   ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
-} from 'react-native'
+} from 'react-native'; // componentes de interfaz de usuario de react native
 
 export default function PlanDeVentas() {
-  const router = useRouter()
-  const [selectedPlan, setSelectedPlan] = useState<string | null>(null)
+  const router = useRouter() // inicializa el hook de navegación
+  const [selectedPlan, setSelectedPlan] = useState<string | null>(null) // estado para guardar el plan seleccionado
 
   const handleSelectPlan = (plan: string) => {
-    setSelectedPlan(plan)
+    setSelectedPlan(plan) // actualiza el estado con el plan elegido
   }
 
   const handleContinue = () => {
     if (selectedPlan) {
-      router.push('/(trabajo_matias)/subi-las-fotos-de-tu-vehiculo')
+      router.push('/(trabajo_matias)/subi-las-fotos-de-tu-vehiculo') // navega a la siguiente pantalla si hay un plan seleccionado
     } else {
       Alert.alert(
         'Atención',
         'Por favor, seleccioná un plan antes de continuar.',
         [{ text: 'OK' }],
         { cancelable: false }
-      )
+      ) // muestra una alerta si no se seleccionó ningún plan
     }
   }
 
@@ -35,51 +35,46 @@ export default function PlanDeVentas() {
     <ScrollView contentContainerStyle={styles.container}>
       <HeaderMainComponent
         titulo="Vender"
-        onBackPress={() => router.back()}
+        onBackPress={() => router.back()} // vuelve a la pantalla anterior
       />
 
       <Text style={styles.title}>Elegí un plan de venta</Text>
 
-      <TouchableOpacity
+      {/* plan premium */}
+      <PlanCard
+        icon="star"
+        title="Premium"
+        features={[
+          'Exposición VIP',
+          'Hasta 8 fotos',
+          'Duración de 90 días',
+          'Republicación automática',
+        ]}
+        price="$3.000"
+        iconColor="#b56fc5"
+        validFeatures={4}
+        selected={selectedPlan === 'Premium'}
         onPress={() => handleSelectPlan('Premium')}
-        activeOpacity={0.7}
-      >
-        <PlanCard
-          icon="star"
-          title="Premium"
-          features={[
-            'Exposición VIP',
-            'Hasta 8 fotos',
-            'Duración de 90 días',
-            'Republicación automática',
-          ]}
-          price="$3.000"
-          iconColor="#b56fc5"
-          validFeatures={4}
-          selected={selectedPlan === 'Premium'}
-        />
-      </TouchableOpacity>
+      />
 
-      <TouchableOpacity
+      {/* plan freemium */}
+      <PlanCard
+        icon="star-border"
+        title="Freemium"
+        features={[
+          'Exposición mínima',
+          'Sólo 4 fotos',
+          'Duración de 30 días',
+          'Republicación automática',
+        ]}
+        price="GRATIS"
+        iconColor="#b56fc5"
+        validFeatures={3}
+        selected={selectedPlan === 'Freemium'}
         onPress={() => handleSelectPlan('Freemium')}
-        activeOpacity={0.7}
-      >
-        <PlanCard
-          icon="star-border"
-          title="Freemium"
-          features={[
-            'Exposición mínima',
-            'Sólo 4 fotos',
-            'Duración de 30 días',
-            'Republicación automática',
-          ]}
-          price="GRATIS"
-          iconColor="#b56fc5"
-          validFeatures={3}
-          selected={selectedPlan === 'Freemium'}
-        />
-      </TouchableOpacity>
+      />
 
+      {/* botón para continuar */}
       <TouchableOpacity
         style={[
           styles.continuarButton,
@@ -127,3 +122,4 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 })
+

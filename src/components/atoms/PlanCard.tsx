@@ -1,15 +1,23 @@
-import { MaterialIcons } from '@expo/vector-icons'
-import React from 'react'
-import { StyleSheet, Text, View } from 'react-native'
+import { MaterialIcons } from '@expo/vector-icons'; // íconos de material design
+import * as Haptics from 'expo-haptics'; // librería para retroalimentación háptica
+import React, { useRef } from 'react'; // importación de react y hook useRef
+import {
+  Animated,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'; // componentes de interfaz de usuario de react native
 
 type Props = {
-  title: string
-  icon: any
-  iconColor: string
-  features: string[]
-  validFeatures: number
-  price: string
-  selected?: boolean
+  title: string // título del plan
+  icon: any // ícono a mostrar
+  iconColor: string // color del ícono
+  features: string[] // lista de características del plan
+  validFeatures: number // cantidad de características válidas
+  price: string // precio del plan
+  selected?: boolean // indica si el plan está seleccionado
+  onPress?: () => void // función a ejecutar al presionar
 }
 
 export default function PlanCard({
@@ -20,38 +28,84 @@ export default function PlanCard({
   validFeatures,
   price,
   selected = false,
+  onPress,
 }: Props) {
+  const scaleAnim = useRef(new Animated.Value(1)).current // animación de escala para efecto de presión
+
+  const handlePressIn = () => {
+    Animated.spring(scaleAnim, {
+      toValue: 0.97,
+      useNativeDriver: true,
+    }).start() // reduce ligeramente el tamaño al presionar
+  }
+
+  const handlePressOut = () => {
+    Animated.spring(scaleAnim, {
+      toValue: 1,
+      friction: 3,
+      tension: 40,
+      useNativeDriver: true,
+    }).start() // vuelve al tamaño original al soltar
+  }
+
+  const handleSelect = () => {
+    Haptics.selectionAsync() // activa retroalimentación
+    onPress?.() // ejecuta la función onPress 
+  }
+
   return (
-    <View style={[styles.card, selected && styles.selectedCard]}>
-      <View style={styles.header}>
-        <MaterialIcons name={icon} size={24} color={iconColor} />
-        <Text style={[styles.planTitle, selected && styles.selectedPlanTitle]}>
-          {title}
+    <Pressable
+      onPressIn={handlePressIn}
+      onPressOut={handlePressOut}
+      onPress={handleSelect}
+    >
+      <Animated.View
+        style={[styles.card, selected && styles.selectedCard, { transform: [{ scale: scaleAnim }] }]}
+      >
+        <View style={styles.header}>
+          <MaterialIcons
+            name={selected ? 'check-circle' : icon}
+            size={24}
+            color={selected ? '#fff' : iconColor}
+          />
+          <Text
+            style={[styles.planTitle, selected && styles.selectedPlanTitle]}
+          >
+            {title}
+          </Text>
+        </View>
+        <View style={styles.features}>
+          {features.map((item, index) => {
+            const isValid = index < validFeatures // determina si la característica es válida
+            return (
+              <Text
+                key={index}
+                style={[
+                  styles.feature,
+                  !isValid && styles.crossed,
+                  selected && styles.selectedFeature,
+                ]}
+              >
+                <MaterialIcons
+                  name={isValid ? 'check-circle' : 'cancel'}
+                  size={16}
+                  color={isValid ? 'green' : 'red'}
+                />{' '}
+                {item}
+              </Text>
+            )
+          })}
+        </View>
+        <Text style={[styles.price, selected && styles.selectedPrice]}>
+          {price}
         </Text>
-      </View>
-      <View style={styles.features}>
-        {features.map((item, index) => {
-          const isValid = index < validFeatures
-          return (
-            <Text
-              key={index}
-              style={[styles.feature, !isValid && styles.crossed, selected && styles.selectedFeature]}
-            >
-              <MaterialIcons
-                name={isValid ? 'check-circle' : 'cancel'}
-                size={16}
-                color={isValid ? 'green' : 'red'}
-              />{' '}
-              {item}
-            </Text>
-          )
-        })}
-      </View>
-      <Text style={[styles.price, selected && styles.selectedPrice]}>{price}</Text>
-      <Text style={[styles.footerText, selected && styles.selectedFooterText]}>
-        Cargo por publicación
-      </Text>
-    </View>
+        <Text
+          style={[styles.footerText, selected && styles.selectedFooterText]}
+        >
+          cargo por publicación
+        </Text>
+      </Animated.View>
+    </Pressable>
   )
 }
 
@@ -126,4 +180,5 @@ const styles = StyleSheet.create({
     color: '#e0d7f6',
   },
 })
+
 
