@@ -1,5 +1,6 @@
 import { styles } from '@/src/app/(sell)/FormVehicle.styles'
 import Button from '@/src/components/atoms/Button'
+import ContainerView from '@/src/components/atoms/ContainerView'
 import ControlledInput from '@/src/components/atoms/ControlledInput'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import { VehicleData, vehicleSchema } from '@/src/validations/vehicleSchema'
@@ -7,7 +8,6 @@ import { yupResolver } from '@hookform/resolvers/yup'
 import { router } from 'expo-router'
 import { FormProvider, useForm } from 'react-hook-form'
 import { ScrollView, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale } from 'react-native-size-matters'
 
 const FormVehicle = () => {
@@ -36,7 +36,7 @@ const FormVehicle = () => {
 
   return (
     <FormProvider {...form}>
-      <SafeAreaView style={styles.container}>
+      <ContainerView>
         <HeaderMainComponent
           titulo="Vender"
           onBackPress={() => router.push('/(tabs)/sell')}
@@ -126,7 +126,7 @@ const FormVehicle = () => {
             </Button>
           </View>
         </ScrollView>
-      </SafeAreaView>
+      </ContainerView>
     </FormProvider>
   )
 }
