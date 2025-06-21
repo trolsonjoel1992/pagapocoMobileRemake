@@ -1,21 +1,32 @@
-import { FontAwesome, Ionicons, MaterialIcons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import React from 'react';
-import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import { FontAwesome, MaterialIcons } from '@expo/vector-icons'
+import { useRouter } from 'expo-router'
+import React from 'react'
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 
 export default function PlanDeVentas() {
-  const router = useRouter();
+  const router = useRouter()
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
       {/* Encabezado */}
-      <View style={styles.headerBar}>
+      {/* <View style={styles.headerBar}>
         <TouchableOpacity onPress={() => router.back()}>
           <Ionicons name="arrow-back" size={24} color="#000" />
         </TouchableOpacity>
         <Text style={styles.headerTitle}>Vender</Text>
         <View style={{ width: 24 }} />
-      </View>
+      </View> */}
+      <HeaderMainComponent
+        titulo="Vender"
+        onBackPress={() => router.back()} //router.push("/(tabs)/home")
+      />
 
       <Text style={styles.title}>Elegí un plan de venta</Text>
 
@@ -26,10 +37,22 @@ export default function PlanDeVentas() {
           <Text style={styles.planTitle}>Premium</Text>
         </View>
         <View style={styles.features}>
-          <Text style={styles.feature}><MaterialIcons name="check-circle" size={16} color="green" /> Exposición VIP</Text>
-          <Text style={styles.feature}><MaterialIcons name="check-circle" size={16} color="green" /> Hasta 8 fotos</Text>
-          <Text style={styles.feature}><MaterialIcons name="check-circle" size={16} color="green" /> Duración de 90 días</Text>
-          <Text style={styles.feature}><MaterialIcons name="check-circle" size={16} color="green" /> Republicación automática</Text>
+          <Text style={styles.feature}>
+            <MaterialIcons name="check-circle" size={16} color="green" />{' '}
+            Exposición VIP
+          </Text>
+          <Text style={styles.feature}>
+            <MaterialIcons name="check-circle" size={16} color="green" /> Hasta
+            8 fotos
+          </Text>
+          <Text style={styles.feature}>
+            <MaterialIcons name="check-circle" size={16} color="green" />{' '}
+            Duración de 90 días
+          </Text>
+          <Text style={styles.feature}>
+            <MaterialIcons name="check-circle" size={16} color="green" />{' '}
+            Republicación automática
+          </Text>
         </View>
         <Text style={styles.price}>$3.000</Text>
         <Text style={styles.footerText}>Cargo por publicación</Text>
@@ -42,10 +65,22 @@ export default function PlanDeVentas() {
           <Text style={styles.planTitle}>Freemium</Text>
         </View>
         <View style={styles.features}>
-          <Text style={styles.feature}><MaterialIcons name="error-outline" size={16} color="#e6bb00" /> Exposición mínima</Text>
-          <Text style={styles.feature}><MaterialIcons name="error-outline" size={16} color="#e6bb00" /> Sólo 4 fotos</Text>
-          <Text style={styles.feature}><MaterialIcons name="error-outline" size={16} color="#e6bb00" /> Duración de 30 días</Text>
-          <Text style={[styles.feature, styles.crossed]}><MaterialIcons name="cancel" size={16} color="red" /> Republicación automática</Text>
+          <Text style={styles.feature}>
+            <MaterialIcons name="error-outline" size={16} color="#e6bb00" />{' '}
+            Exposición mínima
+          </Text>
+          <Text style={styles.feature}>
+            <MaterialIcons name="error-outline" size={16} color="#e6bb00" />{' '}
+            Sólo 4 fotos
+          </Text>
+          <Text style={styles.feature}>
+            <MaterialIcons name="error-outline" size={16} color="#e6bb00" />{' '}
+            Duración de 30 días
+          </Text>
+          <Text style={[styles.feature, styles.crossed]}>
+            <MaterialIcons name="cancel" size={16} color="red" /> Republicación
+            automática
+          </Text>
         </View>
         <Text style={styles.price}>GRATIS</Text>
         <Text style={styles.footerText}>Cargo por publicación</Text>
@@ -53,20 +88,20 @@ export default function PlanDeVentas() {
 
       {/* Botón de Continuar */}
       <TouchableOpacity
-  style={styles.continuarButton}
-  onPress={() => router.push('/(trabajo_matias)/subi-las-fotos-de-tu-vehiculo')}
->
-  <Text style={styles.continuarButtonText}>Continuar</Text>
-</TouchableOpacity>
-
+        style={styles.continuarButton}
+        onPress={() =>
+          router.push('/(trabajo_matias)/subi-las-fotos-de-tu-vehiculo')
+        }
+      >
+        <Text style={styles.continuarButtonText}>Continuar</Text>
+      </TouchableOpacity>
     </ScrollView>
-  );
+  )
 }
 
 const styles = StyleSheet.create({
   container: {
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+    alignItems: 'center',
     backgroundColor: '#fff',
   },
   headerBar: {
@@ -90,12 +125,13 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
   card: {
+    width: '80%',
     backgroundColor: '#f9f4fc',
-    borderRadius: 12,
-    padding: 16,
+    borderRadius: 20,
+    padding: 50,
     marginBottom: 20,
     shadowColor: '#000',
-    shadowOffset: { width: 1, height: 2 },
+    /*  shadowOffset: { width: 1, height: 2 }, */
     shadowOpacity: 0.2,
     shadowRadius: 4,
     elevation: 4,
@@ -135,6 +171,8 @@ const styles = StyleSheet.create({
     fontWeight: '600',
   },
   continuarButton: {
+    width: 170,
+    height: 55,
     backgroundColor: '#A230C7',
     paddingVertical: 14,
     borderRadius: 20,
@@ -147,5 +185,4 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: 'bold',
   },
-});
-
+})

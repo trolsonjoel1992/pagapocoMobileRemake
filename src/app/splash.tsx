@@ -10,22 +10,17 @@ const SplashScreen = () => {
   const { user, isLoading: authLoading } = useAuth()
 
   useEffect(() => {
-    if (!authLoading) {
-      // Esperar 2 segundos antes de redirigir
-      const timer = setTimeout(() => {
-        // Redirigir según el estado de autenticación
-        //router.replace(user ? '/(tabs)/home' : '/(auth)/(login)/FormLogin')
-        router.push('/(tabs)/home')
-      }, 2000)
+    // Redirigir a la pantalla Skeleton después de 1.5 segundos
+    const timer = setTimeout(() => {
+      router.replace('/Skeleton')
+    }, 1500) // 1.5 segundos
 
-      return () => clearTimeout(timer)
-    }
+    return () => clearTimeout(timer)
   }, [authLoading, user])
 
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}></View>
-
       <View style={styles.body}>
         <Image
           source={ImagesPath.logo}
@@ -34,7 +29,6 @@ const SplashScreen = () => {
         />
         <ActivityIndicator size={moderateScale(48)} color={'purple'} />
       </View>
-
       <View style={styles.footer}>
         <Text style={styles.textFrom}>@2025 | PagaPoco</Text>
       </View>

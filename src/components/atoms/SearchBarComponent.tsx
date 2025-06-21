@@ -15,28 +15,27 @@ const SearchBarComponent = () => {
       <TextInput
         style={styles.searchPlaceholder}
         placeholder="Busca tu publicación"
-        placeholderTextColor="#A0A0A0"
+        placeholderTextColor="#9A9292"
       />
       <TouchableOpacity>
-        <Image
-          source={ImagesPath.iconSearchBar} // Asegúrate de que esta ruta sea válida
-          style={styles.searchIcon}
-        />
+        <Image source={ImagesPath.iconSearchBar} style={styles.searchIcon} />
       </TouchableOpacity>
     </View>
   )
 }
 const styles = StyleSheet.create({
   searchContainer: {
+    width: moderateScale(340),
+    height: moderateScale(50),
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#ECE6F0',
     borderRadius: moderateScale(20),
     paddingHorizontal: moderateScale(10),
     paddingVertical: verticalScale(5),
-    marginTop: verticalScale(10),
+    marginTop: verticalScale(30),
     marginBottom: verticalScale(0),
-    marginHorizontal: moderateScale(30),
+    marginHorizontal: moderateScale(0),
   },
   searchIcon: {
     width: moderateScale(32),
@@ -44,9 +43,10 @@ const styles = StyleSheet.create({
   },
   searchPlaceholder: {
     flex: 1,
-    fontSize: moderateScale(16),
+    fontSize: moderateScale(20),
     color: '#A0A0A0',
-    marginLeft: 40,
+    marginLeft: moderateScale(40),
+    marginBottom: moderateScale(-2),
   },
 })
 
