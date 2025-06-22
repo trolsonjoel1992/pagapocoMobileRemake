@@ -20,7 +20,7 @@ export default function PlanDeVentas() {
 
   const handleContinue = () => {
     if (selectedPlan) {
-      router.push('/(trabajo_matias)/subi-las-fotos-de-tu-vehiculo') // navega a la siguiente pantalla si hay un plan seleccionado
+      router.push('/(trabajo_matias)/modal_terminosycondiciones') // navega a la siguiente pantalla si hay un plan seleccionado
     } else {
       Alert.alert(
         'Atención',
