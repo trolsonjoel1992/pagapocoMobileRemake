@@ -8,7 +8,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
-} from 'react-native'; // componentes de interfaz de usuario de react native
+} from 'react-native';
 
 export default function PlanDeVentas() {
   const router = useRouter() // inicializa el hook de navegación

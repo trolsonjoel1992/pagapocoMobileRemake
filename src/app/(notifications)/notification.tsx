@@ -34,7 +34,7 @@ const Notification = () => {
           <TouchableOpacity
             style={styles.buttom}
             onPress={() =>
-              router.push('/(trabajo_matias)/contacta_con_el_vendedor')
+              router.push('/(trabajo_matias)/notificaciones') // src\app\(trabajo_matias)\notificaciones.tsx
             } // cambiar por la ubicacion de su pantalla
           >
             <Text style={styles.buttomText}>Matias</Text>
