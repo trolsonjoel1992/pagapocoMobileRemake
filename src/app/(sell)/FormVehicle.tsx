@@ -3,6 +3,7 @@ import Button from '@/src/components/atoms/Button'
 import ContainerView from '@/src/components/atoms/ContainerView'
 import ControlledInput from '@/src/components/atoms/ControlledInput'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import { useCreatePublication } from '@/src/features/hooks/publications.hooks'
 import { VehicleData, vehicleSchema } from '@/src/validations/vehicleSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { router } from 'expo-router'
@@ -30,8 +31,16 @@ const FormVehicle = () => {
 
   const { handleSubmit } = form
 
-  const onSubmit = (data: VehicleData) => {
+  const { create, loading } = useCreatePublication()
+
+  const onSubmit = async (data: VehicleData) => {
     console.log('Datos del formulario:', data)
+
+    const ok = await create(data)
+
+    if (ok) {
+      router.replace('/(tabs)/home')
+    }
   }
 
   return (
@@ -120,6 +129,7 @@ const FormVehicle = () => {
             <Button
               variant="contained"
               fullWidth
+              disabled={loading}
               onPress={handleSubmit(onSubmit)}
             >
               Continuar
