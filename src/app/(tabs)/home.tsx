@@ -1,357 +1,72 @@
+import ButtonActionsComponent from '@/src/components/atoms/ButtonActionsComponent'
+import ButtonCategoryComponent from '@/src/components/atoms/ButtonCategoryComponent'
+import PublicationCardComponent from '@/src/components/atoms/PublicationCardComponent'
 import SearchBarMainComponent from '@/src/components/atoms/SearchBarMainComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { useAuth } from '@/src/hooks/useAuth'
-import { router } from 'expo-router'
 import React, { useState } from 'react'
-import {
-  FlatList,
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { FlatList, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-// Dentro de HomeScreen.js o en un archivo separado si prefieres
-import AntDesign from '@expo/vector-icons/AntDesign'
-
-const PublicationCard = ({ item }) => {
-  const [isFavorite, setIsFavorite] = useState(false)
-
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite)
-  }
-
-  return (
-    <TouchableOpacity
-      style={styles.publicationCard}
-      onPress={() => router.push('/(publications)/publication1')}
-    >
-      <View style={styles.imageContainer}>
-        <Image
-          source={ImagesPath.imageDefault}
-          style={styles.publicationImage}
-          resizeMode="contain"
-        />
-        {/* Botón de favoritos */}
-        <TouchableOpacity
-          style={styles.favoriteButton}
-          onPress={toggleFavorite}
-        >
-          <AntDesign
-            name={isFavorite ? 'heart' : 'hearto'}
-            size={16}
-            color={isFavorite ? '#A230C7' : '#666'}
-          />
-        </TouchableOpacity>
-      </View>
-      <View style={styles.publicationInfo}>
-        <Text style={styles.publicationTitle} numberOfLines={1}>
-          {item.title}
-        </Text>
-        <Text style={styles.publicationPrice}>{item.price}</Text>
-      </View>
-    </TouchableOpacity>
-  )
-}
-
-const HomeScreen = () => {
-  // logica boton iniciar sesion
-  //let isLogin = false;
+const Home = () => {
   const { user, isLoading } = useAuth()
 
   const { logout } = useAuth()
 
-  // logica modal
-  const [isModalLoginVisible, setIsModalLoginVisible] = useState(false)
-
-  const handleLogin = () => {
-    setIsModalLoginVisible(true)
-  }
-
-  // logica boton favoritos
   const [isFavorite, setIsFavorite] = useState(false)
 
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite)
   }
 
-  // logica skeleton
-  /* const [showSkeleton, setShowSkeleton] = useState(true)
-
-  useEffect(() => {
-    // mostrar skeleton durante 2 segundos
-    const timer = setTimeout(() => {
-      setShowSkeleton(false)
-    }, 2000)
-    return () => clearTimeout(timer)
-  }, [])
-
-  if (showSkeleton) {
-    return (
-      <SafeAreaView style={styles.skeletonContainer}>
-        <SkeletorComponent />
-      </SafeAreaView>
-    )
-  } */
-
-  // Datos de ejemplo para las publicaciones
-  const mockPublications = [
-    /* {
-      id: 'ad-1',
-      type: 'full-width-ad',
-      title: "Anuncio Especial",
-      content: "Este es un anuncio que ocupa todo el ancho",
-    }, */
-    {
-      id: 1,
-      title: 'Nombre publicación',
-      price: '$000.000',
-      //image: "https://example.com/iphone.jpg",
-      //location: 'Resistencia, Chaco',
-    },
-    {
-      id: 2,
-      title: 'Nombre publicación',
-      price: '$000.000',
-      //image: "https://example.com/sofa.jpg",
-      //location: 'Barranqueras, Chaco',
-    },
-    {
-      id: 3,
-      title: 'Nombre publicación',
-      price: '$000.000',
-      //image: "https://example.com/bike.jpg",
-      //location: 'Resistencia, Chaco',
-    },
-    {
-      id: 4,
-      title: 'Nombre publicación',
-      price: '$000.000',
-      //image: "https://example.com/laptop.jpg",
-      //location: 'Fontana, Chaco',
-    },
-    {
-      id: 5,
-      title: 'Nombre publicación',
-      price: '$000.000',
-      //image: "https://example.com/bike.jpg",
-      //location: 'Resistencia, Chaco',
-    },
-    {
-      id: 6,
-      title: 'Nombre publicación',
-      price: '$000.000',
-      //image: "https://example.com/laptop.jpg",
-      //location: 'Fontana, Chaco',
-    },
-    {
-      id: 7,
-      title: 'Nombre publicación',
-      price: '$000.000',
-      //image: "https://example.com/bike.jpg",
-      //location: 'Resistencia, Chaco',
-    },
-    {
-      id: 8,
-      title: 'Nombre publicación',
-      price: '$000.000',
-      //image: "https://example.com/laptop.jpg",
-      //location: 'Fontana, Chaco',
-    },
-    // Agrega más publicaciones según necesites
-  ]
-
   return (
     <SafeAreaView style={styles.container}>
+      {/* Header */}
       <View style={styles.header}>
-        {/* Componenente del buscador */}
+        {/* Contenedor para el buscador */}
         <View style={styles.searchContainer}>
-          {/* <SearchBarMainComponent
-            showBackButton
-            onBackPress={() => router.push('/(auth)/FormLogin')}
-            placeholder="Buscar"
-          /> */}
+          {/* Componente del buscador */}
           <SearchBarMainComponent />
         </View>
 
-        {/* Botones de acciones - login y ubicacion */}
-        <View style={styles.actionsContainer}>
-          <TouchableOpacity style={styles.actionButton}>
-            {/* <Ionicons
-              name="location-outline"
-              size={moderateScale(20)}
-              color="gray"
-            /> */}
-            <Image
-              source={ImagesPath.iconUbicaionFigma}
-              style={styles.actionIcon}
-              resizeMode="contain"
-            />
-            <Text style={styles.textActionsIcon}>Elige tu ciudad</Text>
-          </TouchableOpacity>
+        {/* Componentes de Botones de acciones */}
+        <ButtonActionsComponent user={user} />
 
-          {/* Boton para iniciar sesion - antiguo */}
-          {/* {!user && <View style={styles.separator} />}
-          {user ? (
-            <View style={styles.mismoEspacio}></View>
-          ) : (
-            <TouchableOpacity
-              style={styles.actionButton}
-              onPress={() => {
-                router.push('/(auth)/FormLogin')
-              }}
-            >
-              <AntDesign name="login" size={moderateScale(20)} color="gray" />
-              <Text style={styles.textActionsIcon}>Iniciar Sesión</Text>
-            </TouchableOpacity>
-          )} */}
-
-          <TouchableOpacity
-            style={styles.actionButton}
-            onPress={() => router.push('/(filter)/filter')}
-          >
-            {/* <Ionicons
-              name="location-outline"
-              size={moderateScale(20)}
-              color="gray"
-            /> */}
-            <Image
-              source={ImagesPath.iconFiltroFigma}
-              style={styles.actionIcon}
-              resizeMode="contain"
-            />
-            <Text style={styles.textActionsIcon}>Filtros</Text>
-          </TouchableOpacity>
-        </View>
-
+        {/* Contenedor de Categorías */}
         <View style={styles.categoriasContainer}>
-          {/* <Text>Categorias</Text> */}
-          <View style={styles.categoriaContainer}>
-            {/* <AntDesign name="login" size={moderateScale(20)} color="black" /> */}
-
-            <TouchableOpacity
-              style={{ justifyContent: 'center', alignItems: 'center' }}
-            >
-              <Image
-                source={ImagesPath.iconCamionFigma}
-                style={styles.iconCategorias}
-                resizeMode="contain"
-              />
-
-              <Text>Camiones</Text>
-            </TouchableOpacity>
-
-            {/* <Image 
-              source={ImagesPath.iconCamion}
-              style={styles.iconCategorias}
-              resizeMode="contain"
-            />
-
-            <Text>Camiones</Text> */}
-          </View>
-
-          <View style={styles.categoriaContainer}>
-            {/* <AntDesign name="login" size={moderateScale(20)} color="black" /> */}
-
-            <TouchableOpacity
-              style={{ justifyContent: 'center', alignItems: 'center' }}
-            >
-              <Image
-                source={ImagesPath.iconCamionetaFigma}
-                style={styles.iconCategorias}
-                resizeMode="contain"
-              />
-
-              <Text>Camionetas</Text>
-            </TouchableOpacity>
-
-            {/* <Image 
-              source={ImagesPath.iconCamioneta}
-              style={styles.iconCategorias}
-              resizeMode="contain"
-            />
-
-            <Text>Camioneta</Text> */}
-          </View>
-
-          <View style={styles.categoriaContainer}>
-            {/* <AntDesign name="login" size={moderateScale(20)} color="black" /> */}
-
-            <TouchableOpacity
-              style={{ justifyContent: 'center', alignItems: 'center' }}
-            >
-              <Image
-                source={ImagesPath.iconAutoFigma}
-                style={styles.iconCategorias}
-                resizeMode="contain"
-              />
-
-              <Text>Autos</Text>
-            </TouchableOpacity>
-
-            {/* <Image 
-              source={ImagesPath.iconAuto}
-              style={styles.iconCategorias}
-              resizeMode="contain"
-            />
-            <Text>Auto</Text> */}
-          </View>
-
-          <View style={styles.categoriaContainer}>
-            {/* <AntDesign name="login" size={moderateScale(20)} color="black" /> */}
-
-            <TouchableOpacity
-              style={{ justifyContent: 'center', alignItems: 'center' }}
-            >
-              <Image
-                source={ImagesPath.iconMotoFigma}
-                style={styles.iconCategorias}
-                resizeMode="contain"
-              />
-
-              <Text>Motos</Text>
-            </TouchableOpacity>
-
-            {/* <Image 
-              source={ImagesPath.iconMoto}
-              style={styles.iconCategorias}
-              resizeMode="contain"
-            />
-            <Text>Moto</Text> */}
-          </View>
-
-          <View style={styles.categoriaContainer}>
-            {/* <AntDesign name="login" size={moderateScale(20)} color="black" /> */}
-
-            <TouchableOpacity
-              style={{ justifyContent: 'center', alignItems: 'center' }}
-            >
-              <Image
-                source={ImagesPath.iconPiezaFigma}
-                style={styles.iconCategorias}
-                resizeMode="contain"
-              />
-
-              <Text>Piezas</Text>
-            </TouchableOpacity>
-
-            {/* <Image 
-              source={ImagesPath.iconPieza}
-              style={styles.iconCategorias}
-              resizeMode="contain"
-            />
-            <Text>Piezas</Text> */}
-          </View>
+          {/* Componente de Categoría */}
+          <ButtonCategoryComponent
+            iconCategory={ImagesPath.iconCamionFigma}
+            title="Camiones"
+            //onPressFunction={() => router.push("/")} // aqui hacer ruteo del filtro
+          />
+          <ButtonCategoryComponent
+            iconCategory={ImagesPath.iconCamionetaFigma}
+            title="Camionetas"
+          />
+          <ButtonCategoryComponent
+            iconCategory={ImagesPath.iconAutoFigma}
+            title="Autos"
+          />
+          <ButtonCategoryComponent
+            iconCategory={ImagesPath.iconMotoFigma}
+            title="Motos"
+          />
+          <ButtonCategoryComponent
+            iconCategory={ImagesPath.iconPiezaFigma}
+            title="Piezas"
+          />
         </View>
       </View>
 
+      {/* body */}
       <View style={styles.body}>
         <FlatList
           data={mockPublications}
-          renderItem={({ item }) => <PublicationCard item={item} />}
+          renderItem={({ item }) => (
+            <PublicationCardComponent item={item} />
+          )} /* Componente de la publicacion */
           keyExtractor={(item) => item.id.toString()}
           numColumns={2}
           columnWrapperStyle={styles.columnWrapper}
@@ -360,11 +75,13 @@ const HomeScreen = () => {
         />
       </View>
 
+      {/* footer */}
       {/* <View style={styles.footer}></View> */}
     </SafeAreaView>
   )
 }
 
+// Estilos de la pantalla principal - Home
 const styles = StyleSheet.create({
   // estilos de la estructura
   container: {
@@ -374,23 +91,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header: {
-    height: moderateScale(170),
+    //height: moderateScale(200),
     width: '100%',
-    //backgroundColor: "red",
+    //backgroundColor: 'aqua',
     textAlign: 'center',
     justifyContent: 'center',
     alignItems: 'center',
   },
-  /* body: {
-    height: moderateScale(540),
-    width: "90%",
-    //backgroundColor: "aqua",
-    textAlign: "center",
-    justifyContent: "center",
-    alignItems: "center",
-  }, */
   body: {
-    flex: 1, // Cambiado para que ocupe todo el espacio disponible
+    flex: 1,
     width: '90%',
   },
   footer: {
@@ -401,17 +110,16 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
     alignItems: 'center',
   },
-  // estilos del contenido del header
   searchContainer: {
     width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
     borderRadius: moderateScale(20),
     paddingHorizontal: moderateScale(10),
-    height: moderateScale(40),
+    height: moderateScale(50),
     gap: moderateScale(4),
-    marginBottom: verticalScale(16),
-    //backgroundColor: "yellow",
+    marginBottom: verticalScale(5),
+    //backgroundColor: 'orange',
   },
   searchIcon: {
     marginRight: moderateScale(10),
@@ -433,29 +141,6 @@ const styles = StyleSheet.create({
     marginLeft: moderateScale(12),
     gap: moderateScale(16),
   },
-  actionIcon: {
-    padding: moderateScale(4),
-  },
-  actionsContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-around',
-    alignItems: 'center',
-    paddingHorizontal: moderateScale(8),
-    //backgroundColor: "green",
-    marginBottom: moderateScale(10),
-  },
-  actionButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: verticalScale(8),
-    paddingHorizontal: moderateScale(12),
-    borderRadius: moderateScale(20),
-    //backgroundColor: '#F5F5F5',
-    flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: moderateScale(4),
-  },
-  // agrega un contenedor con el mismo espacio del boton de iniciar sesion
   mismoEspacio: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -469,7 +154,7 @@ const styles = StyleSheet.create({
   },
   textActionsIcon: {
     fontSize: moderateScale(14),
-    marginLeft: moderateScale(8),
+    marginLeft: moderateScale(5),
     color: '#555',
   },
   separator: {
@@ -487,15 +172,6 @@ const styles = StyleSheet.create({
     paddingHorizontal: moderateScale(8),
     //backgroundColor: "blue",
     gap: moderateScale(10),
-  },
-  categoriaContainer: {
-    //backgroundColor: "green",
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  iconCategorias: {
-    width: moderateScale(30),
-    height: moderateScale(24),
   },
   // Estilos para el modal
   centeredView: {
@@ -607,71 +283,73 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     marginBottom: verticalScale(5),
   },
-  publicationCard: {
-    width: '48%', // 48% // Para dejar un pequeño espacio entre las columnas
-    backgroundColor: '#FFF',
-    borderRadius: moderateScale(8),
-    overflow: 'hidden',
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 2,
-    },
-    shadowOpacity: 0.1,
-    shadowRadius: 4,
-    //elevation: 5,
-    marginBottom: verticalScale(12),
-  },
-  publicationImage: {
-    width: '100%', // "100%"
-    height: verticalScale(120),
-    backgroundColor: '#F5F5F5', // Color de fondo mientras carga la imagen
-  },
-  publicationInfo: {
-    padding: moderateScale(10),
-  },
-  publicationTitle: {
-    fontSize: moderateScale(15),
-    fontWeight: '500',
-    marginBottom: verticalScale(4),
-  },
-  publicationPrice: {
-    fontSize: moderateScale(22),
-    fontWeight: 'bold',
-    //color: '#A230C7', // Puedes cambiar este color
-    marginBottom: verticalScale(4),
-  },
-  publicationLocation: {
-    fontSize: moderateScale(12),
-    color: '#666',
-  },
-  imageContainer: {
-    position: 'relative',
-    width: '100%',
-    height: verticalScale(120),
-    backgroundColor: '#F5F5F5',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  favoriteButton: {
-    position: 'absolute',
-    top: moderateScale(5),
-    right: moderateScale(5),
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
-    borderRadius: moderateScale(15),
-    width: moderateScale(30),
-    height: moderateScale(30),
-    justifyContent: 'center',
-    alignItems: 'center',
-    elevation: 3,
-    shadowColor: '#000',
-    shadowOffset: {
-      width: 0,
-      height: 1,
-    },
-    shadowOpacity: 0.22,
-    shadowRadius: 2.22,
-  },
 })
 
-export default HomeScreen
+// Datos de ejemplo para las publicaciones
+const mockPublications = [
+  /* {
+      id: 'ad-1',
+      type: 'full-width-ad',
+      title: "Anuncio Especial",
+      content: "Este es un anuncio que ocupa todo el ancho",
+    }, */
+  {
+    id: 1,
+    title: 'Volkswagen Polo 0km',
+    price: '$24.500.000',
+    image: ImagesPath.imageAutoVolkswagenPolo,
+    //location: 'Resistencia, Chaco',
+  },
+  {
+    id: 2,
+    title: 'Chevrolet Traker 1.2 Ltz Turbo At',
+    price: '$30.000.000',
+    image: ImagesPath.imageAutoChevroletTracker,
+    //location: 'Barranqueras, Chaco',
+  },
+  {
+    id: 3,
+    title: 'Carburador Ford Falcon F100 22',
+    price: '$172.320',
+    image: ImagesPath.imagePiezaCarburadorFordFalcon,
+    //location: 'Resistencia, Chaco',
+  },
+  {
+    id: 4,
+    title: 'Honda Tornado 250',
+    price: '$8.500.000',
+    image: ImagesPath.imageMotoHondaTornado,
+    //location: 'Fontana, Chaco',
+  },
+  {
+    id: 5,
+    title: 'Nissan Frontier 2.3 S Cd 4x4 Mt',
+    price: '$35.000.000',
+    image: ImagesPath.imageCamionetaNissanFrontier,
+    //location: 'Resistencia, Chaco',
+  },
+  {
+    id: 6,
+    title: 'Fiat Toro 1.3 T270 Volcano 4x2 At',
+    price: '$30.500.000',
+    image: ImagesPath.imageAutoFiatToro,
+    //location: 'Resistencia, Chaco',
+  },
+  {
+    id: 7,
+    title: 'Jeep Renegade 1.8 Sport',
+    price: '$24.000.000',
+    image: ImagesPath.imageAutoJeepRenegade,
+    //location: 'Resistencia, Chaco',
+  },
+  {
+    id: 8,
+    title: 'Renault Sandero Stepway 1.6 16v Intense',
+    price: '$23.000.000',
+    image: ImagesPath.imageAutoRenaultSandero,
+    //location: 'Fontana, Chaco',
+  },
+  // Agrega más publicaciones según necesites
+]
+
+export default Home
