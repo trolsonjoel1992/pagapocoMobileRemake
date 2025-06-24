@@ -1,45 +1,61 @@
-import { Ionicons } from '@expo/vector-icons';
+import Button from '@/src/components/atoms/Button';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import {
+  Image,
   Modal,
   StyleSheet,
   Text,
-  TouchableOpacity,
   View,
 } from 'react-native';
 
-const WarningModal = ({ isModalVisible }) => {
-  const router = useRouter();
+type Props = {
+  isModalVisible: boolean
+  onClose?: () => void // opcional: por si se quiere cerrarlo manual
+}
+
+const WarningModal = ({ isModalVisible, onClose }: Props) => {
+  const router = useRouter()
+
+  const handleClose = () => {
+    // controlar el cierre externo o por navegación
+    if (onClose) {
+      onClose()
+    } else {
+      router.push('/(trabajo_matias)/finalizar')
+    }
+  }
 
   return (
     <Modal
       animationType="fade"
-      transparent={true}
+      transparent
       visible={isModalVisible}
-      onRequestClose={() => router.push("/(trabajo_matias)/finalizar")}
+      onRequestClose={handleClose}
     >
       <View style={styles.backdrop}>
         <View style={styles.modalView}>
-          <View style={styles.iconContainer}>
-            <Ionicons name="alert-circle" size={80} color="#FFD600" />
-          </View>
+          
+          <Image
+            source={require('@/src/assets/images/modalVariants/modalWarning.png')}
+            style={styles.image}
+            resizeMode="contain"
+          />
 
           <Text style={styles.text}>
             Aceptá los términos y condiciones para continuar
           </Text>
 
-          <TouchableOpacity
-            style={styles.button}
-            onPress={() => router.push("/(trabajo_matias)/finalizar")}
-          >
-            <Text style={styles.buttonText}>Entendido</Text>
-          </TouchableOpacity>
+          <Button variant="contained" onPress={handleClose}>
+            Entendido
+          </Button>
         </View>
       </View>
     </Modal>
-  );
-};
+  )
+}
+
+export default WarningModal
 
 const styles = StyleSheet.create({
   backdrop: {
@@ -55,7 +71,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '85%',
   },
-  iconContainer: {
+  image: {
+    width: 100,
+    height: 100,
     marginBottom: 20,
   },
   text: {
@@ -65,23 +83,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     color: '#000',
   },
-  button: {
-    backgroundColor: '#A02CFA',
-    borderRadius: 15,
-    paddingVertical: 10,
-    paddingHorizontal: 25,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-    elevation: 5,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 16,
-  },
-});
+})
 
-export default WarningModal;
 

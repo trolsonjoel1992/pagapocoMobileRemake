@@ -1,36 +1,45 @@
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import React from 'react';
+import { useRouter } from 'expo-router'
+import React from 'react'
 import {
+  Image,
   Modal,
   StyleSheet,
   Text,
   TouchableOpacity,
-  View
-} from 'react-native';
+  View,
+} from 'react-native'
 
-const FinalModal = ({ isModalVisible }) => {
-  const router = useRouter();
+const FinalModal = ({ isModalVisible }: { isModalVisible: boolean }) => {
+  const router = useRouter()
 
   return (
     <Modal
       animationType="fade"
-      transparent={true}
+      transparent
       visible={isModalVisible}
-      onRequestClose={() => router.push('/(tabs)/home')}
+      onRequestClose={() => router.push('/src\app\(trabajo_matias)\notificaciones.tsx')}
     >
+      {/* fondo oscuro semitransparente */}
       <View style={styles.backdrop}>
+        {/* contenedor del modal */}
         <View style={styles.modalView}>
-          <View style={styles.iconContainer}>
-            <Ionicons name="checkmark-circle" size={80} color="#22C55E" />
-          </View>
+          {/* imagen de confirmación */}
+          <Image
+            source={require('@/src/assets/images/modalVariants/modalConfirm.png')}
+            style={styles.image}
+            resizeMode="contain"
+          />
 
+          {/* título */}
           <Text style={styles.title}>¡Muy bien!</Text>
+
+          {/* texto de confirmación */}
           <Text style={styles.text}>
             Has publicado tu venta con éxito. Pronto recibirás contacto de los
             usuarios. ¡Éxitos en tu venta!
           </Text>
 
+          {/* botón de cierre */}
           <TouchableOpacity
             style={styles.button}
             onPress={() => router.push('/(tabs)/home')}
@@ -40,8 +49,8 @@ const FinalModal = ({ isModalVisible }) => {
         </View>
       </View>
     </Modal>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   backdrop: {
@@ -57,7 +66,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     width: '85%',
   },
-  iconContainer: {
+  image: {
+    width: 100,
+    height: 100,
     marginBottom: 20,
   },
   title: {
@@ -65,6 +76,7 @@ const styles = StyleSheet.create({
     fontSize: 18,
     marginBottom: 10,
     textAlign: 'center',
+    color: '#000',
   },
   text: {
     fontSize: 14,
@@ -88,6 +100,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
   },
-});
+})
 
-export default FinalModal;
+export default FinalModal
