@@ -34,7 +34,7 @@ const Notification = () => {
           <TouchableOpacity
             style={styles.buttom}
             onPress={() =>
-              router.push('/(trabajo_matias)/subi-las-fotos-de-tu-vehiculo') // src\app\(trabajo_matias)\notificaciones.tsx
+              router.push('/(trabajo_matias)/ResponderConsulta') // src\app\(trabajo_matias)\notificaciones.tsx
             } // cambiar por la ubicacion de su pantalla
           >
             <Text style={styles.buttomText}>Matias</Text>

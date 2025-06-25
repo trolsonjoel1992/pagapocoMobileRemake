@@ -1,3 +1,4 @@
+// ControlledInput.tsx
 import IconsPath from '@/src/constants/IconsPath'
 import React from 'react'
 import {
@@ -5,8 +6,7 @@ import {
   FieldValues,
   Path,
   useFormContext,
-} from 'react-hook-form'; // herramientas para formularios controlados
-
+} from 'react-hook-form'
 import {
   Image,
   StyleSheet,
@@ -14,36 +14,29 @@ import {
   TextInput,
   TextInputProps,
   View,
-} from 'react-native'; // componentes de interfaz de usuario de react native
+} from 'react-native'
 
-// definición de las props del componente controlado
-export interface ControlledInputProps<T extends FieldValues>
-  extends TextInputProps {
-  name: Path<T> // nombre del campo en el formulario
-  label: string // etiqueta visible del campo
+export interface ControlledInputProps<T extends FieldValues> extends TextInputProps {
+  name: Path<T>
+  label: string
 }
 
-// componente de input controlado genérico para formularios
-const ControlledInput = <T extends FieldValues>({
-  name,
-  label,
-  ...props
-}: ControlledInputProps<T>) => {
+const ControlledInput = <T extends FieldValues>({ name, label, ...props }: ControlledInputProps<T>) => {
   const {
     control,
     setFocus,
     formState: { isSubmitted },
-  } = useFormContext<T>() // obtiene el contexto del formulario
+  } = useFormContext<T>()
 
   return (
     <Controller
       name={name}
       control={control}
       rules={{
-        required: `${label} es obligatorio`, // validación de campo obligatorio
+        required: `${label} es obligatorio`,
         ...(props.keyboardType === 'email-address' && {
           pattern: {
-            value: /^\S+@\S+\.\S+$/, // validación de formato de email
+            value: /^\S+@\S+\.\S+$/,
             message: 'Formato de correo inválido',
           },
         }),
@@ -59,22 +52,22 @@ const ControlledInput = <T extends FieldValues>({
               style={styles.input}
               onChangeText={field.onChange}
               onBlur={field.onBlur}
-              value={field.value ? String(field.value) : ''} // asegura que el valor sea string
+              value={field.value ? String(field.value) : ''}
               returnKeyType="next"
-              onSubmitEditing={() => {
-                setFocus(name) // enfoca el siguiente campo al enviar
-              }}
+              onSubmitEditing={() => setFocus(name)}
             />
-            {!isSubmitted && <Image source={IconsPath.notePencil} />} // ícono de lápiz antes de enviar
+            {!isSubmitted && (
+              <Image source={IconsPath.notePencil} style={styles.icon} />
+            )}
             {isSubmitted && !fieldState.error ? (
-              <Image source={IconsPath.checkSquare} /> // ícono de éxito si no hay error
+              <Image source={IconsPath.checkSquare} style={styles.icon} />
             ) : (
-              fieldState.error && <Image source={IconsPath.errorSquare} /> // ícono de error si hay error
+              isSubmitted && fieldState.error && (
+                <Image source={IconsPath.errorSquare} style={styles.icon} />
+              )
             )}
           </View>
-          {fieldState.error && (
-            <Text style={styles.error}>{fieldState.error.message}</Text> // muestra mensaje de error
-          )}
+          {fieldState.error && <Text style={styles.error}>{fieldState.error.message}</Text>}
         </View>
       )}
     />
@@ -102,6 +95,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#333',
   },
+  icon: {
+    width: 20,
+    height: 20,
+    marginLeft: 8,
+  },
   error: {
     color: 'red',
     fontSize: 12,
@@ -111,4 +109,5 @@ const styles = StyleSheet.create({
 })
 
 export default ControlledInput
+
 

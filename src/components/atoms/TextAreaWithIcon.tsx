@@ -1,3 +1,4 @@
+// TextAreaWithIcon.tsx
 import { Ionicons } from '@expo/vector-icons'
 import React from 'react'
 import { Controller, useFormContext } from 'react-hook-form'
@@ -31,7 +32,7 @@ export default function TextAreaWithIcon({ name, label }: Props) {
                 style={styles.textArea}
                 placeholderTextColor="#aaa"
               />
-              <Ionicons name="create-outline" size={20} color="#333" />
+              <Ionicons name="create-outline" size={20} color="#333" style={styles.icon} />
             </View>
 
             {fieldState.error && (
@@ -73,6 +74,10 @@ const styles = StyleSheet.create({
     textAlignVertical: 'top',
     color: '#333',
     maxHeight: 150,
+  },
+  icon: {
+    marginLeft: 10,
+    marginTop: 4,
   },
   error: {
     color: 'red',
