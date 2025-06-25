@@ -21,9 +21,12 @@ export default function FinalizarPublicacion() {
   // valida si se aceptaron los términos antes de continuar
   const handleFinalizar = () => {
     if (aceptaTerminos) {
-      router.push('/(trabajo_matias)/modal_publicadoexitoso')
+      router.push('/(sell)/successfulPublication')
     } else {
-      Alert.alert('Atención', 'Debes aceptar los términos y condiciones para continuar.')
+      Alert.alert(
+        'Atención',
+        'Debes aceptar los términos y condiciones para continuar.'
+      )
     }
   }
 
@@ -48,12 +51,19 @@ export default function FinalizarPublicacion() {
             style={styles.iconImage}
             resizeMode="contain"
           />
-          <Text style={styles.subtext}>Ingresá el precio para tu publicación</Text>
+          <Text style={styles.subtext}>
+            Ingresá el precio para tu publicación
+          </Text>
         </View>
 
         {/* campo de entrada para el precio */}
         <View style={styles.inputWrapper}>
-          <MaterialIcons name="attach-money" size={24} color="#333" style={styles.inputIcon} />
+          <MaterialIcons
+            name="attach-money"
+            size={24}
+            color="#333"
+            style={styles.inputIcon}
+          />
           <TextInput
             placeholder="Ingresá el precio"
             placeholderTextColor="#555"
@@ -73,9 +83,9 @@ export default function FinalizarPublicacion() {
             />
           </TouchableOpacity>
           <Text style={styles.terminosText}>
-            Acepto los{' '}
-            <Text style={styles.link}>Términos y condiciones</Text> y autorizo el uso de mis datos de
-            acuerdo a la <Text style={styles.link}>Declaración de privacidad</Text>.
+            Acepto los <Text style={styles.link}>Términos y condiciones</Text> y
+            autorizo el uso de mis datos de acuerdo a la{' '}
+            <Text style={styles.link}>Declaración de privacidad</Text>.
           </Text>
         </View>
 
@@ -178,6 +188,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 })
-
-
-

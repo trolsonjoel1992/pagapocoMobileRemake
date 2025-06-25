@@ -1,73 +1,86 @@
+import ContainerView from '@/src/components/atoms/ContainerView'
 import ImagesPath from '@/src/constants/ImagesPath'
-import { router } from 'expo-router'
+import { Href, router } from 'expo-router'
 
 import {
+  FlatList,
   Image,
-  ScrollView,
   StyleSheet,
   Text,
   TouchableOpacity,
   View,
 } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-const Sell = () => {
+export default function Sell() {
   return (
-    <SafeAreaView style={styles.container}>
-      <ScrollView contentContainerStyle={styles.content}>
+    <ContainerView>
+      <View style={styles.content}>
         <Text style={styles.title}>¡Vendé en nuestra app!</Text>
         <Text style={styles.subtitle}>Selecciona la categoría de venta</Text>
 
-        <View style={styles.categoryList}>
-          <TouchableOpacity
-            style={styles.card}
-            onPress={() => router.push('/(sell)/FormVehicle')}
-          >
-            <Image source={ImagesPath.iconTruck} style={styles.icon} />
-            <Text style={styles.cardText}>Camiones</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.card}
-            onPress={() => router.push('/(sell)/FormVehicle')}
-          >
-            <Image source={ImagesPath.iconCarProfile} style={styles.icon} />
-            <Text style={styles.cardText}>Camionetas</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.card}
-            onPress={() => router.push('/(sell)/FormVehicle')}
-          >
-            <Image source={ImagesPath.iconCar} style={styles.icon} />
-            <Text style={styles.cardText}>Autos</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.card}
-            onPress={() => router.push('/(sell)/FormMotorcycle')}
-          >
-            <Image source={ImagesPath.iconMotorcycle} style={styles.icon} />
-            <Text style={styles.cardText}>Motos</Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={styles.card}
-            onPress={() => router.push('/(sell)/FormGear')}
-          >
-            <Image source={ImagesPath.iconGear} style={styles.icon} />
-            <Text style={styles.cardText}>Piezas</Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-      {/*       <TabsLayout />
-       */}
-    </SafeAreaView>
+        <FlatList
+          data={categories}
+          numColumns={2}
+          columnWrapperStyle={styles.row}
+          keyExtractor={(item) => item.key}
+          contentContainerStyle={styles.categoryList}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.card}
+              onPress={() => router.push(item.route)}
+            >
+              <Image source={item.icon} style={styles.icon} />
+              <Text style={styles.cardText}>{item.label}</Text>
+            </TouchableOpacity>
+          )}
+        />
+      </View>
+    </ContainerView>
   )
 }
 
-export const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
+type Category = {
+  key: string
+  label: string
+  icon: any
+  route: Href<string | object>
+}
+
+const categories: Category[] = [
+  {
+    key: 'camiones',
+    label: 'Camiones',
+    icon: ImagesPath.iconTruck,
+    route: '/(sell)/formVehicle',
   },
+  {
+    key: 'camionetas',
+    label: 'Camionetas',
+    icon: ImagesPath.iconCarProfile,
+    route: '/(sell)/formVehicle',
+  },
+  {
+    key: 'autos',
+    label: 'Autos',
+    icon: ImagesPath.iconCar,
+    route: '/(sell)/formVehicle',
+  },
+  {
+    key: 'motos',
+    label: 'Motos',
+    icon: ImagesPath.iconMotorcycle,
+    route: '/(sell)/formMotorcycle',
+  },
+  {
+    key: 'piezas',
+    label: 'Piezas',
+    icon: ImagesPath.iconGear,
+    route: '/(sell)/formGear',
+  },
+]
+
+export const styles = StyleSheet.create({
   content: {
     paddingVertical: verticalScale(20),
     paddingHorizontal: moderateScale(20),
@@ -84,24 +97,29 @@ export const styles = StyleSheet.create({
     textAlign: 'center',
   },
   categoryList: {
-    width: '100%',
+    paddingBottom: verticalScale(20),
+  },
+  row: {
+    justifyContent: 'space-between',
+    marginBottom: verticalScale(8),
   },
   card: {
+    width: '48%',
     backgroundColor: '#f1e9f9',
-    flexDirection: 'row',
     alignItems: 'center',
-    padding: moderateScale(20),
-    borderRadius: 20,
-    marginBottom: verticalScale(18),
+    justifyContent: 'center',
+    paddingHorizontal: moderateScale(10),
+    paddingVertical: verticalScale(30),
+    borderRadius: moderateScale(20),
   },
   icon: {
-    marginRight: moderateScale(16),
+    width: moderateScale(65),
+    height: moderateScale(65),
+    // marginRight: moderateScale(16),
   },
   cardText: {
-    fontSize: moderateScale(24),
-    fontWeight: '600',
-    paddingLeft: moderateScale(10),
+    fontSize: moderateScale(18),
+    fontWeight: '500',
+    // paddingLeft: moderateScale(10),
   },
 })
-
-export default Sell

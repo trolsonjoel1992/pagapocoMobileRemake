@@ -1,20 +1,19 @@
-import ImagesPath from "@/src/constants/ImagesPath";
-import React from "react";
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import { moderateScale, verticalScale } from "react-native-size-matters";
+import ImagesPath from '@/src/constants/ImagesPath'
+import React from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 type HeaderProps = {
-  titulo: string;
-  onBackPress?: () => void; // Prop opcional para funcionalidad futura
-};
+  titulo: string
+  onBackPress?: () => void // Prop opcional para funcionalidad futura
+}
 
 const HeaderMainComponent = ({ titulo, onBackPress }: HeaderProps) => {
-
   const handleBackPress = () => {
     if (onBackPress) {
-      onBackPress();
+      onBackPress()
     } else {
-      console.warn("No se proporciono funcion onBackPress");
+      console.warn('No se proporciono funcion onBackPress')
     }
   }
 
@@ -33,43 +32,44 @@ const HeaderMainComponent = ({ titulo, onBackPress }: HeaderProps) => {
       </TouchableOpacity>
 
       <Text style={styles.textCuenta}>{titulo}</Text>
-      
+
       {/* Espacio invisible para balancear el diseño */}
-      <View style={styles.invisibleSpacer} /> 
+      <View style={styles.invisibleSpacer} />
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   header: {
-    width: "100%",
-    backgroundColor: "#A230C7",
-    flexDirection: "row",
-    alignItems: "center",
-    justifyContent: "space-between",
-    paddingVertical: verticalScale(10), // 16
+    width: '100%',
+    backgroundColor: '#A230C7',
+    flexDirection: 'row',
+    alignItems: 'center',
+    // justifyContent: 'space-between',
+    paddingVertical: verticalScale(4), // 16
   },
   backButton: {
-    paddingHorizontal: moderateScale(20),
-    paddingVertical: moderateScale(16),
-    zIndex: 1, // Asegura que esté por encima de otros elementos
+    padding: moderateScale(10), // Área táctil amplia
+    // paddingHorizontal: moderateScale(20),
+    // paddingVertical: moderateScale(6),
+    // zIndex: 1, // Asegura que esté por encima de otros elementos
   },
   logoArrowBackStyle: {
     width: moderateScale(24),
     height: moderateScale(24),
   },
   textCuenta: {
-    color: "black",
+    color: 'black',
     fontSize: moderateScale(18),
-    fontWeight: "bold",
-    position: "absolute", // Centrado absoluto
-    left: 0,
-    right: 0,
-    textAlign: "center",
+    fontWeight: 'normal',
+    // position: 'absolute', // Centrado absoluto
+    // left: 0,
+    // right: 0,
+    // textAlign: 'center',
   },
   invisibleSpacer: {
     width: moderateScale(44), // Mismo ancho que el botón para equilibrio
   },
-});
+})
 
-export default HeaderMainComponent;
+export default HeaderMainComponent

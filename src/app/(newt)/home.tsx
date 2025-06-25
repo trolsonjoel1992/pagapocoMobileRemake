@@ -3,7 +3,6 @@ import ButtonCategoryComponent from '@/src/components/atoms/ButtonCategoryCompon
 import PublicationCardComponent from '@/src/components/atoms/PublicationCardComponent'
 import SearchBarMainComponent from '@/src/components/atoms/SearchBarMainComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
-import { useListPublications } from '@/src/features/hooks/publications.hooks'
 import { useAuth } from '@/src/hooks/useAuth'
 import React, { useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
@@ -21,7 +20,6 @@ const Home = () => {
     setIsFavorite(!isFavorite)
   }
 
-  const { data } = useListPublications()
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
@@ -65,7 +63,7 @@ const Home = () => {
       {/* body */}
       <View style={styles.body}>
         <FlatList
-          data={data}
+          data={mockPublications}
           renderItem={({ item }) => (
             <PublicationCardComponent item={item} />
           )} /* Componente de la publicacion */
@@ -288,70 +286,70 @@ const styles = StyleSheet.create({
 })
 
 // Datos de ejemplo para las publicaciones
-// const mockPublications = [
-//   /* {
-//       id: 'ad-1',
-//       type: 'full-width-ad',
-//       title: "Anuncio Especial",
-//       content: "Este es un anuncio que ocupa todo el ancho",
-//     }, */
-//   {
-//     id: 1,
-//     title: 'Volkswagen Polo 0km',
-//     price: '$24.500.000',
-//     image: ImagesPath.imageAutoVolkswagenPolo,
-//     //location: 'Resistencia, Chaco',
-//   },
-//   {
-//     id: 2,
-//     title: 'Chevrolet Traker 1.2 Ltz Turbo At',
-//     price: '$30.000.000',
-//     image: ImagesPath.imageAutoChevroletTracker,
-//     //location: 'Barranqueras, Chaco',
-//   },
-//   {
-//     id: 3,
-//     title: 'Carburador Ford Falcon F100 22',
-//     price: '$172.320',
-//     image: ImagesPath.imagePiezaCarburadorFordFalcon,
-//     //location: 'Resistencia, Chaco',
-//   },
-//   {
-//     id: 4,
-//     title: 'Honda Tornado 250',
-//     price: '$8.500.000',
-//     image: ImagesPath.imageMotoHondaTornado,
-//     //location: 'Fontana, Chaco',
-//   },
-//   {
-//     id: 5,
-//     title: 'Nissan Frontier 2.3 S Cd 4x4 Mt',
-//     price: '$35.000.000',
-//     image: ImagesPath.imageCamionetaNissanFrontier,
-//     //location: 'Resistencia, Chaco',
-//   },
-//   {
-//     id: 6,
-//     title: 'Fiat Toro 1.3 T270 Volcano 4x2 At',
-//     price: '$30.500.000',
-//     image: ImagesPath.imageAutoFiatToro,
-//     //location: 'Resistencia, Chaco',
-//   },
-//   {
-//     id: 7,
-//     title: 'Jeep Renegade 1.8 Sport',
-//     price: '$24.000.000',
-//     image: ImagesPath.imageAutoJeepRenegade,
-//     //location: 'Resistencia, Chaco',
-//   },
-//   {
-//     id: 8,
-//     title: 'Renault Sandero Stepway 1.6 16v Intense',
-//     price: '$23.000.000',
-//     image: ImagesPath.imageAutoRenaultSandero,
-//     //location: 'Fontana, Chaco',
-//   },
-//   // Agrega más publicaciones según necesites
-// ]
+const mockPublications = [
+  /* {
+      id: 'ad-1',
+      type: 'full-width-ad',
+      title: "Anuncio Especial",
+      content: "Este es un anuncio que ocupa todo el ancho",
+    }, */
+  {
+    id: 1,
+    title: 'Volkswagen Polo 0km',
+    price: '$24.500.000',
+    image: ImagesPath.imageAutoVolkswagenPolo,
+    //location: 'Resistencia, Chaco',
+  },
+  {
+    id: 2,
+    title: 'Chevrolet Traker 1.2 Ltz Turbo At',
+    price: '$30.000.000',
+    image: ImagesPath.imageAutoChevroletTracker,
+    //location: 'Barranqueras, Chaco',
+  },
+  {
+    id: 3,
+    title: 'Carburador Ford Falcon F100 22',
+    price: '$172.320',
+    image: ImagesPath.imagePiezaCarburadorFordFalcon,
+    //location: 'Resistencia, Chaco',
+  },
+  {
+    id: 4,
+    title: 'Honda Tornado 250',
+    price: '$8.500.000',
+    image: ImagesPath.imageMotoHondaTornado,
+    //location: 'Fontana, Chaco',
+  },
+  {
+    id: 5,
+    title: 'Nissan Frontier 2.3 S Cd 4x4 Mt',
+    price: '$35.000.000',
+    image: ImagesPath.imageCamionetaNissanFrontier,
+    //location: 'Resistencia, Chaco',
+  },
+  {
+    id: 6,
+    title: 'Fiat Toro 1.3 T270 Volcano 4x2 At',
+    price: '$30.500.000',
+    image: ImagesPath.imageAutoFiatToro,
+    //location: 'Resistencia, Chaco',
+  },
+  {
+    id: 7,
+    title: 'Jeep Renegade 1.8 Sport',
+    price: '$24.000.000',
+    image: ImagesPath.imageAutoJeepRenegade,
+    //location: 'Resistencia, Chaco',
+  },
+  {
+    id: 8,
+    title: 'Renault Sandero Stepway 1.6 16v Intense',
+    price: '$23.000.000',
+    image: ImagesPath.imageAutoRenaultSandero,
+    //location: 'Fontana, Chaco',
+  },
+  // Agrega más publicaciones según necesites
+]
 
 export default Home
