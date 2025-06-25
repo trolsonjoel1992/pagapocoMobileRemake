@@ -1,43 +1,42 @@
 import ImagesPath from '@/src/constants/ImagesPath'
-import { router } from 'expo-router'
 import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-const EmptyPublications = () => {
+const EmptyFavorites = () => {
   return (
-    /*  <View style={styles.container}> */
-    <View style={styles.emptyContainer}>
-      <Image
-        source={ImagesPath.imageNopublication}
-        style={styles.emptyImage}
-        resizeMode="contain"
-      />
-      <Text style={styles.emptyTitle}>¡No hay publicaciones!</Text>
-      <Text style={styles.emptyText}>
-        Podés crear una y empezar a vender cuando quieras.
-      </Text>
-      {/* Botón "Publicar ahora" */}
-      <TouchableOpacity
-        style={styles.publishButton}
-        onPress={() => router.push('/(tabs)/sell')}
-      >
-        <Text style={styles.publishButtonText}>Publicar ahora</Text>
-      </TouchableOpacity>
+    <View style={styles.container}>
+      <View style={styles.emptyContainer}>
+        <Image
+          source={ImagesPath.noFavorites}
+          style={styles.emptyImage}
+          resizeMode="contain"
+        />
+        <Text style={styles.emptyTitle}>
+          ¡Todavia no tenes publicaciones favoritas!
+        </Text>
+        <Text style={styles.emptyText}>
+          Agregalas cliqueando en el corazón de la publicación
+        </Text>
+        <TouchableOpacity
+          style={styles.publishButton}
+          //onPress={() => router.push()}
+        >
+          <Text style={styles.publishButtonText}>Nuestros recomendados</Text>
+        </TouchableOpacity>
+      </View>
     </View>
-    /*  </View> */
   )
 }
 
 const styles = StyleSheet.create({
-  /*  container: {
+  container: {
     flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'red',
-  }, */
-
+    backgroundColor: '#FFFFFF',
+  },
   emptyContainer: {
+    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: moderateScale(24),
@@ -73,4 +72,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default EmptyPublications
+export default EmptyFavorites

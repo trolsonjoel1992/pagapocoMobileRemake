@@ -1,12 +1,8 @@
+import EmptyFavorites from '@/src/components/molecules/emptyFavorites'
 import React from 'react'
-import { Text, View } from 'react-native'
 
 const favorites = () => {
-  return (
-    <View>
-      <Text>favorites</Text>
-    </View>
-  )
+  return <EmptyFavorites />
 }
 
 export default favorites

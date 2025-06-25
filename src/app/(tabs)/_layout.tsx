@@ -171,3 +171,106 @@ const styles = StyleSheet.create({
 })
 
 export default TabsLayout
+
+/* import IconsPath from '@/src/constants/IconsPath'
+import { Tabs } from 'expo-router'
+import React from 'react'
+import { Image } from 'react-native'
+import { moderateScale } from 'react-native-size-matters'
+
+const Layout = () => {
+  return (
+    <Tabs
+      screenOptions={{
+        headerShown: false,
+        tabBarStyle: {
+          backgroundColor: '#A230C7',
+          height: moderateScale(55),
+        },
+        tabBarShowLabel: true,
+        tabBarActiveTintColor: 'rgba(255, 255, 255, 0.5)',
+        tabBarInactiveTintColor: 'white',
+        tabBarActiveBackgroundColor: '#7B1FA2',
+      }}
+    >
+      <Tabs.Screen
+        name="home"
+        options={{
+          title: 'Inicio',
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={IconsPath.home}
+              style={{
+                tintColor: focused ? 'rgba(255, 255, 255, 0.5)' : 'white',
+              }}
+              resizeMode="contain"
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="myPublications"
+        options={{
+          title: 'Publicaciones',
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={IconsPath.publications}
+              style={{
+                tintColor: focused ? 'rgba(255, 255, 255, 0.5)' : 'white',
+              }}
+              resizeMode="contain"
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="sell"
+        options={{
+          title: 'Vender',
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={IconsPath.sell}
+              style={{
+                tintColor: focused ? 'rgba(255, 255, 255, 0.5)' : 'white',
+              }}
+              resizeMode="contain"
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="favorites"
+        options={{
+          title: 'Favoritos',
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={IconsPath.favorites}
+              style={{
+                tintColor: focused ? 'rgba(255, 255, 255, 0.5)' : 'white',
+              }}
+              resizeMode="contain"
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="profile"
+        options={{
+          title: 'Perfil',
+          tabBarIcon: ({ focused }) => (
+            <Image
+              source={IconsPath.profile}
+              style={{
+                tintColor: focused ? 'rgba(255, 255, 255, 0.5)' : 'white',
+              }}
+              resizeMode="contain"
+            />
+          ),
+        }}
+      />
+    </Tabs>
+  )
+}
+
+export default Layout
+ */
