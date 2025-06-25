@@ -52,31 +52,31 @@ const categories: Category[] = [
     key: 'camiones',
     label: 'Camiones',
     icon: ImagesPath.iconTruck,
-    route: '/(sell)/FormVehicle',
+    route: '/(sell)/formVehicle',
   },
   {
     key: 'camionetas',
     label: 'Camionetas',
     icon: ImagesPath.iconCarProfile,
-    route: '/(sell)/FormVehicle',
+    route: '/(sell)/formVehicle',
   },
   {
     key: 'autos',
     label: 'Autos',
     icon: ImagesPath.iconCar,
-    route: '/(sell)/FormVehicle',
+    route: '/(sell)/formVehicle',
   },
   {
     key: 'motos',
     label: 'Motos',
     icon: ImagesPath.iconMotorcycle,
-    route: '/(sell)/FormMotorcycle',
+    route: '/(sell)/formMotorcycle',
   },
   {
     key: 'piezas',
     label: 'Piezas',
     icon: ImagesPath.iconGear,
-    route: '/(sell)/FormGear',
+    route: '/(sell)/formGear',
   },
 ]
 

@@ -1,4 +1,3 @@
-import { styles } from '@/src/app/(sell)/FormGear.styles'
 import Button from '@/src/components/atoms/Button'
 import ContainerView from '@/src/components/atoms/ContainerView'
 import ControlledInput from '@/src/components/atoms/ControlledInput'
@@ -7,7 +6,7 @@ import { GearData, gearSchema } from '@/src/validations/gearSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { router } from 'expo-router'
 import { FormProvider, useForm } from 'react-hook-form'
-import { ScrollView, View } from 'react-native'
+import { ScrollView, StyleSheet, View } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
 
 const FormGear = () => {
@@ -84,5 +83,19 @@ const FormGear = () => {
     </FormProvider>
   )
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  body: {
+    flex: 1,
+  },
+  contentBody: {
+    flexGrow: 1,
+    padding: 20,
+  },
+})
 
 export default FormGear

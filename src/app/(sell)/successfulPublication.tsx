@@ -17,7 +17,9 @@ const FinalModal = ({ isModalVisible }: { isModalVisible: boolean }) => {
       animationType="fade"
       transparent
       visible={isModalVisible}
-      onRequestClose={() => router.push('/src\app\(trabajo_matias)\notificaciones.tsx')}
+      onRequestClose={() =>
+        router.push('/srcapp(trabajo_matias)\notificaciones.tsx')
+      }
     >
       {/* fondo oscuro semitransparente */}
       <View style={styles.backdrop}>
@@ -42,7 +44,7 @@ const FinalModal = ({ isModalVisible }: { isModalVisible: boolean }) => {
           {/* botón de cierre */}
           <TouchableOpacity
             style={styles.button}
-            onPress={() => router.push('/(tabs)/home')}
+            onPress={() => router.replace('/(tabs)/home')}
           >
             <Text style={styles.buttonText}>Continuar</Text>
           </TouchableOpacity>
