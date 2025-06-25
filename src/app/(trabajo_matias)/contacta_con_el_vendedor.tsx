@@ -1,79 +1,73 @@
-import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
-import { Ionicons } from '@expo/vector-icons'
-import { useRouter } from 'expo-router'
-import React from 'react'
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import Button from '@/src/components/atoms/Button'; // botón personalizado
+import ControlledInput from '@/src/components/atoms/ControlledInput'; // input controlado con validación
+import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'; // encabezado reutilizable
+import TextAreaWithIcon from '@/src/components/atoms/TextAreaWithIcon'; // área de texto con ícono
 
-const ContactaConElVendedor = () => {
-  const router = useRouter()
+import { useRouter } from 'expo-router'; // hook para navegación
+import React from 'react'; // importación de react
+import { FormProvider, useForm } from 'react-hook-form'; // herramientas para formularios
+import { ScrollView, StyleSheet, Text, View } from 'react-native'; // componentes de interfaz de usuario
+import { SafeAreaView } from 'react-native-safe-area-context'; // vista segura para evitar solapamiento con el sistema
+
+// definición de los campos del formulario
+type FormFields = {
+  nombre: string
+  apellido: string
+  email: string
+  telefono: string
+  consulta: string
+}
+
+export default function ContactaConElVendedor() {
+  const router = useRouter() // inicializa el hook de navegación
+  const methods = useForm<FormFields>({ mode: 'onTouched' }) // inicializa el formulario con validación al tocar
+
+  const onSubmit = (data: FormFields) => {
+    console.log('Datos del formulario:', data) // muestra los datos en consola
+    router.push('/(trabajo_matias)/plan_de_venta') // navega a la siguiente pantalla
+  }
 
   return (
     <SafeAreaView style={styles.container}>
       <HeaderMainComponent
         titulo="Hacé tu consulta"
-        onBackPress={() => router.back()}
+        onBackPress={() => router.back()} // vuelve a la pantalla anterior
       />
 
-      <ScrollView
-        contentContainerStyle={styles.scrollContainer}
-        keyboardShouldPersistTaps="handled"
-      >
-        <View style={styles.contentContainer}>
-          <Text style={styles.subtitle}>Completá tus datos de contacto</Text>
+      <FormProvider {...methods}>
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+          <View style={styles.contentContainer}>
+            <Text style={styles.subtitle}>Completá tus datos de contacto</Text>
 
-          {['Nombre', 'Apellido', 'E-mail', 'Teléfono'].map((label, index) => (
-            <View key={index} style={styles.inputGroup}>
-              <Text style={styles.label}>{label}:</Text>
-              <View style={styles.inputContainer}>
-                <TextInput
-                  style={styles.input}
-                  placeholder={`Ingresá tu ${label.toLowerCase()}`}
-                  placeholderTextColor="#aaa"
-                />
-                <Ionicons name="create-outline" size={20} color="#333" />
-              </View>
-            </View>
-          ))}
+            <ControlledInput name="nombre" label="Nombre" />
+            <ControlledInput name="apellido" label="Apellido" />
+            <ControlledInput name="email" label="E-mail" keyboardType="email-address" />
+            <ControlledInput name="telefono" label="Teléfono" keyboardType="phone-pad" />
 
-          <View style={styles.inputGroup}>
-            <Text style={styles.label}>Consulta:</Text>
-            <View style={styles.inputContainerLarge}>
-              <TextInput
-                style={styles.textArea}
-                placeholder="Escribí tu pregunta"
-                placeholderTextColor="#aaa"
-                multiline
-                numberOfLines={4}
-              />
-              <Ionicons name="create-outline" size={20} color="#333" />
+            <TextAreaWithIcon name="consulta" label="Consulta" />
+
+            <View style={styles.buttonContainer}>
+              <Button
+                variant="contained"
+                onPress={() => {
+                  methods.handleSubmit(onSubmit)() // ejecuta el submit del formulario
+                  router.push('/(trabajo_matias)/plan_de_venta') // navegación directa
+                }}
+              >
+                Continuar
+              </Button>
             </View>
           </View>
-          <View style={styles.buttonContainer}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={() => router.push('/(trabajo_matias)/plan_de_venta')}
-            >
-              <Text style={styles.buttonText}>Continuar</Text>
-            </TouchableOpacity>
-          </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
+      </FormProvider>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff',
     flex: 1,
+    backgroundColor: '#fff',
   },
   scrollContainer: {
     flexGrow: 1,
@@ -91,69 +85,8 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#333',
   },
-  inputGroup: {
-    marginBottom: 20,
-    width: '100%',
-  },
-  label: {
-    fontWeight: '600',
-    marginBottom: 8,
-    fontSize: 16,
-    color: '#444',
-  },
-  inputContainer: {
-    backgroundColor: '#f1e8f8',
-    borderRadius: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingHorizontal: 15,
-    justifyContent: 'space-between',
-    height: 50,
-  },
-  inputContainerLarge: {
-    backgroundColor: '#f1e8f8',
-    borderRadius: 12,
-    flexDirection: 'row',
-    padding: 15,
-    justifyContent: 'space-between',
-    alignItems: 'flex-start',
-    minHeight: 120,
-  },
-  input: {
-    flex: 1,
-    fontSize: 16,
-    color: '#333',
-    paddingVertical: 12,
-  },
-  textArea: {
-    flex: 1,
-    fontSize: 16,
-    textAlignVertical: 'top',
-    color: '#333',
-    maxHeight: 150,
-  },
   buttonContainer: {
     alignItems: 'center',
-  },
-  button: {
-    backgroundColor: '#A230C7',
-    borderRadius: 20,
-    padding: 16,
-    alignItems: 'center',
     marginTop: 25,
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 5,
-    width: 170,
-    height: 55,
-  },
-  buttonText: {
-    color: '#fff',
-    fontWeight: 'bold',
-    fontSize: 16,
   },
 })
-
-export default ContactaConElVendedor
