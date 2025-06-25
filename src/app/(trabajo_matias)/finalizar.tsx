@@ -1,3 +1,5 @@
+// pantalla para finalizar la publicación de un producto o servicio
+
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import { MaterialIcons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
@@ -16,6 +18,7 @@ export default function FinalizarPublicacion() {
   const router = useRouter()
   const [aceptaTerminos, setAceptaTerminos] = useState(true)
 
+  // valida si se aceptaron los términos antes de continuar
   const handleFinalizar = () => {
     if (aceptaTerminos) {
       router.push('/(trabajo_matias)/modal_publicadoexitoso')
@@ -26,6 +29,7 @@ export default function FinalizarPublicacion() {
 
   return (
     <View style={styles.mainContainer}>
+      {/* encabezado con botón de retroceso */}
       <View style={styles.headerWrapper}>
         <HeaderMainComponent
           titulo="Vender"
@@ -33,9 +37,11 @@ export default function FinalizarPublicacion() {
         />
       </View>
 
+      {/* contenido principal de la pantalla */}
       <View style={styles.contentContainer}>
         <Text style={styles.title}>¡Ya casi terminamos!</Text>
 
+        {/* sección con imagen ilustrativa y texto */}
         <View style={styles.iconBox}>
           <Image
             source={require('@/src/assets/images/publicationsbuton/priceImage.png')}
@@ -45,6 +51,7 @@ export default function FinalizarPublicacion() {
           <Text style={styles.subtext}>Ingresá el precio para tu publicación</Text>
         </View>
 
+        {/* campo de entrada para el precio */}
         <View style={styles.inputWrapper}>
           <MaterialIcons name="attach-money" size={24} color="#333" style={styles.inputIcon} />
           <TextInput
@@ -56,6 +63,7 @@ export default function FinalizarPublicacion() {
           <MaterialIcons name="edit" size={20} color="#333" />
         </View>
 
+        {/* checkbox para aceptar términos y condiciones */}
         <View style={styles.terminosContainer}>
           <TouchableOpacity onPress={() => setAceptaTerminos(!aceptaTerminos)}>
             <MaterialIcons
@@ -71,6 +79,7 @@ export default function FinalizarPublicacion() {
           </Text>
         </View>
 
+        {/* botón para finalizar la publicación */}
         <TouchableOpacity style={styles.button} onPress={handleFinalizar}>
           <Text style={styles.buttonText}>Finalizar</Text>
         </TouchableOpacity>
@@ -79,6 +88,7 @@ export default function FinalizarPublicacion() {
   )
 }
 
+// estilos de la pantalla
 const styles = StyleSheet.create({
   mainContainer: {
     flex: 1,
@@ -168,5 +178,6 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 })
+
 
 

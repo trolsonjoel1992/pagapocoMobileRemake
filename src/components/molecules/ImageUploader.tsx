@@ -1,4 +1,4 @@
-// molecula para subir imagenes desde galeria
+// componente para seleccionar y subir imágenes desde la galería
 
 import { Ionicons } from '@expo/vector-icons'
 import * as ImagePicker from 'expo-image-picker'
@@ -14,6 +14,7 @@ import {
 } from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
+// propiedades del componente de cantidad máxima de imágenes y callback al cambiar
 interface ImageUploaderProps {
   maxImages?: number
   onChange: (images: string[]) => void
@@ -23,6 +24,7 @@ const ImageUploader = ({ maxImages = 4, onChange }: ImageUploaderProps) => {
   const [imagenes, setImagenes] = useState<string[]>([])
   const { width } = useWindowDimensions()
 
+  // solicita permisos y abre la galería para seleccionar una imagen
   const seleccionarImagen = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
     if (status !== 'granted') {
@@ -36,6 +38,7 @@ const ImageUploader = ({ maxImages = 4, onChange }: ImageUploaderProps) => {
       quality: 0.7,
     })
 
+    // si se selecciona una imagen y no se supera el límite, se agrega a la lista
     if (!result.canceled && result.assets.length > 0) {
       if (imagenes.length >= maxImages) {
         Alert.alert('Límite alcanzado', `Sólo podés subir hasta ${maxImages} imágenes.`)
@@ -48,6 +51,7 @@ const ImageUploader = ({ maxImages = 4, onChange }: ImageUploaderProps) => {
     }
   }
 
+  // elimina una imagen de la lista según su índice
   const eliminarImagen = (index: number) => {
     const nuevasImagenes = imagenes.filter((_, i) => i !== index)
     setImagenes(nuevasImagenes)
@@ -56,6 +60,7 @@ const ImageUploader = ({ maxImages = 4, onChange }: ImageUploaderProps) => {
 
   return (
     <View style={styles.container}>
+      {/* botón para subir imagen */}
       <TouchableOpacity style={styles.uploadBox} onPress={seleccionarImagen}>
         <Ionicons name="cloud-upload-outline" size={32} color="#333" />
         <Text style={styles.uploadText}>Subí tus fotos aquí</Text>
@@ -63,6 +68,7 @@ const ImageUploader = ({ maxImages = 4, onChange }: ImageUploaderProps) => {
         <Ionicons name="camera-outline" size={32} color="#333" style={{ marginTop: 10 }} />
       </TouchableOpacity>
 
+      {/* grilla de imágenes seleccionadas */}
       <View style={styles.gridContainer}>
         {imagenes.map((uri, i) => (
           <View key={i} style={styles.imageWrapper}>
@@ -77,6 +83,7 @@ const ImageUploader = ({ maxImages = 4, onChange }: ImageUploaderProps) => {
   )
 }
 
+// estilos del componente
 const styles = StyleSheet.create({
   container: {
     width: '100%',
@@ -135,3 +142,4 @@ const styles = StyleSheet.create({
 })
 
 export default ImageUploader
+
