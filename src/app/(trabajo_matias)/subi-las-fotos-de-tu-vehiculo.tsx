@@ -1,29 +1,17 @@
 import Button from '@/src/components/atoms/Button'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
-import ImagePreviewPlaceholder from '@/src/components/atoms/Placeholder'
+import ImageUploader from '@/src/components/molecules/ImageUploader'
 
-import { Ionicons } from '@expo/vector-icons'
 import { useRouter } from 'expo-router'
 import React, { useState } from 'react'
-import {
-  Alert,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { Alert, ScrollView, StyleSheet, Text } from 'react-native'
 
 export default function Fotos() {
   const router = useRouter()
-  const [imagenes, setImagenes] = useState([null, null, null, null])
-
-  const handleSubirFoto = () => {
-    alert('subir foto...')
-  }
+  const [imagenes, setImagenes] = useState<string[]>([])
 
   const handleContinuar = () => {
-    const hayImagenes = imagenes.some(img => img !== null)
+    const hayImagenes = imagenes.length > 0
     if (!hayImagenes) {
       Alert.alert('atención', 'por favor subí al menos una imagen antes de continuar')
       return
@@ -33,7 +21,6 @@ export default function Fotos() {
 
   return (
     <ScrollView contentContainerStyle={styles.container}>
-      {/* encabezado reutilizable coherente con otras pantallas */}
       <HeaderMainComponent
         titulo="Vender"
         onBackPress={() => router.back()}
@@ -42,22 +29,10 @@ export default function Fotos() {
       <Text style={styles.title}>Subí las fotos de tu vehículo</Text>
       <Text style={styles.subtitle}>Podés agregar hasta 4 imágenes</Text>
 
-      {/* área para subir imágenes */}
-      <TouchableOpacity style={styles.uploadBox} onPress={handleSubirFoto}>
-        <Ionicons name="cloud-upload-outline" size={32} color="#333" />
-        <Text style={styles.uploadText}>Subí tus fotos aquí</Text>
-        <Text style={styles.formatText}>Formatos permitidos: JPG, JPEG, PNG</Text>
-        <Ionicons name="camera-outline" size={32} color="#333" style={{ marginTop: 10 }} />
-      </TouchableOpacity>
+      {/* componente de subida de imágenes */}
+      <ImageUploader maxImages={4} onChange={setImagenes} />
 
-      {/* vista previa con grilla ordenada */}
-      <View style={styles.previewContainer}>
-        {imagenes.map((_, i) => (
-          <ImagePreviewPlaceholder key={i} />
-        ))}
-      </View>
-
-      {/* botón reutilizable para continuar */}
+      {/* botón de continuar reutilizable */}
       <Button variant="contained" onPress={handleContinuar}>
         Continuar
       </Button>
@@ -70,6 +45,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
     paddingVertical: 24,
+    paddingHorizontal: 16,
   },
   title: {
     fontSize: 24,
@@ -82,35 +58,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: '#555',
     marginBottom: 20,
-  },
-  uploadBox: {
-    borderWidth: 1,
-    borderStyle: 'dashed',
-    borderColor: '#aaa',
-    borderRadius: 15,
-    padding: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 10,
-    backgroundColor: '#f5f0fa',
-    width: '85%',
-  },
-  uploadText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 10,
-  },
-  formatText: {
-    fontSize: 14,
-    color: '#555',
-    marginTop: 5,
-  },
-  previewContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    marginTop: 30,
-    width: '85%',
-    rowGap: 16,
   },
 })
