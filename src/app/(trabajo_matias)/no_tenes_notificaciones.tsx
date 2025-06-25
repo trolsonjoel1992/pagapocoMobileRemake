@@ -1,4 +1,6 @@
-import EstadoVacio from '@/src/components/atoms/EstadoVacio'; // componente reutilizable
+// pantalla que muestra un estado vacío cuando no hay notificaciones
+
+import EstadoVacio from '@/src/components/atoms/EstadoVacio';
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent';
 import { useRouter } from 'expo-router';
 import React from 'react';
@@ -9,11 +11,13 @@ export default function NoNotificaciones() {
 
   return (
     <SafeAreaView style={styles.container}>
+      {/* encabezado con botón de retroceso */}
       <HeaderMainComponent
         titulo="Notificaciones"
         onBackPress={() => router.back()}
       />
 
+      {/* componente que muestra mensaje e imagen cuando no hay notificaciones */}
       <EstadoVacio
         imagen={require('@/src/assets/images/Group 325.png')}
         titulo="¡Todavía no tenés ninguna notificación!"
@@ -33,5 +37,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
 })
+
 
 
