@@ -1,4 +1,5 @@
 import ImagesPath from '@/src/constants/ImagesPath'
+import { initPublications } from '@/src/constants/script'
 import { router } from 'expo-router'
 import React, { useEffect } from 'react'
 import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native'
@@ -10,6 +11,7 @@ const SplashScreen = () => {
   const { user, isLoading: authLoading } = useAuth()
 
   useEffect(() => {
+    initPublications()
     // Redirigir a la pantalla Skeleton después de 1.5 segundos
     const timer = setTimeout(() => {
       router.replace('/Skeleton')

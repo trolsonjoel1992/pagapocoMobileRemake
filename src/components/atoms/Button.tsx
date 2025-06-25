@@ -15,19 +15,28 @@ interface ButtonProps extends TouchableOpacityProps {
 }
 
 const Button = (props: ButtonProps) => {
-  const { children, variant, fullWidth, ...otherProps } = props
+  const { children, variant, fullWidth, disabled, ...otherProps } = props
 
   return (
     <TouchableOpacity
       style={[
         buttonStyles.button,
         fullWidth && buttonStyles.fullWidth,
+        disabled && buttonStyles.disabled,
         buttonStyles[variant],
       ]}
       activeOpacity={0.7}
       {...otherProps}
     >
-      <Text style={[textStyles.text, textStyles[variant]]}>{children}</Text>
+      <Text
+        style={[
+          textStyles.text,
+          disabled && textStyles.disabled,
+          textStyles[variant],
+        ]}
+      >
+        {children}
+      </Text>
     </TouchableOpacity>
   )
 }
@@ -60,6 +69,9 @@ const buttonStyles = StyleSheet.create({
   outlined: {
     backgroundColor: '#DAACE9',
   },
+  disabled: {
+    opacity: 0.5,
+  },
 })
 
 const textStyles = StyleSheet.create({
@@ -75,6 +87,9 @@ const textStyles = StyleSheet.create({
   },
   outlined: {
     color: 'black',
+  },
+  disabled: {
+    color: '#aaa',
   },
 })
 
