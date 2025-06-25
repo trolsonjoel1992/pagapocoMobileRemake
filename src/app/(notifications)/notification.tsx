@@ -25,7 +25,7 @@ const Notification = () => {
           {/* Boton Joel */}
           <TouchableOpacity
             style={styles.buttom}
-            onPress={() => router.push('/splash')} //cambiar por la ubicacion de su pantalla
+            onPress={() => router.push('/(newt)/home')} //cambiar por la ubicacion de su pantalla
           >
             <Text style={styles.buttomText}>Joel</Text>
           </TouchableOpacity>
