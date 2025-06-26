@@ -1,118 +1,73 @@
-import Button from '@/src/components/atoms/Button'
-import ContainerView from '@/src/components/atoms/ContainerView'
-import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
-import ImagePreviewPlaceholder from '@/src/components/atoms/Placeholder'
+// archivo: src/app/(trabajo_matias)/fotos.tsx
 
-import { Ionicons } from '@expo/vector-icons'
-import { useRouter } from 'expo-router'
-import React, { useState } from 'react'
-import { Alert, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import Button from '@/src/components/atoms/Button';
+import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent';
+import ImageUploader from '@/src/components/molecules/ImageUploader'; // componente de carga de imágenes
+
+import { useRouter } from 'expo-router';
+import React, { useState } from 'react';
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
 export default function Fotos() {
   const router = useRouter()
-  const [imagenes, setImagenes] = useState([null, null, null, null])
+  const [imagenes, setImagenes] = useState<string[]>([])
 
-  const handleSubirFoto = () => {
-    alert('subir foto...')
-  }
-
+  // valida si hay imagenes antes de continuar
   const handleContinuar = () => {
-    router.push('/(sell)/closeSale')
-    const hayImagenes = imagenes.some((img) => img !== null)
-    if (!hayImagenes) {
-      Alert.alert(
-        'atención',
-        'por favor subí al menos una imagen antes de continuar'
-      )
+    if (imagenes.length === 0) {
+      Alert.alert('atención', 'por favor subí al menos una imagen antes de continuar')
       return
     }
+    router.push('/(trabajo_matias)/modal_terminosycondiciones')
   }
 
   return (
-    <ContainerView>
+    <SafeAreaView style={styles.container}>
       <HeaderMainComponent titulo="Vender" onBackPress={() => router.back()} />
 
-      <View style={styles.container}>
+      <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>Subí las fotos de tu vehículo</Text>
-        <Text style={styles.subtitle}>Podés agregar hasta 4 imágenes</Text>
+        <Text style={styles.subtitle}>Podés agregar hasta 8 imágenes</Text>
 
-        {/* área para subir imágenes */}
-        <TouchableOpacity style={styles.uploadBox} onPress={handleSubirFoto}>
-          <Ionicons name="cloud-upload-outline" size={32} color="#333" />
-          <Text style={styles.uploadText}>Subí tus fotos aquí</Text>
-          <Text style={styles.formatText}>
-            Formatos permitidos: JPG, JPEG, PNG
-          </Text>
-          <Ionicons
-            name="camera-outline"
-            size={32}
-            color="#333"
-            style={{ marginTop: 10 }}
-          />
-        </TouchableOpacity>
+        {/* componente que permite subir imagenes y las muestra en grilla */}
+        <ImageUploader maxImages={8} onChange={setImagenes} />
 
-        {/* vista previa con grilla ordenada */}
-        <View style={styles.previewContainer}>
-          {imagenes.map((_, i) => (
-            <ImagePreviewPlaceholder key={i} />
-          ))}
+        {/* boton reutilizable para continuar */}
+        <View style={styles.buttonContainer}>
+          <Button variant="contained" onPress={handleContinuar}>
+            Continuar
+          </Button>
         </View>
-
-        {/* botón reutilizable para continuar */}
-        <Button variant="contained" onPress={handleContinuar}>
-          Continuar
-        </Button>
-      </View>
-    </ContainerView>
+      </ScrollView>
+    </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
   container: {
-    alignItems: 'center',
+    flex: 1,
     backgroundColor: '#fff',
-    paddingVertical: 24,
+  },
+  content: {
+    padding: 20,
+    paddingBottom: 32,
   },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    alignSelf: 'center',
-    marginBottom: 8,
+    marginBottom: 6,
     color: '#000',
+    textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
     color: '#555',
-    marginBottom: 20,
+    marginBottom: 16,
+    textAlign: 'center',
   },
-  uploadBox: {
-    borderWidth: 1,
-    borderStyle: 'dashed',
-    borderColor: '#aaa',
-    borderRadius: 15,
-    padding: 10,
+  buttonContainer: {
+    marginTop: 10,
     alignItems: 'center',
-    justifyContent: 'center',
-    marginTop: 10,
-    backgroundColor: '#f5f0fa',
-    width: '85%',
-  },
-  uploadText: {
-    fontSize: 16,
-    fontWeight: 'bold',
-    marginTop: 10,
-  },
-  formatText: {
-    fontSize: 14,
-    color: '#555',
-    marginTop: 5,
-  },
-  previewContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-between',
-    marginTop: 30,
-    width: '85%',
-    rowGap: 16,
   },
 })
