@@ -1,16 +1,52 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
-// Interfaces
+// ==================== TIPOS ====================
+type VehicleCategory = 'car' | 'truck' | 'motorcycle' | 'part'
+
+interface BaseDetails {
+  brand: string
+  model: string
+  color: string | null
+}
+
+interface CarTruckDetails extends BaseDetails {
+  year: number
+  transmission: 'manual' | 'automatic'
+  fuelType: 'gasoline' | 'diesel' | 'electric'
+  engineDisplacement: number
+  kilometers: number
+  version: string
+  doors: number
+}
+
+interface MotorcycleDetails extends BaseDetails {
+  year: number
+  transmission: 'manual' | 'automatic'
+  fuelType: 'gasoline' | 'electric'
+  engineDisplacement: number
+  kilometers: number
+  motorcycleType: 'sport' | 'cruiser' | 'off-road'
+  wheelSize: number
+}
+
+interface PartDetails extends BaseDetails {
+  condition: 'new' | 'used' | 'reconditioned'
+  compatibility: string
+}
+
+type PublicationDetails = CarTruckDetails | MotorcycleDetails | PartDetails
+
 interface Publication {
   id: number
   title: string
   precio: number
   description: string
-  category: string
+  category: VehicleCategory
   isPremium: boolean
   isSold: boolean
   isPaused: boolean
   user_id: number
+  details: PublicationDetails
 }
 
 type User = {
@@ -19,7 +55,7 @@ type User = {
   password: string
 }
 
-// Keys
+// ==================== CONSTANTES ====================
 const PUBLICATIONS_KEY = 'publications'
 const USERS_KEY = 'users'
 
@@ -45,16 +81,114 @@ const validateUserExists = async (userId: number): Promise<boolean> => {
   }
 }
 
+const validateDetailsForCategory = (
+  details: any,
+  category: VehicleCategory
+): boolean => {
+  const requiredFields: Record<VehicleCategory, string[]> = {
+    car: [
+      'brand',
+      'model',
+      'color',
+      'year',
+      'transmission',
+      'fuelType',
+      'engineDisplacement',
+      'kilometers',
+      'version',
+      'doors',
+    ],
+    truck: [
+      'brand',
+      'model',
+      'color',
+      'year',
+      'transmission',
+      'fuelType',
+      'engineDisplacement',
+      'kilometers',
+      'version',
+      'doors',
+    ],
+    motorcycle: [
+      'brand',
+      'model',
+      'color',
+      'year',
+      'transmission',
+      'fuelType',
+      'engineDisplacement',
+      'kilometers',
+      'motorcycleType',
+      'wheelSize',
+    ],
+    part: ['brand', 'model', 'color', 'condition', 'compatibility'],
+  }
+  return requiredFields[category].every((field: string) => field in details)
+}
+
+const getDefaultDetailsForCategory = (
+  category: VehicleCategory
+): PublicationDetails => {
+  switch (category) {
+    case 'car':
+    case 'truck':
+      return {
+        brand: '',
+        model: '',
+        color: null,
+        year: 0,
+        transmission: 'manual',
+        fuelType: 'gasoline',
+        engineDisplacement: 0,
+        kilometers: 0,
+        version: '',
+        doors: 0,
+      }
+    case 'motorcycle':
+      return {
+        brand: '',
+        model: '',
+        color: null,
+        year: 0,
+        transmission: 'manual',
+        fuelType: 'gasoline',
+        engineDisplacement: 0,
+        kilometers: 0,
+        motorcycleType: 'sport',
+        wheelSize: 0,
+      }
+    case 'part':
+      return {
+        brand: '',
+        model: '',
+        color: null,
+        condition: 'new',
+        compatibility: '',
+      }
+    default:
+      throw new Error('Categoría inválida')
+  }
+}
+
 // ==================== CRUD COMPLETO ====================
 
-// CREATE (Con validación de usuario)
+// CREATE (Con validación de usuario y detalles)
 export const createPublication = async (
-  publicationData: Omit<Publication, 'id'>
+  publicationData: Omit<Publication, 'id'> & { details: PublicationDetails }
 ): Promise<{ success: boolean; publication?: Publication; error?: string }> => {
   try {
-    // Validar usuario
     if (!(await validateUserExists(publicationData.user_id))) {
       return { success: false, error: 'El usuario no existe' }
+    }
+
+    if (
+      !validateDetailsForCategory(
+        publicationData.details,
+        publicationData.category
+      )
+    ) {
+      return { success: false, error: 'Detalles no válidos para la categoría' }
     }
 
     const publications = await getAllPublications()
@@ -69,6 +203,7 @@ export const createPublication = async (
       isPremium: publicationData.isPremium || false,
       isSold: publicationData.isSold || false,
       isPaused: publicationData.isPaused || false,
+      details: publicationData.details,
     }
 
     await AsyncStorage.setItem(
@@ -104,10 +239,12 @@ export const getPublicationsByUser = async (
   return publications.filter((p) => p.user_id === userId)
 }
 
-// UPDATE (Con validación de usuario)
+// UPDATE (Con validación de usuario y detalles)
 export const updatePublication = async (
   id: number,
-  updateData: Partial<Omit<Publication, 'id'>>
+  updateData: Partial<Omit<Publication, 'id'>> & {
+    details?: Partial<PublicationDetails>
+  }
 ): Promise<{ success: boolean; publication?: Publication; error?: string }> => {
   try {
     let publications = await getAllPublications()
@@ -117,15 +254,33 @@ export const updatePublication = async (
       return { success: false, error: 'Publicación no encontrada' }
     }
 
-    // Validar usuario si se intenta cambiar
     if (updateData.user_id && !(await validateUserExists(updateData.user_id))) {
       return { success: false, error: 'El nuevo usuario no existe' }
+    }
+
+    // Actualización parcial de detalles
+    let updatedDetails = publications[index].details
+    if (updateData.details) {
+      updatedDetails = { ...updatedDetails, ...updateData.details }
+
+      if (
+        !validateDetailsForCategory(
+          updatedDetails,
+          publications[index].category
+        )
+      ) {
+        return {
+          success: false,
+          error: 'Detalles no válidos para la categoría',
+        }
+      }
     }
 
     const updatedPublication = {
       ...publications[index],
       ...updateData,
-      id, // Aseguramos que el ID no cambie
+      id,
+      details: updatedDetails,
     }
 
     publications[index] = updatedPublication
@@ -138,7 +293,7 @@ export const updatePublication = async (
   }
 }
 
-// ==================== DELETE CON VERIFICACIÓN DE PROPIETARIO ====================
+// DELETE (Mantiene la misma implementación)
 export const deletePublication = async (
   id: number,
   userId: number
@@ -151,7 +306,6 @@ export const deletePublication = async (
       return { success: false, error: 'Publicación no encontrada' }
     }
 
-    // Verificar que la publicación pertenezca al usuario
     if (publications[publicationIndex].user_id !== userId) {
       return {
         success: false,
@@ -159,7 +313,6 @@ export const deletePublication = async (
       }
     }
 
-    // Eliminar la publicación
     const updatedPublications = publications.filter((p) => p.id !== id)
     await AsyncStorage.setItem(
       PUBLICATIONS_KEY,
@@ -175,7 +328,7 @@ export const deletePublication = async (
 
 // ==================== FUNCIONES ESPECIALES ====================
 
-// Eliminar publicaciones de un usuario (usado al borrar usuario)
+// Eliminar publicaciones de un usuario
 export const deleteUserPublications = async (userId: number): Promise<void> => {
   try {
     const publications = await getAllPublications()
@@ -190,10 +343,10 @@ export const deleteUserPublications = async (userId: number): Promise<void> => {
   }
 }
 
-// ==================== TOGGLE PAUSE CON VERIFICACIÓN ====================
+// Marcar como vendido
 export const markAsSold = async (
   id: number,
-  userId: number // ID del usuario que intenta marcar como vendido
+  userId: number
 ): Promise<{ success: boolean; publication?: Publication; error?: string }> => {
   try {
     const publications = await getAllPublications()
@@ -203,7 +356,6 @@ export const markAsSold = async (
       return { success: false, error: 'Publicación no encontrada' }
     }
 
-    // Verificar que la publicación pertenezca al usuario
     if (publication.user_id !== userId) {
       return {
         success: false,
@@ -211,7 +363,6 @@ export const markAsSold = async (
       }
     }
 
-    // Si ya está vendida, no hacemos cambios
     if (publication.isSold) {
       return {
         success: false,
@@ -219,7 +370,6 @@ export const markAsSold = async (
       }
     }
 
-    // Actualizar estado
     return await updatePublication(id, {
       isSold: true,
       isPaused: true,
@@ -230,6 +380,7 @@ export const markAsSold = async (
   }
 }
 
+// Desmarcar como vendido
 export const unmarkAsSold = async (
   id: number,
   userId: number
@@ -238,7 +389,6 @@ export const unmarkAsSold = async (
     const publications = await getAllPublications()
     const publication = publications.find((p) => p.id === id)
 
-    // Validaciones
     if (!publication) {
       return { success: false, error: 'Publicación no encontrada' }
     }
@@ -254,31 +404,20 @@ export const unmarkAsSold = async (
       }
     }
 
-    // Actualización
-    const updatedPublication = {
-      ...publication,
+    return await updatePublication(id, {
       isSold: false,
-      isPaused: false, // Reactivamos al desmarcar como vendido
-    }
-
-    await AsyncStorage.setItem(
-      PUBLICATIONS_KEY,
-      JSON.stringify(
-        publications.map((p) => (p.id === id ? updatedPublication : p))
-      )
-    )
-
-    return { success: true, publication: updatedPublication }
+      isPaused: false,
+    })
   } catch (error) {
     console.error('Error al desmarcar como vendido:', error)
     return { success: false, error: 'Error al procesar' }
   }
 }
 
-// ==================== TOGGLE PAUSE CON VERIFICACIÓN ====================
+// Pausar/Reactivar publicación
 export const togglePausePublication = async (
   id: number,
-  userId: number // ID del usuario que intenta pausar
+  userId: number
 ): Promise<{ success: boolean; publication?: Publication; error?: string }> => {
   try {
     const publications = await getAllPublications()
@@ -288,7 +427,6 @@ export const togglePausePublication = async (
       return { success: false, error: 'Publicación no encontrada' }
     }
 
-    // Verificar propiedad
     if (publication.user_id !== userId) {
       return {
         success: false,
@@ -296,7 +434,6 @@ export const togglePausePublication = async (
       }
     }
 
-    // Actualizar estado
     return await updatePublication(id, {
       isPaused: !publication.isPaused,
     })
@@ -305,6 +442,8 @@ export const togglePausePublication = async (
     return { success: false, error: 'Error al pausar publicación' }
   }
 }
+
+// Reactivar publicación
 export const reactivatePublication = async (
   id: number,
   userId: number
@@ -313,7 +452,6 @@ export const reactivatePublication = async (
     const publications = await getAllPublications()
     const publication = publications.find((p) => p.id === id)
 
-    // Validaciones
     if (!publication) {
       return { success: false, error: 'Publicación no encontrada' }
     }
@@ -336,22 +474,60 @@ export const reactivatePublication = async (
       }
     }
 
-    // Actualización
-    const updatedPublication = {
-      ...publication,
+    return await updatePublication(id, {
       isPaused: false,
-    }
-
-    await AsyncStorage.setItem(
-      PUBLICATIONS_KEY,
-      JSON.stringify(
-        publications.map((p) => (p.id === id ? updatedPublication : p))
-      )
-    )
-
-    return { success: true, publication: updatedPublication }
+    })
   } catch (error) {
     console.error('Error al reactivar publicación:', error)
     return { success: false, error: 'Error al procesar' }
+  }
+}
+
+// ==================== MÉTODOS PARA DETALLES ====================
+
+// Obtener detalles de publicación
+export const getPublicationDetails = async (
+  id: number
+): Promise<PublicationDetails | undefined> => {
+  const publication = await getPublicationById(id)
+  return publication?.details
+}
+
+// Actualizar solo los detalles
+// Reemplaza esta función:
+export const updatePublicationDetails = async (
+  id: number,
+  userId: number,
+  details: Partial<PublicationDetails>
+): Promise<{ success: boolean; publication?: Publication; error?: string }> => {
+  try {
+    const publication = await getPublicationById(id)
+    if (!publication) {
+      return { success: false, error: 'Publicación no encontrada' }
+    }
+
+    if (publication.user_id !== userId) {
+      return {
+        success: false,
+        error: 'No tienes permiso para editar esta publicación',
+      }
+    }
+
+    // Solución: Usar type assertion para el tipo específico
+    const updatedDetails = {
+      ...publication.details,
+      ...details,
+    } as PublicationDetails
+
+    if (!validateDetailsForCategory(updatedDetails, publication.category)) {
+      return { success: false, error: 'Detalles no válidos para la categoría' }
+    }
+
+    return await updatePublication(id, {
+      details: updatedDetails, // Pasar el objeto completo, no el parcial
+    })
+  } catch (error) {
+    console.error('Error al actualizar detalles:', error)
+    return { success: false, error: 'Error al actualizar detalles' }
   }
 }
