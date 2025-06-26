@@ -91,6 +91,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff', // purple
     justifyContent: 'space-between',
     alignItems: 'center',
+    paddingTop: verticalScale(20),
   },
   header: {
     //height: moderateScale(200),

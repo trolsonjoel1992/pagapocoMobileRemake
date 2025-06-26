@@ -44,7 +44,7 @@ type Category = {
   key: string
   label: string
   icon: any
-  route: Href<string | object>
+  route: Href
 }
 
 const categories: Category[] = [

@@ -1,5 +1,6 @@
 import IconsPath from '@/src/constants/IconsPath'
 import ImagesPath from '@/src/constants/ImagesPath'
+import { useState } from 'react'
 import {
   Image,
   ScrollView,
@@ -18,7 +19,9 @@ interface Publication {
   type: 'free' | 'prem'
 }
 
-const MyPublications = () => {
+export default function Favorites() {
+  const [showFavorites, setShowFavorites] = useState(false)
+
   const publications: Publication[] = [
     {
       id: 1,
@@ -44,15 +47,33 @@ const MyPublications = () => {
       image: ImagesPath.imageFrePublication,
       type: 'free',
     },
+    {
+      id: 5,
+      name: 'Nombre publicación',
+      image: ImagesPath.imageFrePublication,
+      type: 'free',
+    },
+    {
+      id: 6,
+      name: 'Nombre publicación',
+      image: ImagesPath.imageFrePublication,
+      type: 'free',
+    },
+    {
+      id: 7,
+      name: 'Nombre publicación',
+      image: ImagesPath.imageFrePublication,
+      type: 'free',
+    },
   ]
-  /* const handleImagePress = (publicationId: number) => {
-    router.push('/(mypublicaciones)/myPublication')
-  }
- */
-  return (
+  return showFavorites ? (
     <SafeAreaView style={styles.container}>
-      <ScrollView>
-        <View style={styles.body}>
+      <ScrollView
+        style={styles.scroll}
+        contentContainerStyle={styles.scrollContent}
+        showsVerticalScrollIndicator={false}
+      >
+        <View>
           {publications.map((publication) => {
             return (
               <View key={publication.id} style={[styles.publicationContainer]}>
@@ -108,8 +129,80 @@ const MyPublications = () => {
         </View>
       </ScrollView>
     </SafeAreaView>
+  ) : (
+    <SafeAreaView style={stylesEmpty.container}>
+      <View style={stylesEmpty.emptyContainer}>
+        <Image
+          source={ImagesPath.noFavorites}
+          style={stylesEmpty.emptyImage}
+          resizeMode="contain"
+        />
+        <TouchableOpacity onPress={() => setShowFavorites(true)}>
+          <Text style={stylesEmpty.emptyTitle}>
+            ¡Todavia no tenes publicaciones favoritas!
+          </Text>
+        </TouchableOpacity>
+        <Text style={stylesEmpty.emptyText}>
+          Agregalas cliqueando en el corazón de la publicación
+        </Text>
+
+        <TouchableOpacity
+          style={stylesEmpty.publishButton}
+          //onPress={() => router.push()}
+        >
+          <Text style={stylesEmpty.publishButtonText}>
+            Nuestros recomendados
+          </Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   )
 }
+
+const stylesEmpty = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: moderateScale(0),
+  },
+
+  emptyContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingHorizontal: moderateScale(24),
+    paddingBottom: verticalScale(40),
+  },
+  emptyImage: {
+    width: moderateScale(200),
+    height: moderateScale(200),
+    marginBottom: moderateScale(50),
+    marginTop: moderateScale(50),
+  },
+  emptyTitle: {
+    fontSize: moderateScale(30),
+    fontWeight: 'bold',
+    color: 'black',
+    marginBottom: verticalScale(25),
+    textAlign: 'center',
+  },
+  emptyText: {
+    fontSize: moderateScale(16),
+    color: '#9A9292',
+    textAlign: 'center',
+    marginBottom: verticalScale(50),
+    lineHeight: verticalScale(25),
+  },
+  publishButton: {
+    marginBottom: verticalScale(50),
+  },
+  publishButtonText: {
+    fontSize: moderateScale(20),
+    color: '#1A73E9',
+    fontWeight: '500',
+  },
+})
 
 const styles = StyleSheet.create({
   container: {
@@ -117,9 +210,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     backgroundColor: '#fff',
   },
-  body: {
-    width: '100%',
-    paddingVertical: verticalScale(20),
+  scroll: {
+    paddingTop: verticalScale(20),
+  },
+  scrollContent: {
+    paddingHorizontal: moderateScale(16),
   },
   publicationContainer: {
     width: '100%',
@@ -185,4 +280,3 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(20),
   },
 })
-export default MyPublications
