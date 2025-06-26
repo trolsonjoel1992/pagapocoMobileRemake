@@ -40,4 +40,10 @@ export default {
   notePencil: require('@/src/assets/images/NotePencilIcon.png'),
   checkSquare: require('@/src/assets/images/CheckSquareOffset.png'),
   errorSquare: require('@/src/assets/images/XSquare.png'),
+  //nuevos iconos de publicaciones
+  nIconStar: require('@/src/assets/images/newIcons/Star.png'),
+  nIconEdit: require('@/src/assets/images/newIcons/Pencil.png'),
+  nIconPause: require('@/src/assets/images/newIcons/Pause.png'),
+  nIconDelete: require('@/src/assets/images/newIcons/Trash.png'),
+  nIconPlay: require('@/src/assets/images/newIcons/Play.png'),
 }
