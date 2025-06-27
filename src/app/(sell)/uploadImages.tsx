@@ -1,13 +1,17 @@
-// archivo: src/app/(trabajo_matias)/fotos.tsx
-
 import Button from '@/src/components/atoms/Button';
+import ContainerView from '@/src/components/atoms/ContainerView';
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent';
-import ImageUploader from '@/src/components/molecules/ImageUploader'; // componente de carga de imágenes
+import ImageUploader from '@/src/components/molecules/ImageUploader';
 
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import {
+  Alert,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 
 export default function Fotos() {
   const router = useRouter()
@@ -23,32 +27,28 @@ export default function Fotos() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ContainerView>
       <HeaderMainComponent titulo="Vender" onBackPress={() => router.back()} />
 
       <ScrollView contentContainerStyle={styles.content}>
         <Text style={styles.title}>Subí las fotos de tu vehículo</Text>
         <Text style={styles.subtitle}>Podés agregar hasta 8 imágenes</Text>
 
-        {/* componente que permite subir imagenes y las muestra en grilla */}
+        {/* componente que permite subir imagenes y las muestra */}
         <ImageUploader maxImages={8} onChange={setImagenes} />
 
-        {/* boton reutilizable para continuar */}
+        {/* botón reutilizable para continuar */}
         <View style={styles.buttonContainer}>
           <Button variant="contained" onPress={handleContinuar}>
             Continuar
           </Button>
         </View>
       </ScrollView>
-    </SafeAreaView>
+    </ContainerView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   content: {
     padding: 20,
     paddingBottom: 32,

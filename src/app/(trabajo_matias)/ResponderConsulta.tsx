@@ -1,4 +1,5 @@
 import Button from '@/src/components/atoms/Button'
+import ContainerView from '@/src/components/atoms/ContainerView'; // fondo superior lila
 import ControlledInput from '@/src/components/atoms/ControlledInput'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import TextAreaWithIcon from '@/src/components/atoms/TextAreaWithIcon'
@@ -7,13 +8,12 @@ import { useRouter } from 'expo-router'
 import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
 import {
-    Image,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  Image,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 type FormFields = {
@@ -33,7 +33,7 @@ export default function ResponderConsulta() {
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ContainerView>
       <HeaderMainComponent
         titulo="Contactá con el interesado"
         onBackPress={() => router.back()}
@@ -80,15 +80,11 @@ export default function ResponderConsulta() {
           </View>
         </View>
       </FormProvider>
-    </SafeAreaView>
+    </ContainerView>
   )
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   body: {
     flex: 1,
     paddingHorizontal: 20,
@@ -126,5 +122,3 @@ const styles = StyleSheet.create({
     resizeMode: 'contain',
   },
 })
-
-
