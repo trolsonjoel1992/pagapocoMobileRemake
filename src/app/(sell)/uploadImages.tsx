@@ -1,13 +1,13 @@
 // archivo: src/app/(trabajo_matias)/fotos.tsx
 
-import Button from '@/src/components/atoms/Button';
-import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent';
-import ImageUploader from '@/src/components/molecules/ImageUploader'; // componente de carga de imágenes
+import Button from '@/src/components/atoms/Button'
+import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import ImageUploader from '@/src/components/molecules/ImageUploader' // componente de carga de imágenes
 
-import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
-import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router'
+import React, { useState } from 'react'
+import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 export default function Fotos() {
   const router = useRouter()
@@ -16,10 +16,13 @@ export default function Fotos() {
   // valida si hay imagenes antes de continuar
   const handleContinuar = () => {
     if (imagenes.length === 0) {
-      Alert.alert('atención', 'por favor subí al menos una imagen antes de continuar')
+      Alert.alert(
+        'atención',
+        'por favor subí al menos una imagen antes de continuar'
+      )
       return
     }
-    router.push('/(trabajo_matias)/modal_terminosycondiciones')
+    router.push('/(sell)/closeSale') // redirige a la siguiente pantalla
   }
 
   return (

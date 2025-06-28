@@ -19,6 +19,7 @@ export default {
   yDeleteIcon: require('@/src/assets/images/publicationsbuton/icons/yDeleteIcon.png'),
   nDeleteIcon: require('@/src/assets/images/publicationsbuton/icons/nDeleteIcon.png'),
   //iconos place precio
+  titleIcon: require('@/src/assets/images/publicationsbuton/icons/titleIcon.png'),
   priceIcon: require('@/src/assets/images/publicationsbuton/icons/priceIcon.png'),
   cityIcon: require('@/src/assets/images/publicationsbuton/icons/cityIcon.png'),
   // iconos para tabs
@@ -46,4 +47,17 @@ export default {
   nIconPause: require('@/src/assets/images/newIcons/Pause.png'),
   nIconDelete: require('@/src/assets/images/newIcons/Trash.png'),
   nIconPlay: require('@/src/assets/images/newIcons/Play.png'),
+  //iconos de plan de ventas
+  showStar: require('@/src/assets/images/publicationsbuton/planIcons/showStar.png'),
+  showStarH: require('@/src/assets/images/publicationsbuton/planIcons/showStarH.png'),
+  selectedStar: require('@/src/assets/images/publicationsbuton/planIcons/selectedStar.png'),
+  selectedStarH: require('@/src/assets/images/publicationsbuton/planIcons/selectedStarH.png'),
+  hiddenStar: require('@/src/assets/images/publicationsbuton/planIcons/hiddenStar.png'),
+  hiddenStarH: require('@/src/assets/images/publicationsbuton/planIcons/hiddenStarH.png'),
+  CheckCircle: require('@/src/assets/images/publicationsbuton/planIcons/CheckCircle.png'),
+  uCheckCircle: require('@/src/assets/images/publicationsbuton/planIcons/uCheckCircle.png'),
+  WarningCircle: require('@/src/assets/images/publicationsbuton/planIcons/WarningCircle.png'),
+  uWarningCircle: require('@/src/assets/images/publicationsbuton/planIcons/uWarningCircle.png'),
+  Xcircle: require('@/src/assets/images/publicationsbuton/planIcons/XCircle.png'),
+  uXCircle: require('@/src/assets/images/publicationsbuton/planIcons/uXCircle.png'),
 }
