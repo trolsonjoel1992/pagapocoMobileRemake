@@ -1,44 +1,55 @@
-// archivo: src/app/(trabajo_matias)/fotos.tsx
-
 import Button from '@/src/components/atoms/Button'
+import ContainerView from '@/src/components/atoms/ContainerView'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
-import ImageUploader from '@/src/components/molecules/ImageUploader'; // componente de carga de imágenes
+import ImageUploader from '@/src/components/molecules/ImageUploader'
 
 import { useRouter } from 'expo-router'
 import React, { useState } from 'react'
-import { Alert, StyleSheet, Text, View } from 'react-native'
+import {
+  Alert,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 
+// componente principal para subir fotos del vehiculo
 export default function Fotos() {
-  const router = useRouter();
-  const [imagenes, setImagenes] = useState<string[]>([]);
+  const router = useRouter()
 
-  // valida si hay imagenes antes de continuar
+  // estado que almacena las imagenes seleccionadas por el usuario
+  const [imagenes, setImagenes] = useState<string[]>([])
+
+  // valida que haya al menos una imagen antes de continuar
   const handleContinuar = () => {
     if (imagenes.length === 0) {
-      Alert.alert(
-        'atención',
-        'por favor subí al menos una imagen antes de continuar'
-      )
+      Alert.alert('atención', 'por favor subí al menos una imagen antes de continuar')
       return
     }
-    router.push('/(sell)/closeSale') // redirige a la siguiente pantalla
+    // redirige a la pantalla de terminos y condiciones
+    router.push('/(trabajo_matias)/modal_terminosycondiciones')
   }
 
   return (
     <ContainerView>
+      {/* encabezado con titulo y boton de retroceso */}
       <HeaderMainComponent titulo="Vender" onBackPress={() => router.back()} />
 
+      {/* flatlist vacia usada para renderizar el contenido con scroll */}
       <FlatList
         data={[]}
         ListHeaderComponent={
           <View style={styles.content}>
+            {/* titulo principal */}
             <Text style={styles.title}>Subí las fotos de tu vehículo</Text>
+
+            {/* subtitulo con indicacion de cantidad maxima */}
             <Text style={styles.subtitle}>Podés agregar hasta 8 imágenes</Text>
 
             {/* componente que permite subir imagenes y las muestra */}
             <ImageUploader maxImages={8} onChange={setImagenes} />
 
-            {/* botón reutilizable para continuar */}
+            {/* boton para continuar con el flujo */}
             <View style={styles.buttonContainer}>
               <Button variant="contained" onPress={handleContinuar}>
                 Continuar
@@ -50,9 +61,10 @@ export default function Fotos() {
         renderItem={null}
       />
     </ContainerView>
-  );
+  )
 }
 
+// estilos para la pantalla de carga de imagenes
 const styles = StyleSheet.create({
   content: {
     padding: 20,
@@ -75,4 +87,4 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: 'center',
   },
-});
+})
