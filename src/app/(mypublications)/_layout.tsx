@@ -1,8 +1,8 @@
 import { Stack } from 'expo-router'
 import React from 'react'
 
-const ProfileLayout = () => {
+const MyPublications = () => {
   return <Stack screenOptions={{ headerShown: false }} />
 }
 
-export default ProfileLayout
+export default MyPublications

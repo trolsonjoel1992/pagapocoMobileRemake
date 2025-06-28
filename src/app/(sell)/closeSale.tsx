@@ -1,190 +1,237 @@
-// pantalla para finalizar la publicación de un producto o servicio
-
+import GenericModal from '@/src/components/atoms/GenericModal'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
-import { MaterialIcons } from '@expo/vector-icons'
-import { useRouter } from 'expo-router'
-import { useState } from 'react'
+import IconsPath from '@/src/constants/IconsPath'
+import ImagesPath from '@/src/constants/ImagesPath'
+import { router } from 'expo-router'
+import React, { useState } from 'react'
 import {
-  Alert,
   Image,
+  Modal,
+  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native'
+import { moderateScale } from 'react-native-size-matters'
 
-export default function FinalizarPublicacion() {
-  const router = useRouter()
-  const [aceptaTerminos, setAceptaTerminos] = useState(true)
+const CloseSale = () => {
+  const [title, setTitle] = useState('')
+  const [price, setPrice] = useState('')
+  const [city, setCity] = useState('')
+  const [showError, setShowError] = useState(false)
+  const [modalVisible, setModalVisible] = useState(false)
 
-  // valida si se aceptaron los términos antes de continuar
-  const handleFinalizar = () => {
-    if (aceptaTerminos) {
-      router.push('/(sell)/successfulPublication')
+  const handleTitleChange = (text: string) => {
+    setTitle(text)
+    setShowError(false)
+  }
+  const handlePriceChange = (text: string) => {
+    setPrice(text)
+    setShowError(false)
+  }
+
+  const handleCityChange = (text: string) => {
+    setCity(text)
+    setShowError(false)
+  }
+
+  const handleFinalize = () => {
+    if (price === '' && city === '') {
+      setShowError(true)
     } else {
-      Alert.alert(
-        'Atención',
-        'Debes aceptar los términos y condiciones para continuar.'
-      )
+      setModalVisible(true) // Mostrar modal cuando los campos son válidos
     }
   }
 
+  const handleModalContinue = () => {
+    setModalVisible(false)
+    // Redirigir solo después de aceptar el modal
+    router.push('/(mypublications)/edit')
+  }
+
+  const isButtonDisabled = title === '' || price === '' || city === ''
+
   return (
-    <View style={styles.mainContainer}>
-      {/* encabezado con botón de retroceso */}
-      <View style={styles.headerWrapper}>
-        <HeaderMainComponent
-          titulo="Vender"
-          onBackPress={() => router.back()}
-        />
+    <SafeAreaView style={styles.container}>
+      <HeaderMainComponent
+        titulo="Precio y ciudad"
+        onBackPress={() => router.push('/(mypublications)/edit')}
+      />
+      <Text style={styles.title}>Modificar precio y ubicación</Text>
+      <View>
+        <Image source={ImagesPath.priceImage} />
       </View>
-
-      {/* contenido principal de la pantalla */}
-      <View style={styles.contentContainer}>
-        <Text style={styles.title}>¡Ya casi terminamos!</Text>
-
-        {/* sección con imagen ilustrativa y texto */}
-        <View style={styles.iconBox}>
-          <Image
-            source={require('@/src/assets/images/publicationsbuton/priceImage.png')}
-            style={styles.iconImage}
-            resizeMode="contain"
-          />
-          <Text style={styles.subtext}>
-            Ingresá el precio para tu publicación
-          </Text>
-        </View>
-
-        {/* campo de entrada para el precio */}
-        <View style={styles.inputWrapper}>
-          <MaterialIcons
-            name="attach-money"
-            size={24}
-            color="#333"
-            style={styles.inputIcon}
-          />
+      <View style={styles.inputContainer}>
+        <Text style={styles.inputTitle}>
+          Modifica el titulo de la publicación
+        </Text>
+        <View style={styles.inputBox}>
+          <Image source={IconsPath.titleIcon} />
           <TextInput
-            placeholder="Ingresá el precio"
-            placeholderTextColor="#555"
+            placeholder="Ingresa el titulo "
+            placeholderTextColor="#9A9292"
             style={styles.input}
-            keyboardType="numeric"
+            value={title}
+            onChangeText={handleTitleChange}
           />
-          <MaterialIcons name="edit" size={20} color="#333" />
+          <Image source={ImagesPath.iconNotePencil} />
         </View>
-
-        {/* checkbox para aceptar términos y condiciones */}
-        <View style={styles.terminosContainer}>
-          <TouchableOpacity onPress={() => setAceptaTerminos(!aceptaTerminos)}>
-            <MaterialIcons
-              name={aceptaTerminos ? 'check-box' : 'check-box-outline-blank'}
-              size={20}
-              color="#A230C7"
-            />
-          </TouchableOpacity>
-          <Text style={styles.terminosText}>
-            Acepto los <Text style={styles.link}>Términos y condiciones</Text> y
-            autorizo el uso de mis datos de acuerdo a la{' '}
-            <Text style={styles.link}>Declaración de privacidad</Text>.
+        <Text style={styles.inputTitle}>
+          Modifica el precio de tu publicación
+        </Text>
+        <View style={styles.inputBox}>
+          <Image source={IconsPath.priceIcon} />
+          <TextInput
+            placeholder="Ingresa el precio"
+            placeholderTextColor="#9A9292"
+            style={styles.input}
+            value={price}
+            onChangeText={handlePriceChange}
+          />
+          <Image source={ImagesPath.iconNotePencil} />
+        </View>
+        <Text style={styles.inputTitle}>
+          Modifica la ciudad de la publicación
+        </Text>
+        <View style={styles.inputBox}>
+          <Image source={IconsPath.cityIcon} />
+          <TextInput
+            placeholder="Ingresá tu ciudad"
+            placeholderTextColor="#9A9292"
+            style={styles.input}
+            value={city}
+            onChangeText={handleCityChange}
+          />
+          <Image source={ImagesPath.iconNotePencil} />
+        </View>
+      </View>
+      <View style={styles.buttonContainer}>
+        {showError && (
+          <Text style={styles.errorText}>
+            Debe cambiar algún campo para finalizar
           </Text>
-        </View>
-
-        {/* botón para finalizar la publicación */}
-        <TouchableOpacity style={styles.button} onPress={handleFinalizar}>
-          <Text style={styles.buttonText}>Finalizar</Text>
+        )}
+        <TouchableOpacity
+          style={[
+            styles.button,
+            isButtonDisabled ? styles.buttonDisabled : styles.buttonEnabled,
+          ]}
+          onPress={handleFinalize}
+          activeOpacity={0.7}
+        >
+          <Text
+            style={[
+              styles.buttonText,
+              isButtonDisabled
+                ? styles.buttonTextDisabled
+                : styles.buttonTextEnabled,
+            ]}
+          >
+            Finalizar
+          </Text>
         </TouchableOpacity>
       </View>
-    </View>
+
+      {/* Modal de confirmación */}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={modalVisible}
+        onRequestClose={() => setModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <GenericModal
+            imageSource={ImagesPath.modalConfirm}
+            messages={[
+              '¡Muy bien!',
+              'Has realizado una publicación',
+              '¡Exitos en tu venta!',
+            ]}
+            showCancelButton={false}
+            onContinue={handleModalContinue}
+            continueButtonText="Continuar"
+          />
+        </View>
+      </Modal>
+    </SafeAreaView>
   )
 }
 
-// estilos de la pantalla
 const styles = StyleSheet.create({
-  mainContainer: {
+  container: {
     flex: 1,
     backgroundColor: '#fff',
-  },
-  headerWrapper: {
-    backgroundColor: '#A230C7',
-    width: '100%',
-  },
-  contentContainer: {
-    flex: 1,
-    backgroundColor: '#fff',
-    paddingHorizontal: 20,
-    paddingTop: 24,
+    alignItems: 'center',
+    justifyContent: 'space-between',
   },
   title: {
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold',
-    alignSelf: 'center',
-    marginBottom: 20,
-    color: '#000',
-  },
-  iconBox: {
-    alignItems: 'center',
-    marginBottom: 25,
-  },
-  iconImage: {
-    width: 220,
-    height: 220,
-  },
-  subtext: {
-    fontSize: 16,
-    color: '#333',
     textAlign: 'center',
-    marginTop: 12,
+  },
+  inputTitle: {
+    fontSize: moderateScale(20),
     fontWeight: 'bold',
   },
-  inputWrapper: {
+  inputContainer: {
+    gap: 15,
+    marginBottom: 20,
+  },
+  inputBox: {
+    width: moderateScale(310),
+    height: moderateScale(50),
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#f9f4fc',
+    backgroundColor: '#ECE6F0',
     borderRadius: 20,
-    paddingHorizontal: 15,
-    height: 48,
-    borderColor: '#999',
-    borderWidth: 1,
-    justifyContent: 'space-between',
-    marginBottom: 20,
-  },
-  inputIcon: {
-    marginRight: 10,
+    paddingHorizontal: 5,
   },
   input: {
     flex: 1,
     color: '#000',
+    fontSize: 20,
+    marginHorizontal: 10,
   },
-  terminosContainer: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    marginBottom: 30,
-  },
-  terminosText: {
-    marginLeft: 8,
-    fontSize: 13,
-    color: '#333',
-    flex: 1,
-    flexWrap: 'wrap',
-  },
-  link: {
-    color: '#007BFF',
-    textDecorationLine: 'underline',
-  },
-  button: {
-    backgroundColor: '#A230C7',
-    paddingVertical: 14,
-    borderRadius: 20,
-    alignItems: 'center',
-    shadowColor: '#000',
-    shadowOffset: { width: 1, height: 2 },
-    shadowOpacity: 0.3,
-    shadowRadius: 4,
-    elevation: 4,
+  errorText: {
+    color: 'red',
+    marginBottom: 10,
+    textAlign: 'center',
   },
   buttonText: {
-    color: '#fff',
-    fontSize: 16,
+    fontSize: 24,
     fontWeight: 'bold',
   },
+  buttonTextEnabled: {
+    color: '#fff',
+  },
+  buttonTextDisabled: {
+    color: '#484C52',
+  },
+  buttonEnabled: {
+    backgroundColor: '#A230C7',
+  },
+  buttonDisabled: {
+    backgroundColor: 'rgba(162, 48, 199, 0.4)',
+  },
+  button: {
+    width: moderateScale(170),
+    height: moderateScale(55),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: moderateScale(20),
+    marginBottom: moderateScale(20),
+  },
+  buttonContainer: {
+    alignItems: 'center',
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
 })
+
+export default CloseSale
