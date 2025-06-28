@@ -1,4 +1,4 @@
-// componente reutilizable para subir imágenes desde galería usando flatlist y manteniendo orden simétrico
+// componente reutilizable para subir imágenes desde galería o cámara usando flatlist y manteniendo orden simétrico
 
 import { Ionicons } from '@expo/vector-icons'
 import * as ImagePicker from 'expo-image-picker'
@@ -22,10 +22,10 @@ const ImageUploader = ({ maxImages = 8, onChange }: ImageUploaderProps) => {
   const [imagenes, setImagenes] = useState<string[]>([])
 
   // solicita permisos y selecciona imagen desde galería
-  const seleccionarImagen = async () => {
+  const seleccionarDesdeGaleria = async () => {
     const { status } = await ImagePicker.requestMediaLibraryPermissionsAsync()
     if (status !== 'granted') {
-      Alert.alert('permiso denegado', 'necesitamos acceso a tu galería.')
+      Alert.alert('Permiso denegado', 'Necesitamos acceso a tu galería.')
       return
     }
 
@@ -36,14 +36,37 @@ const ImageUploader = ({ maxImages = 8, onChange }: ImageUploaderProps) => {
     })
 
     if (!result.canceled && result.assets.length > 0) {
-      if (imagenes.length >= maxImages) {
-        Alert.alert('límite alcanzado', `solo podés subir hasta ${maxImages} imágenes.`)
-        return
-      }
-      const nuevasImagenes = [...imagenes, result.assets[0].uri]
-      setImagenes(nuevasImagenes)
-      onChange(nuevasImagenes)
+      agregarImagen(result.assets[0].uri)
     }
+  }
+
+  // solicita permisos y abre la cámara
+  const abrirCamara = async () => {
+    const { status } = await ImagePicker.requestCameraPermissionsAsync()
+    if (status !== 'granted') {
+      Alert.alert('Permiso denegado', 'Necesitamos acceso a tu cámara.')
+      return
+    }
+
+    const result = await ImagePicker.launchCameraAsync({
+      allowsEditing: true,
+      quality: 0.7,
+    })
+
+    if (!result.canceled && result.assets.length > 0) {
+      agregarImagen(result.assets[0].uri)
+    }
+  }
+
+  // agrega imagen a la lista validando el límite
+  const agregarImagen = (uri: string) => {
+    if (imagenes.length >= maxImages) {
+      Alert.alert('Límite alcanzado', `Solo podés subir hasta ${maxImages} imágenes.`)
+      return
+    }
+    const nuevasImagenes = [...imagenes, uri]
+    setImagenes(nuevasImagenes)
+    onChange(nuevasImagenes)
   }
 
   // elimina imagen por índice
@@ -71,14 +94,14 @@ const ImageUploader = ({ maxImages = 8, onChange }: ImageUploaderProps) => {
       {/* encabezado del uploader con iconos alineados a la izquierda */}
       <View style={styles.uploadBox}>
         <View style={styles.iconColumn}>
-          <TouchableOpacity onPress={seleccionarImagen}>
+          <TouchableOpacity onPress={seleccionarDesdeGaleria}>
             <Image
               source={require('@/src/assets/images/publicationsbuton/icons/loadIcon.png')}
               style={styles.icon}
             />
           </TouchableOpacity>
 
-          <TouchableOpacity onPress={seleccionarImagen}>
+          <TouchableOpacity onPress={abrirCamara}>
             <Image
               source={require('@/src/assets/images/publicationsbuton/icons/cameraIcon.png')}
               style={styles.icon}
@@ -177,3 +200,4 @@ const styles = StyleSheet.create({
 })
 
 export default ImageUploader
+

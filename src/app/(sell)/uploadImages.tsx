@@ -7,45 +7,52 @@ import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import {
   Alert,
-  ScrollView,
+  FlatList,
   StyleSheet,
   Text,
   View,
 } from 'react-native';
 
 export default function Fotos() {
-  const router = useRouter()
-  const [imagenes, setImagenes] = useState<string[]>([])
+  const router = useRouter();
+  const [imagenes, setImagenes] = useState<string[]>([]);
 
   // valida si hay imagenes antes de continuar
   const handleContinuar = () => {
     if (imagenes.length === 0) {
-      Alert.alert('atención', 'por favor subí al menos una imagen antes de continuar')
-      return
+      Alert.alert('atención', 'por favor subí al menos una imagen antes de continuar');
+      return;
     }
-    router.push('/(trabajo_matias)/modal_terminosycondiciones')
-  }
+    router.push('/(trabajo_matias)/modal_terminosycondiciones');
+  };
 
   return (
     <ContainerView>
       <HeaderMainComponent titulo="Vender" onBackPress={() => router.back()} />
 
-      <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Subí las fotos de tu vehículo</Text>
-        <Text style={styles.subtitle}>Podés agregar hasta 8 imágenes</Text>
+      <FlatList
+        data={[]}
+        ListHeaderComponent={
+          <View style={styles.content}>
+            <Text style={styles.title}>Subí las fotos de tu vehículo</Text>
+            <Text style={styles.subtitle}>Podés agregar hasta 8 imágenes</Text>
 
-        {/* componente que permite subir imagenes y las muestra */}
-        <ImageUploader maxImages={8} onChange={setImagenes} />
+            {/* componente que permite subir imagenes y las muestra */}
+            <ImageUploader maxImages={8} onChange={setImagenes} />
 
-        {/* botón reutilizable para continuar */}
-        <View style={styles.buttonContainer}>
-          <Button variant="contained" onPress={handleContinuar}>
-            Continuar
-          </Button>
-        </View>
-      </ScrollView>
+            {/* botón reutilizable para continuar */}
+            <View style={styles.buttonContainer}>
+              <Button variant="contained" onPress={handleContinuar}>
+                Continuar
+              </Button>
+            </View>
+          </View>
+        }
+        keyExtractor={(_, index) => index.toString()}
+        renderItem={null}
+      />
     </ContainerView>
-  )
+  );
 }
 
 const styles = StyleSheet.create({
@@ -70,4 +77,4 @@ const styles = StyleSheet.create({
     marginTop: 10,
     alignItems: 'center',
   },
-})
+});
