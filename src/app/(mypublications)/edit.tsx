@@ -21,12 +21,12 @@ const categories: Category[] = [
   {
     label: 'Categorias',
     icon: 'iconEdit2',
-    route: '/(tabs)/sell' as Href,
+    route: '/(mypublications)/editCategory' as Href,
   },
   {
     label: 'Datos',
     icon: 'iconEdit2',
-    route: '/(sell)/formVehicle' as Href,
+    route: '/(mypublications)/editFormVehicle' as Href,
   },
   {
     label: 'Fotos',

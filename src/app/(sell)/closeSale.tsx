@@ -6,8 +6,11 @@ import { router } from 'expo-router'
 import React, { useState } from 'react'
 import {
   Image,
+  KeyboardAvoidingView,
   Modal,
+  Platform,
   SafeAreaView,
+  ScrollView,
   StyleSheet,
   Text,
   TextInput,
@@ -27,6 +30,7 @@ const CloseSale = () => {
     setTitle(text)
     setShowError(false)
   }
+
   const handlePriceChange = (text: string) => {
     setPrice(text)
     setShowError(false)
@@ -38,101 +42,126 @@ const CloseSale = () => {
   }
 
   const handleFinalize = () => {
-    if (price === '' && city === '') {
+    if (title === '' || price === '' || city === '') {
       setShowError(true)
     } else {
-      setModalVisible(true) // Mostrar modal cuando los campos son válidos
+      setModalVisible(true)
     }
   }
 
   const handleModalContinue = () => {
     setModalVisible(false)
-    // Redirigir solo después de aceptar el modal
-    router.push('/(mypublications)/edit')
+    router.push('/(tabs)/home')
   }
 
   const isButtonDisabled = title === '' || price === '' || city === ''
 
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderMainComponent
-        titulo="Precio y ciudad"
-        onBackPress={() => router.push('/(mypublications)/edit')}
-      />
-      <Text style={styles.title}>Modificar precio y ubicación</Text>
-      <View>
-        <Image source={ImagesPath.priceImage} />
-      </View>
-      <View style={styles.inputContainer}>
-        <Text style={styles.inputTitle}>
-          Modifica el titulo de la publicación
-        </Text>
-        <View style={styles.inputBox}>
-          <Image source={IconsPath.titleIcon} />
-          <TextInput
-            placeholder="Ingresa el titulo "
-            placeholderTextColor="#9A9292"
-            style={styles.input}
-            value={title}
-            onChangeText={handleTitleChange}
-          />
-          <Image source={ImagesPath.iconNotePencil} />
-        </View>
-        <Text style={styles.inputTitle}>
-          Modifica el precio de tu publicación
-        </Text>
-        <View style={styles.inputBox}>
-          <Image source={IconsPath.priceIcon} />
-          <TextInput
-            placeholder="Ingresa el precio"
-            placeholderTextColor="#9A9292"
-            style={styles.input}
-            value={price}
-            onChangeText={handlePriceChange}
-          />
-          <Image source={ImagesPath.iconNotePencil} />
-        </View>
-        <Text style={styles.inputTitle}>
-          Modifica la ciudad de la publicación
-        </Text>
-        <View style={styles.inputBox}>
-          <Image source={IconsPath.cityIcon} />
-          <TextInput
-            placeholder="Ingresá tu ciudad"
-            placeholderTextColor="#9A9292"
-            style={styles.input}
-            value={city}
-            onChangeText={handleCityChange}
-          />
-          <Image source={ImagesPath.iconNotePencil} />
-        </View>
-      </View>
-      <View style={styles.buttonContainer}>
-        {showError && (
-          <Text style={styles.errorText}>
-            Debe cambiar algún campo para finalizar
-          </Text>
-        )}
-        <TouchableOpacity
-          style={[
-            styles.button,
-            isButtonDisabled ? styles.buttonDisabled : styles.buttonEnabled,
-          ]}
-          onPress={handleFinalize}
-          activeOpacity={0.7}
+      <KeyboardAvoidingView
+        behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+        style={{ flex: 1 }}
+        keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
+      >
+        <ScrollView
+          contentContainerStyle={styles.scrollContainer}
+          keyboardShouldPersistTaps="handled"
         >
-          <Text
-            style={[
-              styles.buttonText,
-              isButtonDisabled
-                ? styles.buttonTextDisabled
-                : styles.buttonTextEnabled,
-            ]}
-          >
-            Finalizar
-          </Text>
-        </TouchableOpacity>
-      </View>
+          <HeaderMainComponent
+            titulo="Vender"
+            onBackPress={() => router.back()}
+          />
+
+          <Text style={styles.title}>Modificar precio y ubicación</Text>
+
+          <View style={styles.imageContainer}>
+            <Image
+              source={ImagesPath.priceImage}
+              style={styles.priceImage}
+              resizeMode="contain"
+            />
+          </View>
+
+          <View style={styles.inputContainer}>
+            <Text style={styles.inputTitle}>
+              Modifica el titulo de la publicación
+            </Text>
+            <View style={styles.inputBox}>
+              <Image source={IconsPath.titleIcon} />
+              <TextInput
+                placeholder="Ingresa el titulo"
+                placeholderTextColor="#9A9292"
+                style={styles.input}
+                value={title}
+                onChangeText={handleTitleChange}
+                returnKeyType="next"
+              />
+              <Image source={ImagesPath.iconNotePencil} />
+            </View>
+
+            <Text style={styles.inputTitle}>
+              Modifica el precio de tu publicación
+            </Text>
+            <View style={styles.inputBox}>
+              <Image source={IconsPath.priceIcon} />
+              <TextInput
+                placeholder="Ingresa el precio"
+                placeholderTextColor="#9A9292"
+                style={styles.input}
+                value={price}
+                onChangeText={handlePriceChange}
+                keyboardType="numeric"
+                returnKeyType="next"
+              />
+              <Image source={ImagesPath.iconNotePencil} />
+            </View>
+
+            <Text style={styles.inputTitle}>
+              Modifica la ciudad de la publicación
+            </Text>
+            <View style={styles.inputBox}>
+              <Image source={IconsPath.cityIcon} />
+              <TextInput
+                placeholder="Ingresá tu ciudad"
+                placeholderTextColor="#9A9292"
+                style={styles.input}
+                value={city}
+                onChangeText={handleCityChange}
+                returnKeyType="done"
+              />
+              <Image source={ImagesPath.iconNotePencil} />
+            </View>
+          </View>
+
+          <View style={styles.buttonContainer}>
+            {showError && (
+              <Text style={styles.errorText}>
+                Todos los campos son obligatorios
+              </Text>
+            )}
+            <TouchableOpacity
+              style={[
+                styles.button,
+                isButtonDisabled ? styles.buttonDisabled : styles.buttonEnabled,
+              ]}
+              onPress={handleFinalize}
+              activeOpacity={0.7}
+              disabled={isButtonDisabled}
+            >
+              <Text
+                style={[
+                  styles.buttonText,
+                  isButtonDisabled
+                    ? styles.buttonTextDisabled
+                    : styles.buttonTextEnabled,
+                ]}
+              >
+                Finalizar
+              </Text>
+            </TouchableOpacity>
+          </View>
+        </ScrollView>
+      </KeyboardAvoidingView>
 
       {/* Modal de confirmación */}
       <Modal
@@ -163,44 +192,59 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  },
+  scrollContainer: {
+    paddingBottom: 20,
   },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
     textAlign: 'center',
+    marginVertical: 15,
+  },
+  imageContainer: {
+    alignItems: 'center',
+    marginVertical: 10,
+  },
+  priceImage: {
+    width: moderateScale(200),
+    height: moderateScale(150),
   },
   inputTitle: {
-    fontSize: moderateScale(20),
+    fontSize: moderateScale(16),
     fontWeight: 'bold',
+    marginBottom: 5,
+    marginLeft: 10,
+    color: '#000',
   },
   inputContainer: {
     gap: 15,
     marginBottom: 20,
+    paddingHorizontal: 20,
   },
   inputBox: {
-    width: moderateScale(310),
+    width: '100%',
     height: moderateScale(50),
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: '#ECE6F0',
     borderRadius: 20,
-    paddingHorizontal: 5,
+    paddingHorizontal: 15,
   },
   input: {
     flex: 1,
     color: '#000',
-    fontSize: 20,
+    fontSize: moderateScale(16),
     marginHorizontal: 10,
   },
   errorText: {
     color: 'red',
     marginBottom: 10,
     textAlign: 'center',
+    fontSize: moderateScale(14),
   },
   buttonText: {
-    fontSize: 24,
+    fontSize: moderateScale(18),
     fontWeight: 'bold',
   },
   buttonTextEnabled: {
@@ -225,6 +269,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer: {
     alignItems: 'center',
+    marginTop: 10,
   },
   modalOverlay: {
     flex: 1,
