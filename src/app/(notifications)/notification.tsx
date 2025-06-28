@@ -25,7 +25,7 @@ const Notification = () => {
           {/* Boton Joel */}
           <TouchableOpacity
             style={styles.buttom}
-            onPress={() => router.push('/(mypublicaciones)/emptyPublications')} // cambiar por la ubicacion de su pantalla
+            onPress={() => router.push('/(newt)/home')} //cambiar por la ubicacion de su pantalla
           >
             <Text style={styles.buttomText}>Joel</Text>
           </TouchableOpacity>
@@ -33,8 +33,9 @@ const Notification = () => {
           {/* Boton Matias */}
           <TouchableOpacity
             style={styles.buttom}
-            onPress={() => router.push("/(trabajo_matias)/contacta_con_el_vendedor")} // cambiar por la ubicacion de su pantalla
-            
+            onPress={() =>
+              router.push('/(sell)/uploadImages') // src\app\(trabajo_matias)\notificaciones.tsx
+            } // cambiar por la ubicacion de su pantalla
           >
             <Text style={styles.buttomText}>Matias</Text>
           </TouchableOpacity>
@@ -42,7 +43,7 @@ const Notification = () => {
           {/* Boton Hugo */}
           <TouchableOpacity
             style={styles.buttom}
-            onPress={() => router.push("/(tabs)/(sell)")} // cambiar por la ubicacion de su pantalla
+            onPress={() => router.push('/(mypublicaciones)/selectPict')} // cambiar por la ubicacion de su pantalla
           >
             <Text style={styles.buttomText}>Hugo</Text>
           </TouchableOpacity>
@@ -50,7 +51,7 @@ const Notification = () => {
           {/* Boton Lautaro */}
           <TouchableOpacity
             style={styles.buttom}
-            onPress={() => router.push("/(profile)/profile")} // cambiar por la ubicacion de su pantalla
+            onPress={() => router.push('/(profile)/profile')} // cambiar por la ubicacion de su pantalla
           >
             <Text style={styles.buttomText}>Lautaro</Text>
           </TouchableOpacity>

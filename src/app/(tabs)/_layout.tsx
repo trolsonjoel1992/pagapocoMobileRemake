@@ -1,131 +1,246 @@
-import { MaterialIcons } from "@expo/vector-icons";
-import { Tabs } from "expo-router";
-import React from "react";
-//import { moderateScale } from "react-native-size-matters";
-import AntDesign from '@expo/vector-icons/AntDesign';
+import GenericModal from '@/src/components/atoms/GenericModal'
+import { Color } from '@/src/constants/colors'
+import IconsPath from '@/src/constants/IconsPath'
+import ImagesPath from '@/src/constants/ImagesPath'
+import { useAuth } from '@/src/hooks/useAuth'
+import { PlatformPressable } from '@react-navigation/elements'
+import { Tabs, useRouter } from 'expo-router'
+import React, { useState } from 'react'
+import { Image, Modal, StatusBar, StyleSheet, View } from 'react-native'
+import { verticalScale } from 'react-native-size-matters'
 
-const TabsLayout = () => {
+export default function TabsLayout() {
+  const router = useRouter()
+  const { user } = useAuth()
+  const [showAuthModal, setShowAuthModal] = useState(false)
+
+  const handleContinue = () => {
+    setShowAuthModal(false)
+    router.navigate('/(auth)/(login)/FormLogin')
+  }
+
+  const handleCancel = () => {
+    setShowAuthModal(false)
+  }
+
   return (
-    <Tabs
-      screenOptions={{
-        headerShown: false,
-        tabBarActiveTintColor: "white",
-        tabBarInactiveTintColor: "white",
-        tabBarStyle: {
-          backgroundColor: "#A230C7",
-          //borderStartStartRadius: moderateScale(20),
-          //borderEndStartRadius: moderateScale(20),
-        }
-      }}
-    >
-      <Tabs.Screen
-        name="home"
-        options={{
-          title: "Inicio",
-          /* tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="home" color={color} size={size} />
-          ), */
-          /* tabBarIcon: ({ focused }) => (
-            <Image 
-              source={ImagesPath.iconTabsHome}
-              style={{
-                width: 24,
-                height: 24,
-                //tintColor: focused ? 'white' : 'light'
-              }}
+    <>
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
+
+      <Tabs
+        screenOptions={{
+          headerShown: false,
+          tabBarStyle: {
+            backgroundColor: '#A230C7',
+            height: verticalScale(50),
+          },
+          tabBarShowLabel: true,
+          tabBarActiveTintColor: 'rgba(255, 255, 255, 0.5)',
+          tabBarInactiveTintColor: 'white',
+          tabBarActiveBackgroundColor: '#7B1FA2',
+          tabBarButton: (props) => (
+            <PlatformPressable
+              {...props}
+              android_ripple={null}
+              style={[
+                props.style,
+                { justifyContent: 'center', alignItems: 'center' },
+              ]}
             />
-          ), */
-          tabBarIcon: ({ color, size }) => (
-            <AntDesign name="home" size={size} color={color} />
           ),
         }}
-      />
-      <Tabs.Screen
-        name="stats"
-        options={{
-          title: "Publicaciones",
-          /* tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="article" color={color} size={size} />
-          ), */
-          tabBarIcon: ({ color, size }) => (
-            <AntDesign name="profile" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="(sell)/index"
-        options={{
-          title: "Vender",
-          /* tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="sell" color={color} size={size} />
-          ), */
-          tabBarIcon: ({ color, size }) => (
-            <AntDesign name="form" size={size} color={color} />
-          ),
-        }}
-        /* listeners={({ navigation }) => ({
-          tabPress: (e) => {
-            // Aquí puedes verificar si el usuario está logueado
-            const isLoggedIn = false; // Reemplaza con tu lógica de autenticación
+      >
+        <Tabs.Screen
+          name="home"
+          options={{
+            title: 'Inicio',
+            tabBarIcon: ({ focused }) => (
+              <Image
+                source={IconsPath.home}
+                style={{
+                  tintColor: focused ? 'rgba(255, 255, 255, 0.5)' : 'white',
+                }}
+                resizeMode="contain"
+              />
+            ),
+          }}
+        />
+        <Tabs.Screen
+          name="myPublications"
+          options={{
+            title: 'Publicaciones',
+            tabBarIcon: ({ focused }) => (
+              <Image
+                source={IconsPath.publications}
+                style={{
+                  tintColor: focused ? 'rgba(255, 255, 255, 0.5)' : 'white',
+                }}
+                resizeMode="contain"
+              />
+            ),
+          }}
+          listeners={() => ({
+            tabPress: (e) => {
+              if (!user) {
+                e.preventDefault()
+                setShowAuthModal(true)
+              }
+            },
+          })}
+        />
+        <Tabs.Screen
+          name="sell"
+          options={{
+            title: 'Vender',
+            tabBarIcon: ({ focused }) => (
+              <Image
+                source={IconsPath.sell}
+                style={{
+                  tintColor: focused ? 'rgba(255, 255, 255, 0.5)' : 'white',
+                }}
+                resizeMode="contain"
+              />
+            ),
+          }}
+          listeners={() => ({
+            tabPress: (e) => {
+              if (!user) {
+                e.preventDefault()
+                setShowAuthModal(true)
+              }
+            },
+          })}
+        />
+        <Tabs.Screen
+          name="favorites"
+          options={{
+            title: 'Favoritos',
+            tabBarIcon: ({ focused }) => (
+              <Image
+                source={IconsPath.favorites}
+                style={{
+                  tintColor: focused ? 'rgba(255, 255, 255, 0.5)' : 'white',
+                }}
+                resizeMode="contain"
+              />
+            ),
+          }}
+          listeners={() => ({
+            tabPress: (e) => {
+              if (!user) {
+                e.preventDefault()
+                setShowAuthModal(true)
+              }
+            },
+          })}
+        />
+        <Tabs.Screen
+          name="profile"
+          options={{
+            title: 'Perfil',
+            tabBarIcon: ({ focused }) => (
+              <Image
+                source={IconsPath.profile}
+                style={{
+                  tintColor: focused ? 'rgba(255, 255, 255, 0.5)' : 'white',
+                }}
+                resizeMode="contain"
+              />
+            ),
+          }}
+          listeners={() => ({
+            tabPress: (e) => {
+              if (!user) {
+                e.preventDefault()
+                setShowAuthModal(true)
+              }
+            },
+          })}
+        />
+      </Tabs>
 
-            if (!isLoggedIn) {
-              // Previene la navegación por defecto
-              e.preventDefault();
-              // Redirige al login
-              navigation.navigate("/(auth)");
-            }
-          },
-        })} */
-      />
-      <Tabs.Screen
-        name="favorites"
-        options={{
-          title: "Favoritos",
-          tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="favorite-border" color={color} size={size} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="profile"
-        options={{
-          title: "Perfil",
-          /* tabBarIcon: ({ color, size }) => (
-            <MaterialIcons name="person" color={color} size={size} />
-          ), */
-          tabBarIcon: ({ color, size }) => (
-            <AntDesign name="user" size={size} color={color} />
-          ),
-        }}
-        /* listeners={({ navigation }) => ({
-          tabPress: (e) => {
-            
-            //Solo con esta linea me lleva a la pagina de perfil y
-            //si se hace otro click al login
-            
-            //router.push("/(auth)/login");
+      <Modal
+        visible={showAuthModal}
+        transparent
+        animationType="fade"
+        onRequestClose={() => setShowAuthModal(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <GenericModal
+            imageSource={ImagesPath.modalWarning}
+            messages={[
+              'Para poder utilizar ésta función',
+              'ingresá a tu cuenta.',
+            ]}
+            showCancelButton={true}
+            onContinue={handleContinue}
+            onCancel={handleCancel}
+            continueButtonText="Aceptar"
+            cancelButtonText="Cancelar"
+          />
+        </View>
+      </Modal>
+    </>
+  )
+}
 
-            // para la implementacion del modal no haria falta el linteners
-
-          },
-        })} */
-      />
-      <Tabs.Screen 
-        name="(publications)/publication1"
-        options={{ 
-          tabBarButton: () => null,  // Oculta el tab
-          //tabBarStyle: { display: "none" } 
-        }}
-      />
-      <Tabs.Screen 
-        name="(publications)/publicationDetails"
-        options={{ 
-          tabBarButton: () => null,  // Oculta el tab
-          //tabBarStyle: { display: "none" } 
-        }}
-      />
-    </Tabs>
-  );
-};
-
-export default TabsLayout;
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+  },
+  content: {
+    flex: 1,
+  },
+  skeleton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f0f0f0',
+  },
+  overlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0,0,0,0.5)',
+  },
+  modalContent: {
+    width: '80%',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
+  },
+  text: {
+    fontSize: 16,
+    marginBottom: 20,
+    textAlign: 'center',
+    color: '#333',
+  },
+  buttonsContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+  },
+  button: {
+    padding: 12,
+    borderRadius: 5,
+    minWidth: '45%',
+    alignItems: 'center',
+  },
+  primaryButton: {
+    backgroundColor: '#A230C7',
+  },
+  secondaryButton: {
+    backgroundColor: '#e0e0e0',
+  },
+  buttonText: {
+    fontWeight: '500',
+  },
+  modalOverlay: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)',
+  },
+})

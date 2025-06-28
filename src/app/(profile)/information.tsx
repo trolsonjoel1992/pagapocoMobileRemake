@@ -1,17 +1,19 @@
-import React, { use } from 'react';
-import { View, Text, StyleSheet, TextInput, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import { router } from "expo-router";
-import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import { router } from 'expo-router'
+import React from 'react'
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
+} from 'react-native'
+import Icon from 'react-native-vector-icons/Ionicons'
 
 const AccountInfoScreen = () => {
   return (
     <View style={styles.container}>
-
-        <HeaderMainComponent 
-        titulo="Caracteristicas de la publicación"
-        />
+      <HeaderMainComponent titulo="Información de la cuenta" />
 
       {/* Encabezado */}
       {/* <View style={styles.header}>
@@ -25,7 +27,12 @@ const AccountInfoScreen = () => {
       <View style={styles.body}>
      
       <View style={styles.userInfo}>
-        <Icon name="person-circle-outline" size={50} color="#888" style={styles.avatarIcon} />
+        <Icon
+          name="person-circle-outline"
+          size={50}
+          color="#888"
+          style={styles.avatarIcon}
+        />
         <View>
           <Text style={styles.username}>Un usuario</Text>
           <Text style={styles.email}>example@gmail.com</Text>
@@ -37,20 +44,29 @@ const AccountInfoScreen = () => {
       <TextInput style={styles.input} value="Un Usuario" editable={false} />
 
       <Text style={styles.label}>Correo electrónico</Text>
-      <TextInput style={styles.input} value="example@gmail.com" editable={false} />
+      <TextInput
+        style={styles.input}
+        value="example@gmail.com"
+        editable={false}
+      />
 
       <Text style={styles.label}>Teléfono</Text>
       <TextInput style={styles.input} value="+112233445566" editable={false} />
 
       {/* Botón */}
-      <TouchableOpacity style={styles.button} onPress={() => {router.push({ href: "/profile/index" })}}>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => {
+          router.push({ href: '/profile/index' })
+        }}
+      >
         <Text style={styles.buttonText}>Regresar al perfil</Text>
       </TouchableOpacity>
 
       </View>
     </View>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -60,7 +76,7 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: '#9C27B0',
+    backgroundColor: '#A230C7',
     paddingVertical: 15,
     paddingHorizontal: 20,
   },
@@ -115,6 +131,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '600',
   },
-});
+})
 
-export default AccountInfoScreen;
+export default AccountInfoScreen
