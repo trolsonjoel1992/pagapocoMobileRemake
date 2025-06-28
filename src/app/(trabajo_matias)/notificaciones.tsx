@@ -1,3 +1,4 @@
+import ContainerView from '@/src/components/atoms/ContainerView'
 import CustomCheckbox from '@/src/components/atoms/CustomCheckbox'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
@@ -11,38 +12,27 @@ import {
   TouchableOpacity,
   View,
 } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-// notificaciones simuladas
+// lista inicial de notificaciones simuladas
 const initialNotifications = [
-  {
-    id: '1',
-    title: '¡Tenés una nueva pregunta !',
-    date: 'Ayer a las 00:00',
-  },
-  {
-    id: '2',
-    title: '¡Tus favoritos esperan!',
-    date: 'El miércoles a las 00:00',
-  },
-  {
-    id: '3',
-    title: '¡Felicidades vendiste tu publicación!',
-    date: 'El martes a las 00:00',
-  },
-  {
-    id: '4',
-    title: '¡Respondieron tu consulta!',
-    date: 'El lunes a las 00:00AM',
-  },
+  { id: '1', title: '¡Tenés una nueva pregunta !', date: 'Ayer a las 00:00' },
+  { id: '2', title: '¡Tus favoritos esperan!', date: 'El miércoles a las 00:00' },
+  { id: '3', title: '¡Felicidades vendiste tu publicación!', date: 'El martes a las 00:00' },
+  { id: '4', title: '¡Respondieron tu consulta!', date: 'El lunes a las 00:00AM' },
 ]
 
 const Notificaciones = () => {
+  // estado que contiene la lista de notificaciones actuales
   const [notifications, setNotifications] = useState(initialNotifications)
+
+  // estado que indica si todas las notificaciones estan marcadas como leidas
   const [checkedAll, setCheckedAll] = useState(false)
+
+  // estado que guarda el estado de cada checkbox individual
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({})
 
+  // alterna el estado de todos los checkboxes
   const toggleAll = () => {
     const newState = !checkedAll
     const updatedChecks = notifications.reduce((acc, n) => {
@@ -53,10 +43,12 @@ const Notificaciones = () => {
     setCheckedItems(updatedChecks)
   }
 
+  // alterna el estado de un checkbox individual
   const toggleItem = (id: string) => {
     setCheckedItems((prev) => ({ ...prev, [id]: !prev[id] }))
   }
 
+  // elimina una notificacion individual con confirmacion
   const deleteNotification = (id: string) => {
     Alert.alert(
       'Eliminar notificación',
@@ -77,6 +69,7 @@ const Notificaciones = () => {
     )
   }
 
+  // elimina todas las notificaciones seleccionadas
   const deleteSelected = () => {
     const idsToDelete = Object.entries(checkedItems)
       .filter(([, isChecked]) => isChecked)
@@ -104,6 +97,7 @@ const Notificaciones = () => {
     )
   }
 
+  // renderiza cada tarjeta de notificacion
   const renderItem = ({ item }) => (
     <View style={styles.notificationCard}>
       <View style={styles.notificationTextContainer}>
@@ -130,15 +124,18 @@ const Notificaciones = () => {
   )
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ContainerView>
+      {/* encabezado principal con titulo */}
       <HeaderMainComponent titulo="Notificaciones" onBackPress={() => {}} />
 
       <View style={styles.body}>
+        {/* seccion para marcar todas las notificaciones como leidas */}
         <View style={styles.marcarTodoContainer}>
           <CustomCheckbox checked={checkedAll} onToggle={toggleAll} />
           <Text style={styles.marcarTodoText}>Marcar todo como leído</Text>
         </View>
 
+        {/* lista de notificaciones */}
         <FlatList
           data={notifications}
           keyExtractor={(item) => item.id}
@@ -146,24 +143,22 @@ const Notificaciones = () => {
           contentContainerStyle={styles.listContainer}
         />
 
-        {/* botón para eliminar seleccionadas */}
+        {/* boton para eliminar las notificaciones seleccionadas */}
         <TouchableOpacity style={styles.deleteButton} onPress={deleteSelected}>
           <Text style={styles.deleteText}>Eliminar seleccionadas</Text>
         </TouchableOpacity>
 
+        {/* boton para volver (sin funcionalidad implementada por ahora) */}
         <TouchableOpacity style={styles.volverButton}>
           <Text style={styles.volverText}>Volver</Text>
         </TouchableOpacity>
       </View>
-    </SafeAreaView>
+    </ContainerView>
   )
 }
 
+// estilos para la pantalla de notificaciones
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   body: {
     flex: 1,
     padding: moderateScale(16),
