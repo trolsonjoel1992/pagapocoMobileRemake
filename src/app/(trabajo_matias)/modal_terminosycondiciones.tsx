@@ -1,13 +1,7 @@
-import Button from '@/src/components/atoms/Button';
-import { useRouter } from 'expo-router';
-import React from 'react';
-import {
-  Image,
-  Modal,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import Button from '@/src/components/atoms/Button'
+import { useRouter } from 'expo-router'
+import React from 'react'
+import { Image, Modal, StyleSheet, Text, View } from 'react-native'
 
 type Props = {
   isModalVisible: boolean
@@ -22,7 +16,7 @@ const WarningModal = ({ isModalVisible, onClose }: Props) => {
     if (onClose) {
       onClose()
     } else {
-      router.push('/(trabajo_matias)/finalizar')
+      router.push('/(sell)/closeSale')
     }
   }
 
@@ -35,7 +29,6 @@ const WarningModal = ({ isModalVisible, onClose }: Props) => {
     >
       <View style={styles.backdrop}>
         <View style={styles.modalView}>
-          
           <Image
             source={require('@/src/assets/images/modalVariants/modalWarning.png')}
             style={styles.image}
@@ -84,5 +77,3 @@ const styles = StyleSheet.create({
     color: '#000',
   },
 })
-
-

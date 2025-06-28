@@ -1,17 +1,12 @@
-import Button from '@/src/components/atoms/Button';
-import ContainerView from '@/src/components/atoms/ContainerView';
-import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent';
-import ImageUploader from '@/src/components/molecules/ImageUploader';
+// archivo: src/app/(trabajo_matias)/fotos.tsx
 
-import { useRouter } from 'expo-router';
-import React, { useState } from 'react';
-import {
-  Alert,
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
+import Button from '@/src/components/atoms/Button'
+import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import ImageUploader from '@/src/components/molecules/ImageUploader'; // componente de carga de imágenes
+
+import { useRouter } from 'expo-router'
+import React, { useState } from 'react'
+import { Alert, StyleSheet, Text, View } from 'react-native'
 
 export default function Fotos() {
   const router = useRouter();
@@ -20,11 +15,14 @@ export default function Fotos() {
   // valida si hay imagenes antes de continuar
   const handleContinuar = () => {
     if (imagenes.length === 0) {
-      Alert.alert('atención', 'por favor subí al menos una imagen antes de continuar');
-      return;
+      Alert.alert(
+        'atención',
+        'por favor subí al menos una imagen antes de continuar'
+      )
+      return
     }
-    router.push('/(trabajo_matias)/modal_terminosycondiciones');
-  };
+    router.push('/(sell)/closeSale') // redirige a la siguiente pantalla
+  }
 
   return (
     <ContainerView>
