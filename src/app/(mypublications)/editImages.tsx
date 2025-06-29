@@ -79,7 +79,7 @@ const EditImages = () => {
 
   const handleModalContinue = () => {
     setModalVisible(false)
-    router.navigate('/(tabs)/(myPublications)/myPublications')
+    router.navigate('/(tabs)/myPublications')
   }
 
   const renderContainers = () => {

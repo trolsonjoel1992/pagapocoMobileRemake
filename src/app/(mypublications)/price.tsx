@@ -19,7 +19,7 @@ import {
 } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
 
-const CloseSale = () => {
+const Price = () => {
   const [title, setTitle] = useState('')
   const [price, setPrice] = useState('')
   const [city, setCity] = useState('')
@@ -30,7 +30,6 @@ const CloseSale = () => {
     setTitle(text)
     setShowError(false)
   }
-
   const handlePriceChange = (text: string) => {
     setPrice(text)
     setShowError(false)
@@ -42,46 +41,39 @@ const CloseSale = () => {
   }
 
   const handleFinalize = () => {
-    if (title === '' || price === '' || city === '') {
+    if (title === '' && price === '' && city === '') {
       setShowError(true)
     } else {
-      setModalVisible(true)
+      setModalVisible(true) // Mostrar modal cuando los campos son válidos
     }
   }
 
   const handleModalContinue = () => {
     setModalVisible(false)
-    router.push('/(tabs)/home')
+    // Redirigir solo después de aceptar el modal
+    router.push('/(mypublications)/edit')
   }
 
-  const isButtonDisabled = title === '' || price === '' || city === ''
+  const isButtonDisabled = title === '' && price === '' && city === ''
 
   return (
     <SafeAreaView style={styles.container}>
       <KeyboardAvoidingView
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         style={{ flex: 1 }}
-        keyboardVerticalOffset={Platform.OS === 'ios' ? 40 : 0}
       >
         <ScrollView
-          contentContainerStyle={styles.scrollContainer}
+          contentContainerStyle={{ paddingBottom: 20 }}
           keyboardShouldPersistTaps="handled"
         >
           <HeaderMainComponent
-            titulo="Vender"
-            onBackPress={() => router.back()}
+            titulo="Precio y ciudad"
+            onBackPress={() => router.push('/(mypublications)/edit')}
           />
-
           <Text style={styles.title}>Modificar precio y ubicación</Text>
-
           <View style={styles.imageContainer}>
-            <Image
-              source={ImagesPath.priceImage}
-              style={styles.priceImage}
-              resizeMode="contain"
-            />
+            <Image source={ImagesPath.priceImage} style={styles.priceImage} />
           </View>
-
           <View style={styles.inputContainer}>
             <Text style={styles.inputTitle}>
               Modifica el titulo de la publicación
@@ -89,54 +81,48 @@ const CloseSale = () => {
             <View style={styles.inputBox}>
               <Image source={IconsPath.titleIcon} />
               <TextInput
-                placeholder="Ingresa el titulo"
-                placeholderTextColor="#9A9292"
+                placeholder="Tu titulo actual"
+                placeholderTextColor="#000"
                 style={styles.input}
                 value={title}
                 onChangeText={handleTitleChange}
-                returnKeyType="next"
               />
               <Image source={ImagesPath.iconNotePencil} />
             </View>
-
             <Text style={styles.inputTitle}>
               Modifica el precio de tu publicación
             </Text>
             <View style={styles.inputBox}>
               <Image source={IconsPath.priceIcon} />
               <TextInput
-                placeholder="Ingresa el precio"
-                placeholderTextColor="#9A9292"
+                placeholder="Tu precio actual"
+                placeholderTextColor="#000"
                 style={styles.input}
                 value={price}
                 onChangeText={handlePriceChange}
                 keyboardType="numeric"
-                returnKeyType="next"
               />
               <Image source={ImagesPath.iconNotePencil} />
             </View>
-
             <Text style={styles.inputTitle}>
               Modifica la ciudad de la publicación
             </Text>
             <View style={styles.inputBox}>
               <Image source={IconsPath.cityIcon} />
               <TextInput
-                placeholder="Ingresá tu ciudad"
-                placeholderTextColor="#9A9292"
+                placeholder="Tu ciudad actual"
+                placeholderTextColor="#000"
                 style={styles.input}
                 value={city}
                 onChangeText={handleCityChange}
-                returnKeyType="done"
               />
               <Image source={ImagesPath.iconNotePencil} />
             </View>
           </View>
-
           <View style={styles.buttonContainer}>
             {showError && (
               <Text style={styles.errorText}>
-                Todos los campos son obligatorios
+                Debe cambiar algún campo para finalizar
               </Text>
             )}
             <TouchableOpacity
@@ -174,9 +160,9 @@ const CloseSale = () => {
           <GenericModal
             imageSource={ImagesPath.modalConfirm}
             messages={[
-              '¡Muy bien!',
-              'Has realizado una publicación',
-              '¡Exitos en tu venta!',
+              '¡Perfecto!',
+              'Has modificado tu publicación',
+              'Revisá los cambios atentamente',
             ]}
             showCancelButton={false}
             onContinue={handleModalContinue}
@@ -193,9 +179,6 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  scrollContainer: {
-    paddingBottom: 20,
-  },
   title: {
     fontSize: 20,
     fontWeight: 'bold',
@@ -209,13 +192,13 @@ const styles = StyleSheet.create({
   priceImage: {
     width: moderateScale(200),
     height: moderateScale(150),
+    resizeMode: 'contain',
   },
   inputTitle: {
     fontSize: moderateScale(16),
     fontWeight: 'bold',
     marginBottom: 5,
     marginLeft: 10,
-    color: '#000',
   },
   inputContainer: {
     gap: 15,
@@ -233,7 +216,7 @@ const styles = StyleSheet.create({
   },
   input: {
     flex: 1,
-    color: '#000',
+    color: '#A230C7',
     fontSize: moderateScale(16),
     marginHorizontal: 10,
   },
@@ -279,4 +262,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default CloseSale
+export default Price

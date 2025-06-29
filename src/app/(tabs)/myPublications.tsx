@@ -74,7 +74,7 @@ export default function MyPublications() {
   //   },
   // ]
   const handleImagePress = (publicationId: number) => {
-    router.push('/(mypublicaciones)/myPublication')
+    /* router.push('/(mypublicaciones)/myPublication') */
   }
   const toggleSoldStatus = (publicationId: number) => {
     if (soldPublications.includes(publicationId)) {
@@ -185,9 +185,9 @@ export default function MyPublications() {
                               {publication.isPremium && (
                                 <TouchableOpacity
                                   style={styles.iconButton}
-                                  onPress={() =>
+                                  /*  onPress={() =>
                                     router.push('/(mypublicaciones)/premium')
-                                  }
+                                  } */
                                 >
                                   <Image
                                     source={IconsPath.iconStar}
@@ -199,7 +199,7 @@ export default function MyPublications() {
                             <TouchableOpacity
                               style={styles.iconButton}
                               onPress={() =>
-                                router.push('/(mypublicaciones)/edit')
+                                router.push('/(mypublications)/edit')
                               }
                             >
                               <Image

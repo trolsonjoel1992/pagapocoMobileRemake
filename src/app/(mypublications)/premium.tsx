@@ -30,7 +30,7 @@ const Premium = () => {
 
   const handleContinue = () => {
     setModalVisible(false)
-    router.navigate('/(tabs)/(myPublications)/myPublications')
+    router.navigate('/(tabs)/myPublications')
   }
 
   const handleCancel = () => {

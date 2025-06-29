@@ -86,9 +86,7 @@ const Publication1 = () => {
     <View style={styles.container}>
       <HeaderMainComponent
         titulo="Tu publicación"
-        onBackPress={() =>
-          router.push('/(tabs)/(myPublications)/myPublications')
-        }
+        onBackPress={() => router.push('/(tabs)/myPublications')}
       />
       <View style={styles.premiumLabelContainer}>
         {showPremiumLabel && (
@@ -171,7 +169,7 @@ const Publication1 = () => {
               <View style={styles.iconWrapper}>
                 {showStarIcon ? (
                   <TouchableOpacity
-                    onPress={() => router.push('/(mypublicaciones)/premium')}
+                    onPress={() => router.push('/(mypublications)/premium')}
                   >
                     <Image source={IconsPath.iconStar} style={styles.icon} />
                   </TouchableOpacity>
@@ -181,7 +179,7 @@ const Publication1 = () => {
               </View>
               <View style={styles.iconWrapper}>
                 <TouchableOpacity
-                  onPress={() => router.push('/(mypublicaciones)/edit')}
+                  onPress={() => router.push('/(mypublications)/edit')}
                 >
                   <Image source={IconsPath.iconEdit} style={styles.icon} />
                 </TouchableOpacity>
@@ -205,7 +203,7 @@ const Publication1 = () => {
       <View>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.push('/(tabs)/(myPublications)/myPublications')}
+          onPress={() => router.push('/(tabs)/myPublications')}
         >
           <Text style={styles.buttonText}>Volver</Text>
         </TouchableOpacity>
@@ -228,9 +226,7 @@ const Publication1 = () => {
           </View>
           <TouchableOpacity
             style={styles.buttonOverlay}
-            onPress={() =>
-              router.push('/(tabs)/(myPublications)/myPublications')
-            }
+            onPress={() => router.push('/(tabs)/myPublications')}
           >
             <Text style={styles.buttonText}>Volver</Text>
           </TouchableOpacity>
