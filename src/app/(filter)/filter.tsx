@@ -1,8 +1,16 @@
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import { Color } from '@/src/constants/colors'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { router } from 'expo-router'
 import React from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import {
+  Image,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 type FilterCategoryProps = {
@@ -42,6 +50,7 @@ const ButtonCategoryComponent = ({
 const filter = () => {
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       {/* header */}
       {/* <View style={styles.header}></View> */}
 

@@ -1,11 +1,13 @@
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import InputFilterComponent from '@/src/components/atoms/InputFilterComponent'
+import { Color } from '@/src/constants/colors'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { router } from 'expo-router'
 import React from 'react'
 import {
   Image,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -16,6 +18,7 @@ import { moderateScale, verticalScale } from 'react-native-size-matters'
 const filterRecommended = () => {
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       {/* header */}
       {/* <View style={styles.header}></View> */}
 
