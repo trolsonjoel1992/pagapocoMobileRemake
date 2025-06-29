@@ -1,10 +1,8 @@
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import InputFilterComponent from '@/src/components/atoms/InputFilterComponent'
-import ImagesPath from '@/src/constants/ImagesPath'
 import { router } from 'expo-router'
 import React from 'react'
 import {
-  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -32,13 +30,13 @@ const filterMotorcycles = () => {
         contentContainerStyle={styles.scrollContent}
       >
         <View style={styles.body}>
-          <View style={styles.imageContainer}>
+          {/* <View style={styles.imageContainer}>
             <Image
               source={ImagesPath.iconMotoFigma}
               style={styles.imageStyle}
               resizeMode="contain"
             />
-          </View>
+          </View> */}
           <Text style={styles.textTitle}>Filtrar publicación por:</Text>
 
           <InputFilterComponent
@@ -111,15 +109,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   body: {
-    height: moderateScale(500),
+    //height: moderateScale(500),
     width: '90%',
     //paddingBottom: moderateScale(20),
     //backgroundColor: 'yellow',
     textAlign: 'right',
     justifyContent: 'center',
     //alignItems: 'center',
-    marginTop: moderateScale(100),
-    marginBottom: moderateScale(65),
+    marginTop: moderateScale(40),
+    //marginBottom: moderateScale(65),
   },
   footer: {
     height: moderateScale(80),

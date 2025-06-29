@@ -22,7 +22,7 @@ const InputFilterComponent = ({
         placeholder={placeholder}
         keyboardType={keyboardType}
         style={styles.input}
-        secureTextEntry //
+        //secureTextEntry
       />
     </View>
   )

@@ -134,6 +134,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: moderateScale(10),
     height: moderateScale(50),
     gap: moderateScale(4),
+    marginTop: moderateScale(5),
     marginBottom: verticalScale(5),
     //backgroundColor: 'orange',
   },
@@ -369,12 +370,3 @@ const styles = StyleSheet.create({
 // ]
 
 export default Home
-
-
-
-
-
-
-
-
-

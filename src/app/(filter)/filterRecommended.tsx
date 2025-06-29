@@ -1,5 +1,6 @@
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import InputFilterComponent from '@/src/components/atoms/InputFilterComponent'
+import ImagesPath from '@/src/constants/ImagesPath'
 import { router } from 'expo-router'
 import React from 'react'
 import {
@@ -33,7 +34,7 @@ const filterRecommended = () => {
         <View style={styles.body}>
           <View style={styles.imageContainer}>
             <Image
-              source={require('@/src/assets/images/iconRecomendadoFigma.png')}
+              source={ImagesPath.iconRecomendadoFG}
               style={styles.imageStyle}
               resizeMode="contain"
             />
@@ -94,16 +95,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   body: {
-    height: moderateScale(400),
+    //height: moderateScale(400),
     width: '90%',
     //backgroundColor: 'yellow',
     textAlign: 'right',
     justifyContent: 'center',
     //alignItems: 'center',
-    marginTop: moderateScale(80),
+    marginTop: moderateScale(40),
   },
   footer: {
-    height: moderateScale(150),
+    height: moderateScale(80),
     width: '100%',
     //backgroundColor: 'red',
     textAlign: 'center',
