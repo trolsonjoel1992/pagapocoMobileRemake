@@ -1,13 +1,14 @@
+import { AppProvider } from '@/src/contexts/AppContext'
 import { Slot } from 'expo-router'
 import React from 'react'
-import { AuthProvider } from '../contexts/AuthContext'
 
 const RootLayout = () => {
   //return <Slot />;
+  console.log('RootLayout rendered')
   return (
-    <AuthProvider>
+    <AppProvider>
       <Slot />
-    </AuthProvider>
+    </AppProvider>
   )
 }
 

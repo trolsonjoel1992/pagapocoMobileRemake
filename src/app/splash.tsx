@@ -1,24 +1,24 @@
 import ImagesPath from '@/src/constants/ImagesPath'
-import { initPublications } from '@/src/constants/script'
+import { initSeed } from '@/src/constants/script'
 import { router } from 'expo-router'
 import React, { useEffect } from 'react'
 import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
-import { useAuth } from '../hooks/useAuth'
 
 const SplashScreen = () => {
-  const { user, isLoading: authLoading } = useAuth()
-
+  // const { user, isLoading: authLoading } = useAuth()
+  console.log('SplashScreen rendered')
   useEffect(() => {
-    initPublications()
+    console.log('SplashScreen mounted')
+    initSeed()
     // Redirigir a la pantalla Skeleton después de 1.5 segundos
     const timer = setTimeout(() => {
       router.replace('/Skeleton')
     }, 1500) // 1.5 segundos
 
     return () => clearTimeout(timer)
-  }, [authLoading, user])
+  }, [])
 
   return (
     <SafeAreaView style={styles.container}>
