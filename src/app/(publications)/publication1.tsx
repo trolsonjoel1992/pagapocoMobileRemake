@@ -1,151 +1,170 @@
+import ButtonActionsComponent from '@/src/components/atoms/ButtonActionsComponent'
 import SearchBarMainComponent from '@/src/components/atoms/SearchBarMainComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
+import { useAuth } from '@/src/hooks/useAuth'
 import { router } from 'expo-router'
-import React from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import React, { useRef, useState } from 'react'
+import {
+  Dimensions,
+  FlatList,
+  Image,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+  ViewToken,
+} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 const Publication1 = () => {
+  const { user, isLoading } = useAuth()
+
+  const [currentIndex, setCurrentIndex] = useState(0)
+  const flatListRef = useRef<FlatList>(null)
+
+  const carouselImages = [
+    { id: '1', image: ImagesPath.imageAutoVolkswagenPolo },
+    { id: '2', image: ImagesPath.imageAutoFiatToro },
+    { id: '3', image: ImagesPath.imageAutoJeepRenegade },
+    { id: '4', image: ImagesPath.imageAutoRenaultSandero },
+    { id: '5', image: ImagesPath.imageDefault2 },
+    { id: '6', image: ImagesPath.imageDefault2 },
+  ]
+
+  const onViewableItemsChanged = useRef(
+    ({ viewableItems }: { viewableItems: ViewToken[] }) => {
+      if (viewableItems.length > 0) {
+        setCurrentIndex(viewableItems[0].index || 0)
+      }
+    }
+  ).current
+
+  const viewabilityConfig = {
+    itemVisiblePercentThreshold: 50,
+  }
+
+  const { width } = Dimensions.get('window')
+
+  const [expanded, setExpanded] = useState(false)
+
   return (
     <SafeAreaView style={styles.container}>
-      {/* header */}
       <View style={styles.header}>
-        {/* Contenedor del buscador y boton de acciones */}
         <View style={styles.searchContainer}>
-          {/* Componente del buscador */}
           <SearchBarMainComponent
             showBackButton
-            onBackPress={() => router.back()} //push('/(tabs)/home')
+            onBackPress={() => router.push('/(tabs)/home')}
           />
         </View>
 
-        {/* Botones de acciones - ubicacion y filtros */}
         <View style={styles.actionsContainer}>
-          <TouchableOpacity style={styles.actionButton}>
-            <Image
-              source={ImagesPath.iconUbicaionFigma}
-              style={styles.actionIcon}
-              resizeMode="contain"
-            />
-            <Text style={styles.textActionsIcon}>Elige tu ciudad</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.actionButton}>
-            <Image
-              source={ImagesPath.iconFiltroFigma}
-              style={styles.actionIcon}
-              resizeMode="contain"
-            />
-            <Text style={styles.textActionsIcon}>Filtros</Text>
-          </TouchableOpacity>
+          <ButtonActionsComponent user={user} />
         </View>
       </View>
-
-      {/* body */}
-      <View style={styles.body}>
+      <ScrollView style={styles.scrollContainer}>
         <View style={styles.publicationContainer}>
-          <Text>2025 | 0.000 km - Publicado hace meses</Text>
-
-          <Text
-            style={{
-              fontSize: moderateScale(24),
-              fontWeight: 'bold',
-              marginBottom: verticalScale(10),
-            }}
-          >
-            Nombre publicación
+          <Text style={styles.publicationInfo}>
+            2025 | 0.000 km - Publicado hace meses
           </Text>
+          <Text style={styles.publicationTitle}>Volkswagen Polo 0Km</Text>
 
-          <View style={styles.imagePublicationContainer}>
-            <Image
-              source={ImagesPath.imageDefault2}
-              style={styles.imagePublication}
-              resizeMode="contain"
+          <View style={styles.imageContainer}>
+            <FlatList
+              ref={flatListRef}
+              data={carouselImages}
+              renderItem={({ item }) => (
+                <View style={styles.slide}>
+                  <Image source={item.image} style={styles.image} />
+                </View>
+              )}
+              horizontal
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(item) => item.id}
+              onViewableItemsChanged={onViewableItemsChanged}
+              viewabilityConfig={viewabilityConfig}
             />
+            <View style={styles.pagination}>
+              {carouselImages.map((_, index) => (
+                <View
+                  key={index}
+                  style={[
+                    styles.paginationDot,
+                    index === currentIndex && styles.paginationDotActive,
+                  ]}
+                />
+              ))}
+            </View>
           </View>
 
-          <View
-            style={[
-              { marginBottom: verticalScale(8) },
-              styles.labelPublicationContainer,
-            ]}
-          >
-            <Text style={{ fontSize: moderateScale(24), fontWeight: 'bold' }}>
-              $ 000.000
+          <View style={styles.labelPublicationContainer}>
+            <Text style={styles.priceText}>$ 24.000.000</Text>
+            <Text
+              style={styles.descriptionTitle}
+              numberOfLines={expanded ? undefined : 3}
+              ellipsizeMode="tail"
+            >
+              Lorem Ipsum is simply dummy text of the printing and typesetting
+              industry. Lorem Ipsum has been the industrys standard dummy text
+              ever since the 1500s, when an unknown printer took a galley of
+              type and scrambled it to make a type specimen book. It has
+              survived not only five centuries, but also the leap into
+              electronic typesetting, remaining essentially unchanged. It was
+              popularised in the 1960s with the release of Letraset sheets
+              containing Lorem Ipsum passages, and more recently with desktop
+              publishing software like Aldus PageMaker including versions of
+              Lorem Ipsum
             </Text>
-            <Text style={{ fontSize: moderateScale(20), fontWeight: 'bold' }}>
-              Descripción
-            </Text>
-            <Text>Una descripción agregada</Text>
-            {/* <Text>
-              ¡Calidad alemana, bajo consumo y alto valor de reventa! Perfecto
-              para quien busca practicidad sin dejar de lucir estilo.
-              ¡Contáctanos y llévatelo!
-            </Text> */}
+            <TouchableOpacity
+              onPress={() => setExpanded(!expanded)}
+              style={styles.seeMoreButton}
+            >
+              <Text style={styles.seeMoreText}>
+                {expanded ? 'Ver menos' : 'Ver más...'}
+              </Text>
+            </TouchableOpacity>
           </View>
         </View>
-      </View>
 
-      <View style={styles.footer}>
-        <View style={styles.buttomDetallesContainer}>
-          <TouchableOpacity
-            style={styles.buttomDetalles}
-            onPress={() => router.push('/(publications)/publicationDetails')}
-          >
-            <Text style={styles.buttomDetallesText}>Más Detalles</Text>
-          </TouchableOpacity>
+        <View style={styles.footer}>
+          <View style={styles.buttomDetallesContainer}>
+            <TouchableOpacity
+              style={styles.buttomDetalles}
+              onPress={() => router.push('/(publications)/publicationDetails')}
+            >
+              <Text style={styles.buttomDetallesText}>Más Detalles</Text>
+            </TouchableOpacity>
+          </View>
+
+          <View style={styles.buttomContactContainer}>
+            <TouchableOpacity style={styles.buttomContact}>
+              <Text style={styles.buttomContactText}>Preguntar</Text>
+            </TouchableOpacity>
+
+            <TouchableOpacity style={styles.buttomContact}>
+              <Text style={styles.buttomContactText}>Whatshapp</Text>
+            </TouchableOpacity>
+          </View>
         </View>
-
-        <View style={styles.buttomContactContainer}>
-          <TouchableOpacity style={styles.buttomContact}>
-            <Text style={styles.buttomContactText}>Preguntar</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity style={styles.buttomContact}>
-            <Text style={styles.buttomContactText}>Whatshapp</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   )
 }
 
 const styles = StyleSheet.create({
-  // estilos de la estructura
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    //paddingVertical: verticalScale(20),
   },
   header: {
-    height: moderateScale(120),
     width: '100%',
-    //backgroundColor: 'red',
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingVertical: verticalScale(10),
+    //backgroundColor: 'aqua', //#fff
+    //zIndex: 1,
+    //height: moderateScale(150),
   },
-  body: {
-    height: moderateScale(370),
-    width: '100%',
-    //backgroundColor: 'yellow',
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  footer: {
-    height: moderateScale(250),
-    width: '100%',
-    //backgroundColor: 'red',
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-    gap: moderateScale(10),
-  },
-  // estilos del contenido del header
   searchContainer: {
     width: '100%',
     flexDirection: 'row',
@@ -155,26 +174,6 @@ const styles = StyleSheet.create({
     height: moderateScale(40),
     gap: moderateScale(4),
     marginBottom: verticalScale(16),
-  },
-  searchIcon: {
-    marginRight: moderateScale(10),
-  },
-  searchIconContainer: {
-    paddingHorizontal: moderateScale(12),
-  },
-  searchInput: {
-    flex: 1,
-    height: '100%',
-    fontSize: moderateScale(16),
-    backgroundColor: '#F5F5F5',
-    borderRadius: moderateScale(20),
-    paddingVertical: 0,
-  },
-  searchActions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginLeft: moderateScale(12),
-    gap: moderateScale(16),
   },
   actionIcon: {
     padding: moderateScale(4),
@@ -191,7 +190,6 @@ const styles = StyleSheet.create({
     paddingVertical: verticalScale(8),
     paddingHorizontal: moderateScale(12),
     borderRadius: moderateScale(20),
-    //backgroundColor: '#F5F5F5',
     flex: 1,
     justifyContent: 'center',
     marginHorizontal: moderateScale(4),
@@ -201,53 +199,93 @@ const styles = StyleSheet.create({
     marginLeft: moderateScale(8),
     color: '#555',
   },
-  separator: {
-    width: 1,
-    height: moderateScale(24),
-    backgroundColor: '#E0E0E0',
-    marginHorizontal: moderateScale(4),
+  scrollContainer: {
+    flex: 1,
   },
-  // estilo para la publicacion
   publicationContainer: {
-    width: '90%',
-    //height: moderateScale(450),
-    //backgroundColor: "red",
-    justifyContent: 'center',
-    //gap: moderateScale(5)
+    //marginTop: moderateScale(15),
+    //marginBottom: moderateScale(20),
+    paddingHorizontal: moderateScale(15),
   },
-  imagePublicationContainer: {
-    height: moderateScale(220),
-    backgroundColor: 'black',
+  publicationInfo: {
+    fontSize: moderateScale(16),
+    fontWeight: '400',
+  },
+  publicationTitle: {
+    fontSize: moderateScale(24),
+    fontWeight: 'bold',
+    marginTop: moderateScale(10),
+  },
+  imageContainer: {
+    width: '100%',
+    height: moderateScale(270),
+    marginVertical: moderateScale(10),
+    position: 'relative',
+  },
+  slide: {
+    width: Dimensions.get('window').width - moderateScale(30),
+    height: moderateScale(265),
     justifyContent: 'center',
     alignItems: 'center',
-    borderRadius: moderateScale(10),
-    marginBottom: verticalScale(10),
   },
-  imagePublication: {
-    width: moderateScale(300),
-    height: moderateScale(210),
+  image: {
+    width: '100%',
+    height: '100%',
+    resizeMode: 'cover',
+  },
+  pagination: {
+    position: 'absolute',
+    bottom: 10,
+    width: '100%',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  paginationDot: {
+    width: moderateScale(10),
+    height: moderateScale(10),
+    borderRadius: moderateScale(5),
+    backgroundColor: '#ECE6F0',
+    marginHorizontal: moderateScale(5),
+  },
+  paginationDotActive: {
+    backgroundColor: '#A230C7',
+    width: moderateScale(10),
   },
   labelPublicationContainer: {
     width: '100%',
-    textAlign: 'left',
-    //paddingHorizontal: moderateScale(10),
+    marginTop: moderateScale(10),
   },
-  // estilos para los botones de mas detalles
+  priceText: {
+    fontSize: moderateScale(24),
+    fontWeight: 'bold',
+  },
+  descriptionTitle: {
+    fontSize: moderateScale(20),
+    //fontWeight: '500',
+    //marginTop: moderateScale(8),
+    //color: '#5b5f66',
+  },
+  descriptionText: {
+    fontSize: moderateScale(16),
+    fontWeight: '400',
+  },
+  footer: {
+    width: '100%',
+    paddingBottom: verticalScale(20),
+    paddingHorizontal: moderateScale(15),
+  },
   buttomDetallesContainer: {
     justifyContent: 'center',
     flexDirection: 'row',
     alignItems: 'center',
     gap: moderateScale(20),
-    //paddingHorizontal: moderateScale(90),
-    //marginTop: verticalScale(10),
-    //marginBottom: verticalScale(10),
-    //backgroundColor: "yellow",
+    marginTop: moderateScale(10),
   },
   buttomDetalles: {
     backgroundColor: '#F5F5F5',
-    width: moderateScale(330),
+    width: '100%',
     paddingVertical: verticalScale(10),
-    paddingHorizontal: verticalScale(10),
     borderRadius: moderateScale(20),
     alignItems: 'center',
   },
@@ -256,22 +294,17 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     fontWeight: 'bold',
   },
-  // estilos para los botones de contacto
   buttomContactContainer: {
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     flexDirection: 'row',
     alignItems: 'center',
     gap: moderateScale(20),
-    //paddingHorizontal: moderateScale(10),
-    //marginTop: verticalScale(10),
-    //marginBottom: verticalScale(10),
-    //backgroundColor: "yellow",
+    marginTop: moderateScale(10),
   },
   buttomContact: {
     backgroundColor: '#A230C7',
-    width: moderateScale(155),
+    flex: 1,
     paddingVertical: verticalScale(10),
-    paddingHorizontal: verticalScale(10),
     borderRadius: moderateScale(20),
     alignItems: 'center',
   },
@@ -279,6 +312,15 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: moderateScale(16),
     fontWeight: 'bold',
+  },
+  seeMoreButton: {
+    marginTop: moderateScale(8),
+    alignSelf: 'flex-start',
+  },
+  seeMoreText: {
+    color: '#1A73E9',
+    fontSize: moderateScale(16),
+    fontWeight: '500',
   },
 })
 
