@@ -148,6 +148,12 @@ const Cardsale = () => {
           <Text style={{ fontWeight: '500' }}>cargo por publicación</Text>
         </TouchableOpacity>
       </View>
+      <TouchableOpacity
+        style={styles.button}
+        onPress={() => router.push('/(tabs)/myPublications')}
+      >
+        <Text style={styles.buttonText}>Volver</Text>
+      </TouchableOpacity>
     </SafeAreaView>
   )
 }
@@ -264,5 +270,19 @@ const styles = StyleSheet.create({
     gap: moderateScale(30),
     borderWidth: 3,
     borderColor: '#9A9292',
+  },
+  button: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: moderateScale(170),
+    height: moderateScale(55),
+    backgroundColor: '#A230C7',
+    borderRadius: moderateScale(20),
+    marginTop: moderateScale(10),
+  },
+  buttonText: {
+    color: '#fff',
+    fontSize: moderateScale(20),
+    fontWeight: 'bold',
   },
 })
