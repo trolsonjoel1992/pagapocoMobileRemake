@@ -1,15 +1,12 @@
+import { useApp } from '@/src/contexts/AppContext'
 import { AntDesign } from '@expo/vector-icons'
 import { router } from 'expo-router'
-import React, { useState } from 'react'
+import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 const PublicationCardComponent = ({ item }) => {
-  const [isFavorite, setIsFavorite] = useState(false)
-
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite)
-  }
+  const { toggleFavorite, isFavorite } = useApp()
 
   return (
     <TouchableOpacity
@@ -18,19 +15,19 @@ const PublicationCardComponent = ({ item }) => {
     >
       <View style={styles.imageContainer}>
         <Image
-          source={item.image}
+          source={item.images[0]}
           style={styles.publicationImage}
           resizeMode="contain"
         />
         {/* Botón de favoritos */}
         <TouchableOpacity
           style={styles.favoriteButton}
-          onPress={toggleFavorite}
+          onPress={() => toggleFavorite(item.id)}
         >
           <AntDesign
-            name={isFavorite ? 'heart' : 'hearto'}
+            name={isFavorite(item.id) ? 'heart' : 'hearto'}
             size={16}
-            color={isFavorite ? '#A230C7' : '#666'}
+            color={isFavorite(item.id) ? '#A230C7' : '#666'}
           />
         </TouchableOpacity>
       </View>

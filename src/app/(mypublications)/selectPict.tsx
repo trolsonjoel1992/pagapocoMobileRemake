@@ -143,7 +143,7 @@ const SelectPict = () => {
       <View style={styles.fixedButtonContainer}>
         <TouchableOpacity
           style={styles.button}
-          onPress={() => router.push('/(mypublicaciones)/editImages')}
+          onPress={() => router.push('/(mypublications)/editImages')}
         >
           <Text style={styles.buttonText}>Continuar</Text>
         </TouchableOpacity>

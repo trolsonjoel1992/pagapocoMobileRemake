@@ -1,10 +1,9 @@
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
-import { useAuth } from '@/src/hooks/useAuth'
+import { useApp } from '@/src/contexts/AppContext'
 import { router } from 'expo-router'
 import React, { useState } from 'react'
 import {
-  Alert,
   Image,
   StyleSheet,
   Text,
@@ -19,30 +18,36 @@ const FormLogin = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
 
-  const { login, isLoading } = useAuth()
+  // const { login, isLoading } = useAuth()
+  const { login } = useApp()
 
   const handleLogin = async () => {
-    try {
-      await login(email, password)
+    const ok = await login(email, password)
+
+    if (ok) {
       router.replace('/(tabs)/home')
-    } catch (error) {
-      let errorMessage = 'Error al iniciar sesión'
-
-      // Verificar si es un Error estándar
-      if (error instanceof Error) {
-        errorMessage = error.message
-      }
-      // Verificar si es un objeto con propiedad message
-      else if (
-        typeof error === 'object' &&
-        error !== null &&
-        'message' in error
-      ) {
-        errorMessage = String(error.message)
-      }
-
-      Alert.alert('Error', errorMessage)
     }
+    // try {
+    //   await login(email, password)
+    //   router.replace('/(tabs)/home')
+    // } catch (error) {
+    //   let errorMessage = 'Error al iniciar sesión'
+
+    //   // Verificar si es un Error estándar
+    //   if (error instanceof Error) {
+    //     errorMessage = error.message
+    //   }
+    //   // Verificar si es un objeto con propiedad message
+    //   else if (
+    //     typeof error === 'object' &&
+    //     error !== null &&
+    //     'message' in error
+    //   ) {
+    //     errorMessage = String(error.message)
+    //   }
+
+    //   Alert.alert('Error', errorMessage)
+    // }
   }
 
   return (
@@ -98,10 +103,11 @@ const FormLogin = () => {
         <TouchableOpacity
           style={styles.buttomAcceder}
           onPress={handleLogin}
-          disabled={isLoading}
+          // disabled={isLoading}
         >
           <Text style={styles.buttomAccederText}>
-            {isLoading ? 'Cargando...' : 'Continuar'}
+            {/* {isLoading ? 'Cargando...' : 'Continuar'} */}
+            Continuar
           </Text>
         </TouchableOpacity>
 

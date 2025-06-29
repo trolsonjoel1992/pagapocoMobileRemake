@@ -5,6 +5,7 @@ import SearchBarMainComponent from '@/src/components/atoms/SearchBarMainComponen
 import ImagesPath from '@/src/constants/ImagesPath'
 import { useListPublications } from '@/src/features/hooks/publications.hooks'
 import { useAuth } from '@/src/hooks/useAuth'
+import { router } from 'expo-router'
 import React, { useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
@@ -22,6 +23,14 @@ const Home = () => {
   }
 
   const { data } = useListPublications()
+
+  const handleCategoryPress = (category: string) => {
+    router.push({
+      pathname: '/(filter)/filterCategory', // /filterCoincidences
+      params: { category }, // Envía la categoría como parámetro
+    })
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
@@ -41,23 +50,28 @@ const Home = () => {
           <ButtonCategoryComponent
             iconCategory={ImagesPath.iconCamionFigma}
             title="Camiones"
-            //onPressFunction={() => router.push("/")} // aqui hacer ruteo del filtro
+            // onPressFunction={() => router.push("/")} // aqui hacer ruteo del filtro
+            onPressFunction={() => handleCategoryPress('Camiones')}
           />
           <ButtonCategoryComponent
             iconCategory={ImagesPath.iconCamionetaFigma}
             title="Camionetas"
+            onPressFunction={() => handleCategoryPress('Camionetas')}
           />
           <ButtonCategoryComponent
             iconCategory={ImagesPath.iconAutoFigma}
             title="Autos"
+            onPressFunction={() => handleCategoryPress('Autos')}
           />
           <ButtonCategoryComponent
             iconCategory={ImagesPath.iconMotoFigma}
             title="Motos"
+            onPressFunction={() => handleCategoryPress('Motos')}
           />
           <ButtonCategoryComponent
             iconCategory={ImagesPath.iconPiezaFigma}
             title="Piezas"
+            onPressFunction={() => handleCategoryPress('Piezas')}
           />
         </View>
       </View>
@@ -91,7 +105,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff', // purple
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: verticalScale(20),
   },
   header: {
     //height: moderateScale(200),
@@ -356,3 +369,12 @@ const styles = StyleSheet.create({
 // ]
 
 export default Home
+
+
+
+
+
+
+
+
+

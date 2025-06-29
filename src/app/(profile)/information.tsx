@@ -1,38 +1,22 @@
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
-import { router } from 'expo-router'
 import React from 'react'
 import {
+  SafeAreaView,
   StyleSheet,
   Text,
   TextInput,
   TouchableOpacity,
   View,
 } from 'react-native'
-import Icon from 'react-native-vector-icons/Ionicons'
 
 const AccountInfoScreen = () => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <HeaderMainComponent titulo="Información de la cuenta" />
-
-      {/* Encabezado */}
-      {/* <View style={styles.header}>
-        <TouchableOpacity onPress={() => {router.push("/(profile)");}}>
-          <Icon name="arrow-back" size={24} color="#fff" />
-        </TouchableOpacity>
-        <Text style={styles.headerTitle}>Información de la cuenta</Text> 
-      </View> */}
-
       {/* Información del usuario */}
       <View style={styles.body}>
      
       <View style={styles.userInfo}>
-        <Icon
-          name="person-circle-outline"
-          size={50}
-          color="#888"
-          style={styles.avatarIcon}
-        />
         <View>
           <Text style={styles.username}>Un usuario</Text>
           <Text style={styles.email}>example@gmail.com</Text>
@@ -57,14 +41,12 @@ const AccountInfoScreen = () => {
       <TouchableOpacity
         style={styles.button}
         onPress={() => {
-          router.push({ href: '/profile/index' })
+          //router.push({})
         }}
       >
         <Text style={styles.buttonText}>Regresar al perfil</Text>
       </TouchableOpacity>
-
-      </View>
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -73,13 +55,7 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#A230C7',
-    paddingVertical: 15,
-    paddingHorizontal: 20,
-  },
+
   headerTitle: {
     color: '#fff',
     fontSize: 18,

@@ -1,7 +1,14 @@
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import IconsPath from '@/src/constants/IconsPath'
 import { Href, router } from 'expo-router'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import {
+  Image,
+  SafeAreaView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 type Category = {
@@ -14,33 +21,31 @@ const categories: Category[] = [
   {
     label: 'Categorias',
     icon: 'iconEdit2',
-    route: '/(tabs)/(myPublications)/myPublications' as Href,
+    route: '/(mypublications)/editCategory' as Href,
   },
   {
     label: 'Datos',
     icon: 'iconEdit2',
-    route: '/(tabs)/(myPublications)/myPublications' as Href,
+    route: '/(mypublications)/editFormVehicle' as Href,
   },
   {
     label: 'Fotos',
     icon: 'iconEdit2',
-    route: '/(mypublicaciones)/selectPict' as Href,
+    route: '/(mypublications)/selectPict' as Href,
   },
   {
     label: 'Precio',
     icon: 'iconEdit2',
-    route: '/(mypublicaciones)/price' as Href,
+    route: '/(mypublications)/price' as Href,
   },
 ] as const
 
 const Edit = () => {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <HeaderMainComponent
         titulo="Inicio de sesión"
-        onBackPress={() =>
-          router.push('/(tabs)/(myPublications)/myPublications')
-        }
+        onBackPress={() => router.back}
       />
       <Text style={styles.title}>Elegí los datos que queres modificar</Text>
 
@@ -49,7 +54,7 @@ const Edit = () => {
           <TouchableOpacity
             key={item.label}
             style={styles.card}
-            onPress={() => router.push(item.route)} // Navega a la ruta correspondiente
+            onPress={() => router.push(item.route)}
           >
             <Image source={IconsPath[item.icon]} style={styles.icon} />
             <Text style={styles.cardText}>{item.label}</Text>
@@ -59,12 +64,12 @@ const Edit = () => {
       <View style={styles.buttonContainer}>
         <TouchableOpacity
           style={styles.buttonBack}
-          onPress={() => router.push('/(tabs)/(myPublications)/myPublications')}
+          onPress={() => router.push('/(tabs)/myPublications')}
         >
           <Text style={styles.buttonText}>Volver</Text>
         </TouchableOpacity>
       </View>
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -98,12 +103,13 @@ const styles = StyleSheet.create({
     width: '95%',
   },
   card: {
+    height: moderateScale(90),
     backgroundColor: '#f1e9f9',
     flexDirection: 'row',
     alignItems: 'center',
     padding: moderateScale(10),
     marginBottom: moderateScale(20),
-    borderRadius: 20,
+    borderRadius: moderateScale(20),
   },
   icon: {
     marginRight: moderateScale(16),
