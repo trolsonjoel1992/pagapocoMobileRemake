@@ -1,6 +1,6 @@
 import IconsPath from '@/src/constants/IconsPath'
 import ImagesPath from '@/src/constants/ImagesPath'
-import { useAuth } from '@/src/hooks/useAuth'
+import { useApp } from '@/src/contexts/AppContext'
 import { router } from 'expo-router'
 import {
   Image,
@@ -14,7 +14,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale } from 'react-native-size-matters'
 
 const Profile = () => {
-  const { logout } = useAuth()
+  // const { logout } = useAuth()
+  const { logout } = useApp()
 
   const cerrarSesion = () => {
     router.replace('/splash')

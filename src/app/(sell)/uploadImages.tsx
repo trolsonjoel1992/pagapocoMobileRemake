@@ -1,57 +1,71 @@
-// archivo: src/app/(trabajo_matias)/fotos.tsx
-
 import Button from '@/src/components/atoms/Button'
+import ContainerView from '@/src/components/atoms/ContainerView'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
-import ImageUploader from '@/src/components/molecules/ImageUploader' // componente de carga de imágenes
+import ImageUploader from '@/src/components/molecules/ImageUploader'
 
 import { useRouter } from 'expo-router'
 import React, { useState } from 'react'
-import { Alert, ScrollView, StyleSheet, Text, View } from 'react-native'
-import { SafeAreaView } from 'react-native-safe-area-context'
+import {
+  Alert,
+  FlatList,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native'
 
+// componente principal para subir fotos del vehiculo
 export default function Fotos() {
   const router = useRouter()
+
+  // estado que almacena las imagenes seleccionadas por el usuario
   const [imagenes, setImagenes] = useState<string[]>([])
 
-  // valida si hay imagenes antes de continuar
+  // valida que haya al menos una imagen antes de continuar
   const handleContinuar = () => {
     if (imagenes.length === 0) {
-      Alert.alert(
-        'atención',
-        'por favor subí al menos una imagen antes de continuar'
-      )
+      Alert.alert('atención', 'por favor subí al menos una imagen antes de continuar')
       return
     }
-    router.push('/(sell)/closeSale') // redirige a la siguiente pantalla
+    // redirige a la pantalla de terminos y condiciones
+    router.push('/(trabajo_matias)/modal_terminosycondiciones')
   }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <ContainerView>
+      {/* encabezado con titulo y boton de retroceso */}
       <HeaderMainComponent titulo="Vender" onBackPress={() => router.back()} />
 
-      <ScrollView contentContainerStyle={styles.content}>
-        <Text style={styles.title}>Subí las fotos de tu vehículo</Text>
-        <Text style={styles.subtitle}>Podés agregar hasta 8 imágenes</Text>
+      {/* flatlist vacia usada para renderizar el contenido con scroll */}
+      <FlatList
+        data={[]}
+        ListHeaderComponent={
+          <View style={styles.content}>
+            {/* titulo principal */}
+            <Text style={styles.title}>Subí las fotos de tu vehículo</Text>
 
-        {/* componente que permite subir imagenes y las muestra en grilla */}
-        <ImageUploader maxImages={8} onChange={setImagenes} />
+            {/* subtitulo con indicacion de cantidad maxima */}
+            <Text style={styles.subtitle}>Podés agregar hasta 8 imágenes</Text>
 
-        {/* boton reutilizable para continuar */}
-        <View style={styles.buttonContainer}>
-          <Button variant="contained" onPress={handleContinuar}>
-            Continuar
-          </Button>
-        </View>
-      </ScrollView>
-    </SafeAreaView>
+            {/* componente que permite subir imagenes y las muestra */}
+            <ImageUploader maxImages={8} onChange={setImagenes} />
+
+            {/* boton para continuar con el flujo */}
+            <View style={styles.buttonContainer}>
+              <Button variant="contained" onPress={handleContinuar}>
+                Continuar
+              </Button>
+            </View>
+          </View>
+        }
+        keyExtractor={(_, index) => index.toString()}
+        renderItem={null}
+      />
+    </ContainerView>
   )
 }
 
+// estilos para la pantalla de carga de imagenes
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-  },
   content: {
     padding: 20,
     paddingBottom: 32,

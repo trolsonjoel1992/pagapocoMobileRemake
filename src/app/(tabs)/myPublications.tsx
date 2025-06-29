@@ -1,8 +1,9 @@
 import SearchBarComponent from '@/src/components/atoms/SearchBarComponent'
 import IconsPath from '@/src/constants/IconsPath'
 import ImagesPath from '@/src/constants/ImagesPath'
+import { Publication, useApp } from '@/src/contexts/AppContext'
 import { router } from 'expo-router'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import {
   Image,
   ScrollView,
@@ -14,64 +15,64 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-interface Publication {
-  id: number
-  name: string
-  image: any
-  type: 'free' | 'prem'
-}
+// interface Publication {
+//   id: number
+//   name: string
+//   image: any
+//   type: 'free' | 'prem'
+// }
 
 export default function MyPublications() {
-  const [showPublications, setShowPublications] = useState(false)
+  // const [showPublications, setShowPublications] = useState(false)
 
   const [soldPublications, setSoldPublications] = useState<number[]>([])
   const [hiddenPublications, setHiddenPublications] = useState<number[]>([])
   const [pausedPublications, setPausedPublications] = useState<number[]>([])
 
-  const publications: Publication[] = [
-    {
-      id: 1,
-      name: 'Nombre publicación',
-      image: ImagesPath.imageMyPublication,
-      type: 'prem',
-    },
-    {
-      id: 2,
-      name: 'Nombre publicación',
-      image: ImagesPath.imageFrePublication,
-      type: 'free',
-    },
-    {
-      id: 3,
-      name: 'Nombre publicación',
-      image: ImagesPath.imageMyPublication,
-      type: 'prem',
-    },
-    {
-      id: 4,
-      name: 'Nombre publicación',
-      image: ImagesPath.imageFrePublication,
-      type: 'free',
-    },
-    {
-      id: 5,
-      name: 'Nombre publicación',
-      image: ImagesPath.imageFrePublication,
-      type: 'free',
-    },
-    {
-      id: 6,
-      name: 'Nombre publicación',
-      image: ImagesPath.imageFrePublication,
-      type: 'free',
-    },
-    {
-      id: 7,
-      name: 'Nombre publicación',
-      image: ImagesPath.imageFrePublication,
-      type: 'free',
-    },
-  ]
+  // const publications: Publication[] = [
+  //   {
+  //     id: 1,
+  //     name: 'Nombre publicación',
+  //     image: ImagesPath.imageMyPublication,
+  //     type: 'prem',
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Nombre publicación',
+  //     image: ImagesPath.imageFrePublication,
+  //     type: 'free',
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'Nombre publicación',
+  //     image: ImagesPath.imageMyPublication,
+  //     type: 'prem',
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'Nombre publicación',
+  //     image: ImagesPath.imageFrePublication,
+  //     type: 'free',
+  //   },
+  //   {
+  //     id: 5,
+  //     name: 'Nombre publicación',
+  //     image: ImagesPath.imageFrePublication,
+  //     type: 'free',
+  //   },
+  //   {
+  //     id: 6,
+  //     name: 'Nombre publicación',
+  //     image: ImagesPath.imageFrePublication,
+  //     type: 'free',
+  //   },
+  //   {
+  //     id: 7,
+  //     name: 'Nombre publicación',
+  //     image: ImagesPath.imageFrePublication,
+  //     type: 'free',
+  //   },
+  // ]
   const handleImagePress = (publicationId: number) => {
     router.push('/(mypublications)/myPublication')
   }
@@ -95,6 +96,20 @@ export default function MyPublications() {
     setHiddenPublications([...hiddenPublications, publicationId])
   }
 
+  const { currentUser, getUserPublications } = useApp()
+  const [publications, setPublications] = useState<Publication[]>([])
+
+  useEffect(() => {
+    const fetchPublications = async () => {
+      if (currentUser) {
+        const userPublications = await getUserPublications(currentUser.id)
+        setPublications(userPublications)
+      }
+    }
+
+    fetchPublications()
+  }, [currentUser, publications])
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Barra de búsqueda */}
@@ -103,7 +118,7 @@ export default function MyPublications() {
         <SearchBarComponent />
       </View>
 
-      {showPublications ? (
+      {publications.length > 0 ? (
         <>
           <ScrollView
             style={styles.scroll}
@@ -130,7 +145,7 @@ export default function MyPublications() {
                       onPress={() => handleImagePress(publication.id)}
                     >
                       <Image
-                        source={publication.image}
+                        source={publication.images[0]}
                         style={styles.publicationImage}
                         resizeMode="cover"
                       />
@@ -138,7 +153,7 @@ export default function MyPublications() {
 
                     <View style={styles.rightContainer}>
                       <Text style={styles.publicationTitle}>
-                        {publication.name}
+                        {publication.title}
                       </Text>
 
                       <TouchableOpacity
@@ -167,7 +182,7 @@ export default function MyPublications() {
                         ) : (
                           <View style={styles.buttonsRow}>
                             <View style={styles.iconContainer}>
-                              {publication.type === 'free' && (
+                              {publication.isPremium && (
                                 <TouchableOpacity
                                   style={styles.iconButton}
                                   onPress={() =>
@@ -260,7 +275,7 @@ export default function MyPublications() {
             style={stylesEmpty.emptyImage}
             resizeMode="contain"
           />
-          <TouchableOpacity onPress={() => setShowPublications(true)}>
+          <TouchableOpacity>
             <Text style={stylesEmpty.emptyTitle}>¡No hay publicaciones!</Text>
           </TouchableOpacity>
           <Text style={stylesEmpty.emptyText}>

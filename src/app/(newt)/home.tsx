@@ -1,6 +1,5 @@
 import ButtonActionsComponent from '@/src/components/atoms/ButtonActionsComponent'
 import ButtonCategoryComponent from '@/src/components/atoms/ButtonCategoryComponent'
-import PublicationCardComponent from '@/src/components/atoms/PublicationCardComponent'
 import SearchBarMainComponent from '@/src/components/atoms/SearchBarMainComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { useAuth } from '@/src/hooks/useAuth'
@@ -65,7 +64,8 @@ const Home = () => {
         <FlatList
           data={mockPublications}
           renderItem={({ item }) => (
-            <PublicationCardComponent item={item} />
+            <></>
+            // <PublicationCardComponent item={item} />
           )} /* Componente de la publicacion */
           keyExtractor={(item) => item.id.toString()}
           numColumns={2}

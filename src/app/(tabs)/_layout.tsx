@@ -2,16 +2,16 @@ import GenericModal from '@/src/components/atoms/GenericModal'
 import { Color } from '@/src/constants/colors'
 import IconsPath from '@/src/constants/IconsPath'
 import ImagesPath from '@/src/constants/ImagesPath'
-import { useAuth } from '@/src/hooks/useAuth'
+import { useApp } from '@/src/contexts/AppContext'
 import { PlatformPressable } from '@react-navigation/elements'
 import { Tabs, useRouter } from 'expo-router'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Image, Modal, StatusBar, StyleSheet, View } from 'react-native'
 import { verticalScale } from 'react-native-size-matters'
 
 export default function TabsLayout() {
   const router = useRouter()
-  const { user } = useAuth()
+  // const { user } = useAuth()
   const [showAuthModal, setShowAuthModal] = useState(false)
 
   const handleContinue = () => {
@@ -22,6 +22,15 @@ export default function TabsLayout() {
   const handleCancel = () => {
     setShowAuthModal(false)
   }
+
+  const { currentUser } = useApp()
+  useEffect(() => {
+    const funca = () => {
+      console.log('usuario actual:', currentUser)
+    }
+
+    funca()
+  }, [])
 
   return (
     <>
@@ -81,7 +90,7 @@ export default function TabsLayout() {
           }}
           listeners={() => ({
             tabPress: (e) => {
-              if (!user) {
+              if (!currentUser) {
                 e.preventDefault()
                 setShowAuthModal(true)
               }
@@ -104,7 +113,7 @@ export default function TabsLayout() {
           }}
           listeners={() => ({
             tabPress: (e) => {
-              if (!user) {
+              if (!currentUser) {
                 e.preventDefault()
                 setShowAuthModal(true)
               }
@@ -127,7 +136,7 @@ export default function TabsLayout() {
           }}
           listeners={() => ({
             tabPress: (e) => {
-              if (!user) {
+              if (!currentUser) {
                 e.preventDefault()
                 setShowAuthModal(true)
               }
@@ -150,7 +159,7 @@ export default function TabsLayout() {
           }}
           listeners={() => ({
             tabPress: (e) => {
-              if (!user) {
+              if (!currentUser) {
                 e.preventDefault()
                 setShowAuthModal(true)
               }

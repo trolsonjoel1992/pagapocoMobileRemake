@@ -3,17 +3,16 @@ import ButtonCategoryComponent from '@/src/components/atoms/ButtonCategoryCompon
 import PublicationCardComponent from '@/src/components/atoms/PublicationCardComponent'
 import SearchBarMainComponent from '@/src/components/atoms/SearchBarMainComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
-import { useListPublications } from '@/src/features/hooks/publications.hooks'
-import { useAuth } from '@/src/hooks/useAuth'
-import React, { useState } from 'react'
+import { useApp } from '@/src/contexts/AppContext'
+import React, { useMemo, useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 const Home = () => {
-  const { user, isLoading } = useAuth()
+  // const { user, isLoading } = useAuth()
 
-  const { logout } = useAuth()
+  // const { logout } = useAuth()
 
   const [isFavorite, setIsFavorite] = useState(false)
 
@@ -21,7 +20,13 @@ const Home = () => {
     setIsFavorite(!isFavorite)
   }
 
-  const { data } = useListPublications()
+  const { publications, currentUser } = useApp()
+
+  const filteredPublications = useMemo(() => {
+    if (!currentUser) return publications
+    return publications.filter((p) => p.user_id !== currentUser.id)
+  }, [publications, currentUser])
+  // const { data } = useListPublications()
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
@@ -33,7 +38,7 @@ const Home = () => {
         </View>
 
         {/* Componentes de Botones de acciones */}
-        <ButtonActionsComponent user={user} />
+        <ButtonActionsComponent user={currentUser} />
 
         {/* Contenedor de Categorías */}
         <View style={styles.categoriasContainer}>
@@ -65,7 +70,7 @@ const Home = () => {
       {/* body */}
       <View style={styles.body}>
         <FlatList
-          data={data}
+          data={filteredPublications}
           renderItem={({ item }) => (
             <PublicationCardComponent item={item} />
           )} /* Componente de la publicacion */
