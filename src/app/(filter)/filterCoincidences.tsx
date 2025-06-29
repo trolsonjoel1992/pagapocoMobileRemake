@@ -1,11 +1,8 @@
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
-import ImagesPath from '@/src/constants/ImagesPath'
-import AntDesign from '@expo/vector-icons/AntDesign'
-import FontAwesome from '@expo/vector-icons/FontAwesome'
+import PFilterComponent from '@/src/components/atoms/PFilterComponent'
 import { router } from 'expo-router'
-import React, { useState } from 'react'
+import React from 'react'
 import {
-  Image,
   ScrollView,
   StyleSheet,
   Text,
@@ -14,115 +11,23 @@ import {
 } from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-const PublicationComponent = () => {
-  const [isFavorite, setIsFavorite] = useState(false)
-
-  const toggleFavorite = () => {
-    setIsFavorite(!isFavorite)
-  }
-
-  return (
-    <View style={styles.publicationContainer}>
-      <View style={styles.imageAndInfoContainer}>
-        <View style={styles.imageContainer}>
-          <TouchableOpacity
-            style={styles.imagePublicationTouchable}
-            onPress={() => router.push('/(publications)/publication1')}
-          >
-            <Image
-              source={ImagesPath.imageDefault}
-              style={styles.imagePublication}
-              resizeMode="contain"
-            />
-          </TouchableOpacity>
-
-          {/* <Image
-            source={ImagesPath.imageDefault}
-            style={styles.imagePublication}
-            resizeMode="contain"
-          /> */}
-
-          {/* Botón de favoritos */}
-          <TouchableOpacity
-            style={styles.favoriteButton}
-            onPress={toggleFavorite}
-          >
-            <AntDesign
-              name={isFavorite ? 'heart' : 'hearto'}
-              size={16}
-              color={isFavorite ? '#A230C7' : '#666'}
-            />
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.infoContainer}>
-          <Text style={{ fontWeight: 'bold' }}>Nombre de publicación</Text>
-          <Text style={{ fontWeight: 'bold' }}>AAA...</Text>
-          <Text style={{ fontSize: moderateScale(24), fontWeight: 'bold' }}>
-            $000.000
-          </Text>
-        </View>
-      </View>
-
-      <View style={styles.buttomPublicationContainer}>
-        <View style={styles.buttomVolverContainer}>
-          <TouchableOpacity
-            style={styles.buttomVolver}
-            //onPress={() => router.back()} // llevar a la pantalla del resultado del filtro
-          >
-            <Text style={styles.buttomVolverText}>Preguntar</Text>
-          </TouchableOpacity>
-        </View>
-        <View style={styles.buttomVolverContainer}>
-          <TouchableOpacity
-            style={styles.buttomVolver}
-            //onPress={() => router.back()} // llevar a la pantalla del resultado del filtro
-          >
-            <FontAwesome
-              name="whatsapp"
-              size={moderateScale(20)}
-              color="white"
-            />
-            <Text style={styles.buttomVolverText}>WhatsApp</Text>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
-  )
-}
-
 const filterCoincidences = () => {
   return (
     <View style={styles.container}>
-      {/* header */}
-      {/* <View style={styles.header}></View> */}
-
       <HeaderMainComponent
         titulo="Coincidencias"
         onBackPress={() => router.back()}
       />
 
-      {/* body */}
-      {/* <View>
-        <PublicationComponent />
-        <PublicationComponent />
-        <PublicationComponent />
-        <PublicationComponent />
-        <PublicationComponent />
-        <PublicationComponent />
-      </View> */}
-
-      {/* body */}
       <ScrollView
         style={styles.scrollView}
         contentContainerStyle={styles.scrollContent}
       >
-        <PublicationComponent />
-        <PublicationComponent />
-        <PublicationComponent />
-        <PublicationComponent />
-        <PublicationComponent />
-        <PublicationComponent />
+        <PFilterComponent />
+        <PFilterComponent />
+        <PFilterComponent />
+        <PFilterComponent />
+        <PFilterComponent />
 
         <View style={styles.buttomVolverContainer}>
           <TouchableOpacity
@@ -133,18 +38,6 @@ const filterCoincidences = () => {
           </TouchableOpacity>
         </View>
       </ScrollView>
-
-      {/* footer */}
-      {/* <View style={styles.footer}>
-          <View style={styles.buttomVolverContainer}>
-            <TouchableOpacity
-              style={styles.buttomVolver}
-              onPress={() => router.back()} // router.push('/(tabs)/home')
-            >
-              <Text style={styles.buttomVolverText}>Volver</Text>
-            </TouchableOpacity>
-          </View>
-        </View> */}
     </View>
   )
 }
@@ -157,31 +50,6 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     alignItems: 'center',
     //paddingVertical: verticalScale(20),
-  },
-  header: {
-    height: moderateScale(40),
-    width: '100%',
-    //backgroundColor: 'red',
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  body: {
-    height: moderateScale(630),
-    width: '80%',
-    backgroundColor: 'yellow',
-    textAlign: 'center',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginTop: moderateScale(10),
-  },
-  footer: {
-    height: moderateScale(50),
-    width: '100%',
-    backgroundColor: 'red',
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
   },
   publicationContainer: {
     width: '100%',

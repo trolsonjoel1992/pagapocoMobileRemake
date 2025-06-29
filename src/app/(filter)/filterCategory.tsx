@@ -7,11 +7,11 @@ import { useAuth } from '@/src/hooks/useAuth'
 import { router, useLocalSearchParams } from 'expo-router'
 import React from 'react'
 import {
-    ScrollView,
-    StyleSheet,
-    Text,
-    TouchableOpacity,
-    View,
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
 } from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
