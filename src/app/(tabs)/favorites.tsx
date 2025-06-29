@@ -1,6 +1,7 @@
 import IconsPath from '@/src/constants/IconsPath'
 import ImagesPath from '@/src/constants/ImagesPath'
-import { useState } from 'react'
+import { Publication, useApp } from '@/src/contexts/AppContext'
+import { useEffect, useState } from 'react'
 import {
   Image,
   ScrollView,
@@ -12,61 +13,76 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-interface Publication {
-  id: number
-  name: string
-  image: any
-  type: 'free' | 'prem'
-}
+// interface Publication {
+//   id: number
+//   name: string
+//   image: any
+//   type: 'free' | 'prem'
+// }
 
 export default function Favorites() {
-  const [showFavorites, setShowFavorites] = useState(false)
+  // const [showFavorites, setShowFavorites] = useState(false)
 
-  const publications: Publication[] = [
-    {
-      id: 1,
-      name: 'Nombre publicación',
-      image: ImagesPath.imageMyPublication,
-      type: 'prem',
-    },
-    {
-      id: 2,
-      name: 'Nombre publicación',
-      image: ImagesPath.imageFrePublication,
-      type: 'free',
-    },
-    {
-      id: 3,
-      name: 'Nombre publicación',
-      image: ImagesPath.imageMyPublication,
-      type: 'prem',
-    },
-    {
-      id: 4,
-      name: 'Nombre publicación',
-      image: ImagesPath.imageFrePublication,
-      type: 'free',
-    },
-    {
-      id: 5,
-      name: 'Nombre publicación',
-      image: ImagesPath.imageFrePublication,
-      type: 'free',
-    },
-    {
-      id: 6,
-      name: 'Nombre publicación',
-      image: ImagesPath.imageFrePublication,
-      type: 'free',
-    },
-    {
-      id: 7,
-      name: 'Nombre publicación',
-      image: ImagesPath.imageFrePublication,
-      type: 'free',
-    },
-  ]
-  return showFavorites ? (
+  // const publications: Publication[] = [
+  //   {
+  //     id: 1,
+  //     name: 'Nombre publicación',
+  //     image: ImagesPath.imageMyPublication,
+  //     type: 'prem',
+  //   },
+  //   {
+  //     id: 2,
+  //     name: 'Nombre publicación',
+  //     image: ImagesPath.imageFrePublication,
+  //     type: 'free',
+  //   },
+  //   {
+  //     id: 3,
+  //     name: 'Nombre publicación',
+  //     image: ImagesPath.imageMyPublication,
+  //     type: 'prem',
+  //   },
+  //   {
+  //     id: 4,
+  //     name: 'Nombre publicación',
+  //     image: ImagesPath.imageFrePublication,
+  //     type: 'free',
+  //   },
+  //   {
+  //     id: 5,
+  //     name: 'Nombre publicación',
+  //     image: ImagesPath.imageFrePublication,
+  //     type: 'free',
+  //   },
+  //   {
+  //     id: 6,
+  //     name: 'Nombre publicación',
+  //     image: ImagesPath.imageFrePublication,
+  //     type: 'free',
+  //   },
+  //   {
+  //     id: 7,
+  //     name: 'Nombre publicación',
+  //     image: ImagesPath.imageFrePublication,
+  //     type: 'free',
+  //   },
+  // ]
+
+  const { currentUser, getUserFavorites, favorites } = useApp()
+  const [publications, setPublications] = useState<Publication[]>([])
+
+  useEffect(() => {
+    const fetchPublications = async () => {
+      if (currentUser) {
+        const userPublications = await getUserFavorites(currentUser.id)
+        setPublications(userPublications)
+      }
+    }
+
+    fetchPublications()
+  }, [favorites])
+
+  return publications.length > 0 ? (
     <SafeAreaView style={styles.container}>
       <ScrollView
         style={styles.scroll}
@@ -83,30 +99,30 @@ export default function Favorites() {
                     //onPress={() => handleImagePress(publication.id)}
                   >
                     <Image
-                      source={publication.image}
+                      source={publication.images[0]}
                       style={styles.publicationImage}
                       resizeMode="cover"
                     />
                   </TouchableOpacity>
                   <View style={styles.rightContainer}>
                     <Text style={styles.publicationTitle}>
-                      {publication.name}
+                      {publication.title}
                     </Text>
-                    <Text
+                    {/* <Text
                       style={{
                         fontSize: moderateScale(16),
                         fontWeight: 'bold',
                       }}
                     >
                       AAA...
-                    </Text>
+                    </Text> */}
                     <Text
                       style={{
                         fontSize: moderateScale(20),
                         fontWeight: 'bold',
                       }}
                     >
-                      $000.000
+                      {publication.price}{' '}
                     </Text>
                   </View>
                 </View>
@@ -137,7 +153,7 @@ export default function Favorites() {
           style={stylesEmpty.emptyImage}
           resizeMode="contain"
         />
-        <TouchableOpacity onPress={() => setShowFavorites(true)}>
+        <TouchableOpacity>
           <Text style={stylesEmpty.emptyTitle}>
             ¡Todavia no tenes publicaciones favoritas!
           </Text>
@@ -215,6 +231,7 @@ const styles = StyleSheet.create({
   },
   scrollContent: {
     paddingHorizontal: moderateScale(16),
+    paddingBottom: verticalScale(20),
   },
   publicationContainer: {
     width: '100%',
