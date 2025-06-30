@@ -5,9 +5,12 @@ import {
   TouchableOpacity,
   StyleSheet,
   Alert,
+  StatusBar,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Color } from '@/src/constants/colors';
 
 const ProfilePhotoScreen = ({}) => {
   const takePhoto = () => {
@@ -23,7 +26,8 @@ const ProfilePhotoScreen = ({}) => {
   };
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       {/* Header */}
       <HeaderMainComponent 
         titulo="Foto de perfil"
@@ -45,7 +49,7 @@ const ProfilePhotoScreen = ({}) => {
       <TouchableOpacity style={styles.button} onPress={confirmPhoto}>
         <Text style={styles.buttonText}>Confirmar</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 

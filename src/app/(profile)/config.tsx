@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Switch, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Switch, TouchableOpacity, StatusBar } from 'react-native';
 import Icon from 'react-native-vector-icons/Ionicons';
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Color } from '@/src/constants/colors';
 
 const SettingsScreen = () => {
   const [showPhone, setShowPhone] = useState(true);
@@ -11,7 +13,8 @@ const SettingsScreen = () => {
   const [darkMode, setDarkMode] = useState(false);
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+    <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       {/* Encabezado */}
       <HeaderMainComponent 
         titulo="Caracteristicas de la publicación"
@@ -72,7 +75,7 @@ const SettingsScreen = () => {
       <TouchableOpacity style={styles.deleteButton} onPress={() => alert('Cuenta eliminada')}>
         <Text style={styles.deleteButtonText}>Eliminar Cuenta</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 

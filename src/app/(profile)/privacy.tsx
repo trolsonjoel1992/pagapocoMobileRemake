@@ -5,9 +5,12 @@ import {
   TextInput,
   TouchableOpacity,
   StyleSheet,
+  StatusBar,
 } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import { Color } from '@/src/constants/colors';
 
 const PrivacyScreen = ({}) => {
   const [username, setUsername] = useState('');
@@ -17,7 +20,8 @@ const PrivacyScreen = ({}) => {
   const [phone, setPhone] = useState('');
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       {/* Header */}
       <HeaderMainComponent 
         titulo="Caracteristicas de la publicación"
@@ -95,7 +99,7 @@ const PrivacyScreen = ({}) => {
       >
         <Text style={styles.saveButtonText}>Guardar cambios</Text>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
 };
 

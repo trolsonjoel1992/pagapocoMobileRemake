@@ -1,3 +1,4 @@
+import { Color } from '@/src/constants/colors'
 import IconsPath from '@/src/constants/IconsPath'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { useApp } from '@/src/contexts/AppContext'
@@ -5,6 +6,7 @@ import { router } from 'expo-router'
 import {
   Image,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -23,6 +25,7 @@ const Profile = () => {
   }
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       <ScrollView>
         <View style={styles.userInfo}>
           <Image source={ImagesPath.userimage} />
@@ -64,13 +67,15 @@ const Profile = () => {
 
         <TouchableOpacity
           style={styles.option}
-          onPress={() => router.push('/(profile)/delete')}
+          onPress={() => router.push('/(profile)/modalDelete')}
         >
           <Image source={IconsPath.drop} />
           <Text style={styles.optionLabel}>Eliminar cuenta</Text>
         </TouchableOpacity>
 
-        <TouchableOpacity style={styles.option} onPress={cerrarSesion}>
+        <TouchableOpacity 
+          style={styles.option} 
+          onPress={() => router.push('/(profile)/modalCloseAcc')}>
           <Image source={IconsPath.close} />
           <Text style={styles.optionLabel}>Cerrar sesión</Text>
         </TouchableOpacity>

@@ -1,7 +1,9 @@
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import { Color } from '@/src/constants/colors'
 import React from 'react'
 import {
   SafeAreaView,
+  StatusBar,
   StyleSheet,
   Text,
   TextInput,
@@ -12,9 +14,11 @@ import {
 const AccountInfoScreen = () => {
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       <HeaderMainComponent titulo="Información de la cuenta" />
       {/* Información del usuario */}
       <View style={styles.body}>
+      </View>  
      
       <View style={styles.userInfo}>
         <View>
