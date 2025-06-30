@@ -7,7 +7,7 @@ const ImagesPath = {
   iconConfirmed: require('@/src/assets/images/confirm-icon.png'),
   iconWarning: require('@/src/assets/images/warning-icon.png'),
   imageGoogle: require('@/src/assets/images/imagen-google.png'),
-  // images para las publicaciones
+  // imagenes para las publicaciones
   imageAutoVolkswagenPolo: require('@/src/assets/images/ImagePublication/autos/imageAutoChevroletPolo.png'),
   imageAutoChevroletTracker: require('@/src/assets/images/ImagePublication/autos/imageAutoChevroletTracker.jpg'),
   imageAutoFiatCronos: require('@/src/assets/images/ImagePublication/autos/imageAutoFiatCronos.jpeg'),
@@ -16,9 +16,18 @@ const ImagesPath = {
   imageAutoRenaultSandero: require('@/src/assets/images/ImagePublication/autos/imageAutoRenaultSandero.jpg'),
   imageCamionetaNissanFrontier: require('@/src/assets/images/ImagePublication/camionetas/imageCamionetaNissanFrontier.jpg'),
   imageMotoHondaTornado: require('@/src/assets/images/ImagePublication/motos/imageMotoHondaTornado.jpg'),
+  imageMotoXTZ: require('@/src/assets/images/ImagePublication/motos/imageMotoXTZ.jpg'),
+  imageMotoZanella: require('@/src/assets/images/ImagePublication/motos/imageMotoZanella.jpg'),
   imagePiezaCarburadorFordFalcon: require('@/src/assets/images/ImagePublication/piezas/imagePiezaCarburadorFordFalcon.png'),
+  imagePiezaService: require('@/src/assets/images/ImagePublication/piezas/imagePiezaService.jpg'),
+  imagePiezaTransmision: require('@/src/assets/images/ImagePublication/piezas/imagePiezaTransmision.jpg'),
   imageDefault: require('@/src/assets/images/ImagePublication/imagenDefault.png'),
   imageDefault2: require('@/src/assets/images/ImagePublication/imagen-default2.jpg'),
+  imageCamionScania: require('@/src/assets/images/ImagePublication/camiones/imageCamionScania.jpg'),
+  imageCamionMercedes: require('@/src/assets/images/ImagePublication/camiones/imageCamionMercedes.jpg'),
+  imageCamionVolkswagen: require('@/src/assets/images/ImagePublication/camiones/imageCamionVolkswagen.jpg'),
+  imageCamionetaS10: require('@/src/assets/images/ImagePublication/camionetas/imageCamionetaS10.jpg'),
+  imageCamionetaFordRanger: require('@/src/assets/images/ImagePublication/camionetas/imageCamionetaFordRanger.jpg'),
   // iconos varios
   iconLogin: require('@/src/assets/images/login-icon.png'),
   imageFavoritesNotLogin: require('@/src/assets/images/ImagesNotLogin/imagen-favoritos-no-login.png'),

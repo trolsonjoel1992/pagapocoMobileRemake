@@ -88,18 +88,30 @@ const filterCategory = () => {
                 return (
                   <>
                     <PFilterCategoryComponent
-                      title="Camiones"
+                      title="Mercedes Benz"
+                      price='60.000.000'
+                      description='Usado solo para transporte de cargas generales'
                       recommended
-                      imagePublication={ImagesPath.imageAutoVolkswagenPolo}
+                      imagePublication={ImagesPath.imageCamionMercedes}
+                      onPressFunction={() =>
+                        router.push('/(publications)/publication1')}
                     />
                     <PFilterCategoryComponent
-                      title="Camiones"
+                      title="Scania 112"
+                      price='57.500.000'
+                      description='Vendo modelo 87 muy lindo permuto menor valor de mi interés precio publicado Corrientes Capital se escucha oferta Contado'
                       recommended
-                      imagePublication={ImagesPath.imageAutoFiatToro}
+                      imagePublication={ImagesPath.imageCamionScania}
+                      onPressFunction={() =>
+                        router.push('/(publications)/publication1')}
                     />
                     <PFilterCategoryComponent
-                      title="Camiones"
-                      imagePublication={ImagesPath.imageAutoJeepRenegade}
+                      title="VOLKSWAGEN 17220 MODELO 2011"
+                      price='55.000.000'
+                      description='VENDO VOLKSWAGEN 17220 MODELO 2011 SOY TITULAR'
+                      imagePublication={ImagesPath.imageCamionVolkswagen}
+                      onPressFunction={() =>
+                        router.push('/(publications)/publication1')}
                     />
                     <PFilterCategoryComponent title="Camiones" />
                     <PFilterCategoryComponent title="Camiones" />
@@ -109,18 +121,31 @@ const filterCategory = () => {
                 return (
                   <>
                     <PFilterCategoryComponent
-                      title="Camionetas"
+                       title="S10 Chevrolet ls"
+                      price='20.000.000'
+                      description='Excelente estado recibo permutas financio. '
                       recommended
-                      imagePublication={ImagesPath.imageAutoVolkswagenPolo}
+                      imagePublication={ImagesPath.imageCamionetaS10}
+                      onPressFunction={() =>
+                        router.push('/(publications)/publication1')}
                     />
                     <PFilterCategoryComponent
-                      title="Camionetas"
+                      title="Ford Ranger 2.0 Limited 4x4 DC AT mod. 2024"
+                      price='30.000.000'
+                      description='Ford Ranger 2.0 Limited 4x4 DC AT mod. 2024 con solo 20.000km reales, entrega y cuotas fijas, tomo permutas '
                       recommended
-                      imagePublication={ImagesPath.imageAutoFiatToro}
+                      imagePublication={ImagesPath.imageCamionetaFordRanger}
+                      onPressFunction={() =>
+                        router.push('/(publications)/publication1')}
                     />
                     <PFilterCategoryComponent
-                      title="Camionetas"
-                      imagePublication={ImagesPath.imageAutoJeepRenegade}
+                      title="Nissan Frontier"
+                      price='23.000.000'
+                      description='Vendo Nissan Frontier, Modelo 2022, 68.000 km  '
+                      recommended
+                      imagePublication={ImagesPath.imageCamionetaNissanFrontier}
+                      onPressFunction={() =>
+                        router.push('/(publications)/publication1')}
                     />
                     <PFilterCategoryComponent title="Camionetas" />
                     <PFilterCategoryComponent title="Camionetas" />
@@ -134,7 +159,7 @@ const filterCategory = () => {
                     <PFilterCategoryComponent
                       imagePublication={ImagesPath.imageAutoVolkswagenPolo}
                       title="Volkswagen Polo 0km"
-                      description="Lorem Ipsum is simply dummy text of the printing and typesetting"
+                      description="version confortline, levanta cristales electricos delanteros"
                       price="24.500.000"
                       recommended
                       onPressFunction={() =>
@@ -144,7 +169,7 @@ const filterCategory = () => {
                     <PFilterCategoryComponent
                       imagePublication={ImagesPath.imageAutoFiatToro}
                       title="Fiat Toro 0Km"
-                      description="Lorem Ipsum is simply dummy text of the printing and typesetting"
+                      description="Fiat toro vendo o permuto por algo más chico, puedo financiar una parte"
                       price="30.500.000"
                       recommended
                       onPressFunction={() =>
@@ -154,7 +179,7 @@ const filterCategory = () => {
                     <PFilterCategoryComponent
                       imagePublication={ImagesPath.imageAutoJeepRenegade}
                       title="Jeep Renegade 0km"
-                      description="Lorem Ipsum is simply dummy text of the printing and typesetting"
+                      description="Retiralo solo con resivo de sueldo"
                       price="45.800.000"
                       onPressFunction={() =>
                         router.push('/(publications)/publication1')
@@ -170,18 +195,28 @@ const filterCategory = () => {
                 return (
                   <>
                     <PFilterCategoryComponent
-                      title="Motos"
-                      recommended
-                      imagePublication={ImagesPath.imageAutoVolkswagenPolo}
+                      imagePublication={ImagesPath.imageMotoHondaTornado}
+                      title="Honda Tornado 250cc"
+                      description="Vendo tornado!! Todo los papeles escucho ofertas, recibo honda wave o new titan y plata a mí favor"
+                      price="7.800.000"
+                      onPressFunction={() =>
+                        router.push('/(publications)/publication1')}
                     />
                     <PFilterCategoryComponent
-                      title="Motos"
-                      recommended
-                      imagePublication={ImagesPath.imageAutoFiatToro}
+                      imagePublication={ImagesPath.imageMotoXTZ}
+                      title="Yamaha XTZ 250cc"
+                      description="VENDO HERMOSA YAMAHA XTZ 250 2020 PAPELES COMPLETOS PRECIO CONTADO $7.300.000, FINANCIO CON $5.500.000, RECIBO MOTOS, SOY DE CORRIENTES CAPITAL"
+                      price="7.300.000"
+                      onPressFunction={() =>
+                        router.push('/(publications)/publication1')}
                     />
                     <PFilterCategoryComponent
-                      title="Motos"
-                      imagePublication={ImagesPath.imageAutoJeepRenegade}
+                        imagePublication={ImagesPath.imageMotoZanella}
+                      title="Zanellita 50cc"
+                      description="Zanella 50, muy económica, no consume nada de nafta, perfecto para el andar de una persona, precio charlable, tiene un pequeño detallito "
+                      price="7.300.000"
+                      onPressFunction={() =>
+                        router.push('/(publications)/publication1')}
                     />
                     <PFilterCategoryComponent title="Motos" />
                     <PFilterCategoryComponent title="Motos" />
@@ -193,18 +228,28 @@ const filterCategory = () => {
                 return (
                   <>
                     <PFilterCategoryComponent
-                      title="Piezas"
-                      recommended
-                      imagePublication={ImagesPath.imageAutoVolkswagenPolo}
+                      title="Carburador Falcon Sprint"
+                      description="Carburador nuevo Falcon 3.0 sprint"
+                      price="120.000"
+                      onPressFunction={() =>
+                        router.push('/(publications)/publication1')}
+                      imagePublication={ImagesPath.imagePiezaCarburadorFordFalcon}
                     />
                     <PFilterCategoryComponent
-                      title="Piezas"
-                      recommended
-                      imagePublication={ImagesPath.imageAutoFiatToro}
+                      title="Kit Service New Crypton"
+                      description="Aceite 20w50, pastillas de frenos, filtros"
+                      price="20.000"
+                      onPressFunction={() =>
+                        router.push('/(publications)/publication1')}
+                      imagePublication={ImagesPath.imagePiezaService}
                     />
                     <PFilterCategoryComponent
-                      title="Piezas"
-                      imagePublication={ImagesPath.imageAutoJeepRenegade}
+                      title="Kit transmision Honda Tornado"
+                      description="Kit transmision 38/16 marca Riffel"
+                      price="55.000"
+                      onPressFunction={() =>
+                        router.push('/(publications)/publication1')}
+                      imagePublication={ImagesPath.imagePiezaTransmision}
                     />
                     <PFilterCategoryComponent title="Piezas" />
                     <PFilterCategoryComponent title="Piezas" />

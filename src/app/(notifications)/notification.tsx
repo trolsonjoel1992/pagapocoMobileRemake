@@ -34,7 +34,7 @@ const Notification = () => {
           <TouchableOpacity
             style={styles.buttom}
             onPress={() =>
-              router.push('/(sell)/uploadImages') // src\app\(trabajo_matias)\notificaciones.tsx
+              router.push('/(filter)/filterCategory') // src\app\(trabajo_matias)\notificaciones.tsx
             } // cambiar por la ubicacion de su pantalla
           >
             <Text style={styles.buttomText}>Matias</Text>
@@ -43,7 +43,7 @@ const Notification = () => {
           {/* Boton Hugo */}
           <TouchableOpacity
             style={styles.buttom}
-            onPress={() => router.push('/(mypublicaciones)/selectPict')} // cambiar por la ubicacion de su pantalla
+           // onPress={() => router.push('/(mypublicaciones)/selectPict')} // cambiar por la ubicacion de su pantalla
           >
             <Text style={styles.buttomText}>Hugo</Text>
           </TouchableOpacity>

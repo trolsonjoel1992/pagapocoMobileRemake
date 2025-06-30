@@ -24,7 +24,7 @@ export default function ContactaConElVendedor() {
 
   const onSubmit = (data: FormFields) => {
     console.log('Datos del formulario:', data) // muestra los datos en consola
-    router.push('/(trabajo_matias)/plan_de_venta') // navega a la siguiente pantalla
+    // router.push('/(trabajo_matias)/plan_de_venta') // navega a la siguiente pantalla
   }
 
   return (
@@ -51,7 +51,7 @@ export default function ContactaConElVendedor() {
                 variant="contained"
                 onPress={() => {
                   methods.handleSubmit(onSubmit)() // ejecuta el submit del formulario
-                  router.push('/(trabajo_matias)/plan_de_venta') // navegación directa
+                 // router.push('/(trabajo_matias)/plan_de_venta') // navegación directa
                 }}
               >
                 Continuar
