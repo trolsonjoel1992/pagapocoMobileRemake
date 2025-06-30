@@ -1,5 +1,6 @@
 import ButtonActionsComponent from '@/src/components/atoms/ButtonActionsComponent'
 import SearchBarMainComponent from '@/src/components/atoms/SearchBarMainComponent'
+import { Color } from '@/src/constants/colors'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { useAuth } from '@/src/hooks/useAuth'
 import { router } from 'expo-router'
@@ -9,6 +10,7 @@ import {
   FlatList,
   Image,
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -51,6 +53,7 @@ const Publication1 = () => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       <View style={styles.header}>
         <View style={styles.searchContainer}>
           <SearchBarMainComponent
@@ -159,11 +162,12 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   header: {
+    //height: moderateScale(200),
     width: '100%',
-    paddingVertical: verticalScale(10),
-    //backgroundColor: 'aqua', //#fff
-    //zIndex: 1,
-    //height: moderateScale(150),
+    //backgroundColor: 'aqua',
+    textAlign: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   searchContainer: {
     width: '100%',
@@ -172,8 +176,9 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(20),
     paddingHorizontal: moderateScale(10),
     height: moderateScale(40),
-    gap: moderateScale(4),
-    marginBottom: verticalScale(16),
+    //gap: moderateScale(5),
+    marginTop: moderateScale(10),
+    marginBottom: verticalScale(5),
   },
   actionIcon: {
     padding: moderateScale(4),

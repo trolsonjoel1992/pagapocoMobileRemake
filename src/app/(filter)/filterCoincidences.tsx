@@ -1,9 +1,11 @@
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import PFilterComponent from '@/src/components/atoms/PFilterComponent'
+import { Color } from '@/src/constants/colors'
 import { router } from 'expo-router'
 import React from 'react'
 import {
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -14,6 +16,7 @@ import { moderateScale, verticalScale } from 'react-native-size-matters'
 const filterCoincidences = () => {
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       <HeaderMainComponent
         titulo="Coincidencias"
         onBackPress={() => router.back()}
