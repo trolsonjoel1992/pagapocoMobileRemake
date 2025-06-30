@@ -17,9 +17,8 @@ const AccountInfoScreen = () => {
       <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       <HeaderMainComponent titulo="Información de la cuenta" />
       {/* Información del usuario */}
-      <View style={styles.body}>
-      </View>  
-     
+      <View style={styles.body}></View>
+
       <View style={styles.userInfo}>
         <View>
           <Text style={styles.username}>Un usuario</Text>

@@ -24,7 +24,7 @@ const PrivacyScreen = ({}) => {
       <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       {/* Header */}
       <HeaderMainComponent 
-        titulo="Caracteristicas de la publicación"
+        titulo="Opciones de privacidad"
         />
       {/* Cambiar nombre de usuario */}
       <Text style={styles.label}>Cambiar nombre de usuario</Text>
@@ -108,7 +108,6 @@ export default PrivacyScreen;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: '#fff',
   },
   header: {
@@ -128,6 +127,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 15,
     marginBottom: 6,
+    paddingHorizontal: 15,
   },
   inputRow: {
     flexDirection: 'row',
@@ -140,6 +140,7 @@ const styles = StyleSheet.create({
   input: {
     flex: 1,
     paddingVertical: 12,
+    paddingHorizontal: 12,
     fontSize: 15,
     color: '#000',
   },

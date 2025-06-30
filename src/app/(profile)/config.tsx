@@ -1,24 +1,28 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Switch, TouchableOpacity, StatusBar } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { Color } from '@/src/constants/colors';
+import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import { Color } from '@/src/constants/colors'
+import React, { useState } from 'react'
+import {
+  StatusBar,
+  StyleSheet,
+  Switch,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const SettingsScreen = () => {
-  const [showPhone, setShowPhone] = useState(true);
-  const [postVisibility, setPostVisibility] = useState(true);
-  const [ads, setAds] = useState(true);
-  const [location, setLocation] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
+  const [showPhone, setShowPhone] = useState(true)
+  const [postVisibility, setPostVisibility] = useState(true)
+  const [ads, setAds] = useState(true)
+  const [location, setLocation] = useState(true)
+  const [darkMode, setDarkMode] = useState(false)
 
   return (
     <SafeAreaView style={styles.container}>
-    <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       {/* Encabezado */}
-      <HeaderMainComponent 
-        titulo="Caracteristicas de la publicación"
-        />
+      <HeaderMainComponent titulo="Configuraciones" />
 
       {/* Opciones de configuración */}
       <View style={styles.option}>
@@ -72,18 +76,21 @@ const SettingsScreen = () => {
       </View>
 
       {/* Botón eliminar cuenta */}
-      <TouchableOpacity style={styles.deleteButton} onPress={() => alert('Cuenta eliminada')}>
+      <TouchableOpacity
+        style={styles.deleteButton}
+        onPress={() => alert('Cuenta eliminada')}
+      >
         <Text style={styles.deleteButtonText}>Eliminar Cuenta</Text>
       </TouchableOpacity>
     </SafeAreaView>
-  );
-};
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 20,
+    padding: 0,
   },
   header: {
     flexDirection: 'row',
@@ -108,6 +115,7 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   optionText: {
+    paddingHorizontal: 10,
     fontSize: 16,
   },
   deleteButton: {
@@ -121,6 +129,6 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
-});
+})
 
-export default SettingsScreen;
+export default SettingsScreen
