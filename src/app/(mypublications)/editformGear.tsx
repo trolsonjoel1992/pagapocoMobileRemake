@@ -24,7 +24,7 @@ const EditFormGear = () => {
     <FormProvider {...form}>
       <ContainerView>
         <HeaderMainComponent
-          titulo="Vender"
+          titulo="Editar datos"
           onBackPress={() => router.back()}
         />
 

@@ -48,8 +48,8 @@ const EditFormVehicle = () => {
     <FormProvider {...form}>
       <ContainerView>
         <HeaderMainComponent
-          titulo="Vender"
-          onBackPress={() => router.push('/(tabs)/sell')}
+          titulo="Editar datos"
+          onBackPress={() => router.back()}
         />
 
         <ScrollView
