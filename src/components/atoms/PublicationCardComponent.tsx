@@ -5,8 +5,23 @@ import React from 'react'
 import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
+/* const handlePublicationPress = (publicationId: number) => {
+  router.push({
+    pathname: '/(publications)/publication1',
+    params: { publicationId },
+  })
+} */
+
 const PublicationCardComponent = ({ item }) => {
   const { toggleFavorite, isFavorite } = useApp()
+  const handlePublicationPress = () => {
+    router.push({
+      pathname: '/(publications)/publication',
+      params: {
+        publication: JSON.stringify(item || {}),
+      },
+    })
+  }
 
   const parseImage = (img: string | number) => {
     return typeof img === 'string' ? { uri: img } : img
@@ -14,7 +29,8 @@ const PublicationCardComponent = ({ item }) => {
   return (
     <TouchableOpacity
       style={styles.publicationCard}
-      onPress={() => router.push('/(publications)/publication1')}
+      //onPress={() => handlePublicationPress(item.id)}
+      onPress={() => handlePublicationPress()}
     >
       <View style={styles.imageContainer}>
         <Image
@@ -39,6 +55,9 @@ const PublicationCardComponent = ({ item }) => {
           {item.title}
         </Text>
         <Text style={styles.publicationPrice}>{item.price}</Text>
+        {item.isPremium && (
+          <Text style={styles.recommendedText}>Recomendada</Text>
+        )}
       </View>
     </TouchableOpacity>
   )
@@ -57,7 +76,7 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.1,
     shadowRadius: 4,
-    //elevation: 5,
+    elevation: 2,
     //marginBottom: verticalScale(12),
   },
   publicationImage: {
@@ -112,6 +131,14 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 0.22,
     shadowRadius: 2.22,
+  },
+  recommendedText: {
+    //marginTop: moderateScale(5),
+    textAlign: 'center',
+    //width: '100%',
+    fontSize: moderateScale(16),
+    color: '#1A73E9',
+    fontWeight: 'bold',
   },
 })
 

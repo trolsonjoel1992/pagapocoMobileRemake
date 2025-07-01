@@ -2,8 +2,8 @@ import ButtonActionsComponent from '@/src/components/atoms/ButtonActionsComponen
 import SearchBarMainComponent from '@/src/components/atoms/SearchBarMainComponent'
 import { Color } from '@/src/constants/colors'
 import ImagesPath from '@/src/constants/ImagesPath'
-import { useAuth } from '@/src/hooks/useAuth'
-import { router } from 'expo-router'
+import { useApp } from '@/src/contexts/AppContext'
+import { router, useLocalSearchParams } from 'expo-router'
 import React, { useRef, useState } from 'react'
 import {
   Dimensions,
@@ -20,20 +20,21 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-const Publication1 = () => {
-  const { user, isLoading } = useAuth()
+const Publication = () => {
+  //const { user, isLoading } = useAuth()
+  const { publications, currentUser } = useApp()
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const flatListRef = useRef<FlatList>(null)
 
-  const carouselImages = [
+  /* const carouselImages = [
     { id: '1', image: ImagesPath.imageAutoVolkswagenPolo },
     { id: '2', image: ImagesPath.imageAutoFiatToro },
     { id: '3', image: ImagesPath.imageAutoJeepRenegade },
     { id: '4', image: ImagesPath.imageAutoRenaultSandero },
     { id: '5', image: ImagesPath.imageDefault2 },
     { id: '6', image: ImagesPath.imageDefault2 },
-  ]
+  ] */
 
   const onViewableItemsChanged = useRef(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
@@ -51,6 +52,19 @@ const Publication1 = () => {
 
   const [expanded, setExpanded] = useState(false)
 
+  //const { publicationId } = useLocalSearchParams()
+
+  const { publication: publicationString } = useLocalSearchParams()
+  const publication = JSON.parse((publicationString as string) || '{}')
+
+  const carouselImages =
+    publication.images?.length > 0
+      ? publication.images.map((img: any, index: number) => ({
+          id: index.toString(),
+          image: img,
+        }))
+      : [{ id: '1', image: ImagesPath.imageDefault2 }]
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
@@ -63,15 +77,24 @@ const Publication1 = () => {
         </View>
 
         <View style={styles.actionsContainer}>
-          <ButtonActionsComponent user={user} />
+          <ButtonActionsComponent user={currentUser} />
         </View>
       </View>
       <ScrollView style={styles.scrollContainer}>
         <View style={styles.publicationContainer}>
+          {publication.isPremium && (
+            <Text style={styles.recommendedText}>Recomendada</Text>
+          )}
           <Text style={styles.publicationInfo}>
-            2025 | 0.000 km - Publicado hace meses
+            2025 | 0.000 km - Publicado hace 2 meses
           </Text>
-          <Text style={styles.publicationTitle}>Volkswagen Polo 0Km</Text>
+          <Text
+            style={styles.publicationTitle}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
+            {publication.title}
+          </Text>
 
           <View style={styles.imageContainer}>
             <FlatList
@@ -103,22 +126,13 @@ const Publication1 = () => {
           </View>
 
           <View style={styles.labelPublicationContainer}>
-            <Text style={styles.priceText}>$ 24.000.000</Text>
+            <Text style={styles.priceText}>{publication.price}</Text>
             <Text
               style={styles.descriptionTitle}
               numberOfLines={expanded ? undefined : 3}
               ellipsizeMode="tail"
             >
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industrys standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum
+              {publication.description}
             </Text>
             <TouchableOpacity
               onPress={() => setExpanded(!expanded)}
@@ -135,7 +149,7 @@ const Publication1 = () => {
           <View style={styles.buttomDetallesContainer}>
             <TouchableOpacity
               style={styles.buttomDetalles}
-              onPress={() => router.push({ pathname: '/PublicationDetails' })}
+              onPress={() => router.push('/(publications)/publicationDetails')}
             >
               <Text style={styles.buttomDetallesText}>Más Detalles</Text>
             </TouchableOpacity>
@@ -327,6 +341,14 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(16),
     fontWeight: '500',
   },
+  recommendedText: {
+    //marginTop: moderateScale(5),
+    //textAlign: '',
+    //width: '100%',
+    fontSize: moderateScale(16),
+    color: '#1A73E9',
+    fontWeight: 'bold',
+  },
 })
 
-export default Publication1
+export default Publication

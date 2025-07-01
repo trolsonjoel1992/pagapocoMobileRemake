@@ -3,31 +3,46 @@ import ButtonCategoryComponent from '@/src/components/atoms/ButtonCategoryCompon
 import PublicationCardComponent from '@/src/components/atoms/PublicationCardComponent'
 import SearchBarMainComponent from '@/src/components/atoms/SearchBarMainComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
+import { useApp } from '@/src/contexts/AppContext'
 import { useListPublications } from '@/src/features/hooks/publications.hooks'
-import { useAuth } from '@/src/hooks/useAuth'
 import { router } from 'expo-router'
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 const Home = () => {
-  const { user, isLoading } = useAuth()
-
-  const { logout } = useAuth()
-
   const [isFavorite, setIsFavorite] = useState(false)
 
   const toggleFavorite = () => {
     setIsFavorite(!isFavorite)
   }
 
+  const { publications, currentUser } = useApp()
+
+  /* const filteredPublications = useMemo(() => {
+    if (!currentUser) return publications
+    return publications.filter((p) => p.user_id !== currentUser.id)
+  }, [publications, currentUser]) */
+
+  const filteredPublications = useMemo(() => {
+    if (!currentUser) return publications
+    return publications
+      .filter((p) => p.user_id !== currentUser.id)
+      .sort((a, b) => {
+        // Ordenar por isPremium (premium primero)
+        if (a.isPremium && !b.isPremium) return -1
+        if (!a.isPremium && b.isPremium) return 1
+        return 0 // Si ambos son premium o ambos no son premium, mantener orden original
+      })
+  }, [publications, currentUser])
+
   const { data } = useListPublications()
 
   const handleCategoryPress = (category: string) => {
     router.push({
-      pathname: '/(filter)/filterCategory', // /filterCoincidences
-      params: { category }, // Envía la categoría como parámetro
+      pathname: '/(filter)/filterCategory',
+      params: { category },
     })
   }
   console.log('Publicaciones:', data)
@@ -42,7 +57,7 @@ const Home = () => {
         </View>
 
         {/* Componentes de Botones de acciones */}
-        <ButtonActionsComponent user={user} />
+        <ButtonActionsComponent user={currentUser} />
 
         {/* Contenedor de Categorías */}
         <View style={styles.categoriasContainer}>
