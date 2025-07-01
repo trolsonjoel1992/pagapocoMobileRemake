@@ -2,6 +2,7 @@ import Button from '@/src/components/atoms/Button'
 import ContainerView from '@/src/components/atoms/ContainerView'
 import ControlledInput from '@/src/components/atoms/ControlledInput'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import { useCreatePublication } from '@/src/contexts/CreatePublicationContext'
 import {
   MotorcycleData,
   motorcycleSchema,
@@ -13,14 +14,34 @@ import { ScrollView, StyleSheet, View } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
 
 const FormMotorcycle = () => {
+  const { publicationData, setPublicationData } = useCreatePublication()
+
   const form = useForm<MotorcycleData>({
     resolver: yupResolver(motorcycleSchema),
+    defaultValues: {
+      brand: '',
+      model: '',
+      year: undefined,
+      color: '',
+      fuelType: '',
+      motorcycleType: '',
+      wheelSize: undefined,
+      transmision: '',
+      engine: undefined,
+      kilometer: undefined,
+      description: '',
+    },
+    mode: 'onTouched',
   })
 
   const { handleSubmit } = form
 
   const onSubmit = (data: MotorcycleData) => {
-    console.log('Datos del formulario:', data)
+    setPublicationData({
+      ...publicationData,
+      ...data,
+    })
+    router.push('/(sell)/salesPlan')
   }
 
   return (
@@ -28,7 +49,7 @@ const FormMotorcycle = () => {
       <ContainerView>
         <HeaderMainComponent
           titulo="Vender"
-          onBackPress={() => router.push('/(tabs)/sell')}
+          onBackPress={() => router.replace('/(tabs)/sell')}
         />
 
         <ScrollView
@@ -37,19 +58,19 @@ const FormMotorcycle = () => {
         >
           <ControlledInput<MotorcycleData>
             name="brand"
-            label="Marca:"
+            label="Marca (requerido):"
             placeholder="Ingrese la marca"
             nextInputName="model"
           />
           <ControlledInput<MotorcycleData>
             name="model"
-            label="Modelo:"
+            label="Modelo (requerido):"
             placeholder="Ingrese el modelo"
             nextInputName="year"
           />
           <ControlledInput<MotorcycleData>
             name="year"
-            label="Año:"
+            label="Año (requerido):"
             placeholder="Ingrese el año"
             keyboardType="numeric"
             nextInputName="color"

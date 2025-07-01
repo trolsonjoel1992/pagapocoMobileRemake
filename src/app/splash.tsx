@@ -1,5 +1,6 @@
 import ImagesPath from '@/src/constants/ImagesPath'
 import { initSeed } from '@/src/constants/script'
+import { useApp } from '@/src/contexts/AppContext'
 import { router } from 'expo-router'
 import React, { useEffect } from 'react'
 import { ActivityIndicator, Image, StyleSheet, Text, View } from 'react-native'
@@ -8,10 +9,12 @@ import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 const SplashScreen = () => {
   // const { user, isLoading: authLoading } = useAuth()
-  console.log('SplashScreen rendered')
+  const { resetApp } = useApp()
+
   useEffect(() => {
-    console.log('SplashScreen mounted')
+    //resetApp()
     initSeed()
+
     // Redirigir a la pantalla Skeleton después de 1.5 segundos
     const timer = setTimeout(() => {
       router.replace('/Skeleton')

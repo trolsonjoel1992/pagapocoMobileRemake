@@ -2,6 +2,7 @@ import Button from '@/src/components/atoms/Button'
 import ContainerView from '@/src/components/atoms/ContainerView'
 import ControlledInput from '@/src/components/atoms/ControlledInput'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import { useCreatePublication } from '@/src/contexts/CreatePublicationContext'
 import { GearData, gearSchema } from '@/src/validations/gearSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { router } from 'expo-router'
@@ -10,14 +11,29 @@ import { ScrollView, StyleSheet, View } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
 
 const FormGear = () => {
+  const { publicationData, setPublicationData } = useCreatePublication()
+
   const form = useForm<GearData>({
     resolver: yupResolver(gearSchema),
+    defaultValues: {
+      brand: '',
+      model: '',
+      color: '',
+      compatibility: '',
+      state: '',
+      description: '',
+    },
+    mode: 'onTouched',
   })
 
   const { handleSubmit } = form
 
   const onSubmit = (data: GearData) => {
-    console.log('Datos del formulario:', data)
+    setPublicationData({
+      ...publicationData,
+      ...data,
+    })
+    router.push('/(sell)/salesPlan')
   }
 
   return (
@@ -25,7 +41,7 @@ const FormGear = () => {
       <ContainerView>
         <HeaderMainComponent
           titulo="Vender"
-          onBackPress={() => router.back()}
+          onBackPress={() => router.replace('/(tabs)/sell')}
         />
 
         <ScrollView
@@ -34,13 +50,13 @@ const FormGear = () => {
         >
           <ControlledInput<GearData>
             name="brand"
-            label="Marca:"
+            label="Marca (requerido):"
             placeholder="Ingrese la marca"
             nextInputName="model"
           />
           <ControlledInput<GearData>
             name="model"
-            label="Modelo:"
+            label="Modelo (requerido):"
             placeholder="Ingrese el modelo"
             nextInputName="color"
           />

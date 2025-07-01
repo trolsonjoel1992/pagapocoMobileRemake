@@ -93,10 +93,11 @@ export default function MyPublications() {
     }
   }
   const handleDelete = (publicationId: number) => {
-    setHiddenPublications([...hiddenPublications, publicationId])
+    deletePublicationById(publicationId)
+    // setHiddenPublications([...hiddenPublications, publicationId])
   }
 
-  const { currentUser, getUserPublications } = useApp()
+  const { currentUser, getUserPublications, deletePublicationById } = useApp()
   const [publications, setPublications] = useState<Publication[]>([])
 
   useEffect(() => {
@@ -182,7 +183,7 @@ export default function MyPublications() {
                         ) : (
                           <View style={styles.buttonsRow}>
                             <View style={styles.iconContainer}>
-                              {publication.isPremium && (
+                              {!publication.isPremium && (
                                 <TouchableOpacity
                                   style={styles.iconButton}
                                   onPress={() =>

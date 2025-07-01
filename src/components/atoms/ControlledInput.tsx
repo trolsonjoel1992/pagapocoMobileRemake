@@ -61,13 +61,13 @@ const ControlledInput = <T extends FieldValues>({
                 }
               }}
             />
-            {!isSubmitted && (
+            {!isSubmitted && !fieldState.isTouched && (
               <Image source={IconsPath.notePencil} style={styles.icon} />
             )}
-            {isSubmitted && !fieldState.error ? (
+            {(isSubmitted || fieldState.isTouched) && !fieldState.error ? (
               <Image source={IconsPath.checkSquare} style={styles.icon} />
             ) : (
-              isSubmitted &&
+              (isSubmitted || fieldState.isTouched) &&
               fieldState.error && (
                 <Image source={IconsPath.errorSquare} style={styles.icon} />
               )
