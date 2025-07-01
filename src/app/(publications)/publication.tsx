@@ -2,7 +2,7 @@ import ButtonActionsComponent from '@/src/components/atoms/ButtonActionsComponen
 import SearchBarMainComponent from '@/src/components/atoms/SearchBarMainComponent'
 import { Color } from '@/src/constants/colors'
 import ImagesPath from '@/src/constants/ImagesPath'
-import { useAuth } from '@/src/hooks/useAuth'
+import { useApp } from '@/src/contexts/AppContext'
 import { router, useLocalSearchParams } from 'expo-router'
 import React, { useRef, useState } from 'react'
 import {
@@ -21,7 +21,8 @@ import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 const Publication = () => {
-  const { user, isLoading } = useAuth()
+  //const { user, isLoading } = useAuth()
+  const { publications, currentUser } = useApp()
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const flatListRef = useRef<FlatList>(null)
@@ -76,7 +77,7 @@ const Publication = () => {
         </View>
 
         <View style={styles.actionsContainer}>
-          <ButtonActionsComponent user={user} />
+          <ButtonActionsComponent user={currentUser} />
         </View>
       </View>
       <ScrollView style={styles.scrollContainer}>

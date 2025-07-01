@@ -88,8 +88,6 @@ const initialPublications = [
     images: [
       ImagesPath.imageAutoChevroletTracker,
       ImagesPath.imageAutoChevroletTracker,
-      ImagesPath.imageAutoChevroletTracker,
-      ImagesPath.imageAutoChevroletTracker,
     ],
     user_id: 1,
   },
@@ -129,7 +127,13 @@ const initialPublications = [
     isPaused: false,
     isSold: false,
     isOculted: false,
-    images: [ImagesPath.imageCamionetaNissanFrontier],
+    images: [
+      ImagesPath.imageCamionetaNissanFrontier,
+      ImagesPath.imageCamionetaNissanFrontier,
+      ImagesPath.imageCamionetaNissanFrontier,
+      ImagesPath.imageCamionetaNissanFrontier,
+      ImagesPath.imageCamionetaNissanFrontier,
+    ],
     user_id: 2,
   },
   {
