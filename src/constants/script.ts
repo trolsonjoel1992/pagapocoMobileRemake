@@ -2,7 +2,7 @@ import ImagesPath from '@/src/constants/ImagesPath'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const initSeed = async () => {
-  //await AsyncStorage.clear() // Clear all data for fresh start
+  await AsyncStorage.clear() // Clear all data for fresh start
   const alreadySeeded = await AsyncStorage.getItem('seeded')
   if (alreadySeeded) return
 
@@ -56,30 +56,50 @@ const initialPublications = [
   {
     id: 1,
     title: 'Volkswagen Polo 0km',
-    price: '$24.500.000',
+    description:
+      'Vehículo completamente nuevo sin uso, dirección asistida, aire acondicionado, cierre centralizado. Garantía oficial de fábrica. Financiación disponible. Vehículo completamente nuevo sin uso, dirección asistida, aire acondicionado, cierre centralizado. Garantía oficial de fábrica. Financiación disponible.',
+    price: '$ 24.500.000',
     isPremium: true,
     isPaused: false,
     isSold: false,
     isOculted: false,
-    images: [ImagesPath.imageAutoVolkswagenPolo],
+    images: [
+      ImagesPath.imageAutoVolkswagenPolo,
+      ImagesPath.imageAutoVolkswagenPolo,
+      ImagesPath.imageAutoVolkswagenPolo,
+      ImagesPath.imageAutoVolkswagenPolo,
+      ImagesPath.imageAutoVolkswagenPolo,
+      ImagesPath.imageAutoVolkswagenPolo,
+      ImagesPath.imageAutoVolkswagenPolo,
+      ImagesPath.imageAutoVolkswagenPolo,
+    ],
     user_id: 1,
   },
   {
     id: 2,
     title: 'Chevrolet Traker 1.2 Ltz Turbo At',
-    price: '$30.000.000',
-    isPremium: false,
+    description:
+      'SUV compacta en excelente estado, transmisión automática, motor turbo, full equipo. Ideal para familia, muy económica en combustible. Papeles al día. SUV compacta en excelente estado, transmisión automática, motor turbo, full equipo. Ideal para familia, muy económica en combustible. Papeles al día.',
+    price: '$ 30.000.000',
+    isPremium: true,
     isPaused: false,
     isSold: false,
     isOculted: false,
-    images: [ImagesPath.imageAutoChevroletTracker],
+    images: [
+      ImagesPath.imageAutoChevroletTracker,
+      ImagesPath.imageAutoChevroletTracker,
+      ImagesPath.imageAutoChevroletTracker,
+      ImagesPath.imageAutoChevroletTracker,
+    ],
     user_id: 1,
   },
   {
     id: 3,
     title: 'Carburador Ford Falcon F100 22',
-    price: '$172.320',
-    isPremium: false,
+    description:
+      'Carburador original Ford en perfectas condiciones, recién revisado y calibrado. Compatible con Falcon y F100. Ideal para restauración de vehículos clásicos. Carburador original Ford en perfectas condiciones, recién revisado y calibrado. Compatible con Falcon y F100. Ideal para restauración de vehículos clásicos.',
+    price: '$ 172.320',
+    isPremium: true,
     isPaused: false,
     isSold: false,
     isOculted: false,
@@ -89,7 +109,9 @@ const initialPublications = [
   {
     id: 4,
     title: 'Honda Tornado 250',
-    price: '$8.500.000',
+    description:
+      'Motocicleta deportiva con 15.000 km, motor en perfecto estado, cubiertas nuevas. Mantenimiento realizado en concesionario oficial. Lista para transferir. Motocicleta deportiva con 15.000 km, motor en perfecto estado, cubiertas nuevas. Mantenimiento realizado en concesionario oficial. Lista para transferir.',
+    price: '$ 8.500.000',
     isPremium: true,
     isPaused: false,
     isSold: false,
@@ -100,7 +122,9 @@ const initialPublications = [
   {
     id: 5,
     title: 'Nissan Frontier 2.3 S Cd 4x4 Mt',
-    price: '$35.000.000',
+    description:
+      'Camioneta 4x4 diesel con caja manual, doble cabina, muy cuidada. Ideal para trabajo y familia. Tracción integral, excelente para todo terreno.',
+    price: '$ 35.000.000',
     isPremium: false,
     isPaused: false,
     isSold: false,
@@ -111,8 +135,10 @@ const initialPublications = [
   {
     id: 6,
     title: 'Fiat Toro 1.3 T270 Volcano 4x2 At',
-    price: '$30.500.000',
-    isPremium: true,
+    description:
+      'Pick-up moderna con motor turbo, transmisión automática, full equipo. Pantalla táctil, cámara de retroceso, sensores de estacionamiento. Impecable.',
+    price: '$ 30.500.000',
+    isPremium: false,
     isPaused: false,
     isSold: false,
     isOculted: false,
@@ -122,7 +148,9 @@ const initialPublications = [
   {
     id: 7,
     title: 'Jeep Renegade 1.8 Sport',
-    price: '$24.000.000',
+    description:
+      'SUV compacta con diseño robusto, motor 1.8 nafta, aire acondicionado, dirección asistida. Perfecto estado general, único dueño, service al día.',
+    price: '$ 24.000.000',
     isPremium: false,
     isPaused: false,
     isSold: false,
@@ -133,8 +161,10 @@ const initialPublications = [
   {
     id: 8,
     title: 'Renault Sandero Stepway 1.6 16v Intense',
-    price: '$23.000.000',
-    isPremium: true,
+    description:
+      'Crossover urbano con estilo aventurero, motor 1.6 16v, equipamiento completo. Bajo consumo, amplio espacio interior, perfecto para uso diario.',
+    price: '$ 23.000.000',
+    isPremium: false,
     isPaused: false,
     isSold: false,
     isOculted: false,

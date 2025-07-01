@@ -10,7 +10,7 @@ const PublicationDetails1 = () => {
     <SafeAreaView style={styles.container}>
       <HeaderMainComponent
         titulo="Caracteristicas de la publicación"
-        onBackPress={() => router.push('/(publications)/publication1')} // router.back()
+        onBackPress={() => router.push('/(publications)/publication')} // router.back()
       />
 
       {/* <View style={styles.header}></View> */}
