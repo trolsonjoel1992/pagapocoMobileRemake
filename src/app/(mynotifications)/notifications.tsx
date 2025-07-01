@@ -1,13 +1,14 @@
 import ContainerView from '@/src/components/atoms/ContainerView'
 import CustomCheckbox from '@/src/components/atoms/CustomCheckbox'
+import GenericModal from '@/src/components/atoms/GenericModal'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { useRouter } from 'expo-router'
 import React, { useState } from 'react'
 import {
-  Alert,
   FlatList,
   Image,
+  Modal,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -15,18 +16,16 @@ import {
 } from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-// definimos la interfaz para las notificaciones
 interface Notification {
   id: string
   title: string
   date: string
 }
 
-// lista inicial de notificaciones simuladas
 const initialNotifications: Notification[] = [
-  { id: '1', title: '¡Tenés una nueva pregunta !', date: 'Ayer a las 00:00' },
-  { id: '2', title: '¡Tus favoritos esperan!', date: 'El miércoles a las 00:00' },
-  { id: '3', title: '¡Felicidades vendiste tu publicación!', date: 'El martes a las 00:00' },
+  { id: '1', title: '¡Tenes una nueva pregunta !', date: 'Ayer a las 00:00' },
+  { id: '2', title: '¡Tus favoritos esperan!', date: 'El miercoles a las 00:00' },
+  { id: '3', title: '¡Felicidades vendiste tu publicacion!', date: 'El martes a las 00:00' },
   { id: '4', title: '¡Respondieron tu consulta!', date: 'El lunes a las 00:00AM' },
 ]
 
@@ -36,7 +35,10 @@ const Notificaciones = () => {
   const [notifications, setNotifications] = useState<Notification[]>(initialNotifications)
   const [checkedAll, setCheckedAll] = useState(false)
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({})
+  const [showDeleteModal, setShowDeleteModal] = useState(false)
+  const [notificationToDelete, setNotificationToDelete] = useState<string | 'all' | null>(null)
 
+  // alterna todos los checkboxes
   const toggleAll = () => {
     const newState = !checkedAll
     const updatedChecks = notifications.reduce((acc, n) => {
@@ -47,70 +49,55 @@ const Notificaciones = () => {
     setCheckedItems(updatedChecks)
   }
 
+  // alterna un checkbox individual
   const toggleItem = (id: string) => {
     setCheckedItems((prev) => ({ ...prev, [id]: !prev[id] }))
   }
 
-  const deleteNotification = (id: string) => {
-    Alert.alert(
-      'Eliminar notificación',
-      '¿Estás seguro que querés eliminar esta notificación?',
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        {
-          text: 'Eliminar',
-          style: 'destructive',
-          onPress: () => {
-            const updated = notifications.filter((n) => n.id !== id)
-            setNotifications(updated)
-
-            const updatedChecks = { ...checkedItems }
-            delete updatedChecks[id]
-            setCheckedItems(updatedChecks)
-
-            // si no quedan notificaciones, redirigir a pantalla vacía
-            if (updated.length === 0) {
-              router.push('/(mynotifications)/emptyNotifications')
-            }
-          },
-        },
-      ]
-    )
+  // abre el modal para eliminar una notificacion
+  const confirmDeleteNotification = (id: string) => {
+    setNotificationToDelete(id)
+    setShowDeleteModal(true)
   }
 
-  const deleteSelected = () => {
-    const idsToDelete = Object.entries(checkedItems)
-      .filter(([, isChecked]) => isChecked)
-      .map(([id]) => id)
-
-    if (idsToDelete.length === 0) return
-
-    Alert.alert(
-      'Eliminar seleccionadas',
-      '¿Seguro que querés eliminar las notificaciones marcadas?',
-      [
-        { text: 'Cancelar', style: 'cancel' },
-        {
-          text: 'Eliminar',
-          style: 'destructive',
-          onPress: () => {
-            const updated = notifications.filter(
-              (n) => !idsToDelete.includes(n.id)
-            )
-            setNotifications(updated)
-            setCheckedItems({})
-            setCheckedAll(false)
-
-            // si no quedan notificaciones, redirigir a pantalla vacía
-            if (updated.length === 0) {
-              router.push('/(mynotifications)/emptyNotifications')
-            }
-          },
-        },
-      ]
-    )
+  // abre el modal para eliminar seleccionadas
+  const confirmDeleteSelected = () => {
+    setNotificationToDelete('all')
+    setShowDeleteModal(true)
   }
 
+  // elimina una notificacion o todas las seleccionadas
+  const handleDeleteContinue = () => {
+    if (notificationToDelete === 'all') {
+      const idsToDelete = Object.entries(checkedItems)
+        .filter(([, isChecked]) => isChecked)
+        .map(([id]) => id)
+
+      const updated = notifications.filter((n) => !idsToDelete.includes(n.id))
+      setNotifications(updated)
+      setCheckedItems({})
+      setCheckedAll(false)
+
+      if (updated.length === 0) {
+        router.push('/(mynotifications)/emptyNotifications')
+      }
+    } else if (notificationToDelete) {
+      const updated = notifications.filter((n) => n.id !== notificationToDelete)
+      setNotifications(updated)
+      const updatedChecks = { ...checkedItems }
+      delete updatedChecks[notificationToDelete]
+      setCheckedItems(updatedChecks)
+
+      if (updated.length === 0) {
+        router.push('/(mynotifications)/emptyNotifications')
+      }
+    }
+
+    setShowDeleteModal(false)
+    setNotificationToDelete(null)
+  }
+
+  // renderiza cada notificacion
   const renderItem = ({ item }: { item: Notification }) => (
     <View style={styles.notificationCard}>
       <Text style={styles.notificationTitle}>{item.title}</Text>
@@ -123,14 +110,14 @@ const Notificaciones = () => {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.roundButton}
-            onPress={() => deleteNotification(item.id)}
+            onPress={() => confirmDeleteNotification(item.id)}
           >
             <Image source={ImagesPath.iconTrash} style={styles.icon} />
           </TouchableOpacity>
         </View>
 
         <View style={styles.checkboxWithText}>
-          <Text style={styles.leidoLabel}>Leído</Text>
+          <Text style={styles.leidoLabel}>Leido</Text>
           <CustomCheckbox
             checked={checkedItems[item.id] || false}
             onToggle={() => toggleItem(item.id)}
@@ -142,25 +129,56 @@ const Notificaciones = () => {
 
   return (
     <ContainerView>
-      <HeaderMainComponent titulo="Notificaciones" onBackPress={() => {}} />
+      {/* titulo sin boton de retroceso */}
+      <HeaderMainComponent titulo="Notificaciones" />
+
       <View style={styles.body}>
+        {/* seccion para marcar todas como leidas */}
         <View style={styles.marcarTodoContainer}>
           <CustomCheckbox checked={checkedAll} onToggle={toggleAll} />
-          <Text style={styles.marcarTodoText}>Marcar todo como leído</Text>
+          <Text style={styles.marcarTodoText}>Marcar todo como leido</Text>
         </View>
+
+        {/* lista de notificaciones */}
         <FlatList
           data={notifications}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
           contentContainerStyle={styles.listContainer}
         />
-        <TouchableOpacity style={styles.deleteButton} onPress={deleteSelected}>
+
+        {/* boton para eliminar seleccionadas */}
+        <TouchableOpacity style={styles.deleteButton} onPress={confirmDeleteSelected}>
           <Text style={styles.deleteText}>Eliminar seleccionadas</Text>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.volverButton}>
+
+        {/* boton volver al home */}
+        <TouchableOpacity
+          style={styles.volverButton}
+          onPress={() => router.push('/(tabs)/home')}
+        >
           <Text style={styles.volverText}>Volver</Text>
         </TouchableOpacity>
       </View>
+
+      {/* modal de confirmacion para eliminar */}
+      <Modal
+        animationType="fade"
+        transparent={true}
+        visible={showDeleteModal}
+        onRequestClose={() => setShowDeleteModal(false)}
+      >
+        <View style={styles.overlay}>
+          <GenericModal
+            imageSource={ImagesPath.modalAlert}
+            messages={['¿Estas seguro que deseas ', 'eliminar?']}
+            showCancelButton={true}
+            onCancel={() => setShowDeleteModal(false)}
+            onContinue={handleDeleteContinue}
+            continueButtonText="Eliminar"
+          />
+        </View>
+      </Modal>
     </ContainerView>
   )
 }
@@ -253,6 +271,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'flex-end',
     gap: moderateScale(10),
+  },
+  overlay: {
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.4)',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
 })
 
