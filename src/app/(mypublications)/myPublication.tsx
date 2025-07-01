@@ -1,5 +1,6 @@
 import GenericModal from '@/src/components/atoms/GenericModal'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import { Color } from '@/src/constants/colors'
 import IconsPath from '@/src/constants/IconsPath'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { router } from 'expo-router'
@@ -9,6 +10,8 @@ import {
   FlatList,
   Image,
   Modal,
+  SafeAreaView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -83,7 +86,8 @@ const Publication1 = () => {
   const { width, height } = Dimensions.get('window')
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       <HeaderMainComponent
         titulo="Tu publicación"
         onBackPress={() => router.push('/(tabs)/myPublications')}
@@ -252,7 +256,7 @@ const Publication1 = () => {
           />
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -260,14 +264,14 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   premiumLabelContainer: {
     width: '100%',
-    height: moderateScale(30),
+    height: moderateScale(25),
     alignItems: 'center',
     justifyContent: 'center',
-    marginTop: moderateScale(15),
   },
   premiumLabelText: {
     fontSize: moderateScale(18),
@@ -275,9 +279,7 @@ const styles = StyleSheet.create({
     color: '#1A73E9',
   },
   publicationContainer: {
-    marginTop: moderateScale(15),
     justifyContent: 'space-between',
-    marginBottom: moderateScale(20),
   },
   labelPublicationContainer: {
     width: '100%',
@@ -384,12 +386,12 @@ const styles = StyleSheet.create({
     height: moderateScale(55),
     backgroundColor: '#A230C7',
     borderRadius: moderateScale(20),
-    marginTop: moderateScale(10),
+    marginBottom: moderateScale(10),
   },
   overlay: {
     flex: 1,
     backgroundColor: 'rgba(0, 0, 0, 0.8)',
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
   },
   pausedText: {
@@ -397,13 +399,13 @@ const styles = StyleSheet.create({
     color: 'white',
     fontSize: moderateScale(40),
     fontWeight: 'bold',
-    marginTop: moderateScale(235),
+    marginTop: moderateScale(185),
   },
   iconsOverlayContainer: {
     flexDirection: 'row',
     gap: moderateScale(24),
     position: 'absolute',
-    bottom: moderateScale(95),
+    bottom: moderateScale(90),
     right: moderateScale(44),
   },
   iconOverlay: {
@@ -417,7 +419,7 @@ const styles = StyleSheet.create({
     height: moderateScale(55),
     backgroundColor: '#A230C7',
     borderRadius: moderateScale(20),
-    marginTop: moderateScale(350),
+    marginBottom: moderateScale(10),
   },
 })
 

@@ -46,7 +46,10 @@ const Edit = () => {
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
-      <HeaderMainComponent titulo="Edicion" onBackPress={() => router.back} />
+      <HeaderMainComponent
+        titulo="Edicion"
+        onBackPress={() => router.replace('/(tabs)/myPublications')}
+      />
       <Text style={styles.title}>Elegí los datos que queres modificar</Text>
 
       <View style={styles.categoryList}>

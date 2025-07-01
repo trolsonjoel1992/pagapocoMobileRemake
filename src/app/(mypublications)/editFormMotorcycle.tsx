@@ -27,7 +27,7 @@ const EditFormMotorcycle = () => {
     <FormProvider {...form}>
       <ContainerView>
         <HeaderMainComponent
-          titulo="Vender"
+          titulo="Editar datos"
           onBackPress={() => router.push('/(tabs)/sell')}
         />
 
