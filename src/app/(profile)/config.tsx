@@ -24,6 +24,7 @@ const SettingsScreen = () => {
       {/* Encabezado */}
       <HeaderMainComponent titulo="Configuraciones" />
 
+      <View style={styles.body}>
       {/* Opciones de configuración */}
       <View style={styles.option}>
         <Text style={styles.optionText}>Mostrar mi número de teléfono</Text>
@@ -82,6 +83,7 @@ const SettingsScreen = () => {
       >
         <Text style={styles.deleteButtonText}>Eliminar Cuenta</Text>
       </TouchableOpacity>
+      </View>
     </SafeAreaView>
   )
 }
@@ -128,6 +130,10 @@ const styles = StyleSheet.create({
   deleteButtonText: {
     color: '#fff',
     fontWeight: 'bold',
+  },
+  body: {
+    flex: 1,
+    padding: 20,
   },
 })
 

@@ -1,5 +1,7 @@
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import { Color } from '@/src/constants/colors'
+import ImagesPath from '@/src/constants/ImagesPath'
+import { useApp } from '@/src/contexts/AppContext'
 import React from 'react'
 import {
   SafeAreaView,
@@ -9,21 +11,27 @@ import {
   TextInput,
   TouchableOpacity,
   View,
+  Image
 } from 'react-native'
 
 const AccountInfoScreen = () => {
+  
+  const { currentUser } = useApp()
+
+  
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       <HeaderMainComponent titulo="Información de la cuenta" />
       {/* Información del usuario */}
-      <View style={styles.body}></View>
+      <View style={styles.body}>
 
       <View style={styles.userInfo}>
-        <View>
-          <Text style={styles.username}>Un usuario</Text>
-          <Text style={styles.email}>example@gmail.com</Text>
-        </View>
+          <Image source={ImagesPath.userCircle} />
+          <View style={styles.textContainer}>
+            <Text style={styles.username}>Un usuario</Text>
+            <Text style={styles.email}>{currentUser?.email}</Text>
+          </View>
       </View>
 
       {/* Campos de información */}
@@ -33,7 +41,7 @@ const AccountInfoScreen = () => {
       <Text style={styles.label}>Correo electrónico</Text>
       <TextInput
         style={styles.input}
-        value="example@gmail.com"
+        value={currentUser?.email}
         editable={false}
       />
 
@@ -49,6 +57,7 @@ const AccountInfoScreen = () => {
       >
         <Text style={styles.buttonText}>Regresar al perfil</Text>
       </TouchableOpacity>
+      </View>
     </SafeAreaView>
   )
 }
@@ -110,6 +119,11 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: '600',
   },
+  textContainer: {
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+  }
 })
 
 export default AccountInfoScreen

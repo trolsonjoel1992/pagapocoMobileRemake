@@ -7,6 +7,7 @@ import {
   StyleSheet,
   Text,
   TouchableOpacity,
+  View,
 } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import Icon from 'react-native-vector-icons/MaterialIcons'
@@ -30,6 +31,7 @@ const ProfilePhotoScreen = ({}) => {
       {/* Header */}
       <HeaderMainComponent titulo="Foto de perfil" />
 
+      <View style={styles.body}>
       {/* Tomar foto */}
       <TouchableOpacity style={styles.option} onPress={takePhoto}>
         <Text style={styles.optionText}>Tomate una foto</Text>
@@ -46,6 +48,7 @@ const ProfilePhotoScreen = ({}) => {
       <TouchableOpacity style={styles.button} onPress={confirmPhoto}>
         <Text style={styles.buttonText}>Confirmar</Text>
       </TouchableOpacity>
+      </View>
     </SafeAreaView>
   )
 }
@@ -95,5 +98,9 @@ const styles = StyleSheet.create({
   buttonText: {
     color: '#fff',
     fontWeight: 'bold',
+  },
+  body: {
+    flex: 1,
+    padding: 20,
   },
 })
