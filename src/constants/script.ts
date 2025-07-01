@@ -2,7 +2,6 @@ import ImagesPath from '@/src/constants/ImagesPath'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const initSeed = async () => {
-  //await AsyncStorage.clear() // Clear all data for fresh start
   const alreadySeeded = await AsyncStorage.getItem('seeded')
   if (alreadySeeded) return
 
@@ -12,7 +11,6 @@ export const initSeed = async () => {
     'publications',
     JSON.stringify(initialPublications)
   )
-  await AsyncStorage.setItem('images', JSON.stringify(initialImages))
   await AsyncStorage.setItem('seeded', 'true')
 }
 
@@ -38,17 +36,17 @@ const initialFavorites = [
   {
     id: 1,
     user_id: 1,
-    publication_id: 1,
+    publication_id: 4,
   },
   {
     id: 2,
     user_id: 1,
-    publication_id: 2,
+    publication_id: 6,
   },
   {
     id: 3,
     user_id: 2,
-    publication_id: 3,
+    publication_id: 1,
   },
 ]
 
@@ -175,19 +173,4 @@ const initialPublications = [
     images: [ImagesPath.imageAutoRenaultSandero],
     user_id: 2,
   },
-]
-
-const initialImages = [
-  { id: 1, publication_id: 1, image: ImagesPath.imageAutoVolkswagenPolo },
-  { id: 2, publication_id: 2, image: ImagesPath.imageAutoChevroletTracker },
-  {
-    id: 3,
-    publication_id: 3,
-    image: ImagesPath.imagePiezaCarburadorFordFalcon,
-  },
-  { id: 4, publication_id: 4, image: ImagesPath.imageMotoHondaTornado },
-  { id: 5, publication_id: 5, image: ImagesPath.imageCamionetaNissanFrontier },
-  { id: 6, publication_id: 6, image: ImagesPath.imageAutoFiatToro },
-  { id: 7, publication_id: 7, image: ImagesPath.imageAutoJeepRenegade },
-  { id: 8, publication_id: 8, image: ImagesPath.imageAutoRenaultSandero },
 ]

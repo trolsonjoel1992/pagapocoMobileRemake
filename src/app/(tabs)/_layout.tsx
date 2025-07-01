@@ -5,7 +5,7 @@ import ImagesPath from '@/src/constants/ImagesPath'
 import { useApp } from '@/src/contexts/AppContext'
 import { PlatformPressable } from '@react-navigation/elements'
 import { Tabs, useRouter } from 'expo-router'
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Image, Modal, StatusBar, StyleSheet, View } from 'react-native'
 import { verticalScale } from 'react-native-size-matters'
 
@@ -24,14 +24,6 @@ export default function TabsLayout() {
   }
 
   const { currentUser } = useApp()
-  useEffect(() => {
-    const funca = () => {
-      console.log('usuario actual:', currentUser)
-    }
-
-    funca()
-  }, [])
-
   return (
     <>
       <StatusBar backgroundColor={Color.primary} barStyle="light-content" />

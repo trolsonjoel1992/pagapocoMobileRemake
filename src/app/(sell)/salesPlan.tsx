@@ -18,7 +18,7 @@ const SalesPlan = () => {
   const [selectedCard, setSelectedCard] = useState<'premium' | 'free' | null>(
     null
   )
-  console.log('Datos de publicación:', publicationData)
+
   return (
     <SafeAreaView style={styles.general}>
       <HeaderMainComponent

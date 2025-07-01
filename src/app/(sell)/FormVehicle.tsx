@@ -36,9 +36,6 @@ const FormVehicle = () => {
   // const { create, loading } = useCreatePublication()
 
   const onSubmit = async (data: VehicleData) => {
-    console.log('Datos del formulario:', data)
-    console.log('Datos de publicación:', publicationData)
-
     setPublicationData({
       ...publicationData,
       ...data,
@@ -57,7 +54,7 @@ const FormVehicle = () => {
       <ContainerView>
         <HeaderMainComponent
           titulo="Vender"
-          onBackPress={() => router.push('/(tabs)/sell')}
+          onBackPress={() => router.replace('/(tabs)/sell')}
         />
 
         <ScrollView

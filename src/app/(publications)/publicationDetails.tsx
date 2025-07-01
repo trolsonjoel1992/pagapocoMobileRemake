@@ -15,7 +15,7 @@ import { moderateScale, verticalScale } from 'react-native-size-matters'
 const PublicationDetails1 = () => {
   const { publication: publicationString } = useLocalSearchParams()
   const publication = JSON.parse((publicationString as string) || '{}')
-  console.log('PublicationDetails1 publication:', publication)
+
   return (
     <SafeAreaView style={styles.container}>
       <StatusBar backgroundColor={Color.primary} barStyle="light-content" />

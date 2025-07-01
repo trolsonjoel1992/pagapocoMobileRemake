@@ -23,7 +23,7 @@ import { moderateScale } from 'react-native-size-matters'
 
 const CloseSale = () => {
   const { publicationData, setPublicationData } = useCreatePublication()
-  const { createPublication } = useApp()
+  const { createPublication, currentUser } = useApp()
   const [title, setTitle] = useState('')
   const [price, setPrice] = useState('')
   const [city, setCity] = useState('')
@@ -60,6 +60,7 @@ const CloseSale = () => {
         title,
         price: parseInt(price),
         city,
+        user_id: currentUser.id,
       })
       setModalVisible(true)
     }

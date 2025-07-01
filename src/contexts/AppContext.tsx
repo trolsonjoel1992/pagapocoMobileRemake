@@ -20,12 +20,14 @@ type AppContextType = {
   logout: () => void
   publications: Publication[]
   createPublication: (pub: Omit<Publication, 'id'>) => Promise<void>
+  deletePublicationById: (id: number) => Promise<void>
   getUserPublications: (userId: number) => Promise<Publication[]>
   getPublicationById: (id: number) => Publication | null
   favorites: Favorite[]
   toggleFavorite: (pubId: number) => Promise<void>
   getUserFavorites: (userId: number) => Promise<Publication[]>
   isFavorite: (pubId: number) => boolean
+  resetApp: () => Promise<void>
 }
 
 const AppContext = createContext<AppContextType | null>(null)
@@ -125,6 +127,34 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     )
   }
 
+  const deletePublicationById = async (id: number) => {
+    // Eliminar publicación
+    const updatedPublications = publications.filter((p) => p.id !== id)
+    setPublications(updatedPublications)
+    await AsyncStorage.setItem(
+      'publications',
+      JSON.stringify(updatedPublications)
+    )
+
+    // Eliminar favoritos relacionados
+    const updatedFavorites = favorites.filter((f) => f.publication_id !== id)
+    setFavorites(updatedFavorites)
+    await AsyncStorage.setItem('favorites', JSON.stringify(updatedFavorites))
+
+    // Eliminar imágenes relacionadas
+    const imgStr = await AsyncStorage.getItem('images')
+    const imgs = imgStr ? JSON.parse(imgStr) : []
+    const updatedImages = imgs.filter((img: any) => img.publication_id !== id)
+    await AsyncStorage.setItem('images', JSON.stringify(updatedImages))
+  }
+
+  const resetApp = async () => {
+    await AsyncStorage.clear()
+    setCurrentUser(null)
+    setPublications([])
+    setFavorites([])
+  }
+
   return (
     <AppContext.Provider
       value={{
@@ -134,12 +164,14 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         logout,
         publications,
         createPublication,
+        deletePublicationById,
         getUserPublications,
         favorites,
         toggleFavorite,
         getUserFavorites,
         isFavorite,
         getPublicationById,
+        resetApp,
       }}
     >
       {children}
