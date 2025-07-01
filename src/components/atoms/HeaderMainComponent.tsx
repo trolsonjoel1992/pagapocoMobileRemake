@@ -5,35 +5,31 @@ import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 type HeaderProps = {
   titulo: string
-  onBackPress?: () => void // Prop opcional para funcionalidad futura
+  onBackPress?: () => void // Prop opcional
 }
 
 const HeaderMainComponent = ({ titulo, onBackPress }: HeaderProps) => {
-  const handleBackPress = () => {
-    if (onBackPress) {
-      onBackPress()
-    } else {
-      console.warn('No se proporciono funcion onBackPress')
-    }
-  }
-
   return (
     <View style={styles.header}>
-      <TouchableOpacity
-        style={styles.backButton} // Estilo con área táctil amplia
-        onPress={onBackPress} // Funcionalidad opcional
-        activeOpacity={0.6} // Efecto visual al presionar
-      >
-        <Image
-          source={ImagesPath.imageArrowBack}
-          style={styles.logoArrowBackStyle}
-          resizeMode="contain"
-        />
-      </TouchableOpacity>
+      {/* si se pasa onBackPress, se muestra el boton de retroceso */}
+      {onBackPress ? (
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={onBackPress}
+          activeOpacity={0.6}
+        >
+          <Image
+            source={ImagesPath.imageArrowBack}
+            style={styles.logoArrowBackStyle}
+            resizeMode="contain"
+          />
+        </TouchableOpacity>
+      ) : (
+        <View style={styles.backButtonPlaceholder} />
+      )}
 
       <Text style={styles.textCuenta}>{titulo}</Text>
 
-      {/* Espacio invisible para balancear el diseño */}
       <View style={styles.invisibleSpacer} />
     </View>
   )
@@ -45,14 +41,15 @@ const styles = StyleSheet.create({
     backgroundColor: '#A230C7',
     flexDirection: 'row',
     alignItems: 'center',
-    // justifyContent: 'space-between',
-    paddingVertical: verticalScale(4), // 16
+    paddingVertical: verticalScale(4),
+    justifyContent: 'space-between',
+    paddingHorizontal: moderateScale(10),
   },
   backButton: {
-    padding: moderateScale(10), // Área táctil amplia
-    // paddingHorizontal: moderateScale(20),
-    // paddingVertical: moderateScale(6),
-    // zIndex: 1, // Asegura que esté por encima de otros elementos
+    padding: moderateScale(10),
+  },
+  backButtonPlaceholder: {
+    width: moderateScale(44), // mismo ancho que el boton de retroceso
   },
   logoArrowBackStyle: {
     width: moderateScale(24),
@@ -62,13 +59,9 @@ const styles = StyleSheet.create({
     color: 'black',
     fontSize: moderateScale(18),
     fontWeight: 'normal',
-    // position: 'absolute', // Centrado absoluto
-    // left: 0,
-    // right: 0,
-    // textAlign: 'center',
   },
   invisibleSpacer: {
-    width: moderateScale(44), // Mismo ancho que el botón para equilibrio
+    width: moderateScale(44),
   },
 })
 

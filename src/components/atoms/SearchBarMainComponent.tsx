@@ -55,7 +55,7 @@ const SearchBarMainComponent = ({
       </View>
 
       <TouchableOpacity
-        onPress={() => router.push('/(notifications)/notification')}
+        onPress={() => router.push('/(mynotifications)/notifications')}
       >
         <Image
           source={ImagesPath.iconNotificationFigma}
