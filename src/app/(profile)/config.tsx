@@ -1,22 +1,30 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Switch, TouchableOpacity } from 'react-native';
-import Icon from 'react-native-vector-icons/Ionicons';
-import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent';
+import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import { Color } from '@/src/constants/colors'
+import React, { useState } from 'react'
+import {
+  StatusBar,
+  StyleSheet,
+  Switch,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 const SettingsScreen = () => {
-  const [showPhone, setShowPhone] = useState(true);
-  const [postVisibility, setPostVisibility] = useState(true);
-  const [ads, setAds] = useState(true);
-  const [location, setLocation] = useState(true);
-  const [darkMode, setDarkMode] = useState(false);
+  const [showPhone, setShowPhone] = useState(true)
+  const [postVisibility, setPostVisibility] = useState(true)
+  const [ads, setAds] = useState(true)
+  const [location, setLocation] = useState(true)
+  const [darkMode, setDarkMode] = useState(false)
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       {/* Encabezado */}
-      <HeaderMainComponent 
-        titulo="Caracteristicas de la publicación"
-        />
+      <HeaderMainComponent titulo="Configuraciones" />
 
+      <View style={styles.body}>
       {/* Opciones de configuración */}
       <View style={styles.option}>
         <Text style={styles.optionText}>Mostrar mi número de teléfono</Text>
@@ -69,18 +77,22 @@ const SettingsScreen = () => {
       </View>
 
       {/* Botón eliminar cuenta */}
-      <TouchableOpacity style={styles.deleteButton} onPress={() => alert('Cuenta eliminada')}>
+      <TouchableOpacity
+        style={styles.deleteButton}
+        onPress={() => alert('Cuenta eliminada')}
+      >
         <Text style={styles.deleteButtonText}>Eliminar Cuenta</Text>
       </TouchableOpacity>
-    </View>
-  );
-};
+      </View>
+    </SafeAreaView>
+  )
+}
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
-    padding: 20,
+    padding: 0,
   },
   header: {
     flexDirection: 'row',
@@ -105,6 +117,7 @@ const styles = StyleSheet.create({
     marginBottom: 25,
   },
   optionText: {
+    paddingHorizontal: 10,
     fontSize: 16,
   },
   deleteButton: {
@@ -118,6 +131,10 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
-});
+  body: {
+    flex: 1,
+    padding: 20,
+  },
+})
 
-export default SettingsScreen;
+export default SettingsScreen

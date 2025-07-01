@@ -1,34 +1,37 @@
-import React from 'react';
+import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import { Color } from '@/src/constants/colors'
+import React from 'react'
 import {
-  View,
+  Alert,
+  StatusBar,
+  StyleSheet,
   Text,
   TouchableOpacity,
-  StyleSheet,
-  Alert,
-} from 'react-native';
-import Icon from 'react-native-vector-icons/MaterialIcons';
-import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent';
+  View,
+} from 'react-native'
+import { SafeAreaView } from 'react-native-safe-area-context'
+import Icon from 'react-native-vector-icons/MaterialIcons'
 
 const ProfilePhotoScreen = ({}) => {
   const takePhoto = () => {
-    Alert.alert('Tomar foto', 'Función de cámara no implementada aún');
-  };
+    Alert.alert('Tomar foto', 'Función de cámara no implementada aún')
+  }
 
   const uploadPhoto = () => {
-    Alert.alert('Subir foto', 'Función de galería no implementada aún');
-  };
+    Alert.alert('Subir foto', 'Función de galería no implementada aún')
+  }
 
   const confirmPhoto = () => {
-    Alert.alert('Foto de perfil', 'Foto confirmada');
-  };
+    Alert.alert('Foto de perfil', 'Foto confirmada')
+  }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       {/* Header */}
-      <HeaderMainComponent 
-        titulo="Foto de perfil"
-        />
+      <HeaderMainComponent titulo="Foto de perfil" />
 
+      <View style={styles.body}>
       {/* Tomar foto */}
       <TouchableOpacity style={styles.option} onPress={takePhoto}>
         <Text style={styles.optionText}>Tomate una foto</Text>
@@ -45,16 +48,16 @@ const ProfilePhotoScreen = ({}) => {
       <TouchableOpacity style={styles.button} onPress={confirmPhoto}>
         <Text style={styles.buttonText}>Confirmar</Text>
       </TouchableOpacity>
-    </View>
-  );
-};
+      </View>
+    </SafeAreaView>
+  )
+}
 
-export default ProfilePhotoScreen;
+export default ProfilePhotoScreen
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     backgroundColor: '#fff',
   },
   header: {
@@ -96,4 +99,8 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontWeight: 'bold',
   },
-});
+  body: {
+    flex: 1,
+    padding: 20,
+  },
+})
