@@ -1,5 +1,6 @@
 import GenericModal from '@/src//components/atoms/GenericModal'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import { Color } from '@/src/constants/colors'
 import IconsPath from '@/src/constants/IconsPath'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { router } from 'expo-router'
@@ -7,6 +8,8 @@ import React, { useState } from 'react'
 import {
   Image,
   Modal,
+  SafeAreaView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -38,7 +41,9 @@ const Premium = () => {
   }
 
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
+
       <HeaderMainComponent titulo="Premium" onBackPress={() => router.back()} />
       <Text style={styles.title}>Suscribí tu publicación a{'\n'}¡Premium!</Text>
 
@@ -87,7 +92,7 @@ const Premium = () => {
           />
         </View>
       </Modal>
-    </View>
+    </SafeAreaView>
   )
 }
 
@@ -107,7 +112,7 @@ const styles = StyleSheet.create({
   body: {
     width: moderateScale(330),
     height: moderateScale(450),
-    borderWidth: 1,
+    borderWidth: 2,
     borderRadius: moderateScale(20),
     backgroundColor: '#ECE6F0',
     borderColor: '#A230C7',
@@ -115,9 +120,10 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start',
   },
   bodyStar: {
+    marginTop: moderateScale(-2),
     width: moderateScale(330),
     height: moderateScale(170),
-    borderWidth: 2,
+    borderWidth: 3,
     borderRadius: moderateScale(20),
     backgroundColor: '#ECE6F0',
     borderColor: '#A230C7',

@@ -1,6 +1,5 @@
 import ButtonActionsComponent from '@/src/components/atoms/ButtonActionsComponent'
 import SearchBarMainComponent from '@/src/components/atoms/SearchBarMainComponent'
-import { Color } from '@/src/constants/colors'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { useAuth } from '@/src/hooks/useAuth'
 import { router } from 'expo-router'
@@ -10,7 +9,6 @@ import {
   FlatList,
   Image,
   ScrollView,
-  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -20,21 +18,20 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-const Publication1 = () => {
-  const { user, isLoading } = useAuth()
+const Publication4 = () => {
+  const { user } = useAuth()
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const flatListRef = useRef<FlatList>(null)
 
+  // lista de imagenes del carrusel
   const carouselImages = [
-    { id: '1', image: ImagesPath.imageAutoVolkswagenPolo },
-    { id: '2', image: ImagesPath.imageAutoFiatToro },
-    { id: '3', image: ImagesPath.imageAutoJeepRenegade },
-    { id: '4', image: ImagesPath.imageAutoRenaultSandero },
-    { id: '5', image: ImagesPath.imageDefault2 },
-    { id: '6', image: ImagesPath.imageDefault2 },
+    { id: '1', image: ImagesPath.imageMotoHondaTornado },
+    { id: '2', image: ImagesPath.imageMotoHondaTornado },
+    { id: '3', image: ImagesPath.imageMotoHondaTornado },
   ]
 
+  // maneja el cambio de indice del carrusel
   const onViewableItemsChanged = useRef(
     ({ viewableItems }: { viewableItems: ViewToken[] }) => {
       if (viewableItems.length > 0) {
@@ -47,13 +44,11 @@ const Publication1 = () => {
     itemVisiblePercentThreshold: 50,
   }
 
-  const { width } = Dimensions.get('window')
-
   const [expanded, setExpanded] = useState(false)
 
   return (
     <SafeAreaView style={styles.container}>
-      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
+      {/* encabezado con buscador e iconos */}
       <View style={styles.header}>
         <View style={styles.searchContainer}>
           <SearchBarMainComponent
@@ -66,13 +61,16 @@ const Publication1 = () => {
           <ButtonActionsComponent user={user} />
         </View>
       </View>
+
       <ScrollView style={styles.scrollContainer}>
+        {/* info principal de la publicacion */}
         <View style={styles.publicationContainer}>
           <Text style={styles.publicationInfo}>
-            2025 | 0.000 km - Publicado hace meses
+            2023 | 12.000 km - Publicado hace 1 semana
           </Text>
-          <Text style={styles.publicationTitle}>Volkswagen Polo 0Km</Text>
+          <Text style={styles.publicationTitle}>Honda Tornado 250cc</Text>
 
+          {/* carrusel de imagenes */}
           <View style={styles.imageContainer}>
             <FlatList
               ref={flatListRef}
@@ -102,52 +100,45 @@ const Publication1 = () => {
             </View>
           </View>
 
+          {/* descripcion y precio */}
           <View style={styles.labelPublicationContainer}>
-            <Text style={styles.priceText}>$ 24.000.000</Text>
+            <Text style={styles.priceText}>$ 7.800.000</Text>
             <Text
               style={styles.descriptionTitle}
               numberOfLines={expanded ? undefined : 3}
               ellipsizeMode="tail"
             >
-              Lorem Ipsum is simply dummy text of the printing and typesetting
-              industry. Lorem Ipsum has been the industrys standard dummy text
-              ever since the 1500s, when an unknown printer took a galley of
-              type and scrambled it to make a type specimen book. It has
-              survived not only five centuries, but also the leap into
-              electronic typesetting, remaining essentially unchanged. It was
-              popularised in the 1960s with the release of Letraset sheets
-              containing Lorem Ipsum passages, and more recently with desktop
-              publishing software like Aldus PageMaker including versions of
-              Lorem Ipsum
+              vendo tornado!! todo los papeles escucho ofertas, recibo honda wave o new titan y plata a mi favor
             </Text>
             <TouchableOpacity
               onPress={() => setExpanded(!expanded)}
               style={styles.seeMoreButton}
             >
               <Text style={styles.seeMoreText}>
-                {expanded ? 'Ver menos' : 'Ver más...'}
+                {expanded ? 'ver menos' : 'ver más...'}
               </Text>
             </TouchableOpacity>
           </View>
         </View>
 
+        {/* botones de accion */}
         <View style={styles.footer}>
           <View style={styles.buttomDetallesContainer}>
             <TouchableOpacity
               style={styles.buttomDetalles}
               onPress={() => router.push({ pathname: '/PublicationDetails' })}
             >
-              <Text style={styles.buttomDetallesText}>Más Detalles</Text>
+              <Text style={styles.buttomDetallesText}>más detalles</Text>
             </TouchableOpacity>
           </View>
 
           <View style={styles.buttomContactContainer}>
             <TouchableOpacity style={styles.buttomContact}>
-              <Text style={styles.buttomContactText}>Preguntar</Text>
+              <Text style={styles.buttomContactText}>preguntar</Text>
             </TouchableOpacity>
 
             <TouchableOpacity style={styles.buttomContact}>
-              <Text style={styles.buttomContactText}>Whatshapp</Text>
+              <Text style={styles.buttomContactText}>whatsapp</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -162,12 +153,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
   },
   header: {
-    //height: moderateScale(200),
     width: '100%',
-    //backgroundColor: 'aqua',
-    textAlign: 'center',
-    justifyContent: 'center',
-    alignItems: 'center',
+    paddingVertical: verticalScale(10),
   },
   searchContainer: {
     width: '100%',
@@ -176,12 +163,8 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(20),
     paddingHorizontal: moderateScale(10),
     height: moderateScale(40),
-    //gap: moderateScale(5),
-    marginTop: moderateScale(10),
-    marginBottom: verticalScale(5),
-  },
-  actionIcon: {
-    padding: moderateScale(4),
+    gap: moderateScale(4),
+    marginBottom: verticalScale(16),
   },
   actionsContainer: {
     flexDirection: 'row',
@@ -189,27 +172,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingHorizontal: moderateScale(8),
   },
-  actionButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    paddingVertical: verticalScale(8),
-    paddingHorizontal: moderateScale(12),
-    borderRadius: moderateScale(20),
-    flex: 1,
-    justifyContent: 'center',
-    marginHorizontal: moderateScale(4),
-  },
-  textActionsIcon: {
-    fontSize: moderateScale(14),
-    marginLeft: moderateScale(8),
-    color: '#555',
-  },
   scrollContainer: {
     flex: 1,
   },
   publicationContainer: {
-    //marginTop: moderateScale(15),
-    //marginBottom: moderateScale(20),
     paddingHorizontal: moderateScale(15),
   },
   publicationInfo: {
@@ -267,13 +233,6 @@ const styles = StyleSheet.create({
   },
   descriptionTitle: {
     fontSize: moderateScale(20),
-    //fontWeight: '500',
-    //marginTop: moderateScale(8),
-    //color: '#5b5f66',
-  },
-  descriptionText: {
-    fontSize: moderateScale(16),
-    fontWeight: '400',
   },
   footer: {
     width: '100%',
@@ -329,4 +288,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default Publication1
+export default Publication4

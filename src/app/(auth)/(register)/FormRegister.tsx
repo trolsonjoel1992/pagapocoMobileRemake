@@ -1,10 +1,9 @@
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
-import { useAuth } from '@/src/hooks/useAuth'
+import { useApp } from '@/src/contexts/AppContext'
 import { router } from 'expo-router'
 import React, { useState } from 'react'
 import {
-  Alert,
   Image,
   StyleSheet,
   Text,
@@ -18,39 +17,48 @@ import { moderateScale, verticalScale } from 'react-native-size-matters'
 const InputEmail = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-
   const [confirmPassword, setConfirmPassword] = useState('')
-  const { register, isLoading } = useAuth()
+
+  // const { register, isLoading } = useAuth()
+
+  const { register } = useApp()
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleRegister = async () => {
-    if (password !== confirmPassword) {
-      Alert.alert('Error', 'Las contraseñas no coinciden')
-      return
+    setIsLoading(true)
+    const ok = await register(email, password)
+
+    if (ok) {
+      router.replace('/(auth)/(login)/FormLogin')
     }
+    setIsLoading(false)
+    // if (password !== confirmPassword) {
+    //   Alert.alert('Error', 'Las contraseñas no coinciden')
+    //   return
+    // }
 
-    try {
-      await register(email, password)
-      router.replace('/(tabs)/home')
-    } catch (error) {
-      let errorMessage = 'Error al registrarse'
+    // try {
+    //   await register(email, password)
+    //   router.replace('/(tabs)/home')
+    // } catch (error) {
+    //   let errorMessage = 'Error al registrarse'
 
-      // Verificación segura del tipo de error
-      if (error instanceof Error) {
-        errorMessage = error.message
-      }
-      // Verificación adicional para objetos con propiedad message
-      else if (
-        typeof error === 'object' &&
-        error !== null &&
-        'message' in error
-      ) {
-        errorMessage = String(error.message)
-      }
+    //   // Verificación segura del tipo de error
+    //   if (error instanceof Error) {
+    //     errorMessage = error.message
+    //   }
+    //   // Verificación adicional para objetos con propiedad message
+    //   else if (
+    //     typeof error === 'object' &&
+    //     error !== null &&
+    //     'message' in error
+    //   ) {
+    //     errorMessage = String(error.message)
+    //   }
 
-      Alert.alert('Error', errorMessage)
-    }
+    //   Alert.alert('Error', errorMessage)
+    // }
   }
-
   return (
     <SafeAreaView style={styles.container}>
       <HeaderMainComponent
@@ -89,8 +97,8 @@ const InputEmail = () => {
 
           <TextInput
             style={styles.input}
-            onChangeText={setPassword}
-            value={password}
+            onChangeText={setConfirmPassword}
+            value={confirmPassword}
             placeholder="Confirmar contraseña"
             secureTextEntry
           />
@@ -119,7 +127,7 @@ const InputEmail = () => {
         <View style={styles.textIniciarSesionContainer}>
           <Text style={{ fontWeight: 'bold' }}>¿Ya tienes una cuenta?</Text>
           <TouchableOpacity
-            onPress={() => router.push('/(auth)/(login)/FormLogin')}
+            onPress={() => router.replace('/(auth)/(login)/FormLogin')}
           >
             <Text style={[styles.textLink, { fontWeight: 'bold' }]}>
               {' '}

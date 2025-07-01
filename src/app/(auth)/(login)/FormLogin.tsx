@@ -20,13 +20,16 @@ const FormLogin = () => {
 
   // const { login, isLoading } = useAuth()
   const { login } = useApp()
+  const [isLoading, setIsLoading] = useState(false)
 
   const handleLogin = async () => {
+    setIsLoading(true)
     const ok = await login(email, password)
 
     if (ok) {
       router.replace('/(tabs)/home')
     }
+    setIsLoading(false)
     // try {
     //   await login(email, password)
     //   router.replace('/(tabs)/home')
@@ -103,11 +106,10 @@ const FormLogin = () => {
         <TouchableOpacity
           style={styles.buttomAcceder}
           onPress={handleLogin}
-          // disabled={isLoading}
+          disabled={isLoading}
         >
           <Text style={styles.buttomAccederText}>
-            {/* {isLoading ? 'Cargando...' : 'Continuar'} */}
-            Continuar
+            {isLoading ? 'Cargando...' : 'Continuar'}
           </Text>
         </TouchableOpacity>
 
@@ -115,7 +117,7 @@ const FormLogin = () => {
         <View style={styles.textDePregunta}>
           <Text>¿No tienes una cuenta? </Text>
           <TouchableOpacity
-            onPress={() => router.push('/(auth)/(register)/FormRegister')}
+            onPress={() => router.replace('/(auth)/(register)/FormRegister')}
           >
             <Text style={styles.textLinks}>Registrate</Text>
           </TouchableOpacity>
@@ -134,7 +136,7 @@ const FormLogin = () => {
           <View style={styles.buttomOtrosContainer}>
             <TouchableOpacity
               style={styles.buttomOtros}
-              //onPress={() => router.push("/(auth)/google_login")}
+              onPress={() => router.push('/(auth)/googleLogin')}
             >
               <Image
                 source={ImagesPath.iconGoogle}

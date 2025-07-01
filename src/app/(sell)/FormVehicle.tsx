@@ -26,6 +26,7 @@ const FormVehicle = () => {
       kilometer: undefined,
       description: '',
     },
+    mode: 'onTouched',
   })
 
   const { handleSubmit } = form
@@ -58,19 +59,19 @@ const FormVehicle = () => {
         >
           <ControlledInput<VehicleData>
             name="brand"
-            label="Marca:"
+            label="Marca (requerido):"
             placeholder="Ingrese la marca"
             nextInputName="model"
           />
           <ControlledInput<VehicleData>
             name="model"
-            label="Modelo:"
+            label="Modelo (requerido):"
             placeholder="Ingrese el modelo"
             nextInputName="year"
           />
           <ControlledInput<VehicleData>
             name="year"
-            label="Año:"
+            label="Año (requerido):"
             placeholder="Ingrese el año"
             keyboardType="numeric"
             nextInputName="version"
