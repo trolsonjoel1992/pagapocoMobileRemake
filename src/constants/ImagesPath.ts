@@ -106,7 +106,12 @@ const ImagesPath = {
   iconAutoFigma: require('@/src/assets/images/imageCategoria/iconAutoFigma.png'),
   iconMotoFigma: require('@/src/assets/images/imageCategoria/iconMotoFigma.png'),
   iconPiezaFigma: require('@/src/assets/images/imageCategoria/iconPiezaFigma.png'),
-
+  iconRecomendadoFG: require('@/src/assets/images/imageCategoria/GiconRecomendadoFigma.png'),
+  iconCamionFG: require('@/src/assets/images/imageCategoria/GiconCamionFigma.png'),
+  iconCamionetaFG: require('@/src/assets/images/imageCategoria/GiconCamionetaFigma.png'),
+  iconAutoFG: require('@/src/assets/images/imageCategoria/GiconAutoFigma.png'),
+  iconMotoFG: require('@/src/assets/images/imageCategoria/GiconMotoFigma.png'),
+  iconPiezaFG: require('@/src/assets/images/imageCategoria/GiconPiezaFigma.png'),
   // icono para la pantalla del filtro
   iconRecomendadoFigma: require('@/src/assets/images/iconRecomendadoFigma.png'),
 }

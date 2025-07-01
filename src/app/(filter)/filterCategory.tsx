@@ -2,12 +2,14 @@ import ButtonActionsComponent from '@/src/components/atoms/ButtonActionsComponen
 import ButtonCategoryComponent from '@/src/components/atoms/ButtonCategoryComponent'
 import PFilterCategoryComponent from '@/src/components/atoms/PFilterCategoryComponent'
 import SearchBarMainComponent from '@/src/components/atoms/SearchBarMainComponent'
+import { Color } from '@/src/constants/colors'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { useAuth } from '@/src/hooks/useAuth'
 import { router, useLocalSearchParams } from 'expo-router'
 import React from 'react'
 import {
   ScrollView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -31,6 +33,7 @@ const filterCategory = () => {
 
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       <View style={styles.header}>
         <View style={styles.searchContainer}>
           <SearchBarMainComponent
@@ -271,7 +274,7 @@ const filterCategory = () => {
           </View>
         </ScrollView>
       </View>
-      <View style={styles.footer}></View>
+      {/* <View style={styles.footer}></View> */}
     </View>
   )
 }
@@ -284,6 +287,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   header: {
+    //height: moderateScale(200),
     width: '100%',
     //backgroundColor: 'aqua',
     textAlign: 'center',
@@ -291,14 +295,16 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   body: {
-    height: moderateScale(580),
+    flex: 1,
+    //height: moderateScale(580),
     width: '90%',
     //backgroundColor: 'red',
+    marginBottom: moderateScale(10),
   },
   footer: {
-    height: moderateScale(10),
+    //height: moderateScale(10),
     width: '100%',
-    //backgroundColor: "blue",
+    //backgroundColor: 'blue',
     textAlign: 'center',
     justifyContent: 'flex-start',
     alignItems: 'center',
@@ -310,7 +316,8 @@ const styles = StyleSheet.create({
     borderRadius: moderateScale(20),
     paddingHorizontal: moderateScale(10),
     height: moderateScale(50),
-    gap: moderateScale(4),
+    //gap: moderateScale(4),
+    marginTop: moderateScale(5),
     marginBottom: verticalScale(5),
     //backgroundColor: 'orange',
   },

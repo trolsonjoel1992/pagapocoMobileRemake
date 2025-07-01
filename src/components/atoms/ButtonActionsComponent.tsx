@@ -33,7 +33,10 @@ const ButtonActionsComponent = ({ user }) => {
       )}
 
       <View style={styles.buttomLocationAndFilterContainer}>
-        <TouchableOpacity style={styles.actionButton}>
+        <TouchableOpacity
+          style={styles.actionButton}
+          onPress={() => router.push('/(trabajo_matias)/ubication')}
+        >
           <Image
             source={ImagesPath.iconUbicaionFigma}
             style={styles.actionIcon}

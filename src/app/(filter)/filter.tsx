@@ -1,8 +1,16 @@
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import { Color } from '@/src/constants/colors'
 import ImagesPath from '@/src/constants/ImagesPath'
 import { router } from 'expo-router'
 import React from 'react'
-import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import {
+  Image,
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 type FilterCategoryProps = {
@@ -42,6 +50,7 @@ const ButtonCategoryComponent = ({
 const filter = () => {
   return (
     <View style={styles.container}>
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
       {/* header */}
       {/* <View style={styles.header}></View> */}
 
@@ -55,32 +64,32 @@ const filter = () => {
         <View style={{ width: '100%', gap: moderateScale(10) }}>
           <ButtonCategoryComponent
             title="Recomendados"
-            image={ImagesPath.iconRecomendadoFigma}
+            image={ImagesPath.iconRecomendadoFG}
             onPressFunction={() => router.push('/(filter)/filterRecommended')}
           />
           <ButtonCategoryComponent
             title="Camiones"
-            image={ImagesPath.iconCamionFigma}
+            image={ImagesPath.iconCamionFG}
             onPressFunction={() => router.push('/(filter)/filterVehicles')}
           />
           <ButtonCategoryComponent
             title="Camionetas"
-            image={ImagesPath.iconCamionetaFigma}
+            image={ImagesPath.iconCamionetaFG}
             onPressFunction={() => router.push('/(filter)/filterVehicles')}
           />
           <ButtonCategoryComponent
             title="Autos"
-            image={ImagesPath.iconAutoFigma}
+            image={ImagesPath.iconAutoFG}
             onPressFunction={() => router.push('/(filter)/filterVehicles')}
           />
           <ButtonCategoryComponent
             title="Motos"
-            image={ImagesPath.iconMotoFigma}
+            image={ImagesPath.iconMotoFG}
             onPressFunction={() => router.push('/(filter)/filterMotorcycles')}
           />
           <ButtonCategoryComponent
             title="Piezas"
-            image={ImagesPath.iconPiezaFigma}
+            image={ImagesPath.iconPiezaFG}
             onPressFunction={() => router.push('/(filter)/filterPart')}
           />
         </View>

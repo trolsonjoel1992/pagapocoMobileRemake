@@ -1,12 +1,6 @@
-// ControlledInput.tsx
 import IconsPath from '@/src/constants/IconsPath'
 import React from 'react'
-import {
-  Controller,
-  FieldValues,
-  Path,
-  useFormContext,
-} from 'react-hook-form'
+import { Controller, FieldValues, Path, useFormContext } from 'react-hook-form'
 import {
   Image,
   StyleSheet,
@@ -16,12 +10,19 @@ import {
   View,
 } from 'react-native'
 
-export interface ControlledInputProps<T extends FieldValues> extends TextInputProps {
+export interface ControlledInputProps<T extends FieldValues>
+  extends TextInputProps {
   name: Path<T>
   label: string
+  nextInputName?: Path<T>
 }
 
-const ControlledInput = <T extends FieldValues>({ name, label, ...props }: ControlledInputProps<T>) => {
+const ControlledInput = <T extends FieldValues>({
+  name,
+  label,
+  nextInputName,
+  ...props
+}: ControlledInputProps<T>) => {
   const {
     control,
     setFocus,
@@ -53,8 +54,12 @@ const ControlledInput = <T extends FieldValues>({ name, label, ...props }: Contr
               onChangeText={field.onChange}
               onBlur={field.onBlur}
               value={field.value ? String(field.value) : ''}
-              returnKeyType="next"
-              onSubmitEditing={() => setFocus(name)}
+              returnKeyType={nextInputName ? 'next' : 'done'}
+              onSubmitEditing={() => {
+                if (nextInputName) {
+                  setFocus(nextInputName)
+                }
+              }}
             />
             {!isSubmitted && (
               <Image source={IconsPath.notePencil} style={styles.icon} />
@@ -62,12 +67,15 @@ const ControlledInput = <T extends FieldValues>({ name, label, ...props }: Contr
             {isSubmitted && !fieldState.error ? (
               <Image source={IconsPath.checkSquare} style={styles.icon} />
             ) : (
-              isSubmitted && fieldState.error && (
+              isSubmitted &&
+              fieldState.error && (
                 <Image source={IconsPath.errorSquare} style={styles.icon} />
               )
             )}
           </View>
-          {fieldState.error && <Text style={styles.error}>{fieldState.error.message}</Text>}
+          {fieldState.error && (
+            <Text style={styles.error}>{fieldState.error.message}</Text>
+          )}
         </View>
       )}
     />
@@ -109,5 +117,3 @@ const styles = StyleSheet.create({
 })
 
 export default ControlledInput
-
-
