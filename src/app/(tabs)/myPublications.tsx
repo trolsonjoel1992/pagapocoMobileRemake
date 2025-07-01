@@ -153,7 +153,11 @@ export default function MyPublications() {
                     </TouchableOpacity>
 
                     <View style={styles.rightContainer}>
-                      <Text style={styles.publicationTitle}>
+                      <Text
+                        style={styles.publicationTitle}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                      >
                         {publication.title}
                       </Text>
 
