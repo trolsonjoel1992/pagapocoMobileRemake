@@ -149,7 +149,14 @@ const Publication = () => {
           <View style={styles.buttomDetallesContainer}>
             <TouchableOpacity
               style={styles.buttomDetalles}
-              onPress={() => router.push('/(publications)/publicationDetails')}
+              onPress={() =>
+                router.push({
+                  pathname: '/(publications)/publicationDetails',
+                  params: {
+                    publication: JSON.stringify(publication || {}),
+                  },
+                })
+              }
             >
               <Text style={styles.buttomDetallesText}>Más Detalles</Text>
             </TouchableOpacity>
