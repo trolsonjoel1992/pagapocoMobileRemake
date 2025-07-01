@@ -1,16 +1,17 @@
 import Button from '@/src/components/atoms/Button'
 import ContainerView from '@/src/components/atoms/ContainerView'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import { router } from 'expo-router'
 import React, { useState } from 'react'
 import {
-    FlatList,
-    Image,
-    StyleSheet,
-    Switch,
-    Text,
-    TextInput,
-    TouchableOpacity,
-    View,
+  FlatList,
+  Image,
+  StyleSheet,
+  Switch,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  View,
 } from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
@@ -40,7 +41,10 @@ export default function Ubicacion() {
   return (
     <ContainerView>
       {/* encabezado con titulo y boton de retroceso (sin funcionalidad por ahora) */}
-      <HeaderMainComponent titulo="Ubicación" onBackPress={() => {}} />
+      <HeaderMainComponent
+        titulo="Ubicación"
+        onBackPress={() => router.back()}
+      />
 
       <View style={styles.body}>
         {/* seccion para activar ubicacion actual mediante el switch */}

@@ -97,7 +97,7 @@ const filterCategory = () => {
                       recommended
                       imagePublication={ImagesPath.imageCamionMercedes}
                       onPressFunction={() =>
-                        router.push('/(publications)/publication1')
+                        router.push('/(publications)/publication')
                       }
                     />
                     <PFilterCategoryComponent
@@ -116,7 +116,7 @@ const filterCategory = () => {
                       description="VENDO VOLKSWAGEN 17220 MODELO 2011 SOY TITULAR"
                       imagePublication={ImagesPath.imageCamionVolkswagen}
                       onPressFunction={() =>
-                        router.push('/(publications)/publication1')
+                        router.push('/(publications)/publication')
                       }
                     />
                     <PFilterCategoryComponent title="Camiones" />
@@ -143,7 +143,7 @@ const filterCategory = () => {
                       recommended
                       imagePublication={ImagesPath.imageCamionetaFordRanger}
                       onPressFunction={() =>
-                        router.push('/(publications)/publication1')
+                        router.push('/(publications)/publication')
                       }
                     />
                     <PFilterCategoryComponent
@@ -153,7 +153,7 @@ const filterCategory = () => {
                       recommended
                       imagePublication={ImagesPath.imageCamionetaNissanFrontier}
                       onPressFunction={() =>
-                        router.push('/(publications)/publication1')
+                        router.push('/(publications)/publication')
                       }
                     />
                     <PFilterCategoryComponent title="Camionetas" />
@@ -172,7 +172,7 @@ const filterCategory = () => {
                       price="24.500.000"
                       recommended
                       onPressFunction={() =>
-                        router.push('/(publications)/publication1')
+                        router.push('/(publications)/publication')
                       }
                     />
                     <PFilterCategoryComponent
@@ -182,7 +182,7 @@ const filterCategory = () => {
                       price="30.500.000"
                       recommended
                       onPressFunction={() =>
-                        router.push('/(publications)/publication1')
+                        router.push('/(publications)/publication')
                       }
                     />
                     <PFilterCategoryComponent
@@ -191,7 +191,7 @@ const filterCategory = () => {
                       description="Retiralo solo con resivo de sueldo"
                       price="45.800.000"
                       onPressFunction={() =>
-                        router.push('/(publications)/publication1')
+                        router.push('/(publications)/publication')
                       }
                     />
                     <PFilterCategoryComponent title="Autos" />
@@ -218,7 +218,7 @@ const filterCategory = () => {
                       description="VENDO HERMOSA YAMAHA XTZ 250 2020 PAPELES COMPLETOS PRECIO CONTADO $7.300.000, FINANCIO CON $5.500.000, RECIBO MOTOS, SOY DE CORRIENTES CAPITAL"
                       price="7.300.000"
                       onPressFunction={() =>
-                        router.push('/(publications)/publication1')
+                        router.push('/(publications)/publication')
                       }
                     />
                     <PFilterCategoryComponent
@@ -227,7 +227,7 @@ const filterCategory = () => {
                       description="Zanella 50, muy económica, no consume nada de nafta, perfecto para el andar de una persona, precio charlable, tiene un pequeño detallito "
                       price="7.300.000"
                       onPressFunction={() =>
-                        router.push('/(publications)/publication1')
+                        router.push('/(publications)/publication')
                       }
                     />
                     <PFilterCategoryComponent title="Motos" />
@@ -244,7 +244,7 @@ const filterCategory = () => {
                       description="Carburador nuevo Falcon 3.0 sprint"
                       price="120.000"
                       onPressFunction={() =>
-                        router.push('/(publications)/publication1')
+                        router.push('/(publications)/publication')
                       }
                       imagePublication={
                         ImagesPath.imagePiezaCarburadorFordFalcon
@@ -255,7 +255,7 @@ const filterCategory = () => {
                       description="Aceite 20w50, pastillas de frenos, filtros"
                       price="20.000"
                       onPressFunction={() =>
-                        router.push('/(publications)/publication1')
+                        router.push('/(publications)/publication')
                       }
                       imagePublication={ImagesPath.imagePiezaService}
                     />
@@ -264,7 +264,7 @@ const filterCategory = () => {
                       description="Kit transmision 38/16 marca Riffel"
                       price="55.000"
                       onPressFunction={() =>
-                        router.push('/(publications)/publication1')
+                        router.push('/(publications)/publication')
                       }
                       imagePublication={ImagesPath.imagePiezaTransmision}
                     />
