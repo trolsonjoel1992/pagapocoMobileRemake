@@ -26,15 +26,16 @@ const Home = () => {
   }, [publications, currentUser]) */
 
   const filteredPublications = useMemo(() => {
+    publications.sort((a, b) => {
+      // Ordenar por isPremium (premium primero)
+      if (a.isPremium && !b.isPremium) return -1
+      if (!a.isPremium && b.isPremium) return 1
+      return 0 // Si ambos son premium o ambos no son premium, mantener orden original
+    })
+
     if (!currentUser) return publications
-    return publications
-      .filter((p) => p.user_id !== currentUser.id)
-      .sort((a, b) => {
-        // Ordenar por isPremium (premium primero)
-        if (a.isPremium && !b.isPremium) return -1
-        if (!a.isPremium && b.isPremium) return 1
-        return 0 // Si ambos son premium o ambos no son premium, mantener orden original
-      })
+
+    return publications.filter((p) => p.user_id !== currentUser.id)
   }, [publications, currentUser])
 
   const { data } = useListPublications()
@@ -94,7 +95,7 @@ const Home = () => {
       {/* body */}
       <View style={styles.body}>
         <FlatList
-          data={data}
+          data={filteredPublications}
           renderItem={({ item }) => (
             <PublicationCardComponent item={item} />
           )} /* Componente de la publicacion */

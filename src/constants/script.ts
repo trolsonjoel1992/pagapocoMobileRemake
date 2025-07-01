@@ -2,7 +2,7 @@ import ImagesPath from '@/src/constants/ImagesPath'
 import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export const initSeed = async () => {
-  await AsyncStorage.clear() // Clear all data for fresh start
+  //await AsyncStorage.clear() // Clear all data for fresh start
   const alreadySeeded = await AsyncStorage.getItem('seeded')
   if (alreadySeeded) return
 
