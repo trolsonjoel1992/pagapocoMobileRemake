@@ -20,9 +20,21 @@ const Home = () => {
 
   const { publications, currentUser } = useApp()
 
-  const filteredPublications = useMemo(() => {
+  /* const filteredPublications = useMemo(() => {
     if (!currentUser) return publications
     return publications.filter((p) => p.user_id !== currentUser.id)
+  }, [publications, currentUser]) */
+
+  const filteredPublications = useMemo(() => {
+    if (!currentUser) return publications
+    return publications
+      .filter((p) => p.user_id !== currentUser.id)
+      .sort((a, b) => {
+        // Ordenar por isPremium (premium primero)
+        if (a.isPremium && !b.isPremium) return -1
+        if (!a.isPremium && b.isPremium) return 1
+        return 0 // Si ambos son premium o ambos no son premium, mantener orden original
+      })
   }, [publications, currentUser])
 
   const { data } = useListPublications()
