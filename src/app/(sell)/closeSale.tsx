@@ -2,6 +2,8 @@ import GenericModal from '@/src/components/atoms/GenericModal'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import IconsPath from '@/src/constants/IconsPath'
 import ImagesPath from '@/src/constants/ImagesPath'
+import { useApp } from '@/src/contexts/AppContext'
+import { useCreatePublication } from '@/src/contexts/CreatePublicationContext'
 import { router } from 'expo-router'
 import React, { useState } from 'react'
 import {
@@ -20,6 +22,8 @@ import {
 import { moderateScale } from 'react-native-size-matters'
 
 const CloseSale = () => {
+  const { publicationData, setPublicationData } = useCreatePublication()
+  const { createPublication } = useApp()
   const [title, setTitle] = useState('')
   const [price, setPrice] = useState('')
   const [city, setCity] = useState('')
@@ -45,6 +49,18 @@ const CloseSale = () => {
     if (title === '' || price === '' || city === '') {
       setShowError(true)
     } else {
+      setPublicationData({
+        ...publicationData,
+        title,
+        price: parseFloat(price),
+        city,
+      })
+      createPublication({
+        ...publicationData,
+        title,
+        price: parseInt(price),
+        city,
+      })
       setModalVisible(true)
     }
   }

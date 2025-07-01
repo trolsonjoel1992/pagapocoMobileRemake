@@ -23,6 +23,9 @@ const PublicationCardComponent = ({ item }) => {
     })
   }
 
+  const parseImage = (img: string | number) => {
+    return typeof img === 'string' ? { uri: img } : img
+  }
   return (
     <TouchableOpacity
       style={styles.publicationCard}
@@ -31,7 +34,7 @@ const PublicationCardComponent = ({ item }) => {
     >
       <View style={styles.imageContainer}>
         <Image
-          source={item.images[0]}
+          source={parseImage(item.images[0])}
           style={styles.publicationImage}
           resizeMode="contain"
         />

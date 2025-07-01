@@ -2,32 +2,35 @@ import Button from '@/src/components/atoms/Button'
 import ContainerView from '@/src/components/atoms/ContainerView'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import ImageUploader from '@/src/components/molecules/ImageUploader'
+import { useCreatePublication } from '@/src/contexts/CreatePublicationContext'
 
 import { useRouter } from 'expo-router'
 import React, { useState } from 'react'
-import {
-  Alert,
-  FlatList,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native'
+import { Alert, FlatList, StyleSheet, Text, View } from 'react-native'
 
 // componente principal para subir fotos del vehiculo
 export default function Fotos() {
+  const { publicationData, setPublicationData } = useCreatePublication()
+  console.log('Datos de publicación:', publicationData)
   const router = useRouter()
 
   // estado que almacena las imagenes seleccionadas por el usuario
   const [imagenes, setImagenes] = useState<string[]>([])
-
   // valida que haya al menos una imagen antes de continuar
   const handleContinuar = () => {
     if (imagenes.length === 0) {
-      Alert.alert('atención', 'por favor subí al menos una imagen antes de continuar')
+      Alert.alert(
+        'atención',
+        'por favor subí al menos una imagen antes de continuar'
+      )
       return
     }
     // redirige a la pantalla de terminos y condiciones
-    router.push('/(trabajo_matias)/modal_terminosycondiciones')
+    setPublicationData({
+      ...publicationData,
+      images: imagenes,
+    })
+    router.push('/(sell)/closeSale')
   }
 
   return (
