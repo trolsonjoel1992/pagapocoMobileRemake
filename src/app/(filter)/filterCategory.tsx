@@ -103,7 +103,7 @@ const filterCategory = () => {
                       recommended
                       imagePublication={ImagesPath.imageCamionScania}
                       onPressFunction={() =>
-                        router.push('/(publications)/publication1')}
+                        router.push('/(publications)/publication3')}
                     />
                     <PFilterCategoryComponent
                       title="VOLKSWAGEN 17220 MODELO 2011"
@@ -126,8 +126,7 @@ const filterCategory = () => {
                       description='Excelente estado recibo permutas financio. '
                       recommended
                       imagePublication={ImagesPath.imageCamionetaS10}
-                      onPressFunction={() =>
-                        router.push('/(publications)/publication1')}
+                      onPressFunction={() => router.push('/(publications)/publication2')}
                     />
                     <PFilterCategoryComponent
                       title="Ford Ranger 2.0 Limited 4x4 DC AT mod. 2024"
@@ -200,7 +199,7 @@ const filterCategory = () => {
                       description="Vendo tornado!! Todo los papeles escucho ofertas, recibo honda wave o new titan y plata a mí favor"
                       price="7.800.000"
                       onPressFunction={() =>
-                        router.push('/(publications)/publication1')}
+                        router.push('/(publications)/publication4')}
                     />
                     <PFilterCategoryComponent
                       imagePublication={ImagesPath.imageMotoXTZ}
