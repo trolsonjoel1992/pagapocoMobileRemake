@@ -12,7 +12,7 @@ import {
 } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
 
-const Cardsale = () => {
+const SalesPlan = () => {
   const [selectedCard, setSelectedCard] = useState<'premium' | 'free' | null>(
     null
   )
@@ -25,7 +25,7 @@ const Cardsale = () => {
       />
       <Text
         style={{
-          marginTop: moderateScale(1),
+          marginTop: moderateScale(5),
           fontSize: moderateScale(24),
           fontWeight: 'bold',
         }}
@@ -53,7 +53,15 @@ const Cardsale = () => {
                 : styles.block2
             }
           >
-            <Image source={IconsPath.showStar} />
+            <Image
+              source={
+                selectedCard === null
+                  ? IconsPath.showStar
+                  : selectedCard === 'premium'
+                  ? IconsPath.selectedStar
+                  : IconsPath.hiddenStar
+              }
+            />
             <Text
               style={
                 selectedCard === null
@@ -68,26 +76,80 @@ const Cardsale = () => {
           </View>
           <View style={styles.content}>
             <View style={styles.promo}>
-              <Image source={IconsPath.CheckCircle} />
+              <Image
+                source={
+                  selectedCard === null
+                    ? IconsPath.CheckCircle
+                    : selectedCard === 'premium'
+                    ? IconsPath.uCheckCircle
+                    : IconsPath.CheckCircle
+                }
+              />
               <Text>Exposición VIP</Text>
             </View>
             <View style={styles.promo}>
-              <Image source={IconsPath.CheckCircle} />
+              <Image
+                source={
+                  selectedCard === null
+                    ? IconsPath.CheckCircle
+                    : selectedCard === 'premium'
+                    ? IconsPath.uCheckCircle
+                    : IconsPath.CheckCircle
+                }
+              />
               <Text>Hasta 8 imagenes</Text>
             </View>
             <View style={styles.promo}>
-              <Image source={IconsPath.CheckCircle} />
+              <Image
+                source={
+                  selectedCard === null
+                    ? IconsPath.CheckCircle
+                    : selectedCard === 'premium'
+                    ? IconsPath.uCheckCircle
+                    : IconsPath.CheckCircle
+                }
+              />
               <Text>duración de 90 días</Text>
             </View>
             <View style={styles.promo}>
-              <Image source={IconsPath.CheckCircle} />
+              <Image
+                source={
+                  selectedCard === null
+                    ? IconsPath.CheckCircle
+                    : selectedCard === 'premium'
+                    ? IconsPath.uCheckCircle
+                    : IconsPath.CheckCircle
+                }
+              />
               <Text>Republicación automática</Text>
             </View>
           </View>
-          <Text style={{ fontSize: moderateScale(20), fontWeight: '600' }}>
+          <Text
+            style={
+              selectedCard === null
+                ? { fontSize: moderateScale(20), fontWeight: '600' }
+                : selectedCard === 'premium'
+                ? { fontSize: moderateScale(20), fontWeight: '700' }
+                : {
+                    fontSize: moderateScale(20),
+                    fontWeight: '600',
+                    color: '#9A9292',
+                  }
+            }
+          >
             $3000
           </Text>
-          <Text style={{ fontWeight: '500' }}>cargo por publicación</Text>
+          <Text
+            style={
+              selectedCard === null
+                ? { fontWeight: '500' }
+                : selectedCard === 'premium'
+                ? { fontWeight: '600' }
+                : { fontWeight: '500', color: '#9A9292' }
+            }
+          >
+            cargo por publicación
+          </Text>
         </TouchableOpacity>
 
         <TouchableOpacity
@@ -109,7 +171,15 @@ const Cardsale = () => {
                 : styles.block2
             }
           >
-            <Image source={IconsPath.showStarH} />
+            <Image
+              source={
+                selectedCard === null
+                  ? IconsPath.showStarH
+                  : selectedCard === 'free'
+                  ? IconsPath.selectedStarH
+                  : IconsPath.hiddenStarH
+              }
+            />
             <Text
               style={
                 selectedCard === null
@@ -124,41 +194,102 @@ const Cardsale = () => {
           </View>
           <View style={styles.content}>
             <View style={styles.promo}>
-              <Image source={IconsPath.WarningCircle} />
+              <Image
+                source={
+                  selectedCard === null
+                    ? IconsPath.WarningCircle
+                    : selectedCard === 'free'
+                    ? IconsPath.uWarningCircle
+                    : IconsPath.WarningCircle
+                }
+              />
               <Text>Exposición limitada</Text>
             </View>
             <View style={styles.promo}>
-              <Image source={IconsPath.WarningCircle} />
+              <Image
+                source={
+                  selectedCard === null
+                    ? IconsPath.WarningCircle
+                    : selectedCard === 'free'
+                    ? IconsPath.uWarningCircle
+                    : IconsPath.WarningCircle
+                }
+              />
               <Text>Sólo 4 imagenes</Text>
             </View>
             <View style={styles.promo}>
-              <Image source={IconsPath.WarningCircle} />
+              <Image
+                source={
+                  selectedCard === null
+                    ? IconsPath.WarningCircle
+                    : selectedCard === 'free'
+                    ? IconsPath.uWarningCircle
+                    : IconsPath.WarningCircle
+                }
+              />
               <Text>Duracion de 30 días</Text>
             </View>
             <View style={styles.promo}>
-              <Image source={IconsPath.Xcircle} />
+              <Image
+                source={
+                  selectedCard === null
+                    ? IconsPath.Xcircle
+                    : selectedCard === 'free'
+                    ? IconsPath.uXCircle
+                    : IconsPath.Xcircle
+                }
+              />
               <Text style={{ textDecorationLine: 'line-through' }}>
                 Republicación automática
               </Text>
             </View>
           </View>
-          <Text style={{ fontSize: moderateScale(20), fontWeight: '600' }}>
+          <Text
+            style={
+              selectedCard === null
+                ? { fontSize: moderateScale(20), fontWeight: '500' }
+                : selectedCard === 'free'
+                ? { fontSize: moderateScale(20), fontWeight: '600' }
+                : {
+                    fontSize: moderateScale(20),
+                    fontWeight: '600',
+                    color: '#9A9292',
+                  }
+            }
+          >
             Gratis
           </Text>
-          <Text style={{ fontWeight: '500' }}>cargo por publicación</Text>
+          <Text
+            style={
+              selectedCard === null
+                ? { fontWeight: '400' }
+                : selectedCard === 'free'
+                ? { fontWeight: '500' }
+                : {
+                    fontWeight: '600',
+                    color: '#9A9292',
+                  }
+            }
+          >
+            cargo por publicación
+          </Text>
         </TouchableOpacity>
       </View>
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => router.push('/(tabs)/myPublications')}
-      >
-        <Text style={styles.buttonText}>Volver</Text>
-      </TouchableOpacity>
+
+      {/* Botón que solo aparece cuando hay una opción seleccionada */}
+      {selectedCard && (
+        <TouchableOpacity
+          style={styles.button}
+          onPress={() => router.push('/(sell)/uploadImages')}
+        >
+          <Text style={styles.buttonText}>Continuar</Text>
+        </TouchableOpacity>
+      )}
     </SafeAreaView>
   )
 }
 
-export default Cardsale
+export default SalesPlan
 const styles = StyleSheet.create({
   general: {
     alignItems: 'center',
