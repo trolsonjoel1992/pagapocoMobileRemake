@@ -2,7 +2,7 @@ import Button from '@/src/components/atoms/Button'
 import ContainerView from '@/src/components/atoms/ContainerView'
 import ControlledInput from '@/src/components/atoms/ControlledInput'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
-import { useCreatePublication } from '@/src/features/hooks/publications.hooks'
+import { useCreatePublication } from '@/src/contexts/CreatePublicationContext'
 import { VehicleData, vehicleSchema } from '@/src/validations/vehicleSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { router } from 'expo-router'
@@ -11,6 +11,8 @@ import { ScrollView, StyleSheet, View } from 'react-native'
 import { moderateScale } from 'react-native-size-matters'
 
 const FormVehicle = () => {
+  const { publicationData, setPublicationData } = useCreatePublication()
+
   const form = useForm<VehicleData>({
     resolver: yupResolver(vehicleSchema),
     defaultValues: {
@@ -31,11 +33,16 @@ const FormVehicle = () => {
 
   const { handleSubmit } = form
 
-  const { create, loading } = useCreatePublication()
+  // const { create, loading } = useCreatePublication()
 
   const onSubmit = async (data: VehicleData) => {
     console.log('Datos del formulario:', data)
+    console.log('Datos de publicación:', publicationData)
 
+    setPublicationData({
+      ...publicationData,
+      ...data,
+    })
     router.push('/(sell)/salesPlan')
 
     // const ok = await create(data)
@@ -131,7 +138,7 @@ const FormVehicle = () => {
             <Button
               variant="contained"
               fullWidth
-              disabled={loading}
+              // disabled={loading}
               onPress={handleSubmit(onSubmit)}
             >
               Continuar

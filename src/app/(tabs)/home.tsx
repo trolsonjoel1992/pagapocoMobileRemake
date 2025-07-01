@@ -30,7 +30,7 @@ const Home = () => {
       params: { category }, // Envía la categoría como parámetro
     })
   }
-
+  console.log('Publicaciones:', data)
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
