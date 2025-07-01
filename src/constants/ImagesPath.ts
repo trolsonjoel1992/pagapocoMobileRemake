@@ -114,6 +114,14 @@ const ImagesPath = {
   iconPiezaFG: require('@/src/assets/images/imageCategoria/GiconPiezaFigma.png'),
   // icono para la pantalla del filtro
   iconRecomendadoFigma: require('@/src/assets/images/iconRecomendadoFigma.png'),
+
+  // iconos del modal de perfil
+  iconCloseAccount: require('@/src/assets/images/imageProfile/SealWarning.png'),
+  iconDeleteAccount: require('@/src/assets/images/imageProfile/SealQuestion.png'),
+  iconCheck: require('@/src/assets/images/imageProfile/SealCheck.png'),
+
+  // icono de usuario en circulo
+  userCircle: require('@/src/assets/images/imageProfile/userCircle.png'),
 }
 
 export default ImagesPath
