@@ -1,5 +1,5 @@
 import Button from '@/src/components/atoms/Button'
-import ContainerView from '@/src/components/atoms/ContainerView'; // fondo superior lila
+import ContainerView from '@/src/components/atoms/ContainerView' // fondo superior lila
 import ControlledInput from '@/src/components/atoms/ControlledInput'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import TextAreaWithIcon from '@/src/components/atoms/TextAreaWithIcon'
@@ -7,13 +7,7 @@ import TextAreaWithIcon from '@/src/components/atoms/TextAreaWithIcon'
 import { useRouter } from 'expo-router'
 import React from 'react'
 import { FormProvider, useForm } from 'react-hook-form'
-import {
-  Image,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 type FormFields = {
@@ -28,7 +22,6 @@ export default function ResponderConsulta() {
   const methods = useForm<FormFields>({ mode: 'onSubmit' })
 
   const onSubmit = (data: FormFields) => {
-    console.log('Respuesta enviada:', data)
     router.push('/(tabs)/home')
   }
 
@@ -45,10 +38,18 @@ export default function ResponderConsulta() {
           <ControlledInput name="nombre" label="Nombre" />
 
           <Text style={styles.label}>Correo Electrónico:</Text>
-          <ControlledInput name="email" label="E-mail" keyboardType="email-address" />
+          <ControlledInput
+            name="email"
+            label="E-mail"
+            keyboardType="email-address"
+          />
 
           <Text style={styles.label}>Su teléfono:</Text>
-          <ControlledInput name="telefono" label="Teléfono" keyboardType="phone-pad" />
+          <ControlledInput
+            name="telefono"
+            label="Teléfono"
+            keyboardType="phone-pad"
+          />
 
           <Text style={styles.label}>Respuesta:</Text>
           <TextAreaWithIcon name="respuesta" label="respuesta" />

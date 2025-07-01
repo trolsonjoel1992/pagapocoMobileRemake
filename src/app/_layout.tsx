@@ -4,7 +4,6 @@ import React from 'react'
 
 const RootLayout = () => {
   //return <Slot />;
-  console.log('RootLayout rendered')
   return (
     <AppProvider>
       <Slot />

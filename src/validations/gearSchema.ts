@@ -3,9 +3,9 @@ import * as yup from 'yup'
 export const gearSchema = yup.object().shape({
   brand: yup.string().required('Marca obligatoria'),
   model: yup.string().required('Modelo obligatorio'),
-  color: yup.string().required('Color obligatorio'),
-  state: yup.string().required('Estado obligatorio'),
-  compatibility: yup.string().required('Compatibilidad obligatorio'),
+  color: yup.string().notRequired() as yup.StringSchema<string>,
+  state: yup.string().notRequired() as yup.StringSchema<string>,
+  compatibility: yup.string().notRequired() as yup.StringSchema<string>,
   description: yup.string().notRequired() as yup.StringSchema<string>,
 })
 

@@ -11,7 +11,6 @@ import { Alert, FlatList, StyleSheet, Text, View } from 'react-native'
 // componente principal para subir fotos del vehiculo
 export default function Fotos() {
   const { publicationData, setPublicationData } = useCreatePublication()
-  console.log('Datos de publicación:', publicationData)
   const router = useRouter()
 
   // estado que almacena las imagenes seleccionadas por el usuario
