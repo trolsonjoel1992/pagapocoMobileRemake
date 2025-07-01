@@ -1,15 +1,15 @@
 import AsyncStorage from '@react-native-async-storage/async-storage'
 import React, { createContext, useContext, useEffect, useState } from 'react'
-import { ImageSourcePropType } from 'react-native'
 
 export type User = { id: number; email: string; password: string }
 export type Publication = {
   id: number
   title: string
-  price: string
+  price: number
+  city: string
   isPremium: boolean
   user_id: number
-  images: ImageSourcePropType[]
+  images: string[]
 }
 export type Favorite = { id: number; user_id: number; publication_id: number }
 

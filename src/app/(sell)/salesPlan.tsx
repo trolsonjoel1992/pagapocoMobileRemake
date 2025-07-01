@@ -1,5 +1,6 @@
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import IconsPath from '@/src/constants/IconsPath'
+import { useCreatePublication } from '@/src/contexts/CreatePublicationContext'
 import { router } from 'expo-router'
 import React, { useState } from 'react'
 import {
@@ -13,10 +14,11 @@ import {
 import { moderateScale } from 'react-native-size-matters'
 
 const SalesPlan = () => {
+  const { publicationData, setPublicationData } = useCreatePublication()
   const [selectedCard, setSelectedCard] = useState<'premium' | 'free' | null>(
     null
   )
-
+  console.log('Datos de publicación:', publicationData)
   return (
     <SafeAreaView style={styles.general}>
       <HeaderMainComponent
@@ -42,7 +44,14 @@ const SalesPlan = () => {
               ? styles.card1
               : styles.card2
           }
-          onPress={() => setSelectedCard('premium')}
+          onPress={() => {
+            setSelectedCard('premium')
+
+            setPublicationData({
+              ...publicationData,
+              isPremium: true,
+            })
+          }}
         >
           <View
             style={
@@ -160,7 +169,13 @@ const SalesPlan = () => {
               ? styles.card1
               : styles.card2
           }
-          onPress={() => setSelectedCard('free')}
+          onPress={() => {
+            setSelectedCard('free')
+            setPublicationData({
+              ...publicationData,
+              isPremium: false,
+            })
+          }}
         >
           <View
             style={
