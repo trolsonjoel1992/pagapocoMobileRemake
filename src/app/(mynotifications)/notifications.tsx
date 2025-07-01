@@ -14,8 +14,15 @@ import {
 } from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-// lista inicial de notificaciones simuladas
-const initialNotifications = [
+// definimos la interfaz para las notificaciones
+interface Notification {
+  id: string
+  title: string
+  date: string
+}
+
+// lista inicial de notificaciones (simuladas)
+const initialNotifications: Notification[] = [
   { id: '1', title: '¡Tenés una nueva pregunta !', date: 'Ayer a las 00:00' },
   { id: '2', title: '¡Tus favoritos esperan!', date: 'El miércoles a las 00:00' },
   { id: '3', title: '¡Felicidades vendiste tu publicación!', date: 'El martes a las 00:00' },
@@ -23,13 +30,8 @@ const initialNotifications = [
 ]
 
 const Notificaciones = () => {
-  // estado que contiene la lista de notificaciones actuales
-  const [notifications, setNotifications] = useState(initialNotifications)
-
-  // estado que indica si todas las notificaciones estan marcadas como leidas
+  const [notifications, setNotifications] = useState<Notification[]>(initialNotifications)
   const [checkedAll, setCheckedAll] = useState(false)
-
-  // estado que guarda el estado de cada checkbox individual
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({})
 
   // alterna el estado de todos los checkboxes
@@ -48,7 +50,7 @@ const Notificaciones = () => {
     setCheckedItems((prev) => ({ ...prev, [id]: !prev[id] }))
   }
 
-  // elimina una notificacion individual con confirmacion
+  // elimina una notificación individual con confirmación
   const deleteNotification = (id: string) => {
     Alert.alert(
       'Eliminar notificación',
@@ -97,21 +99,25 @@ const Notificaciones = () => {
     )
   }
 
-  // renderiza cada tarjeta de notificacion
-  const renderItem = ({ item }) => (
+  // renderiza cada tarjeta de notificación
+  const renderItem = ({ item }: { item: Notification }) => (
     <View style={styles.notificationCard}>
-      <View style={styles.notificationTextContainer}>
-        <Text style={styles.notificationTitle}>{item.title}</Text>
-        <Text style={styles.notificationDate}>{item.date}</Text>
-      </View>
+      <Text style={styles.notificationTitle}>{item.title}</Text>
+      <Text style={styles.notificationDate}>{item.date}</Text>
 
       <View style={styles.actionsContainer}>
-        <TouchableOpacity>
-          <Image source={ImagesPath.iconEye} style={styles.iconButton} />
-        </TouchableOpacity>
-        <TouchableOpacity onPress={() => deleteNotification(item.id)}>
-          <Image source={ImagesPath.iconTrash} style={styles.iconButton} />
-        </TouchableOpacity>
+        <View style={styles.iconRow}>
+          <TouchableOpacity style={styles.roundButton}>
+            <Image source={ImagesPath.iconEye} style={styles.icon} />
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.roundButton}
+            onPress={() => deleteNotification(item.id)}
+          >
+            <Image source={ImagesPath.iconTrash} style={styles.icon} />
+          </TouchableOpacity>
+        </View>
+
         <View style={styles.checkboxWithText}>
           <Text style={styles.leidoLabel}>Leído</Text>
           <CustomCheckbox
@@ -125,30 +131,21 @@ const Notificaciones = () => {
 
   return (
     <ContainerView>
-      {/* encabezado principal con titulo */}
       <HeaderMainComponent titulo="Notificaciones" onBackPress={() => {}} />
-
       <View style={styles.body}>
-        {/* seccion para marcar todas las notificaciones como leidas */}
         <View style={styles.marcarTodoContainer}>
           <CustomCheckbox checked={checkedAll} onToggle={toggleAll} />
           <Text style={styles.marcarTodoText}>Marcar todo como leído</Text>
         </View>
-
-        {/* lista de notificaciones */}
         <FlatList
           data={notifications}
           keyExtractor={(item) => item.id}
           renderItem={renderItem}
           contentContainerStyle={styles.listContainer}
         />
-
-        {/* boton para eliminar las notificaciones seleccionadas */}
         <TouchableOpacity style={styles.deleteButton} onPress={deleteSelected}>
           <Text style={styles.deleteText}>Eliminar seleccionadas</Text>
         </TouchableOpacity>
-
-        {/* boton para volver (sin funcionalidad implementada por ahora) */}
         <TouchableOpacity style={styles.volverButton}>
           <Text style={styles.volverText}>Volver</Text>
         </TouchableOpacity>
@@ -157,7 +154,6 @@ const Notificaciones = () => {
   )
 }
 
-// estilos para la pantalla de notificaciones
 const styles = StyleSheet.create({
   body: {
     flex: 1,
@@ -180,9 +176,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     padding: verticalScale(12),
   },
-  notificationTextContainer: {
-    marginBottom: verticalScale(10),
-  },
   notificationTitle: {
     fontWeight: 'bold',
     fontSize: moderateScale(16),
@@ -190,16 +183,24 @@ const styles = StyleSheet.create({
   },
   notificationDate: {
     color: '#555',
+    marginBottom: verticalScale(10),
   },
   actionsContainer: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
   },
-  iconButton: {
+  roundButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: '#A230C7',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  icon: {
     width: 30,
-    height: 30,
-    tintColor: '#A230C7',
+    height: 40,
   },
   checkboxWithText: {
     flexDirection: 'row',
@@ -234,6 +235,12 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     fontSize: moderateScale(16),
+  },
+  iconRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'flex-end',
+    gap: moderateScale(10),
   },
 })
 
