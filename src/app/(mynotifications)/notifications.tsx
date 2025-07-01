@@ -2,6 +2,7 @@ import ContainerView from '@/src/components/atoms/ContainerView'
 import CustomCheckbox from '@/src/components/atoms/CustomCheckbox'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
+import { useRouter } from 'expo-router'
 import React, { useState } from 'react'
 import {
   Alert,
@@ -21,7 +22,7 @@ interface Notification {
   date: string
 }
 
-// lista inicial de notificaciones (simuladas)
+// lista inicial de notificaciones simuladas
 const initialNotifications: Notification[] = [
   { id: '1', title: '¡Tenés una nueva pregunta !', date: 'Ayer a las 00:00' },
   { id: '2', title: '¡Tus favoritos esperan!', date: 'El miércoles a las 00:00' },
@@ -30,11 +31,12 @@ const initialNotifications: Notification[] = [
 ]
 
 const Notificaciones = () => {
+  const router = useRouter()
+
   const [notifications, setNotifications] = useState<Notification[]>(initialNotifications)
   const [checkedAll, setCheckedAll] = useState(false)
   const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({})
 
-  // alterna el estado de todos los checkboxes
   const toggleAll = () => {
     const newState = !checkedAll
     const updatedChecks = notifications.reduce((acc, n) => {
@@ -45,12 +47,10 @@ const Notificaciones = () => {
     setCheckedItems(updatedChecks)
   }
 
-  // alterna el estado de un checkbox individual
   const toggleItem = (id: string) => {
     setCheckedItems((prev) => ({ ...prev, [id]: !prev[id] }))
   }
 
-  // elimina una notificación individual con confirmación
   const deleteNotification = (id: string) => {
     Alert.alert(
       'Eliminar notificación',
@@ -61,17 +61,23 @@ const Notificaciones = () => {
           text: 'Eliminar',
           style: 'destructive',
           onPress: () => {
-            setNotifications((prev) => prev.filter((n) => n.id !== id))
+            const updated = notifications.filter((n) => n.id !== id)
+            setNotifications(updated)
+
             const updatedChecks = { ...checkedItems }
             delete updatedChecks[id]
             setCheckedItems(updatedChecks)
+
+            // si no quedan notificaciones, redirigir a pantalla vacía
+            if (updated.length === 0) {
+              router.push('/(mynotifications)/emptyNotifications')
+            }
           },
         },
       ]
     )
   }
 
-  // elimina todas las notificaciones seleccionadas
   const deleteSelected = () => {
     const idsToDelete = Object.entries(checkedItems)
       .filter(([, isChecked]) => isChecked)
@@ -88,18 +94,23 @@ const Notificaciones = () => {
           text: 'Eliminar',
           style: 'destructive',
           onPress: () => {
-            setNotifications((prev) =>
-              prev.filter((n) => !idsToDelete.includes(n.id))
+            const updated = notifications.filter(
+              (n) => !idsToDelete.includes(n.id)
             )
+            setNotifications(updated)
             setCheckedItems({})
             setCheckedAll(false)
+
+            // si no quedan notificaciones, redirigir a pantalla vacía
+            if (updated.length === 0) {
+              router.push('/(mynotifications)/emptyNotifications')
+            }
           },
         },
       ]
     )
   }
 
-  // renderiza cada tarjeta de notificación
   const renderItem = ({ item }: { item: Notification }) => (
     <View style={styles.notificationCard}>
       <Text style={styles.notificationTitle}>{item.title}</Text>
@@ -200,7 +211,8 @@ const styles = StyleSheet.create({
   },
   icon: {
     width: 30,
-    height: 40,
+    height: 30,
+    resizeMode: 'contain',
   },
   checkboxWithText: {
     flexDirection: 'row',
