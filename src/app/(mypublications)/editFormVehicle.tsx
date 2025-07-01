@@ -1,4 +1,3 @@
-import Button from '@/src/components/atoms/Button'
 import ContainerView from '@/src/components/atoms/ContainerView'
 import ControlledInput from '@/src/components/atoms/ControlledInput'
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
@@ -7,8 +6,14 @@ import { VehicleData, vehicleSchema } from '@/src/validations/vehicleSchema'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { router } from 'expo-router'
 import { FormProvider, useForm } from 'react-hook-form'
-import { ScrollView, StyleSheet, View } from 'react-native'
-import { moderateScale } from 'react-native-size-matters'
+import {
+  ScrollView,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
+import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 const EditFormVehicle = () => {
   const form = useForm<VehicleData>({
@@ -51,6 +56,9 @@ const EditFormVehicle = () => {
           titulo="Editar datos"
           onBackPress={() => router.back()}
         />
+        <Text style={styles.subtitle}>
+          Selecciona la categoria correcta para tu publicación
+        </Text>
 
         <ScrollView
           style={styles.body}
@@ -127,14 +135,12 @@ const EditFormVehicle = () => {
           <View
             style={{ flex: 1, alignSelf: 'center', width: moderateScale(170) }}
           >
-            <Button
-              variant="contained"
-              fullWidth
-              disabled={loading}
-              onPress={handleSubmit(onSubmit)}
+            <TouchableOpacity
+              style={styles.buttonBack}
+              onPress={() => router.push('/(tabs)/myPublications')}
             >
-              Continuar
-            </Button>
+              <Text style={styles.buttonText}>Volver</Text>
+            </TouchableOpacity>
           </View>
         </ScrollView>
       </ContainerView>
@@ -153,6 +159,27 @@ const styles = StyleSheet.create({
   contentBody: {
     flexGrow: 1,
     padding: 20,
+  },
+  subtitle: {
+    fontSize: moderateScale(18),
+    fontWeight: '500',
+    marginBottom: verticalScale(5),
+    textAlign: 'center',
+  },
+  buttonText: {
+    fontSize: moderateScale(16),
+    color: 'white',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  buttonBack: {
+    width: moderateScale(170),
+    height: moderateScale(55),
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: moderateScale(20),
+    marginBottom: moderateScale(20),
+    backgroundColor: '#A230C7',
   },
 })
 
