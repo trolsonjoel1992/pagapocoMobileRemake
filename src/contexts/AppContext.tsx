@@ -21,6 +21,7 @@ type AppContextType = {
   publications: Publication[]
   createPublication: (pub: Omit<Publication, 'id'>) => Promise<void>
   getUserPublications: (userId: number) => Promise<Publication[]>
+  getPublicationById: (id: number) => Publication | null
   favorites: Favorite[]
   toggleFavorite: (pubId: number) => Promise<void>
   getUserFavorites: (userId: number) => Promise<Publication[]>
@@ -86,6 +87,10 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     return publications.filter((p) => p.user_id === userId)
   }
 
+  const getPublicationById = (id: number) => {
+    return publications.find((p) => p.id === id) || null
+  }
+
   const toggleFavorite = async (pubId: number) => {
     if (!currentUser) return
     const exists = favorites.find(
@@ -134,6 +139,7 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
         toggleFavorite,
         getUserFavorites,
         isFavorite,
+        getPublicationById,
       }}
     >
       {children}

@@ -1,7 +1,7 @@
 import ButtonActionsComponent from '@/src/components/atoms/ButtonActionsComponent'
+import { parseImage } from '@/src/components/atoms/PublicationCardComponent'
 import SearchBarMainComponent from '@/src/components/atoms/SearchBarMainComponent'
 import { Color } from '@/src/constants/colors'
-import ImagesPath from '@/src/constants/ImagesPath'
 import { useApp } from '@/src/contexts/AppContext'
 import { router, useLocalSearchParams } from 'expo-router'
 import React, { useRef, useState } from 'react'
@@ -22,7 +22,7 @@ import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 const Publication = () => {
   //const { user, isLoading } = useAuth()
-  const { publications, currentUser } = useApp()
+  const { currentUser, getPublicationById } = useApp()
 
   const [currentIndex, setCurrentIndex] = useState(0)
   const flatListRef = useRef<FlatList>(null)
@@ -58,12 +58,12 @@ const Publication = () => {
   const publication = JSON.parse((publicationString as string) || '{}')
 
   const carouselImages =
-    publication.images?.length > 0
-      ? publication.images.map((img: any, index: number) => ({
+    getPublicationById(publication.id)?.images && publication.images?.length > 0
+      ? publication.images.map((img: string, index: number) => ({
           id: index.toString(),
           image: img,
         }))
-      : [{ id: '1', image: ImagesPath.imageDefault2 }]
+      : []
 
   return (
     <SafeAreaView style={styles.container}>
@@ -102,7 +102,7 @@ const Publication = () => {
               data={carouselImages}
               renderItem={({ item }) => (
                 <View style={styles.slide}>
-                  <Image source={item.image} style={styles.image} />
+                  <Image source={parseImage(item.image)} style={styles.image} />
                 </View>
               )}
               horizontal
@@ -134,14 +134,16 @@ const Publication = () => {
             >
               {publication.description}
             </Text>
-            <TouchableOpacity
-              onPress={() => setExpanded(!expanded)}
-              style={styles.seeMoreButton}
-            >
-              <Text style={styles.seeMoreText}>
-                {expanded ? 'Ver menos' : 'Ver más...'}
-              </Text>
-            </TouchableOpacity>
+            {publication.description && (
+              <TouchableOpacity
+                onPress={() => setExpanded(!expanded)}
+                style={styles.seeMoreButton}
+              >
+                <Text style={styles.seeMoreText}>
+                  {expanded ? 'Ver menos' : 'Ver más...'}
+                </Text>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
 

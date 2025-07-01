@@ -11,7 +11,9 @@ import { moderateScale, verticalScale } from 'react-native-size-matters'
     params: { publicationId },
   })
 } */
-
+export const parseImage = (img: string) => {
+  return typeof img === 'string' ? { uri: img } : img
+}
 const PublicationCardComponent = ({ item }) => {
   const { toggleFavorite, isFavorite } = useApp()
   const handlePublicationPress = () => {
@@ -23,9 +25,6 @@ const PublicationCardComponent = ({ item }) => {
     })
   }
 
-  const parseImage = (img: string | number) => {
-    return typeof img === 'string' ? { uri: img } : img
-  }
   return (
     <TouchableOpacity
       style={styles.publicationCard}
