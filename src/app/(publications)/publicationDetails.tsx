@@ -1,13 +1,25 @@
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
-import { router } from 'expo-router'
+import { Color } from '@/src/constants/colors'
+import { router, useLocalSearchParams } from 'expo-router'
 import React from 'react'
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import {
+  StatusBar,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 const PublicationDetails1 = () => {
+  const { publication: publicationString } = useLocalSearchParams()
+  const publication = JSON.parse((publicationString as string) || '{}')
+  console.log('PublicationDetails1 publication:', publication)
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
+
       <HeaderMainComponent
         titulo="Caracteristicas de la publicación"
         onBackPress={() => router.push('/(publications)/publication')} // router.back()
@@ -18,63 +30,63 @@ const PublicationDetails1 = () => {
         <View style={styles.attributes}>
           <View style={[{ backgroundColor: '#F5F5F5' }, styles.item]}>
             <Text style={{ fontWeight: 'bold' }}>Marca</Text>
-            <Text>----</Text>
+            <Text>{publication ? publication.brand : '---'}</Text>
           </View>
 
           <View style={styles.item}>
             <Text style={{ fontWeight: 'bold' }}>Modelo</Text>
-            <Text>----</Text>
+            <Text>{publication ? publication.model : '---'}</Text>
           </View>
 
           <View style={[{ backgroundColor: '#F5F5F5' }, styles.item]}>
             <Text style={{ fontWeight: 'bold' }}>Año</Text>
-            <Text>----</Text>
+            <Text>{publication ? publication.year : '---'}</Text>
           </View>
 
           <View style={styles.item}>
             <Text style={{ fontWeight: 'bold' }}>Version</Text>
-            <Text>----</Text>
+            <Text>{publication ? publication.version : '---'}</Text>
           </View>
 
           <View style={[{ backgroundColor: '#F5F5F5' }, styles.item]}>
             <Text style={{ fontWeight: 'bold' }}>Color</Text>
-            <Text>----</Text>
+            <Text>{publication ? publication.color : '---'}</Text>
           </View>
 
           <View style={styles.item}>
             <Text style={{ fontWeight: 'bold' }}>Tipo de combustible</Text>
-            <Text>----</Text>
+            <Text>{publication ? publication.fuelType : '---'}</Text>
           </View>
 
           <View style={[{ backgroundColor: '#F5F5F5' }, styles.item]}>
             <Text style={{ fontWeight: 'bold' }}>Puertas</Text>
-            <Text>----</Text>
+            <Text>{publication ? publication.doors : '---'}</Text>
           </View>
 
           <View style={styles.item}>
             <Text style={{ fontWeight: 'bold' }}>Transmisión</Text>
-            <Text>----</Text>
+            <Text>{publication ? publication.transmision : '---'}</Text>
           </View>
 
           <View style={[{ backgroundColor: '#F5F5F5' }, styles.item]}>
             <Text style={{ fontWeight: 'bold' }}>Cilindrada</Text>
-            <Text>----</Text>
+            <Text>{publication ? publication.engine : '---'}</Text>
           </View>
 
-          <View style={styles.item}>
+          {/* <View style={styles.item}>
             <Text style={{ fontWeight: 'bold' }}>Tipo de Carroceria</Text>
-            <Text>----</Text>
-          </View>
+            <Text>{publication.}</Text>
+          </View> */}
 
-          <View style={[{ backgroundColor: '#F5F5F5' }, styles.item]}>
+          <View style={[styles.item]}>
             <Text style={{ fontWeight: 'bold' }}>Kilometros</Text>
-            <Text>----</Text>
+            <Text>{publication ? publication.kilometer : '---'}</Text>
           </View>
 
-          <View style={styles.item}>
+          {/* <View style={styles.item}>
             <Text style={{ fontWeight: 'bold' }}>Estado</Text>
-            <Text>----</Text>
-          </View>
+            <Text>{publication.}</Text>
+          </View> */}
         </View>
       </View>
 

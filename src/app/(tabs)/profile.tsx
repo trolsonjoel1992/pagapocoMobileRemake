@@ -34,8 +34,10 @@ const Profile = () => {
   }
 
   const cerrarSesion = () => {
-    router.replace('/splash')
+    setIsModalVisible(false)
     logout()
+    // router.push('/(auth)/(login)/FormLogin')
+    router.replace('/splash')
   }
   return (
     <SafeAreaView style={styles.container}>
@@ -89,7 +91,6 @@ const Profile = () => {
           <Text style={styles.optionLabel}>Cerrar sesión</Text>
         </TouchableOpacity>
       </ScrollView>
-
       <Modal
         animationType="fade"
         transparent={true}
@@ -116,10 +117,7 @@ const Profile = () => {
             <View style={styles.modalButtonContainer}>
               <TouchableOpacity
                 style={styles.modalButton}
-                onPress={() => {
-                  setIsModalVisible(false)
-                  router.push('/(auth)/(login)/FormLogin') // navega hacia la pantalla principal
-                }}
+                onPress={cerrarSesion}
               >
                 <Text style={styles.modalButtonText}>Entendido</Text>
               </TouchableOpacity>
@@ -136,7 +134,6 @@ const Profile = () => {
           </View>
         </View>
       </Modal>
-
       //Este es el modal para borrar la cuenta
       <Modal
         animationType="fade"
