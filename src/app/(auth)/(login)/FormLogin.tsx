@@ -136,7 +136,7 @@ const FormLogin = () => {
           <View style={styles.buttomOtrosContainer}>
             <TouchableOpacity
               style={styles.buttomOtros}
-              //onPress={() => router.push("/(auth)/google_login")}
+              onPress={() => router.push('/(auth)/googleLogin')}
             >
               <Image
                 source={ImagesPath.iconGoogle}

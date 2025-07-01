@@ -3,16 +3,18 @@ import ButtonCategoryComponent from '@/src/components/atoms/ButtonCategoryCompon
 import PublicationCardComponent from '@/src/components/atoms/PublicationCardComponent'
 import SearchBarMainComponent from '@/src/components/atoms/SearchBarMainComponent'
 import ImagesPath from '@/src/constants/ImagesPath'
-import { useApp } from '@/src/contexts/AppContext'
-import React, { useMemo, useState } from 'react'
+import { useListPublications } from '@/src/features/hooks/publications.hooks'
+import { useAuth } from '@/src/hooks/useAuth'
+import { router } from 'expo-router'
+import React, { useState } from 'react'
 import { FlatList, StyleSheet, View } from 'react-native'
 import { SafeAreaView } from 'react-native-safe-area-context'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
 const Home = () => {
-  // const { user, isLoading } = useAuth()
+  const { user, isLoading } = useAuth()
 
-  // const { logout } = useAuth()
+  const { logout } = useAuth()
 
   const [isFavorite, setIsFavorite] = useState(false)
 
@@ -20,13 +22,15 @@ const Home = () => {
     setIsFavorite(!isFavorite)
   }
 
-  const { publications, currentUser } = useApp()
+  const { data } = useListPublications()
 
-  const filteredPublications = useMemo(() => {
-    if (!currentUser) return publications
-    return publications.filter((p) => p.user_id !== currentUser.id)
-  }, [publications, currentUser])
-  // const { data } = useListPublications()
+  const handleCategoryPress = (category: string) => {
+    router.push({
+      pathname: '/(filter)/filterCategory', // /filterCoincidences
+      params: { category }, // Envía la categoría como parámetro
+    })
+  }
+
   return (
     <SafeAreaView style={styles.container}>
       {/* Header */}
@@ -38,7 +42,7 @@ const Home = () => {
         </View>
 
         {/* Componentes de Botones de acciones */}
-        <ButtonActionsComponent user={currentUser} />
+        <ButtonActionsComponent user={user} />
 
         {/* Contenedor de Categorías */}
         <View style={styles.categoriasContainer}>
@@ -46,23 +50,28 @@ const Home = () => {
           <ButtonCategoryComponent
             iconCategory={ImagesPath.iconCamionFigma}
             title="Camiones"
-            //onPressFunction={() => router.push("/")} // aqui hacer ruteo del filtro
+            // onPressFunction={() => router.push("/")} // aqui hacer ruteo del filtro
+            onPressFunction={() => handleCategoryPress('Camiones')}
           />
           <ButtonCategoryComponent
             iconCategory={ImagesPath.iconCamionetaFigma}
             title="Camionetas"
+            onPressFunction={() => handleCategoryPress('Camionetas')}
           />
           <ButtonCategoryComponent
             iconCategory={ImagesPath.iconAutoFigma}
             title="Autos"
+            onPressFunction={() => handleCategoryPress('Autos')}
           />
           <ButtonCategoryComponent
             iconCategory={ImagesPath.iconMotoFigma}
             title="Motos"
+            onPressFunction={() => handleCategoryPress('Motos')}
           />
           <ButtonCategoryComponent
             iconCategory={ImagesPath.iconPiezaFigma}
             title="Piezas"
+            onPressFunction={() => handleCategoryPress('Piezas')}
           />
         </View>
       </View>
@@ -70,7 +79,7 @@ const Home = () => {
       {/* body */}
       <View style={styles.body}>
         <FlatList
-          data={filteredPublications}
+          data={data}
           renderItem={({ item }) => (
             <PublicationCardComponent item={item} />
           )} /* Componente de la publicacion */
@@ -96,7 +105,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff', // purple
     justifyContent: 'space-between',
     alignItems: 'center',
-    paddingTop: verticalScale(20),
   },
   header: {
     //height: moderateScale(200),
@@ -126,6 +134,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: moderateScale(10),
     height: moderateScale(50),
     gap: moderateScale(4),
+    marginTop: moderateScale(5),
     marginBottom: verticalScale(5),
     //backgroundColor: 'orange',
   },

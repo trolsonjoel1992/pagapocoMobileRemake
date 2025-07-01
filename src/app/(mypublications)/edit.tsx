@@ -1,9 +1,11 @@
 import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
+import { Color } from '@/src/constants/colors'
 import IconsPath from '@/src/constants/IconsPath'
 import { Href, router } from 'expo-router'
 import {
   Image,
   SafeAreaView,
+  StatusBar,
   StyleSheet,
   Text,
   TouchableOpacity,
@@ -43,10 +45,8 @@ const categories: Category[] = [
 const Edit = () => {
   return (
     <SafeAreaView style={styles.container}>
-      <HeaderMainComponent
-        titulo="Inicio de sesión"
-        onBackPress={() => router.back}
-      />
+      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
+      <HeaderMainComponent titulo="Edicion" onBackPress={() => router.back} />
       <Text style={styles.title}>Elegí los datos que queres modificar</Text>
 
       <View style={styles.categoryList}>

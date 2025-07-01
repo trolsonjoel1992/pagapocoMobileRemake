@@ -1,59 +1,95 @@
-import HeaderMainComponent from '@/src/components/atoms/HeaderMainComponent'
-import PFilterComponent from '@/src/components/atoms/PFilterComponent'
-import { Color } from '@/src/constants/colors'
-import { router } from 'expo-router'
-import React from 'react'
-import {
-  ScrollView,
-  StatusBar,
-  StyleSheet,
-  Text,
-  TouchableOpacity,
-  View,
-} from 'react-native'
+import ImagesPath from '@/src/constants/ImagesPath'
+import { AntDesign, FontAwesome } from '@expo/vector-icons'
+import React, { useState } from 'react'
+import { Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native'
 import { moderateScale, verticalScale } from 'react-native-size-matters'
 
-const filterCoincidences = () => {
+type FilterProps = {
+  imagePublication?: any
+  title?: string
+  description?: string
+  price?: string
+  onPressFunction?: () => void
+}
+
+const PFilterComponent = ({
+  imagePublication = ImagesPath.imageDefault2,
+  title = 'Nombre publicación',
+  description = 'AAA...',
+  price = '000.000',
+  onPressFunction,
+}: FilterProps) => {
+  const [isFavorite, setIsFavorite] = useState(false)
+
+  const toggleFavorite = () => {
+    setIsFavorite(!isFavorite)
+  }
+
   return (
-    <View style={styles.container}>
-      <StatusBar backgroundColor={Color.primary} barStyle="light-content" />
-      <HeaderMainComponent
-        titulo="Coincidencias"
-        onBackPress={() => router.back()}
-      />
+    <View style={styles.publicationContainer}>
+      <View style={styles.imageAndInfoContainer}>
+        <View style={styles.imageContainer}>
+          <TouchableOpacity
+            style={styles.imagePublicationTouchable}
+            onPress={onPressFunction}
+          >
+            <Image
+              source={imagePublication}
+              style={styles.imagePublication}
+              resizeMode="contain"
+            />
+          </TouchableOpacity>
 
-      <ScrollView
-        style={styles.scrollView}
-        contentContainerStyle={styles.scrollContent}
-      >
-        <PFilterComponent />
-        <PFilterComponent />
-        <PFilterComponent />
-        <PFilterComponent />
-        <PFilterComponent />
+          {/* Botón de favoritos */}
+          <TouchableOpacity
+            style={styles.favoriteButton}
+            onPress={toggleFavorite}
+          >
+            <AntDesign
+              name={isFavorite ? 'heart' : 'hearto'}
+              size={16}
+              color={isFavorite ? '#A230C7' : '#666'}
+            />
+          </TouchableOpacity>
+        </View>
 
+        <View style={styles.infoContainer}>
+          <Text style={{ fontWeight: 'bold' }}>{title}</Text>
+          <Text style={{ fontWeight: 'bold' }}>{description}</Text>
+          <Text style={{ fontSize: moderateScale(24), fontWeight: 'bold' }}>
+            {price}
+          </Text>
+        </View>
+      </View>
+
+      <View style={styles.buttomPublicationContainer}>
         <View style={styles.buttomVolverContainer}>
           <TouchableOpacity
             style={styles.buttomVolver}
-            onPress={() => router.back()}
+            //onPress={() => router.back()} // llevar a la pantalla del resultado del filtro
           >
-            <Text style={styles.buttomVolverText}>Volver</Text>
+            <Text style={styles.buttomVolverText}>Preguntar</Text>
           </TouchableOpacity>
         </View>
-      </ScrollView>
+        <View style={styles.buttomVolverContainer}>
+          <TouchableOpacity
+            style={styles.buttomVolver}
+            //onPress={() => router.back()} // llevar a la pantalla del resultado del filtro
+          >
+            <FontAwesome
+              name="whatsapp"
+              size={moderateScale(20)}
+              color="white"
+            />
+            <Text style={styles.buttomVolverText}>WhatsApp</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
     </View>
   )
 }
 
 const styles = StyleSheet.create({
-  // estilos de la estructura
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    //paddingVertical: verticalScale(20),
-  },
   publicationContainer: {
     width: '100%',
     height: moderateScale(155),
@@ -146,20 +182,6 @@ const styles = StyleSheet.create({
     fontSize: moderateScale(13),
     fontWeight: 'bold',
   },
-  scrollView: {
-    flex: 1,
-    width: '100%',
-    //backgroundColor: 'red',
-  },
-  scrollContent: {
-    width: '80%',
-    alignSelf: 'center',
-    paddingVertical: moderateScale(10),
-    //backgroundColor: 'green',
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  // Estilo para el TouchableOpacity de la imagen
   imagePublicationTouchable: {
     width: '80%',
     height: '80%',
@@ -169,4 +191,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default filterCoincidences
+export default PFilterComponent
