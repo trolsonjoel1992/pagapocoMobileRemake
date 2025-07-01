@@ -22,7 +22,7 @@ const PublicationDetails1 = () => {
 
       <HeaderMainComponent
         titulo="Caracteristicas de la publicación"
-        onBackPress={() => router.push('/(publications)/publication')} // router.back()
+        onBackPress={() => router.back()} // router.back()
       />
 
       {/* <View style={styles.header}></View> */}
@@ -30,47 +30,47 @@ const PublicationDetails1 = () => {
         <View style={styles.attributes}>
           <View style={[{ backgroundColor: '#F5F5F5' }, styles.item]}>
             <Text style={{ fontWeight: 'bold' }}>Marca</Text>
-            <Text>{publication ? publication.brand : '---'}</Text>
+            <Text>{publication.brand ?? '---'}</Text>
           </View>
 
           <View style={styles.item}>
             <Text style={{ fontWeight: 'bold' }}>Modelo</Text>
-            <Text>{publication ? publication.model : '---'}</Text>
+            <Text>{publication.model ?? '---'}</Text>
           </View>
 
           <View style={[{ backgroundColor: '#F5F5F5' }, styles.item]}>
             <Text style={{ fontWeight: 'bold' }}>Año</Text>
-            <Text>{publication ? publication.year : '---'}</Text>
+            <Text>{publication.year ?? '---'}</Text>
           </View>
 
           <View style={styles.item}>
             <Text style={{ fontWeight: 'bold' }}>Version</Text>
-            <Text>{publication ? publication.version : '---'}</Text>
+            <Text>{publication.version ?? '---'}</Text>
           </View>
 
           <View style={[{ backgroundColor: '#F5F5F5' }, styles.item]}>
             <Text style={{ fontWeight: 'bold' }}>Color</Text>
-            <Text>{publication ? publication.color : '---'}</Text>
+            <Text>{publication.color ?? '---'}</Text>
           </View>
 
           <View style={styles.item}>
             <Text style={{ fontWeight: 'bold' }}>Tipo de combustible</Text>
-            <Text>{publication ? publication.fuelType : '---'}</Text>
+            <Text>{publication.fuelType ?? '---'}</Text>
           </View>
 
           <View style={[{ backgroundColor: '#F5F5F5' }, styles.item]}>
             <Text style={{ fontWeight: 'bold' }}>Puertas</Text>
-            <Text>{publication ? publication.doors : '---'}</Text>
+            <Text>{publication.doors ?? '---'}</Text>
           </View>
 
           <View style={styles.item}>
             <Text style={{ fontWeight: 'bold' }}>Transmisión</Text>
-            <Text>{publication ? publication.transmision : '---'}</Text>
+            <Text>{publication.transmision ?? '---'}</Text>
           </View>
 
           <View style={[{ backgroundColor: '#F5F5F5' }, styles.item]}>
             <Text style={{ fontWeight: 'bold' }}>Cilindrada</Text>
-            <Text>{publication ? publication.engine : '---'}</Text>
+            <Text>{publication.engine ?? '---'}</Text>
           </View>
 
           {/* <View style={styles.item}>
@@ -80,7 +80,7 @@ const PublicationDetails1 = () => {
 
           <View style={[styles.item]}>
             <Text style={{ fontWeight: 'bold' }}>Kilometros</Text>
-            <Text>{publication ? publication.kilometer : '---'}</Text>
+            <Text>{publication.kilometer ?? '---'}</Text>
           </View>
 
           {/* <View style={styles.item}>
@@ -94,7 +94,7 @@ const PublicationDetails1 = () => {
         <View style={styles.buttomVolverContainer}>
           <TouchableOpacity
             style={styles.buttomVolver}
-            onPress={() => router.push('/(publications)/publication1')}
+            onPress={() => router.back()}
           >
             <Text style={styles.buttomVolverText}>Volver</Text>
           </TouchableOpacity>
