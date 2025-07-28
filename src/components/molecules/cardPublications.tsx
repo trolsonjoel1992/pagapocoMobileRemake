@@ -7,7 +7,7 @@ const CardPublications = () => {
     <View style={{ flex: 1, backgroundColor: '#fff' }}>
       <View style={styles.card}>
         <TouchableOpacity style={styles.imageConteiner}>
-          <Image />
+          {/* <Image source={require('path/to/your/image')} /> */}
         </TouchableOpacity>
         <View style={styles.content}>
           <Text style={styles.title}>Nombre publicación</Text>
@@ -32,7 +32,7 @@ const CardPublications = () => {
       </View>
       <View style={styles.card}>
         <TouchableOpacity style={styles.imageConteiner}>
-          <Image />
+          {/* <Image source={require('path/to/your/image')} /> */}
         </TouchableOpacity>
         <View style={styles.content}>
           <Text style={styles.title}>Nombre publicación</Text>
@@ -56,7 +56,7 @@ const CardPublications = () => {
       <View style={styles.cardOverlay}>
         <View style={styles.imageOverlay}></View>
         <View style={styles.content}>
-          <Text style={styles.title}></Text>
+          <Text style={styles.title}>Publicación pausada</Text>
           <View style={styles.buttonSold}>
             <Text style={styles.buttonText}>Publicación pausada</Text>
           </View>

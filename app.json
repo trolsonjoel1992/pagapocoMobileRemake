@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "app-pagapoco-mobile",
-    "slug": "app-pagapoco-mobile",
+    "name": "PagaPoco Mobile",
+    "slug": "PagaPoco Mobile",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./src/assets/images/icon.png",
-    "scheme": "apppagapocomobile",
+    "scheme": "PagaPocoMobile",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
     "ios": {

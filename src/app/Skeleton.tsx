@@ -26,7 +26,7 @@ const SkeletonScreen = () => {
     )
     const redirectTimer = setTimeout(() => {
       router.replace('/(tabs)/home')
-    }, 1500)
+    }, 1555500)
     animation.start()
     return () => {
       animation.stop()
