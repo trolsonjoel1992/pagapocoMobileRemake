@@ -7,4 +7,14 @@ module.exports = defineConfig([
   {
     ignores: ['dist/*'],
   },
+  {
+    files: ['**/*.{js,jsx,ts,tsx}'],
+    plugins: {
+      prettier: require('eslint-plugin-prettier'),
+    },
+    extends: ['prettier'],
+    rules: {
+      'prettier/prettier': 'error',
+    },
+  },
 ]);
