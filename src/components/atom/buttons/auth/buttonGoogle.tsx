@@ -1,4 +1,5 @@
 import { lightColor } from '@/src/constants/colors';
+import IconsCPath from '@/src/constants/iconsPath';
 import {
   globalBorderRadius,
   globalButtonElevation,
@@ -7,8 +8,7 @@ import {
   globalFontWeightBold,
   globalIconsSma,
   globalInputWidth,
-} from '@/src/constants/globalStyles';
-import IconsCPath from '@/src/constants/iconsPath';
+} from '@/src/constants/styles/globalStyles';
 import { router } from 'expo-router';
 import React from 'react';
 import { Image, Text, TouchableOpacity } from 'react-native';

@@ -13,7 +13,11 @@ export default function ProfileScreen() {
       <View style={styles.header}>
         <CardProfile username='Un Usuario mas largo' />
       </View>
-      <ButtonProfile title='Información de la cuenta' icon='iconInfo' />
+      <ButtonProfile
+        title='Información de la cuenta'
+        icon='iconInfo'
+        onPress={() => router.push('/(profile)/information')}
+      />
       <ButtonProfile
         title='Configuracion'
         icon='iconSetting'

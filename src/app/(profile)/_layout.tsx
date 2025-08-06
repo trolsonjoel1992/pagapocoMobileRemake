@@ -5,6 +5,7 @@ const profileLayout = () => {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name='setting' />
+      <Stack.Screen name='information' />
     </Stack>
   );
 };

@@ -1,11 +1,11 @@
 import { lightColor } from '@/src/constants/colors';
+import ImagesPath from '@/src/constants/imagesPath';
 import {
   globalBorderRadius,
   globalBorderWidth,
   globalFontSizeReg,
   globalFontWeightSemiBold,
-} from '@/src/constants/globalStyles';
-import ImagesPath from '@/src/constants/imagesPath';
+} from '@/src/constants/styles/globalStyles';
 import React from 'react';
 import { Image, Text, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';

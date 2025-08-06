@@ -1,4 +1,3 @@
-import { lightColor } from '@/src/constants/colors';
 import {
   globalBorderRadius,
   globalButtonElevation,
@@ -6,7 +5,8 @@ import {
   globalButtonWidthLar,
   globalFontSizeReg,
   globalFontWeightBold,
-} from '@/src/constants/globalStyles';
+} from '@/src/constants/styles/globalStyles';
+import { useTheme } from '@/src/context/ThemeContext';
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
 
@@ -15,11 +15,12 @@ type ButtonProps = {
   onPress?: () => void;
 };
 const ButtonMax = ({ action, onPress }: ButtonProps) => {
+  const { colors } = useTheme();
   return (
     <TouchableOpacity
       onPress={onPress}
       style={{
-        backgroundColor: lightColor.primary,
+        backgroundColor: colors.primary,
         borderRadius: globalBorderRadius,
         width: globalButtonWidthLar,
         height: globalButtonHeight,
@@ -30,7 +31,7 @@ const ButtonMax = ({ action, onPress }: ButtonProps) => {
     >
       <Text
         style={{
-          color: lightColor.textSecondary,
+          color: colors.textSecondary,
           fontWeight: globalFontWeightBold,
           fontSize: globalFontSizeReg,
         }}

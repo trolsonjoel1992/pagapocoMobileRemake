@@ -6,12 +6,12 @@ import HeaderGeneric from '@/src/components/atom/header/headerGeneric';
 import InputEmail from '@/src/components/atom/imputs/inputEmail';
 import InputPass from '@/src/components/atom/imputs/inputPass';
 import { lightColor } from '@/src/constants/colors';
+import ImagesPath from '@/src/constants/imagesPath';
 import {
   globalFontSizeSmall,
   globalFontSizeTitle,
   globalFontWeightBold,
-} from '@/src/constants/globalStyles';
-import ImagesPath from '@/src/constants/imagesPath';
+} from '@/src/constants/styles/globalStyles';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Image, StyleSheet, Text } from 'react-native';

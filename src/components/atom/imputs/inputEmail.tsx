@@ -1,4 +1,5 @@
 import { lightColor } from '@/src/constants/colors';
+import IconsPath from '@/src/constants/iconsPath';
 import {
   globalBorderRadius,
   globalFontSizeReg,
@@ -6,8 +7,7 @@ import {
   globalIconsSma,
   globalInputHeight,
   globalInputWidth,
-} from '@/src/constants/globalStyles';
-import IconsPath from '@/src/constants/iconsPath';
+} from '@/src/constants/styles/globalStyles';
 import React, { useState } from 'react';
 import { Image, TextInput, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';

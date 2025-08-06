@@ -1,5 +1,5 @@
-import { globalIconsSma } from '@/src/constants/globalStyles';
 import IconsPath from '@/src/constants/iconsPath';
+import { globalIconsSma } from '@/src/constants/styles/globalStyles';
 import React from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 
