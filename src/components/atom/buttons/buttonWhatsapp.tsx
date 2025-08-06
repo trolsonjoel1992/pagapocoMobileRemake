@@ -1,32 +1,39 @@
 import { lightColor } from '@/src/constants/colors';
 import {
   globalBorderRadius,
-  globalButtonElevation,
   globalButtonHeight,
   globalButtonWidthReg,
   globalFontSizeReg,
   globalFontWeightBold,
+  globalIconsSma,
 } from '@/src/constants/globalStyles';
+import IconsPath from '@/src/constants/iconsPath';
 import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
-type ButtonProps = {
-  action: string;
+import { Image, Text, TouchableOpacity } from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
+
+type ButtonWhatsappProps = {
   onPress?: () => void;
 };
-const ButtonRegDis = ({ action, onPress }: ButtonProps) => {
+const ButtonWhatsapp = ({ onPress }: ButtonWhatsappProps) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={{
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        paddingHorizontal: moderateScale(12.5),
         backgroundColor: lightColor.secondary,
         borderRadius: globalBorderRadius,
-        width: globalButtonWidthReg,
         height: globalButtonHeight,
-        alignItems: 'center',
-        justifyContent: 'center',
-        elevation: globalButtonElevation,
+        width: globalButtonWidthReg,
       }}
     >
+      <Image
+        source={IconsPath.whatsapp}
+        style={{ width: globalIconsSma, height: globalIconsSma }}
+      />
       <Text
         style={{
           color: lightColor.textInput,
@@ -34,10 +41,10 @@ const ButtonRegDis = ({ action, onPress }: ButtonProps) => {
           fontSize: globalFontSizeReg,
         }}
       >
-        {action}
+        Whatsapp
       </Text>
     </TouchableOpacity>
   );
 };
 
-export default ButtonRegDis;
+export default ButtonWhatsapp;

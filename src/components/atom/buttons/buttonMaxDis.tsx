@@ -3,7 +3,7 @@ import {
   globalBorderRadius,
   globalButtonElevation,
   globalButtonHeight,
-  globalButtonWidthReg,
+  globalButtonWidthLar,
   globalFontSizeReg,
   globalFontWeightBold,
 } from '@/src/constants/globalStyles';
@@ -13,14 +13,14 @@ type ButtonProps = {
   action: string;
   onPress?: () => void;
 };
-const ButtonReg = ({ action, onPress }: ButtonProps) => {
+const ButtonMaxDis = ({ action, onPress }: ButtonProps) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={{
-        backgroundColor: lightColor.primary,
+        backgroundColor: lightColor.secondary,
         borderRadius: globalBorderRadius,
-        width: globalButtonWidthReg,
+        width: globalButtonWidthLar,
         height: globalButtonHeight,
         alignItems: 'center',
         justifyContent: 'center',
@@ -29,7 +29,7 @@ const ButtonReg = ({ action, onPress }: ButtonProps) => {
     >
       <Text
         style={{
-          color: lightColor.textSecondary,
+          color: lightColor.textInput,
           fontWeight: globalFontWeightBold,
           fontSize: globalFontSizeReg,
         }}
@@ -40,4 +40,4 @@ const ButtonReg = ({ action, onPress }: ButtonProps) => {
   );
 };
 
-export default ButtonReg;
+export default ButtonMaxDis;

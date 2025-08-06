@@ -1,44 +1,45 @@
 import { lightColor } from '@/src/constants/colors';
+import {
+  globalFontSizeMid,
+  globalFontWeightBold,
+  globalIconsSma,
+} from '@/src/constants/globalStyles';
 import IconsPath from '@/src/constants/iconsPath';
-import { useRouter } from 'expo-router';
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
 
 type HeaderProps = {
   title: string;
+  onBackPress?: () => void;
 };
 
-const HeaderGeneric = ({ title }: HeaderProps) => {
-  const router = useRouter();
-  const handleGoBack = () => {
-    router.back();
-  };
+const HeaderGeneric = ({ title, onBackPress }: HeaderProps) => {
   return (
     <View
       style={{
         flexDirection: 'row',
         alignItems: 'center',
         width: '100%',
-        height: verticalScale(60),
+        height: verticalScale(55),
         backgroundColor: lightColor.primary,
         paddingHorizontal: moderateScale(20),
       }}
     >
-      <TouchableOpacity onPress={handleGoBack}>
+      <TouchableOpacity onPress={onBackPress}>
         <Image
           source={IconsPath.iconBack}
           style={{
-            width: moderateScale(30),
-            height: moderateScale(30),
+            width: globalIconsSma,
+            height: globalIconsSma,
           }}
         />
       </TouchableOpacity>
       <Text
         style={{
           color: lightColor.textPrimary,
-          fontSize: moderateScale(20),
-          fontWeight: 'bold',
+          fontSize: globalFontSizeMid,
+          fontWeight: globalFontWeightBold,
           flex: 1,
           textAlign: 'center',
           marginRight: moderateScale(30),

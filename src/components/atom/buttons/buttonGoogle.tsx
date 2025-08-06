@@ -1,38 +1,47 @@
 import { lightColor } from '@/src/constants/colors';
+import {
+  globalBorderRadius,
+  globalButtonElevation,
+  globalButtonHeight,
+  globalFontSizeReg,
+  globalFontWeightBold,
+  globalIconsSma,
+  globalInputWidth,
+} from '@/src/constants/globalStyles';
 import IconsCPath from '@/src/constants/iconsPath';
+import { router } from 'expo-router';
 import React from 'react';
 import { Image, Text, TouchableOpacity } from 'react-native';
-import { moderateScale, verticalScale } from 'react-native-size-matters';
 
 const ButtonGoogle = () => {
   return (
     <TouchableOpacity
+      onPress={() => router.push('/(auth)/google')}
       style={{
         backgroundColor: lightColor.backgroundBCI,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
-        width: moderateScale(300),
-        height: verticalScale(55),
-        borderRadius: moderateScale(20),
-        elevation: moderateScale(5),
+        paddingHorizontal: 25,
+        width: globalInputWidth,
+        height: globalButtonHeight,
+        borderRadius: globalBorderRadius,
+        elevation: globalButtonElevation,
       }}
     >
       <Image
         source={IconsCPath.buttonGoogle}
         style={{
-          width: moderateScale(30),
-          height: moderateScale(30),
-          marginLeft: moderateScale(20),
+          width: globalIconsSma,
+          height: globalIconsSma,
         }}
       />
       <Text
         style={{
           color: lightColor.textInput,
-          fontSize: moderateScale(24),
-          fontWeight: 'bold',
-          elevation: moderateScale(5),
-          marginRight: moderateScale(30),
+          fontSize: globalFontSizeReg,
+          fontWeight: globalFontWeightBold,
+          elevation: globalButtonElevation,
         }}
       >
         Iniciar con Google

@@ -1,14 +1,28 @@
+import CardProfile from '@/src/components/atom/cards/cardProfile';
+import ButtonProfile from '@/src/components/atom/profile/buttonProfile';
+import { lightColor } from '@/src/constants/colors';
+import { router } from 'expo-router';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { moderateScale } from 'react-native-size-matters';
 
 export default function ProfileScreen() {
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.content}>
-        <Text style={styles.title}>👤 Perfil</Text>
-        <Text style={styles.subtitle}>Gestiona tu perfil de usuario</Text>
+      <View style={styles.header}>
+        <CardProfile username='Un Usuario mas largo' />
       </View>
+      <ButtonProfile title='Información de la cuenta' icon='iconInfo' />
+      <ButtonProfile
+        title='Configuracion'
+        icon='iconSetting'
+        onPress={() => router.push('/(profile)/setting')}
+      />
+      <ButtonProfile title='Privacidad' icon='iconPrivacy' />
+      <ButtonProfile title='Foto de perfil' icon='iconPicture' />
+      <ButtonProfile title='Eliminar cuenta' icon='iconDelete' />
+      <ButtonProfile title='Cerrar sesión' icon='iconClose' />
     </SafeAreaView>
   );
 }
@@ -16,22 +30,13 @@ export default function ProfileScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
-  },
-  content: {
-    flex: 1,
-    justifyContent: 'center',
     alignItems: 'center',
-    padding: 20,
+    justifyContent: 'space-between',
+    backgroundColor: lightColor.background,
   },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#666666',
-    textAlign: 'center',
+  header: {
+    width: '100%',
+    alignItems: 'center',
+    marginBottom: moderateScale(45),
   },
 });

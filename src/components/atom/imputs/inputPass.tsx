@@ -1,8 +1,16 @@
 import { lightColor } from '@/src/constants/colors';
+import {
+  globalBorderRadius,
+  globalFontSizeReg,
+  globalFontWeightSemiBold,
+  globalIconsSma,
+  globalInputHeight,
+  globalInputWidth,
+} from '@/src/constants/globalStyles';
 import IconsPath from '@/src/constants/iconsPath';
 import React, { useState } from 'react';
 import { Image, TextInput, View } from 'react-native';
-import { moderateScale, verticalScale } from 'react-native-size-matters';
+import { moderateScale } from 'react-native-size-matters';
 
 type InputPassProps = {
   description: string;
@@ -31,17 +39,17 @@ const InputPass = ({ description, onValidChange }: InputPassProps) => {
         flexDirection: 'row',
         justifyContent: 'space-between',
         backgroundColor: lightColor.backgroundBCI,
-        width: moderateScale(300),
-        height: verticalScale(50),
-        borderRadius: moderateScale(20),
-        paddingHorizontal: moderateScale(10),
+        width: globalInputWidth,
+        height: globalInputHeight,
+        borderRadius: globalBorderRadius,
+        paddingHorizontal: moderateScale(15),
       }}
     >
       <TextInput
         style={{
           color: lightColor.textPrimary,
-          fontWeight: '500',
-          fontSize: moderateScale(20),
+          fontWeight: globalFontWeightSemiBold,
+          fontSize: globalFontSizeReg,
         }}
         onChangeText={setPassword}
         value={password}
@@ -52,8 +60,8 @@ const InputPass = ({ description, onValidChange }: InputPassProps) => {
       <Image
         source={iconSource}
         style={{
-          width: moderateScale(30),
-          height: moderateScale(30),
+          width: globalIconsSma,
+          height: globalIconsSma,
         }}
       />
     </View>

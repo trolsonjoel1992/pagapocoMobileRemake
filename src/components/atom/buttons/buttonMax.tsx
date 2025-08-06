@@ -3,24 +3,25 @@ import {
   globalBorderRadius,
   globalButtonElevation,
   globalButtonHeight,
-  globalButtonWidthReg,
+  globalButtonWidthLar,
   globalFontSizeReg,
   globalFontWeightBold,
 } from '@/src/constants/globalStyles';
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
+
 type ButtonProps = {
   action: string;
   onPress?: () => void;
 };
-const ButtonReg = ({ action, onPress }: ButtonProps) => {
+const ButtonMax = ({ action, onPress }: ButtonProps) => {
   return (
     <TouchableOpacity
       onPress={onPress}
       style={{
         backgroundColor: lightColor.primary,
         borderRadius: globalBorderRadius,
-        width: globalButtonWidthReg,
+        width: globalButtonWidthLar,
         height: globalButtonHeight,
         alignItems: 'center',
         justifyContent: 'center',
@@ -39,5 +40,4 @@ const ButtonReg = ({ action, onPress }: ButtonProps) => {
     </TouchableOpacity>
   );
 };
-
-export default ButtonReg;
+export default ButtonMax;
