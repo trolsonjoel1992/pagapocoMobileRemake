@@ -1,5 +1,5 @@
 import ButtonRegDis from '@/src/components/atom/buttons/buttonRegDis';
-import ButtonWhatsapp from '@/src/components/atom/buttons/buttonWhatsapp';
+import ButtonWhatsapp from '@/src/components/atom/buttons/home/buttonWhatsapp';
 import HomeHeader from '@/src/components/molecule/home/homeHeader';
 import { lightColor } from '@/src/constants/colors';
 import React, { useState } from 'react';

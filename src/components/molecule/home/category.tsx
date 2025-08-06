@@ -1,4 +1,4 @@
-import CategoryIcon from '@/src/components/atom/home/categoryIcon';
+import CategoryIcon from '@/src/components/atom/buttons/home/categoryButton';
 import React from 'react';
 import { View } from 'react-native';
 

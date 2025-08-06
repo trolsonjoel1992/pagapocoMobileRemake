@@ -1,5 +1,5 @@
+import ButtonProfile from '@/src/components/atom/buttons/profile/buttonProfile';
 import CardProfile from '@/src/components/atom/cards/cardProfile';
-import ButtonProfile from '@/src/components/atom/profile/buttonProfile';
 import { lightColor } from '@/src/constants/colors';
 import { router } from 'expo-router';
 import React from 'react';

@@ -1,5 +1,5 @@
-import FilterButton from '@/src/components/atom/home/filterButton';
-import PositionButton from '@/src/components/atom/home/positionButton';
+import FilterButton from '@/src/components/atom/buttons/home/filterButton';
+import PositionButton from '@/src/components/atom/buttons/home/positionButton';
 import React from 'react';
 import { View } from 'react-native';
 

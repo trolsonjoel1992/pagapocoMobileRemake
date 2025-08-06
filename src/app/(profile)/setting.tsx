@@ -1,6 +1,6 @@
 import ButtonMax from '@/src/components/atom/buttons/buttonMax';
+import ButtonSetting from '@/src/components/atom/buttons/profile/buttonSetting';
 import HeaderGeneric from '@/src/components/atom/header/headerGeneric';
-import ButtonSetting from '@/src/components/atom/profile/buttonSetting';
 import { lightColor } from '@/src/constants/colors';
 import { router } from 'expo-router';
 import React from 'react';

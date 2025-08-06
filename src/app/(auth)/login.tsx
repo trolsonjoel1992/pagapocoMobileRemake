@@ -1,5 +1,5 @@
-import ButtonFinger from '@/src/components/atom/buttons/buttonFinger';
-import ButtonGoogle from '@/src/components/atom/buttons/buttonGoogle';
+import ButtonFinger from '@/src/components/atom/buttons/auth/buttonFinger';
+import ButtonGoogle from '@/src/components/atom/buttons/auth/buttonGoogle';
 import ButtonReg from '@/src/components/atom/buttons/buttonReg';
 import ButtonRegDis from '@/src/components/atom/buttons/buttonRegDis';
 import HeaderGeneric from '@/src/components/atom/header/headerGeneric';
