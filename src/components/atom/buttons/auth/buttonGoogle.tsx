@@ -1,4 +1,3 @@
-import { lightColor } from '@/src/constants/colors';
 import IconsCPath from '@/src/constants/iconsPath';
 import {
   globalBorderRadius,
@@ -9,16 +8,18 @@ import {
   globalIconsSma,
   globalInputWidth,
 } from '@/src/constants/styles/globalStyles';
+import { useTheme } from '@/src/context/ThemeContext';
 import { router } from 'expo-router';
 import React from 'react';
 import { Image, Text, TouchableOpacity } from 'react-native';
 
 const ButtonGoogle = () => {
+  const { colors } = useTheme();
   return (
     <TouchableOpacity
       onPress={() => router.push('/(auth)/google')}
       style={{
-        backgroundColor: lightColor.backgroundBCI,
+        backgroundColor: colors.backgroundBCI,
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -38,7 +39,7 @@ const ButtonGoogle = () => {
       />
       <Text
         style={{
-          color: lightColor.textInput,
+          color: colors.textInput,
           fontSize: globalFontSizeReg,
           fontWeight: globalFontWeightBold,
           elevation: globalButtonElevation,

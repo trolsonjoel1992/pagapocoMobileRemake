@@ -13,8 +13,8 @@ export const darkColor = {
   secondary: '#613778',
   background: '#363C44',
   backgroundBCI: '#4A4F58',
-  textPrimary: '#FFFFFF',
+  textPrimary: '#DBDCDF',
   textSecondary: '#000000',
   textBlue: '#5BBDFB',
-  textInput: '#9A9292',
+  textInput: '#727D85',
 };

@@ -1,4 +1,3 @@
-import { lightColor } from '@/src/constants/colors';
 import IconsPath from '@/src/constants/iconsPath';
 import {
   globalBorderRadius,
@@ -8,6 +7,7 @@ import {
   globalInputHeight,
   globalInputWidth,
 } from '@/src/constants/styles/globalStyles';
+import { useTheme } from '@/src/context/ThemeContext';
 import React, { useState } from 'react';
 import { Image, TextInput, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
@@ -19,7 +19,8 @@ type InputPassProps = {
 
 const InputPass = ({ description, onValidChange }: InputPassProps) => {
   const [password, setPassword] = useState('');
-  let iconSource = IconsPath.input;
+  const { colors, theme } = useTheme();
+  let iconSource = theme === 'dark' ? IconsPath.inputDark : IconsPath.input;
   const isValid = password.length >= 6;
 
   if (password.length > 0 && password.length < 6) {
@@ -38,7 +39,7 @@ const InputPass = ({ description, onValidChange }: InputPassProps) => {
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: lightColor.backgroundBCI,
+        backgroundColor: colors.backgroundBCI,
         width: globalInputWidth,
         height: globalInputHeight,
         borderRadius: globalBorderRadius,
@@ -47,14 +48,14 @@ const InputPass = ({ description, onValidChange }: InputPassProps) => {
     >
       <TextInput
         style={{
-          color: lightColor.textPrimary,
+          color: colors.textPrimary,
           fontWeight: globalFontWeightSemiBold,
           fontSize: globalFontSizeReg,
         }}
         onChangeText={setPassword}
         value={password}
         placeholder={description}
-        placeholderTextColor={lightColor.textInput}
+        placeholderTextColor={colors.textInput}
         secureTextEntry
       />
       <Image

@@ -1,10 +1,10 @@
-import { lightColor } from '@/src/constants/colors';
 import IconsPath from '@/src/constants/iconsPath';
 import {
   globalBorderRadius,
   globalBorderWidth,
   globalFontSizeMid,
 } from '@/src/constants/styles/globalStyles';
+import { useTheme } from '@/src/context/ThemeContext';
 import React, { useState } from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
@@ -21,15 +21,16 @@ const ButtonSetting = ({ title, enableToggle, onPress }: Props) => {
     if (onPress) onPress();
   };
 
+  const { colors } = useTheme();
   return (
     <View
       style={{
-        backgroundColor: lightColor.backgroundBCI,
+        backgroundColor: colors.backgroundBCI,
         borderRadius: globalBorderRadius,
         height: moderateScale(55),
         width: '90%',
         padding: moderateScale(10),
-        borderColor: lightColor.textPrimary,
+        borderColor: colors.textPrimary,
         borderWidth: globalBorderWidth,
         alignItems: 'center',
         flexDirection: 'row',
@@ -38,7 +39,7 @@ const ButtonSetting = ({ title, enableToggle, onPress }: Props) => {
     >
       <Text
         style={{
-          color: lightColor.textPrimary,
+          color: colors.textPrimary,
           fontSize: globalFontSizeMid,
         }}
       >

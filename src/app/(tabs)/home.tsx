@@ -1,27 +1,18 @@
-import ButtonRegDis from '@/src/components/atom/buttons/buttonRegDis';
-import ButtonWhatsapp from '@/src/components/atom/buttons/home/buttonWhatsapp';
 import HomeHeader from '@/src/components/molecule/home/homeHeader';
-import { lightColor } from '@/src/constants/colors';
+import { useTheme } from '@/src/context/ThemeContext';
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 const Home = () => {
   const [hiddenIndex, setHiddenIndex] = useState<number | null>(null);
+  const { colors, theme } = useTheme();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: colors.background }]}
+    >
       <HomeHeader backAction={false} setHiddenIndex={setHiddenIndex} />
-      <View
-        style={{
-          flexDirection: 'row',
-          width: '95%',
-          justifyContent: 'space-between',
-        }}
-      >
-        <ButtonWhatsapp />
-        <ButtonRegDis action='Preguntar' />
-      </View>
     </SafeAreaView>
   );
 };
@@ -32,6 +23,5 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: lightColor.background,
   },
 });

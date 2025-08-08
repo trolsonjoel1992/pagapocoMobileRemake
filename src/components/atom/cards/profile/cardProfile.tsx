@@ -1,4 +1,3 @@
-import { lightColor } from '@/src/constants/colors';
 import ImagesPath from '@/src/constants/imagesPath';
 import {
   globalBorderRadius,
@@ -6,25 +5,32 @@ import {
   globalFontSizeReg,
   globalFontWeightSemiBold,
 } from '@/src/constants/styles/globalStyles';
+import { useTheme } from '@/src/context/ThemeContext';
 import React from 'react';
 import { Image, Text, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
+
 type Props = {
-  username: string;
-  imageSource?: any; // Tipar mejor cuando sepa el tipo exacto
+  user: string;
+  image?: any;
 };
 
-const CardProfile = ({ username, imageSource }: Props) => {
+const CardProfile = ({ user, image }: Props) => {
   const imageDimensions = moderateScale(90);
+  const { colors, theme } = useTheme();
+  const imageMode =
+    theme === 'dark' ? ImagesPath['darkUser'] : ImagesPath['user'];
+  const imageSource = image ? image : imageMode;
+
   return (
     <View
       style={{
-        backgroundColor: lightColor.backgroundBCI,
+        backgroundColor: colors.backgroundBCI,
         borderRadius: globalBorderRadius,
         height: moderateScale(120),
         width: '85%',
         padding: moderateScale(20),
-        borderColor: lightColor.textPrimary,
+        borderColor: colors.textPrimary,
         borderWidth: globalBorderWidth,
         alignItems: 'center',
         flexDirection: 'row',
@@ -52,13 +58,13 @@ const CardProfile = ({ username, imageSource }: Props) => {
         style={{
           fontSize: globalFontSizeReg,
           fontWeight: globalFontWeightSemiBold,
-          color: lightColor.textPrimary,
+          color: colors.textPrimary,
           maxWidth: '60%',
         }}
         numberOfLines={1}
         ellipsizeMode='tail'
       >
-        {username}
+        {user}
       </Text>
     </View>
   );

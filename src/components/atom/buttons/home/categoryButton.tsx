@@ -1,10 +1,10 @@
-import { lightColor } from '@/src/constants/colors';
 import IconsPath from '@/src/constants/iconsPath';
 import {
   globalFontSizeTiny,
   globalFontWeightSemiBold,
   globalIconsSma,
 } from '@/src/constants/styles/globalStyles';
+import { useTheme } from '@/src/context/ThemeContext';
 import { router } from 'expo-router';
 import React from 'react';
 import { Image, Text, TouchableOpacity } from 'react-native';
@@ -24,6 +24,7 @@ const CategoryIcon = ({
   onPress,
   index,
 }: CategoryIconProps & { index: number }) => {
+  const { colors } = useTheme();
   const handlePress = () => {
     if (enableRoute) {
       router.push({
@@ -50,7 +51,7 @@ const CategoryIcon = ({
         style={{
           fontSize: globalFontSizeTiny,
           fontWeight: globalFontWeightSemiBold,
-          color: lightColor.textPrimary,
+          color: colors.textPrimary,
           marginTop: moderateScale(5),
         }}
       >

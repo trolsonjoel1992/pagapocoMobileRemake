@@ -1,4 +1,3 @@
-import { lightColor } from '@/src/constants/colors';
 import IconsPath from '@/src/constants/iconsPath';
 import {
   globalBorderRadius,
@@ -10,19 +9,23 @@ import {
   globalFontWeightSemiBold,
   globalIconsMid,
 } from '@/src/constants/styles/globalStyles';
+import { useTheme } from '@/src/context/ThemeContext';
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
+
 type Props = {
   title: string;
   icon: keyof typeof IconsPath;
   onPress?: () => void;
 };
 const ButtonProfile = ({ title, icon, onPress }: Props) => {
+  const { colors } = useTheme();
+
   return (
     <TouchableOpacity
       style={{
-        backgroundColor: lightColor.backgroundBCI,
+        backgroundColor: colors.backgroundBCI,
         borderRadius: globalBorderRadius,
         height: globalButtonHeight,
         width: '80%',
@@ -37,13 +40,13 @@ const ButtonProfile = ({ title, icon, onPress }: Props) => {
     >
       <View
         style={{
-          backgroundColor: lightColor.primary,
+          backgroundColor: colors.primary,
           width: globalButtonWidthSma,
           height: globalButtonHeightSma,
           borderRadius: globalBorderRadius,
           alignItems: 'center',
           justifyContent: 'center',
-          marginRight: 0, // Elimina marginRight
+          marginRight: 0,
         }}
       >
         <Image
@@ -59,7 +62,7 @@ const ButtonProfile = ({ title, icon, onPress }: Props) => {
           position: 'absolute',
           left: globalButtonWidthSma,
           right: 0,
-          color: lightColor.textPrimary,
+          color: colors.textPrimary,
           fontSize: globalFontSizeMid,
           textAlign: 'center',
           fontWeight: globalFontWeightSemiBold,

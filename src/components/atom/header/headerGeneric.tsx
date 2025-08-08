@@ -1,10 +1,10 @@
-import { lightColor } from '@/src/constants/colors';
 import IconsPath from '@/src/constants/iconsPath';
 import {
   globalFontSizeMid,
   globalFontWeightBold,
   globalIconsSma,
 } from '@/src/constants/styles/globalStyles';
+import { useTheme } from '@/src/context/ThemeContext';
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
@@ -15,6 +15,10 @@ type HeaderProps = {
 };
 
 const HeaderGeneric = ({ title, onBackPress }: HeaderProps) => {
+  const { colors, theme } = useTheme();
+  const iconBack =
+    theme === 'dark' ? IconsPath.darkiconBack : IconsPath.iconBack;
+
   return (
     <View
       style={{
@@ -22,13 +26,13 @@ const HeaderGeneric = ({ title, onBackPress }: HeaderProps) => {
         alignItems: 'center',
         width: '100%',
         height: verticalScale(55),
-        backgroundColor: lightColor.primary,
+        backgroundColor: colors.primary,
         paddingHorizontal: moderateScale(20),
       }}
     >
       <TouchableOpacity onPress={onBackPress}>
         <Image
-          source={IconsPath.iconBack}
+          source={iconBack}
           style={{
             width: globalIconsSma,
             height: globalIconsSma,
@@ -37,7 +41,7 @@ const HeaderGeneric = ({ title, onBackPress }: HeaderProps) => {
       </TouchableOpacity>
       <Text
         style={{
-          color: lightColor.textPrimary,
+          color: colors.textPrimary,
           fontSize: globalFontSizeMid,
           fontWeight: globalFontWeightBold,
           flex: 1,

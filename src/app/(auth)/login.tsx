@@ -3,8 +3,8 @@ import ButtonGoogle from '@/src/components/atom/buttons/auth/buttonGoogle';
 import ButtonReg from '@/src/components/atom/buttons/buttonReg';
 import ButtonRegDis from '@/src/components/atom/buttons/buttonRegDis';
 import HeaderGeneric from '@/src/components/atom/header/headerGeneric';
-import InputEmail from '@/src/components/atom/imputs/inputEmail';
-import InputPass from '@/src/components/atom/imputs/inputPass';
+import InputEmail from '@/src/components/atom/imputs/auth/inputEmail';
+import InputPass from '@/src/components/atom/imputs/auth/inputPass';
 import { lightColor } from '@/src/constants/colors';
 import ImagesPath from '@/src/constants/imagesPath';
 import {

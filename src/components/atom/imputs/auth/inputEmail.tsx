@@ -1,4 +1,3 @@
-import { lightColor } from '@/src/constants/colors';
 import IconsPath from '@/src/constants/iconsPath';
 import {
   globalBorderRadius,
@@ -8,6 +7,7 @@ import {
   globalInputHeight,
   globalInputWidth,
 } from '@/src/constants/styles/globalStyles';
+import { useTheme } from '@/src/context/ThemeContext';
 import React, { useState } from 'react';
 import { Image, TextInput, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
@@ -15,12 +15,18 @@ import { moderateScale } from 'react-native-size-matters';
 type InputEmailProps = {
   description: string;
   onValidChange?: (isValid: boolean) => void;
+  onChangeText?: (text: string) => void; // Agrega esta línea
 };
 
-const InputEmail = ({ description, onValidChange }: InputEmailProps) => {
+const InputEmail = ({
+  description,
+  onValidChange,
+  onChangeText,
+}: InputEmailProps) => {
+  const { colors, theme } = useTheme();
   const [email, setEmail] = useState('');
   const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  let iconSource = IconsPath.input;
+  let iconSource = theme === 'dark' ? IconsPath.inputDark : IconsPath.input;
   const isValid = email.length > 0 && emailRegex.test(email);
 
   if (email.length > 0 && !isValid) {
@@ -33,13 +39,18 @@ const InputEmail = ({ description, onValidChange }: InputEmailProps) => {
     if (onValidChange) onValidChange(isValid);
   }, [isValid, onValidChange]);
 
+  const handleChange = (text: string) => {
+    setEmail(text);
+    if (onChangeText) onChangeText(text);
+  };
+
   return (
     <View
       style={{
         alignItems: 'center',
         flexDirection: 'row',
         justifyContent: 'space-between',
-        backgroundColor: lightColor.backgroundBCI,
+        backgroundColor: colors.backgroundBCI,
         width: globalInputWidth,
         height: globalInputHeight,
         borderRadius: globalBorderRadius,
@@ -48,14 +59,14 @@ const InputEmail = ({ description, onValidChange }: InputEmailProps) => {
     >
       <TextInput
         style={{
-          color: lightColor.textPrimary,
+          color: colors.textPrimary,
           fontWeight: globalFontWeightSemiBold,
           fontSize: globalFontSizeReg,
         }}
-        onChangeText={setEmail}
+        onChangeText={handleChange}
         value={email}
         placeholder={description}
-        placeholderTextColor={lightColor.textInput}
+        placeholderTextColor={colors.textInput}
         keyboardType='email-address'
         autoCapitalize='none'
       />

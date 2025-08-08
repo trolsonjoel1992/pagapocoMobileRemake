@@ -1,4 +1,5 @@
 import ImagesPath from '@/src/constants/imagesPath';
+import { globalIconsLar } from '@/src/constants/styles/globalStyles';
 import React from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
@@ -9,8 +10,8 @@ const ButtonFinger = () => {
       <Image
         source={ImagesPath.finger}
         style={{
-          width: moderateScale(60),
-          height: moderateScale(60),
+          width: globalIconsLar,
+          height: globalIconsLar,
           marginTop: moderateScale(20),
         }}
       />

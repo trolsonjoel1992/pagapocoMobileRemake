@@ -1,10 +1,10 @@
-import { lightColor } from '@/src/constants/colors';
 import IconsPath from '@/src/constants/iconsPath';
 import {
   globalFontSizeMid,
   globalFontWeightMedium,
   globalIconsSma,
 } from '@/src/constants/styles/globalStyles';
+import { useTheme } from '@/src/context/ThemeContext';
 import React from 'react';
 import { Image, Text, TouchableOpacity } from 'react-native';
 
@@ -12,6 +12,9 @@ type FilterButtonProps = {
   onPress?: () => void;
 };
 const FilterButton = ({ onPress }: FilterButtonProps) => {
+  const { colors, theme } = useTheme();
+  const filterIcon = theme === 'dark' ? IconsPath.darkFilter : IconsPath.filter;
+
   return (
     <TouchableOpacity
       style={{
@@ -24,14 +27,14 @@ const FilterButton = ({ onPress }: FilterButtonProps) => {
       onPress={onPress}
     >
       <Image
-        source={IconsPath.filter}
+        source={filterIcon}
         style={{ width: globalIconsSma, height: globalIconsSma }}
       />
       <Text
         style={{
           fontWeight: globalFontWeightMedium,
           fontSize: globalFontSizeMid,
-          color: lightColor.textPrimary,
+          color: colors.textPrimary,
         }}
       >
         Filtros

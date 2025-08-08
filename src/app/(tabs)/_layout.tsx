@@ -19,7 +19,7 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="home"
+        name='home'
         options={{
           title: 'Inicio',
           tabBarIcon: ({ focused }) => (
@@ -30,15 +30,15 @@ export default function TabLayout() {
                 height: 24,
                 tintColor: focused ? '#007AFF' : '#8E8E93',
               }}
-              resizeMode="contain"
+              resizeMode='contain'
             />
           ),
         }}
       />
       <Tabs.Screen
-        name="search"
+        name='search'
         options={{
-          title: 'Buscar',
+          title: 'Mis publicaciones',
           tabBarIcon: ({ focused }) => (
             <Image
               source={require('../../assets/images/splash-icon.png')}
@@ -47,15 +47,15 @@ export default function TabLayout() {
                 height: 24,
                 tintColor: focused ? '#007AFF' : '#8E8E93',
               }}
-              resizeMode="contain"
+              resizeMode='contain'
             />
           ),
         }}
       />
       <Tabs.Screen
-        name="favorites"
+        name='favorites'
         options={{
-          title: 'Favoritos',
+          title: 'Vender',
           tabBarIcon: ({ focused }) => (
             <Image
               source={require('../../assets/images/adaptive-icon.png')}
@@ -64,15 +64,15 @@ export default function TabLayout() {
                 height: 24,
                 tintColor: focused ? '#007AFF' : '#8E8E93',
               }}
-              resizeMode="contain"
+              resizeMode='contain'
             />
           ),
         }}
       />
       <Tabs.Screen
-        name="notifications"
+        name='notifications'
         options={{
-          title: 'Notificaciones',
+          title: 'Favoritos',
           tabBarIcon: ({ focused }) => (
             <Image
               source={require('../../assets/images/favicon.png')}
@@ -81,13 +81,13 @@ export default function TabLayout() {
                 height: 24,
                 tintColor: focused ? '#007AFF' : '#8E8E93',
               }}
-              resizeMode="contain"
+              resizeMode='contain'
             />
           ),
         }}
       />
       <Tabs.Screen
-        name="profile"
+        name='profile'
         options={{
           title: 'Perfil',
           tabBarIcon: ({ focused }) => (
@@ -98,7 +98,7 @@ export default function TabLayout() {
                 height: 24,
                 tintColor: focused ? '#007AFF' : '#8E8E93',
               }}
-              resizeMode="contain"
+              resizeMode='contain'
             />
           ),
         }}
