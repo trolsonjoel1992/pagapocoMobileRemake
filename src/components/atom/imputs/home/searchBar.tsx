@@ -1,4 +1,3 @@
-import { lightColor } from '@/src/constants/colors';
 import IconsPath from '@/src/constants/iconsPath';
 import {
   globalBorderRadius,
@@ -8,6 +7,7 @@ import {
   globalInputHeight,
   globalInputWidth,
 } from '@/src/constants/styles/globalStyles';
+import { useTheme } from '@/src/context/ThemeContext';
 import { router } from 'expo-router';
 import React from 'react';
 import { Image, TextInput, TouchableOpacity, View } from 'react-native';
@@ -18,6 +18,8 @@ type SearchBarProps = {
 };
 
 const SearchBar = ({ showBack = true }: SearchBarProps) => {
+  const { colors, theme } = useTheme();
+
   return (
     <View
       style={{
@@ -28,13 +30,15 @@ const SearchBar = ({ showBack = true }: SearchBarProps) => {
         width: globalInputWidth,
         height: globalInputHeight,
         borderRadius: globalBorderRadius,
-        backgroundColor: lightColor.backgroundBCI,
+        backgroundColor: colors.backgroundBCI,
       }}
     >
       {showBack ? (
         <TouchableOpacity onPress={() => router.back()}>
           <Image
-            source={IconsPath.iconBack}
+            source={
+              theme === 'dark' ? IconsPath.darkIconBack : IconsPath.iconBack
+            }
             style={{
               width: globalIconsSma,
               height: globalIconsSma,
@@ -53,17 +57,19 @@ const SearchBar = ({ showBack = true }: SearchBarProps) => {
         style={{
           flex: 1,
           marginHorizontal: moderateScale(5),
-          color: lightColor.textPrimary,
+          color: colors.textPrimary,
           fontWeight: globalFontWeightSemiBold,
           fontSize: globalFontSizeReg,
         }}
         placeholder='Buscar'
-        placeholderTextColor={lightColor.textInput}
+        placeholderTextColor={colors.textInput}
       />
 
       <TouchableOpacity style={{ marginLeft: 'auto' }}>
         <Image
-          source={IconsPath.iconGlass}
+          source={
+            theme === 'dark' ? IconsPath.darkIconGlass : IconsPath.iconGlass
+          }
           style={{
             width: globalIconsSma,
             height: globalIconsSma,

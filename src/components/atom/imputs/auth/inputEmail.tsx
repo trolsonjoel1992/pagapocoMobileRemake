@@ -15,7 +15,7 @@ import { moderateScale } from 'react-native-size-matters';
 type InputEmailProps = {
   description: string;
   onValidChange?: (isValid: boolean) => void;
-  onChangeText?: (text: string) => void; // Agrega esta línea
+  onChangeText?: (text: string) => void;
 };
 
 const InputEmail = ({

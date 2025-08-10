@@ -17,7 +17,7 @@ type HeaderProps = {
 const HeaderGeneric = ({ title, onBackPress }: HeaderProps) => {
   const { colors, theme } = useTheme();
   const iconBack =
-    theme === 'dark' ? IconsPath.darkiconBack : IconsPath.iconBack;
+    theme === 'dark' ? IconsPath.darkIconBack : IconsPath.iconBack;
 
   return (
     <View

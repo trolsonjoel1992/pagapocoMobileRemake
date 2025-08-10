@@ -1,13 +1,12 @@
-import { router } from 'expo-router'
-import { useEffect } from 'react'
+import { router } from 'expo-router';
+import { useEffect } from 'react';
 
 const Index = () => {
   useEffect(() => {
-    // Redirige automáticamente a los tabs
-    router.replace('/(tabs)/home')
-  }, [])
+    router.replace('/splash');
+  }, []);
 
-  return null // No necesitamos mostrar nada ya que redirigimos
-}
+  return null;
+};
 
-export default Index
+export default Index;

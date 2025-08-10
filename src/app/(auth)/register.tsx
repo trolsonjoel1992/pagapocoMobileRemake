@@ -5,13 +5,13 @@ import ButtonRegDis from '@/src/components/atom/buttons/buttonRegDis';
 import HeaderGeneric from '@/src/components/atom/header/headerGeneric';
 import InputEmail from '@/src/components/atom/imputs/auth/inputEmail';
 import InputPass from '@/src/components/atom/imputs/auth/inputPass';
-import { lightColor } from '@/src/constants/colors';
 import ImagesPath from '@/src/constants/imagesPath';
 import {
   globalFontSizeSmall,
   globalFontSizeTitle,
   globalFontWeightBold,
 } from '@/src/constants/styles/globalStyles';
+import { useTheme } from '@/src/context/ThemeContext';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Image, StyleSheet, Text } from 'react-native';
@@ -20,14 +20,19 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 const Register = () => {
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPassValid, setIsPassValid] = useState(false);
+  const { colors } = useTheme();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: colors.background }]}
+    >
       <HeaderGeneric
         title='Crear cuenta'
-        onBackPress={() => router.push('/(auth)/login')}
+        onBackPress={() => router.push('/(tabs)/home')}
       />
-      <Text style={styles.title}>Bienvenido</Text>
+      <Text style={[styles.title, { color: colors.textPrimary }]}>
+        Unite a la comunidad
+      </Text>
       <Image
         source={ImagesPath.logo}
         style={{
@@ -48,7 +53,9 @@ const Register = () => {
       ) : (
         <ButtonRegDis action='Registrar' />
       )}
-      <Text style={styles.quest}>¿Ya tenés cuenta?</Text>
+      <Text style={[styles.quest, { color: colors.textPrimary }]}>
+        ¿Ya tenés cuenta?
+      </Text>
       <ButtonReg
         action='Ingresa'
         onPress={() => router.push('/(auth)/login')}
@@ -65,16 +72,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: lightColor.background,
   },
   title: {
-    color: lightColor.textPrimary,
     fontSize: globalFontSizeTitle,
     fontWeight: globalFontWeightBold,
     marginBottom: 10,
   },
   quest: {
-    color: lightColor.textPrimary,
     fontSize: globalFontSizeSmall,
     fontWeight: globalFontWeightBold,
     marginTop: 10,

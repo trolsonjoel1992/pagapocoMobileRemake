@@ -33,7 +33,7 @@ const ButtonCancel = ({ onPress }: ButtonCancelProps) => {
     >
       <Text
         style={{
-          color: colors.textInput,
+          color: colors.textPrimary,
           fontSize: globalFontSizeReg,
           fontWeight: globalFontWeightBold,
         }}

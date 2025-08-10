@@ -1,10 +1,12 @@
 import ImagesPath from '@/src/constants/imagesPath';
+import { router } from 'expo-router';
 import React from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 
 const Google = () => {
   return (
     <TouchableOpacity
+      onPress={() => router.push('/(tabs)/home')}
       style={{ flex: 1, alignItems: 'center', justifyContent: 'center' }}
     >
       <Image

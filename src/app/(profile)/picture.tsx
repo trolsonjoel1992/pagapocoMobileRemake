@@ -26,7 +26,10 @@ const Picture = () => {
         icon={theme === 'dark' ? 'trashD' : 'trash'}
         title='Eliminar foto'
       />
-      <ButtonMax action='Regresar a perfil' onPress={() => router.back()} />
+      <ButtonMax
+        action='Regresar a perfil'
+        onPress={() => router.push('/(tabs)/home')}
+      />
     </SafeAreaView>
   );
 };

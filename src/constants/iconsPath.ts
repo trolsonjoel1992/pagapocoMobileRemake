@@ -33,12 +33,18 @@ const IconsPath = {
   car: require('@/src/assets/images/categoryImages/car.png'),
   motorcycle: require('@/src/assets/images/categoryImages/motorcycle.png'),
   piece: require('@/src/assets/images/categoryImages/piece.png'),
+  // dark home/header
+  darkTruck: require('@/src/assets/images/categoryImages/darkTruck.png'),
+  darkPickup: require('@/src/assets/images/categoryImages/darkPickup.png'),
+  darkCar: require('@/src/assets/images/categoryImages/darkCar.png'),
+  darkMotorcycle: require('@/src/assets/images/categoryImages/darkMotorcycle.png'),
+  darkPiece: require('@/src/assets/images/categoryImages/darkPiece.png'),
   //home/input and header
   iconBack: require('@/src/assets/images/searchBarImages/arrowBack.png'),
   iconGlass: require('@/src/assets/images/searchBarImages/searchGlass.png'),
   //dark mode home/header
-  darkiconBack: require('@/src/assets/images/searchBarImages/darkArrowBack.png'),
-  darkiconGlass: require('@/src/assets/images/searchBarImages/darkSearchGlass.png'),
+  darkIconBack: require('@/src/assets/images/searchBarImages/darkArrowBack.png'),
+  darkIconGlass: require('@/src/assets/images/searchBarImages/darkSearchGlass.png'),
   //input
   input: require('@/src/assets/images/inputImages/input.png'),
   confirm: require('@/src/assets/images/inputImages/confirm.png'),

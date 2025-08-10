@@ -5,13 +5,13 @@ import ButtonRegDis from '@/src/components/atom/buttons/buttonRegDis';
 import HeaderGeneric from '@/src/components/atom/header/headerGeneric';
 import InputEmail from '@/src/components/atom/imputs/auth/inputEmail';
 import InputPass from '@/src/components/atom/imputs/auth/inputPass';
-import { lightColor } from '@/src/constants/colors';
 import ImagesPath from '@/src/constants/imagesPath';
 import {
   globalFontSizeSmall,
   globalFontSizeTitle,
   globalFontWeightBold,
 } from '@/src/constants/styles/globalStyles';
+import { useTheme } from '@/src/context/ThemeContext';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Image, StyleSheet, Text } from 'react-native';
@@ -21,14 +21,19 @@ import { moderateScale } from 'react-native-size-matters';
 const Login = () => {
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPassValid, setIsPassValid] = useState(false);
+  const { colors } = useTheme();
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: colors.background }]}
+    >
       <HeaderGeneric
         title='Inicio de sesión'
         onBackPress={() => router.push('/(tabs)/home')}
       />
-      <Text style={styles.title}>Bienvenido</Text>
+      <Text style={[styles.title, { color: colors.textPrimary }]}>
+        Bienvenido
+      </Text>
       <Image
         source={ImagesPath.logo}
         style={{
@@ -43,7 +48,9 @@ const Login = () => {
       ) : (
         <ButtonRegDis action='Ingresar' />
       )}
-      <Text style={styles.quest}>¿No tienes una cuenta?</Text>
+      <Text style={[styles.quest, { color: colors.textPrimary }]}>
+        ¿No tienes una cuenta?
+      </Text>
       <ButtonReg
         action='Crear cuenta'
         onPress={() => router.push('/(auth)/register')}
@@ -60,16 +67,13 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: lightColor.background,
   },
   title: {
-    color: lightColor.textPrimary,
     fontSize: globalFontSizeTitle,
     fontWeight: globalFontWeightBold,
     marginBottom: moderateScale(10),
   },
   quest: {
-    color: lightColor.textPrimary,
     fontSize: globalFontSizeSmall,
     fontWeight: globalFontWeightBold,
     marginTop: moderateScale(5),

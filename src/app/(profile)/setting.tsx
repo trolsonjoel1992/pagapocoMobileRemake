@@ -16,14 +16,31 @@ const Setting = () => {
       style={[styles.container, { backgroundColor: colors.background }]}
     >
       <HeaderGeneric title='Configuración' onBackPress={() => router.back()} />
-      <ButtonSetting title='Compartir ubicación' enableToggle={false} />
-      <ButtonSetting title='Mostrar número de teléfono' enableToggle={true} />
-      <ButtonSetting title='Ocultar mis publicaciones' enableToggle={false} />
-      <ButtonSetting title='Notificaciones' enableToggle={true} />
-      <ButtonSetting title='Publicidad' enableToggle={true} />
+      <ButtonSetting
+        title='Compartir ubicación'
+        enableToggle={false}
+        settingKey='share_location'
+      />
+      <ButtonSetting
+        title='Mostrar número de teléfono'
+        enableToggle={true}
+        settingKey='show_phone'
+      />
+      <ButtonSetting
+        title='Ocultar mis publicaciones'
+        enableToggle={false}
+        settingKey='hide_posts'
+      />
+      <ButtonSetting
+        title='Notificaciones'
+        enableToggle={true}
+        settingKey='notifications'
+      />
+      <ButtonSetting title='Publicidad' enableToggle={true} settingKey='ads' />
       <ButtonSetting
         title='Modo oscuro'
         enableToggle={theme === 'dark'}
+        settingKey='dark_mode'
         onPress={toggleTheme}
       />
       <ButtonMax

@@ -39,7 +39,7 @@ const ButtonGoogle = () => {
       />
       <Text
         style={{
-          color: colors.textInput,
+          color: colors.textPrimary,
           fontSize: globalFontSizeReg,
           fontWeight: globalFontWeightBold,
           elevation: globalButtonElevation,

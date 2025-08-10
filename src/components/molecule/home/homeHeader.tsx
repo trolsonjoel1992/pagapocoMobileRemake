@@ -35,7 +35,7 @@ const HomeHeader = ({
         }}
       >
         <SearchBar showBack={backAction} />
-        <NotificationButton icon='bellUnActive' />
+        <NotificationButton />
       </View>
       <LoginButton />
       <HomeButton />
