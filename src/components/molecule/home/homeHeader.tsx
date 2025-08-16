@@ -3,6 +3,7 @@ import NotificationButton from '@/src/components/atom/buttons/home/notifictation
 import SearchBar from '@/src/components/atom/imputs/home/searchBar';
 import Category from '@/src/components/molecule/home/category';
 import HomeButton from '@/src/components/molecule/home/homeButton';
+import { router } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
 
@@ -35,7 +36,7 @@ const HomeHeader = ({
         }}
       >
         <SearchBar showBack={backAction} />
-        <NotificationButton />
+        <NotificationButton onPress={() => router.push('/(home)/details')} />
       </View>
       <LoginButton />
       <HomeButton />

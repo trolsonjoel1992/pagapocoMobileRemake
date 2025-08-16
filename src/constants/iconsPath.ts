@@ -79,6 +79,18 @@ const IconsPath = {
   cameraD: require('@/src/assets/images/profileImages/cameraD.png'),
   galleryD: require('@/src/assets/images/profileImages/galleryD.png'),
   trashD: require('@/src/assets/images/profileImages/trashD.png'),
+  //tabs icons
+  tabHome: require('@/src/assets/images/tabsImages/home.png'),
+  tabMyPubls: require('@/src/assets/images/tabsImages/myPubls.png'),
+  tabSell: require('@/src/assets/images/tabsImages/sell.png'),
+  tabFavorites: require('@/src/assets/images/tabsImages/favorites.png'),
+  tabProfile: require('@/src/assets/images/tabsImages/profile.png'),
+  //dark mode tabs icons
+  tabHomeD: require('@/src/assets/images/tabsImages/homeD.png'),
+  myPublsD: require('@/src/assets/images/tabsImages/myPublsD.png'),
+  sellD: require('@/src/assets/images/tabsImages/sellD.png'),
+  favoritesD: require('@/src/assets/images/tabsImages/favoritesD.png'),
+  profileD: require('@/src/assets/images/tabsImages/profileD.png'),
 };
 
 export default IconsPath;

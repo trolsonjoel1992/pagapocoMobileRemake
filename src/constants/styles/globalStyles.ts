@@ -3,6 +3,8 @@ import { moderateScale, verticalScale } from 'react-native-size-matters';
 export const globalBorderRadius = moderateScale(20);
 export const globalButtonElevation = moderateScale(5);
 export const globalBorderWidth = moderateScale(1);
+export const globalHeaderHeight = verticalScale(55);
+export const globalTabHeight = verticalScale(55);
 // Global styles for icons small
 export const globalIconsSma = moderateScale(32);
 // Global styles for icons medium

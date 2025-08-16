@@ -2,12 +2,13 @@ import IconsPath from '@/src/constants/iconsPath';
 import {
   globalFontSizeMid,
   globalFontWeightBold,
+  globalHeaderHeight,
   globalIconsSma,
 } from '@/src/constants/styles/globalStyles';
 import { useTheme } from '@/src/context/ThemeContext';
 import React from 'react';
 import { Image, Text, TouchableOpacity, View } from 'react-native';
-import { moderateScale, verticalScale } from 'react-native-size-matters';
+import { moderateScale } from 'react-native-size-matters';
 
 type HeaderProps = {
   title: string;
@@ -25,7 +26,7 @@ const HeaderGeneric = ({ title, onBackPress }: HeaderProps) => {
         flexDirection: 'row',
         alignItems: 'center',
         width: '100%',
-        height: verticalScale(55),
+        height: globalHeaderHeight,
         backgroundColor: colors.primary,
         paddingHorizontal: moderateScale(20),
       }}
