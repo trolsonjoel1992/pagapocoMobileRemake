@@ -4,6 +4,7 @@ import {
   globalFontWeightBold,
   globalIconsSma,
 } from '@/src/constants/styles/globalStyles';
+import { useAuth } from '@/src/context/AuthContext';
 import { useTheme } from '@/src/context/ThemeContext';
 import { router } from 'expo-router';
 import React from 'react';
@@ -11,7 +12,10 @@ import { Image, Text, TouchableOpacity } from 'react-native';
 
 const LoginButton = () => {
   const { colors, theme } = useTheme();
+  const { user } = useAuth();
   const loginIcon = theme === 'dark' ? IconsPath.darkLogin : IconsPath.login;
+
+  if (user) return null; // Oculta el botón si hay usuario logueado
 
   return (
     <TouchableOpacity

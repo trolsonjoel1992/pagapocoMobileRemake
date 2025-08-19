@@ -11,6 +11,7 @@ import {
   globalFontSizeTitle,
   globalFontWeightBold,
 } from '@/src/constants/styles/globalStyles';
+import { useAuth } from '@/src/context/AuthContext';
 import { useTheme } from '@/src/context/ThemeContext';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
@@ -21,7 +22,21 @@ import { moderateScale } from 'react-native-size-matters';
 const Login = () => {
   const [isEmailValid, setIsEmailValid] = useState(false);
   const [isPassValid, setIsPassValid] = useState(false);
+  const [email, setEmail] = useState('');
+  const [pass, setPass] = useState('');
+  const [error, setError] = useState('');
   const { colors } = useTheme();
+  const { login } = useAuth();
+
+  const handleLogin = async () => {
+    setError('');
+    const success = await login(email, pass);
+    if (success) {
+      router.replace('/(tabs)/home');
+    } else {
+      setError('Email o contraseña incorrectos');
+    }
+  };
 
   return (
     <SafeAreaView
@@ -41,10 +56,21 @@ const Login = () => {
           height: 120,
         }}
       />
-      <InputEmail description='Email' onValidChange={setIsEmailValid} />
-      <InputPass description='Contraseña' onValidChange={setIsPassValid} />
+      <InputEmail
+        description='Email'
+        onValidChange={setIsEmailValid}
+        value={email}
+        onChangeText={setEmail}
+      />
+      <InputPass
+        description='Contraseña'
+        onValidChange={setIsPassValid}
+        value={pass}
+        onChangeText={setPass}
+      />
+      {error ? <Text style={{ color: 'red' }}>{error}</Text> : null}
       {isEmailValid && isPassValid ? (
-        <ButtonReg action='Ingresar' />
+        <ButtonReg action='Ingresar' onPress={handleLogin} />
       ) : (
         <ButtonRegDis action='Ingresar' />
       )}

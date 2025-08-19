@@ -1,6 +1,8 @@
 import ButtonProfile from '@/src/components/atom/buttons/profile/buttonProfile';
 import ModalContainer from '@/src/components/molecule/modal/modalContainer';
+import { useAuth } from '@/src/context/AuthContext';
 import { useTheme } from '@/src/context/ThemeContext';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
 import { Modal, View } from 'react-native';
@@ -8,6 +10,7 @@ import { moderateScale } from 'react-native-size-matters';
 
 const ProfileButtons = () => {
   const { theme } = useTheme();
+  const { user, logout } = useAuth();
   const [modalVisible, setModalVisible] = useState(false);
   const [modalType, setModalType] = useState<'delete' | 'logout' | null>(null);
 
@@ -26,13 +29,23 @@ const ProfileButtons = () => {
     setModalType(null);
   };
 
-  const handleAction = () => {
+  const handleAction = async () => {
     setModalVisible(false);
     setModalType(null);
     if (modalType === 'delete') {
-      // Lógica para eliminar cuenta
+      // Eliminar solo el usuario actual del array (por email)
+      const usersString = await AsyncStorage.getItem('users');
+      let users = [];
+      if (usersString) {
+        users = JSON.parse(usersString);
+      }
+      const filteredUsers = users.filter((u: any) => u.email !== user?.email);
+      await AsyncStorage.setItem('users', JSON.stringify(filteredUsers));
+      await logout();
+      router.replace('/(tabs)/home');
     } else if (modalType === 'logout') {
-      // Lógica para cerrar sesión
+      await logout();
+      router.replace('/(tabs)/home');
     }
   };
 
