@@ -19,7 +19,7 @@ const LoginButton = () => {
 
   return (
     <TouchableOpacity
-      onPress={() => router.push('/(auth)/login')}
+      onPress={() => router.push('/(auth)/fullLogin')}
       style={{ flexDirection: 'row', alignItems: 'center' }}
     >
       <Image

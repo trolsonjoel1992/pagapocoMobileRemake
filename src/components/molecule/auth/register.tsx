@@ -1,23 +1,18 @@
-import ButtonFinger from '@/src/components/atom/buttons/auth/buttonFinger';
-import ButtonGoogle from '@/src/components/atom/buttons/auth/buttonGoogle';
 import ButtonReg from '@/src/components/atom/buttons/buttonReg';
 import ButtonRegDis from '@/src/components/atom/buttons/buttonRegDis';
-import HeaderGeneric from '@/src/components/atom/header/headerGeneric';
 import InputEmail from '@/src/components/atom/imputs/auth/inputEmail';
 import InputPass from '@/src/components/atom/imputs/auth/inputPass';
 import ModalContainer from '@/src/components/molecule/modal/modalContainer';
-import ImagesPath from '@/src/constants/imagesPath';
 import {
   globalFontSizeSmall,
-  globalFontSizeTitle,
   globalFontWeightBold,
 } from '@/src/constants/styles/globalStyles';
 import { useTheme } from '@/src/context/ThemeContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { router } from 'expo-router';
 import React, { useState } from 'react';
-import { Image, Modal, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Modal, Text, View } from 'react-native';
+import { moderateScale } from 'react-native-size-matters';
 
 const Register = () => {
   const [isEmailValid, setIsEmailValid] = useState(false);
@@ -50,7 +45,7 @@ const Register = () => {
       setModalVisible(true);
       return;
     }
-    // Si no existe, registra el usuario (sin id)
+    // Si no existe, registra el usuario
     const newUser = { email, password: pass };
     users.push(newUser);
     await AsyncStorage.setItem('users', JSON.stringify(users));
@@ -59,23 +54,14 @@ const Register = () => {
   };
 
   return (
-    <SafeAreaView
-      style={[styles.container, { backgroundColor: colors.background }]}
+    <View
+      style={{
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        backgroundColor: colors.background,
+        gap: moderateScale(10),
+      }}
     >
-      <HeaderGeneric
-        title='Crear cuenta'
-        onBackPress={() => router.push('/(tabs)/home')}
-      />
-      <Text style={[styles.title, { color: colors.textPrimary }]}>
-        Unite a la comunidad
-      </Text>
-      <Image
-        source={ImagesPath.logo}
-        style={{
-          width: 185,
-          height: 120,
-        }}
-      />
       <InputEmail
         description='Cargá tu Email'
         onValidChange={setIsEmailValid}
@@ -93,16 +79,17 @@ const Register = () => {
       ) : (
         <ButtonRegDis action='Registrar' />
       )}
-      <Text style={[styles.quest, { color: colors.textPrimary }]}>
+      <Text
+        style={{
+          fontSize: globalFontSizeSmall,
+          fontWeight: globalFontWeightBold,
+          marginTop: moderateScale(5),
+          marginBottom: moderateScale(5),
+          color: colors.textPrimary,
+        }}
+      >
         ¿Ya tenés cuenta?
       </Text>
-      <ButtonReg
-        action='Ingresa'
-        onPress={() => router.push('/(auth)/login')}
-      />
-      <ButtonGoogle />
-      <ButtonFinger />
-
       <Modal
         visible={modalVisible}
         transparent
@@ -139,26 +126,8 @@ const Register = () => {
           />
         </View>
       </Modal>
-    </SafeAreaView>
+    </View>
   );
 };
 
 export default Register;
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-between',
-  },
-  title: {
-    fontSize: globalFontSizeTitle,
-    fontWeight: globalFontWeightBold,
-    marginBottom: 10,
-  },
-  quest: {
-    fontSize: globalFontSizeSmall,
-    fontWeight: globalFontWeightBold,
-    marginTop: 10,
-    marginBottom: 5,
-  },
-});

@@ -116,7 +116,7 @@ const CustomTabButton: React.FC<CustomTabButtonProps> = ({
             onPressCancel={() => setModalVisible(false)}
             onPressButtonAction={() => {
               setModalVisible(false);
-              router.push('/(auth)/login');
+              router.push('/(auth)/fullLogin');
             }}
           />
         </View>

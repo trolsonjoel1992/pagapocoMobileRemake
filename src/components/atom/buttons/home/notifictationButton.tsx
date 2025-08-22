@@ -1,31 +1,30 @@
 import IconsPath from '@/src/constants/iconsPath';
 import { globalIconsSma } from '@/src/constants/styles/globalStyles';
+import { useAuth } from '@/src/context/AuthContext';
 import { useTheme } from '@/src/context/ThemeContext';
 import React from 'react';
 import { Image, TouchableOpacity } from 'react-native';
 
 type NotificationButtonProps = {
-  iconKey?: string;
-  login?: boolean;
-  notification?: boolean;
+  notification?: boolean; // true si hay notificaciones activas
   onPress?: () => void;
 };
 type IconKey = keyof typeof IconsPath;
 
 const NotificationButton = ({
-  login,
   notification,
   onPress,
 }: NotificationButtonProps) => {
   const { theme } = useTheme();
+  const { user } = useAuth();
   let icon: IconKey;
 
-  if (login) {
-    icon = theme === 'dark' ? 'darkBell' : 'bell';
+  if (!user) {
+    icon = theme === 'dark' ? 'darkBellUnA' : 'bellUnA';
   } else if (notification) {
     icon = theme === 'dark' ? 'darkBellAct' : 'bellAct';
   } else {
-    icon = theme === 'dark' ? 'darkBellUnA' : 'bellUnA';
+    icon = theme === 'dark' ? 'darkBell' : 'bell';
   }
 
   return (

@@ -1,6 +1,7 @@
-import FilterButton from '@/src/components/atom/buttons/home/filterButton';
+import HeaderButton from '@/src/components/atom/buttons/home/headerButton';
 import PositionButton from '@/src/components/atom/buttons/home/positionButton';
 import { useTheme } from '@/src/context/ThemeContext';
+import { router } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
 
@@ -16,11 +17,8 @@ const HomeButton = () => {
         width: '85%',
       }}
     >
-      <PositionButton
-        content='No permitido'
-        icon={theme === 'dark' ? 'darkPositionDis' : 'positionDis'}
-      />
-      <FilterButton />
+      <PositionButton content='No permitido' />
+      <HeaderButton onFilterPress={() => router.push('/(home)/publication')} />
     </View>
   );
 };

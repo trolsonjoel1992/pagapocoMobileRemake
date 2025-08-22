@@ -5,15 +5,30 @@ import {
   globalIconsSma,
 } from '@/src/constants/styles/globalStyles';
 import { useTheme } from '@/src/context/ThemeContext';
+import { usePathname } from 'expo-router';
 import React from 'react';
 import { Image, Text, TouchableOpacity } from 'react-native';
 
-type FilterButtonProps = {
-  onPress?: () => void;
+type HeaderButtonProps = {
+  onFilterPress?: () => void;
+  onSharePress?: () => void;
 };
-const FilterButton = ({ onPress }: FilterButtonProps) => {
+
+const HeaderButton = ({ onFilterPress, onSharePress }: HeaderButtonProps) => {
   const { colors, theme } = useTheme();
-  const filterIcon = theme === 'dark' ? IconsPath.darkFilter : IconsPath.filter;
+  const pathname = usePathname();
+
+  const isFilter = pathname === '/home' || pathname === '/tabs/home';
+  const icon = isFilter
+    ? theme === 'dark'
+      ? IconsPath.darkFilter
+      : IconsPath.filter
+    : theme === 'dark'
+      ? IconsPath.darkShare
+      : IconsPath.share;
+  const buttonText = isFilter ? 'Filtros' : 'Compartir';
+
+  const handlePress = isFilter ? onFilterPress : onSharePress;
 
   return (
     <TouchableOpacity
@@ -24,10 +39,10 @@ const FilterButton = ({ onPress }: FilterButtonProps) => {
         width: 'auto',
         height: 'auto',
       }}
-      onPress={onPress}
+      onPress={handlePress}
     >
       <Image
-        source={filterIcon}
+        source={icon}
         style={{ width: globalIconsSma, height: globalIconsSma }}
       />
       <Text
@@ -37,10 +52,10 @@ const FilterButton = ({ onPress }: FilterButtonProps) => {
           color: colors.textPrimary,
         }}
       >
-        Filtros
+        {buttonText}
       </Text>
     </TouchableOpacity>
   );
 };
 
-export default FilterButton;
+export default HeaderButton;

@@ -4,9 +4,9 @@ import React from 'react';
 import { View } from 'react-native';
 
 const categories = [
-  { name: 'Camiones', icon: 'truck', iconDark: 'darkTruck' },
-  { name: 'Camionetas', icon: 'pickup', iconDark: 'darkPickup' },
   { name: 'Autos', icon: 'car', iconDark: 'darkCar' },
+  { name: 'Pikups', icon: 'pickup', iconDark: 'darkPickup' },
+  { name: 'Camiones', icon: 'truck', iconDark: 'darkTruck' },
   { name: 'Motos', icon: 'motorcycle', iconDark: 'darkMotorcycle' },
   { name: 'Piezas', icon: 'piece', iconDark: 'darkPiece' },
 ];

@@ -1,28 +1,24 @@
-import ButtonReg from '@/src/components/atom/buttons/buttonReg';
 import HomeHeader from '@/src/components/molecule/home/homeHeader';
+import PublicationButtons from '@/src/components/molecule/home/publicationButtons';
 import { useTheme } from '@/src/context/ThemeContext';
-import { router, useLocalSearchParams } from 'expo-router';
 import React from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
-const HomeCategory = () => {
-  const { hiddenIndex } = useLocalSearchParams();
+const Publication = () => {
   const { colors } = useTheme();
+
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: colors.background }]}
     >
-      <HomeHeader backAction={true} hiddenIndex={Number(hiddenIndex)} />
-      <ButtonReg
-        action='Volver'
-        onPress={() => router.replace('/(tabs)/home')}
-      />
+      <HomeHeader backAction={true} />
+      <PublicationButtons />
     </SafeAreaView>
   );
 };
 
-export default HomeCategory;
+export default Publication;
 const styles = StyleSheet.create({
   container: {
     flex: 1,

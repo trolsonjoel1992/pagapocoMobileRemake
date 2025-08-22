@@ -17,6 +17,7 @@ const IconsPath = {
   positionEna: require('@/src/assets/images/homeImages/positionEna.png'),
   positionSlt: require('@/src/assets/images/homeImages/positionSlt.png'),
   filter: require('@/src/assets/images/homeImages/filter.png'),
+  share: require('@/src/assets/images/homeImages/share.png'),
   //dark mode home/buttons
   darkLogin: require('@/src/assets/images/homeImages/darkLogin.png'),
   darkBell: require('@/src/assets/images/homeImages/darkBell.png'),
@@ -27,6 +28,7 @@ const IconsPath = {
   darkPositionEna: require('@/src/assets/images/homeImages/darkPositionEna.png'),
   darkPositionSlt: require('@/src/assets/images/homeImages/darkPositionSlt.png'),
   darkFilter: require('@/src/assets/images/homeImages/darkFilter.png'),
+  darkShare: require('@/src/assets/images/homeImages/darkShare.png'),
   //home/header
   truck: require('@/src/assets/images/categoryImages/truck.png'),
   pickup: require('@/src/assets/images/categoryImages/pickup.png'),
