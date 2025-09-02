@@ -93,6 +93,17 @@ const IconsPath = {
   sellD: require('@/src/assets/images/tabsImages/sellD.png'),
   favoritesD: require('@/src/assets/images/tabsImages/favoritesD.png'),
   profileD: require('@/src/assets/images/tabsImages/profileD.png'),
+  //sell/pictures
+  opnCamera: require('@/src/assets/images/sellImages/pictureImages/opnCamera.png'),
+  upload: require('@/src/assets/images/sellImages/pictureImages/upload.png'),
+  cancel: require('@/src/assets/images/sellImages/pictureImages/cancel.png'),
+  //dark mode sell/pictures
+  opnCameraD: require('@/src/assets/images/sellImages/pictureImages/opnCameraD.png'),
+  uploadD: require('@/src/assets/images/sellImages/pictureImages/uploadD.png'),
+  cancelD: require('@/src/assets/images/sellImages/pictureImages/cancelD.png'),
+  //sell/pictures disabled
+  opnCameraDis: require('@/src/assets/images/sellImages/pictureImages/opnCameraDis.png'),
+  uploadDis: require('@/src/assets/images/sellImages/pictureImages/uploadDis.png'),
 };
 
 export default IconsPath;

@@ -5,7 +5,6 @@ const AuthLayout = () => {
   return (
     <Stack screenOptions={{ headerShown: false }}>
       <Stack.Screen name='fullLogin' />
-      <Stack.Screen name='register' />
       <Stack.Screen name='google' />
     </Stack>
   );

@@ -50,7 +50,7 @@ const SkeletonItem = ({
         borderRadius,
         marginTop,
         marginBottom,
-        backgroundColor: colors.BackgroundS,
+        backgroundColor: colors.backgroundSk,
         overflow: 'hidden',
       }}
     >

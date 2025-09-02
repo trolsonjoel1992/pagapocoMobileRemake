@@ -29,7 +29,7 @@ const Register = () => {
   };
   const handleAction = () => {
     setModalVisible(false);
-    router.replace('/(auth)/login');
+    router.replace('/(auth)/fullLogin');
   };
 
   const handleRegister = async () => {

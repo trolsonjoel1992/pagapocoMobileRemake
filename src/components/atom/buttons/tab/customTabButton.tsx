@@ -57,7 +57,7 @@ const CustomTabButton: React.FC<CustomTabButtonProps> = ({
   // Lógica para ir a la pantalla de login desde el modal
   const handleGoToLogin = () => {
     setModalVisible(false);
-    router.push('/(auth)/login');
+    router.push('/(auth)/fullLogin');
   };
 
   return (

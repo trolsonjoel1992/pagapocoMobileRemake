@@ -9,11 +9,12 @@ import { Text, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 
 type InputProps = {
+  value: string;
   onValidChange?: (isValid: boolean) => void;
-  onChangeText?: (text: string) => void;
+  onChangeText: (text: string) => void;
 };
 
-const EmailInput = ({ onValidChange, onChangeText }: InputProps) => {
+const EmailInput = ({ value, onValidChange, onChangeText }: InputProps) => {
   const { colors } = useTheme();
 
   return (
@@ -30,6 +31,7 @@ const EmailInput = ({ onValidChange, onChangeText }: InputProps) => {
       </Text>
       <InputEmail
         description='Nuevo correo'
+        value={value}
         onValidChange={onValidChange}
         onChangeText={onChangeText}
       />

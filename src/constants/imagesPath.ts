@@ -26,6 +26,38 @@ const ImagesPath = {
   truckD: require('@/src/assets/images/sellImages/categoryImages/truckD.png'),
   //images whatsapp
   whatsapp: require('@/src/assets/images/homeImages/pageWhatsapp.png'),
+  //images salePlan
+  star: require('@/src/assets/images/sellImages/cardImages/star.png'),
+  starEna: require('@/src/assets/images/sellImages/cardImages/starEna.png'),
+  starDis: require('@/src/assets/images/sellImages/cardImages/starDis.png'),
+  starHalf: require('@/src/assets/images/sellImages/cardImages/starHalf.png'),
+  starHalfEna: require('@/src/assets/images/sellImages/cardImages/starHalfEna.png'),
+  starHalfDis: require('@/src/assets/images/sellImages/cardImages/starHalfDis.png'),
+  //images salePlan darkmode
+  starD: require('@/src/assets/images/sellImages/cardImages/starD.png'),
+  starEnaD: require('@/src/assets/images/sellImages/cardImages/starEnaD.png'),
+  starHalfD: require('@/src/assets/images/sellImages/cardImages/starHalfD.png'),
+  starHalfEnaD: require('@/src/assets/images/sellImages/cardImages/starHalfEnaD.png'),
+  // images salePlan card
+  checkC: require('@/src/assets/images/sellImages/cardImages/checkC.png'),
+  checkCEna: require('@/src/assets/images/sellImages/cardImages/checkCEna.png'),
+  checkCDis: require('@/src/assets/images/sellImages/cardImages/checkCDis.png'),
+  crossC: require('@/src/assets/images/sellImages/cardImages/crossC.png'),
+  crossCEna: require('@/src/assets/images/sellImages/cardImages/crossCEna.png'),
+  crossCDis: require('@/src/assets/images/sellImages/cardImages/crossCDis.png'),
+  warningC: require('@/src/assets/images/sellImages/cardImages/warningC.png'),
+  warningCEna: require('@/src/assets/images/sellImages/cardImages/warningCEna.png'),
+  warningCDis: require('@/src/assets/images/sellImages/cardImages/warningCDis.png'),
+  // images saleTitle
+  title: require('@/src/assets/images/sellImages/titleImages/title.png'),
+  price: require('@/src/assets/images/sellImages/titleImages/price.png'),
+  city: require('@/src/assets/images/sellImages/titleImages/city.png'),
+  sale: require('@/src/assets/images/sellImages/titleImages/sale.png'),
+  // images saleTitle darkmode
+  titleD: require('@/src/assets/images/sellImages/titleImages/titleD.png'),
+  priceD: require('@/src/assets/images/sellImages/titleImages/priceD.png'),
+  cityD: require('@/src/assets/images/sellImages/titleImages/cityD.png'),
+  saleD: require('@/src/assets/images/sellImages/titleImages/saleD.png'),
 };
 
 export default ImagesPath;

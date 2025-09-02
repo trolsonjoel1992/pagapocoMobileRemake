@@ -63,6 +63,7 @@ const PrivacyInputs = ({ onBack }: { onBack: () => void }) => {
         onChangeText={text => setPassChanged(text.length > 0)}
       />
       <EmailInput
+        value=''
         onValidChange={setEmailValid}
         onChangeText={text => setEmailChanged(text.length > 0)}
       />
