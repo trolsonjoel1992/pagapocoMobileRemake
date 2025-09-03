@@ -3,6 +3,7 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 
 type User = {
   email: string;
+  profileImage?: string;
 };
 
 type AuthContextType = {
@@ -11,6 +12,10 @@ type AuthContextType = {
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => Promise<void>;
   deleteAccount: () => Promise<void>;
+  // Nuevos métodos para manejar la foto de perfil
+  updateProfileImage: (imageUri: string) => Promise<void>;
+  getProfileImage: () => string | undefined;
+  deleteProfileImage: () => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType>({
@@ -19,6 +24,9 @@ const AuthContext = createContext<AuthContextType>({
   login: async () => false,
   logout: async () => {},
   deleteAccount: async () => {},
+  updateProfileImage: async () => {},
+  getProfileImage: () => undefined,
+  deleteProfileImage: async () => {},
 });
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -75,9 +83,63 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     await AsyncStorage.removeItem('user');
   };
 
+  const updateProfileImage = async (imageUri: string) => {
+    if (!user) return;
+
+    const updatedUser = { ...user, profileImage: imageUri };
+    setUser(updatedUser);
+
+    // Actualizar en AsyncStorage
+    await AsyncStorage.setItem('user', JSON.stringify(updatedUser));
+
+    // Actualizar en la lista de usuarios
+    const usersString = await AsyncStorage.getItem('users');
+    if (usersString) {
+      const users = JSON.parse(usersString);
+      const updatedUsers = users.map((u: any) =>
+        u.email === user.email ? { ...u, profileImage: imageUri } : u
+      );
+      await AsyncStorage.setItem('users', JSON.stringify(updatedUsers));
+    }
+  };
+
+  const getProfileImage = () => {
+    return user?.profileImage;
+  };
+
+  const deleteProfileImage = async () => {
+    if (!user) return;
+
+    const updatedUser = { ...user };
+    delete updatedUser.profileImage;
+    setUser(updatedUser);
+
+    // Actualizar en AsyncStorage
+    await AsyncStorage.setItem('user', JSON.stringify(updatedUser));
+
+    // Actualizar en la lista de usuarios
+    const usersString = await AsyncStorage.getItem('users');
+    if (usersString) {
+      const users = JSON.parse(usersString);
+      const updatedUsers = users.map((u: any) =>
+        u.email === user.email ? { ...u, profileImage: undefined } : u
+      );
+      await AsyncStorage.setItem('users', JSON.stringify(updatedUsers));
+    }
+  };
+
   return (
     <AuthContext.Provider
-      value={{ user, loading, login, logout, deleteAccount }}
+      value={{
+        user,
+        loading,
+        login,
+        logout,
+        deleteAccount,
+        updateProfileImage,
+        getProfileImage,
+        deleteProfileImage,
+      }}
     >
       {children}
     </AuthContext.Provider>

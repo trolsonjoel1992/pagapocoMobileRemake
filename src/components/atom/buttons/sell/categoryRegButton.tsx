@@ -1,6 +1,7 @@
 import ImagesPath from '@/src/constants/imagesPath';
 import {
   globalBorderRadius,
+  globalButtonElevation,
   globalFontSizeMid,
   globalFontWeightSemiBold,
 } from '@/src/constants/styles/globalStyles';
@@ -25,11 +26,12 @@ const CategoryRegButton = ({
     <TouchableOpacity
       onPress={onPress}
       style={{
-        alignItems: 'center',
-        backgroundColor: colors.backgroundBCI,
         width: '90%',
+        alignItems: 'center',
         padding: moderateScale(15),
+        elevation: globalButtonElevation,
         borderRadius: globalBorderRadius,
+        backgroundColor: colors.backgroundBCI,
       }}
     >
       <Image
@@ -41,10 +43,10 @@ const CategoryRegButton = ({
       />
       <Text
         style={{
+          textAlign: 'center',
           color: colors.textPrimary,
           fontSize: globalFontSizeMid,
           fontWeight: globalFontWeightSemiBold,
-          textAlign: 'center',
         }}
       >
         {label}

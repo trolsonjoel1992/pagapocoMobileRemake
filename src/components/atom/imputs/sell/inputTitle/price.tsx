@@ -81,7 +81,7 @@ const Price = ({ value, onValidChange, onChangeText }: Props) => {
       }}
     >
       <Image
-        source={ImagesPath.price}
+        source={theme === 'dark' ? ImagesPath.priceD : ImagesPath.price}
         style={{
           width: globalIconsSma,
           height: globalIconsSma,

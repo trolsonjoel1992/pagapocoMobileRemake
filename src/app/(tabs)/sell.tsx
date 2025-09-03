@@ -1,6 +1,6 @@
 import SelectButtons from '@/src/components/molecule/sell/selectButons';
 import {
-  globalFontSizeMid,
+  globalFontSizeReg,
   globalFontSizeTitle,
   globalFontWeightBold,
 } from '@/src/constants/styles/globalStyles';
@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
     marginBottom: moderateScale(10),
   },
   subtitle: {
-    fontSize: globalFontSizeMid,
+    fontSize: globalFontSizeReg,
     fontWeight: globalFontWeightBold,
     textAlign: 'center',
   },

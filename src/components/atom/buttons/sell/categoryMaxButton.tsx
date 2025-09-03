@@ -1,6 +1,7 @@
 import ImagesPath from '@/src/constants/imagesPath';
 import {
   globalBorderRadius,
+  globalButtonElevation,
   globalFontSizeMid,
   globalFontWeightSemiBold,
 } from '@/src/constants/styles/globalStyles';
@@ -17,19 +18,20 @@ type CategoryButtonProps = {
 
 const CategoryMaxButton = ({
   iconSource,
-  label,
   onPress,
+  label,
 }: CategoryButtonProps) => {
   const { colors } = useTheme();
   return (
     <TouchableOpacity
       onPress={onPress}
       style={{
-        alignItems: 'center',
-        backgroundColor: colors.backgroundBCI,
         width: '95%',
+        alignItems: 'center',
         padding: moderateScale(15),
+        elevation: globalButtonElevation,
         borderRadius: globalBorderRadius,
+        backgroundColor: colors.backgroundBCI,
       }}
     >
       <Image
@@ -41,10 +43,10 @@ const CategoryMaxButton = ({
       />
       <Text
         style={{
+          textAlign: 'center',
           color: colors.textPrimary,
           fontSize: globalFontSizeMid,
           fontWeight: globalFontWeightSemiBold,
-          textAlign: 'center',
         }}
       >
         {label}
