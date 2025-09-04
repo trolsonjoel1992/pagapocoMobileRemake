@@ -4,6 +4,9 @@ import React, { createContext, useContext, useEffect, useState } from 'react';
 type User = {
   email: string;
   profileImage?: string;
+  username?: string;
+  phone?: string;
+  password?: string;
 };
 
 type AuthContextType = {
@@ -12,10 +15,15 @@ type AuthContextType = {
   login: (email: string, password: string) => Promise<boolean>;
   logout: () => Promise<void>;
   deleteAccount: () => Promise<void>;
-  // Nuevos métodos para manejar la foto de perfil
   updateProfileImage: (imageUri: string) => Promise<void>;
   getProfileImage: () => string | undefined;
   deleteProfileImage: () => Promise<void>;
+  updateUserData: (data: Partial<User>) => Promise<void>;
+  getUserData: () => User | null;
+  updateUsername: (username: string) => Promise<void>;
+  updatePhone: (phone: string) => Promise<void>;
+  updateEmail: (email: string) => Promise<void>;
+  updatePassword: (password: string) => Promise<void>;
 };
 
 const AuthContext = createContext<AuthContextType>({
@@ -27,6 +35,12 @@ const AuthContext = createContext<AuthContextType>({
   updateProfileImage: async () => {},
   getProfileImage: () => undefined,
   deleteProfileImage: async () => {},
+  updateUserData: async () => {},
+  getUserData: () => null,
+  updateUsername: async () => {},
+  updatePhone: async () => {},
+  updateEmail: async () => {},
+  updatePassword: async () => {},
 });
 
 export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
@@ -36,7 +50,6 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Cargar usuario autenticado desde AsyncStorage al iniciar la app
     const loadUser = async () => {
       const userData = await AsyncStorage.getItem('user');
       if (userData) setUser(JSON.parse(userData));
@@ -44,6 +57,28 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     };
     loadUser();
   }, []);
+
+  const updateUserData = async (data: Partial<User>) => {
+    if (!user) return;
+
+    const updatedUser = { ...user, ...data };
+    setUser(updatedUser);
+
+    await AsyncStorage.setItem('user', JSON.stringify(updatedUser));
+
+    const usersString = await AsyncStorage.getItem('users');
+    if (usersString) {
+      const users = JSON.parse(usersString);
+      const updatedUsers = users.map((u: any) =>
+        u.email === user.email ? { ...u, ...data } : u
+      );
+      await AsyncStorage.setItem('users', JSON.stringify(updatedUsers));
+    }
+  };
+
+  const getUserData = () => {
+    return user;
+  };
 
   const login = async (email: string, password: string) => {
     const usersString = await AsyncStorage.getItem('users');
@@ -53,11 +88,14 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         (u: any) => u.email === email && u.password === password
       );
       if (foundUser) {
-        setUser({ email: foundUser.email });
-        await AsyncStorage.setItem(
-          'user',
-          JSON.stringify({ email: foundUser.email })
-        );
+        const userData = {
+          email: foundUser.email,
+          username: foundUser.username,
+          phone: foundUser.phone,
+          profileImage: foundUser.profileImage,
+        };
+        setUser(userData);
+        await AsyncStorage.setItem('user', JSON.stringify(userData));
         return true;
       }
     }
@@ -89,10 +127,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     const updatedUser = { ...user, profileImage: imageUri };
     setUser(updatedUser);
 
-    // Actualizar en AsyncStorage
     await AsyncStorage.setItem('user', JSON.stringify(updatedUser));
 
-    // Actualizar en la lista de usuarios
     const usersString = await AsyncStorage.getItem('users');
     if (usersString) {
       const users = JSON.parse(usersString);
@@ -114,10 +150,8 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
     delete updatedUser.profileImage;
     setUser(updatedUser);
 
-    // Actualizar en AsyncStorage
     await AsyncStorage.setItem('user', JSON.stringify(updatedUser));
 
-    // Actualizar en la lista de usuarios
     const usersString = await AsyncStorage.getItem('users');
     if (usersString) {
       const users = JSON.parse(usersString);
@@ -126,6 +160,26 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
       );
       await AsyncStorage.setItem('users', JSON.stringify(updatedUsers));
     }
+  };
+
+  const updateUsername = async (username: string) => {
+    if (!user) return;
+    await updateUserData({ username });
+  };
+
+  const updatePhone = async (phone: string) => {
+    if (!user) return;
+    await updateUserData({ phone });
+  };
+
+  const updateEmail = async (email: string) => {
+    if (!user) return;
+    await updateUserData({ email });
+  };
+
+  const updatePassword = async (password: string) => {
+    if (!user) return;
+    await updateUserData({ password });
   };
 
   return (
@@ -139,6 +193,12 @@ export const AuthProvider: React.FC<{ children: React.ReactNode }> = ({
         updateProfileImage,
         getProfileImage,
         deleteProfileImage,
+        updateUserData,
+        getUserData,
+        updateUsername,
+        updatePhone,
+        updateEmail,
+        updatePassword,
       }}
     >
       {children}

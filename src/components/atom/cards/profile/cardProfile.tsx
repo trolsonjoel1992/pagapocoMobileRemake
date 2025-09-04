@@ -11,16 +11,22 @@ import { Image, Text, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 
 type Props = {
-  user: string;
-  image?: any;
+  user?: {
+    username?: string;
+    profileImage?: string;
+  };
 };
 
-const CardProfile = ({ user, image }: Props) => {
+const CardProfile = ({ user }: Props) => {
   const imageDimensions = moderateScale(90);
   const { colors, theme } = useTheme();
-  const imageMode =
-    theme === 'dark' ? ImagesPath['darkUser'] : ImagesPath['user'];
-  const imageSource = image ? image : imageMode;
+  const defaultImage = theme === 'dark' ? ImagesPath.darkUser : ImagesPath.user;
+
+  const imageSource = user?.profileImage
+    ? { uri: user.profileImage }
+    : defaultImage;
+
+  const displayName = user?.username || 'Sin nombre de usuario';
 
   return (
     <View
@@ -34,7 +40,7 @@ const CardProfile = ({ user, image }: Props) => {
         borderWidth: globalBorderWidth,
         alignItems: 'center',
         flexDirection: 'row',
-        justifyContent: 'space-between',
+        justifyContent: 'flex-start',
       }}
     >
       <View
@@ -43,14 +49,15 @@ const CardProfile = ({ user, image }: Props) => {
           height: imageDimensions,
           alignItems: 'center',
           justifyContent: 'center',
-          marginRight: 'auto',
+          marginRight: moderateScale(30),
         }}
       >
         <Image
-          source={imageSource ? imageSource : ImagesPath.user}
+          source={imageSource}
           style={{
             width: imageDimensions,
             height: imageDimensions,
+            borderRadius: imageDimensions / 2,
           }}
         />
       </View>
@@ -64,7 +71,7 @@ const CardProfile = ({ user, image }: Props) => {
         numberOfLines={1}
         ellipsizeMode='tail'
       >
-        {user}
+        {displayName}
       </Text>
     </View>
   );

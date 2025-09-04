@@ -16,7 +16,7 @@ type CardPictureProps = {
   onPress?: () => void;
 };
 
-const CardPicture = ({ icon, title, onPress }: CardPictureProps) => {
+const CardPictureP = ({ icon, title, onPress }: CardPictureProps) => {
   const { colors } = useTheme();
   const imageDimensions = moderateScale(54);
   const containerDimensions = moderateScale(80);
@@ -62,4 +62,4 @@ const CardPicture = ({ icon, title, onPress }: CardPictureProps) => {
   );
 };
 
-export default CardPicture;
+export default CardPictureP;

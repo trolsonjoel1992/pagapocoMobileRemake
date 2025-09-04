@@ -1,7 +1,7 @@
 import ButtonReg from '@/src/components/atom/buttons/buttonReg';
 import ButtonRegDis from '@/src/components/atom/buttons/buttonRegDis'; // Add this import
 import HeaderGeneric from '@/src/components/atom/header/headerGeneric';
-import CardPicture from '@/src/components/molecule/sell/cardPicture';
+import CardPictureS from '@/src/components/molecule/sell/cardPictureS';
 import {
   globalFontSizeMid,
   globalFontSizeReg,
@@ -92,7 +92,7 @@ const SellImages = () => {
       >
         {getImageLimitText()}
       </Text>
-      <CardPicture />
+      <CardPictureS />
       {images.length > 0 ? (
         <ButtonReg
           action='Continuar'

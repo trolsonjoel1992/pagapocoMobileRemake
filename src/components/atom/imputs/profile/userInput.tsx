@@ -15,12 +15,13 @@ import { Image, Text, TextInput, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 
 type InputUserProps = {
+  value?: string; // Agregamos value como opcional
   onValidChange?: (isValid: boolean) => void;
   onChangeText?: (text: string) => void;
 };
 
-const UserInput = ({ onValidChange, onChangeText }: InputUserProps) => {
-  const [user, setUser] = useState('');
+const UserInput = ({ value, onValidChange, onChangeText }: InputUserProps) => {
+  const [user, setUser] = useState(value || '');
   const { colors, theme } = useTheme();
   let iconSource = theme === 'dark' ? IconsPath.inputDark : IconsPath.input;
   const isValid = user.length > 3;

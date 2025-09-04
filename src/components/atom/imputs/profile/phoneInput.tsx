@@ -15,13 +15,14 @@ import { Image, Text, TextInput, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 
 type InputProps = {
+  value?: string; // Agregamos value como opcional
   onValidChange?: (isValid: boolean) => void;
   onChangeText?: (text: string) => void;
 };
 
-const PhoneInput = ({ onValidChange, onChangeText }: InputProps) => {
+const PhoneInput = ({ value, onValidChange, onChangeText }: InputProps) => {
   const { colors, theme } = useTheme();
-  const [phone, setPhone] = useState('');
+  const [phone, setPhone] = useState(value || '');
   let iconSource = theme === 'dark' ? IconsPath.inputDark : IconsPath.input;
   const isValid = phone.length >= 6;
 

@@ -2,6 +2,7 @@ import ButtonMax from '@/src/components/atom/buttons/buttonMax';
 import CardInfo from '@/src/components/atom/cards/profile/cardInfo';
 import CardText from '@/src/components/atom/cards/profile/cardText';
 import HeaderGeneric from '@/src/components/atom/header/headerGeneric';
+import { useAuth } from '@/src/context/AuthContext';
 import { useTheme } from '@/src/context/ThemeContext';
 import { router } from 'expo-router';
 import React from 'react';
@@ -11,6 +12,8 @@ import { moderateScale } from 'react-native-size-matters';
 
 const Information = () => {
   const { colors } = useTheme();
+  const { user } = useAuth();
+
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: colors.background }]}
@@ -20,10 +23,20 @@ const Information = () => {
         onBackPress={() => router.back()}
       />
       <View style={{ gap: moderateScale(30) }}>
-        <CardInfo user='Un usuario' email='email@example.com' />
-        <CardText name='Nombre de usuario' content='Un usuario' />
-        <CardText name='Email' content='email@example.com' />
-        <CardText name='Telefono' content='123-456-7890' />
+        <CardInfo
+          profileImage={user?.profileImage}
+          username={user?.username}
+          email={user?.email || ''}
+        />
+        <CardText
+          name='Nombre de usuario'
+          content={user?.username || 'Sin nombre de usuario'}
+        />
+        <CardText name='Email' content={user?.email || ''} />
+        <CardText
+          name='Telefono'
+          content={user?.phone || 'Sin número telefónico'}
+        />
       </View>
       <ButtonMax action='Regresar al perfil' onPress={() => router.back()} />
     </SafeAreaView>

@@ -15,7 +15,7 @@ import React, { useState } from 'react';
 import { Alert, FlatList, Text, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 
-const CardPicture = () => {
+const CardPictureS = () => {
   const { colors, theme } = useTheme();
   const { publication } = usePublication();
   const { images, addImage, error, deleteImage } = useImages();
@@ -232,4 +232,4 @@ const CardPicture = () => {
   );
 };
 
-export default CardPicture;
+export default CardPictureS;

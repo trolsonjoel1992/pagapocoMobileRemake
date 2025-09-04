@@ -1,5 +1,6 @@
 import CardProfile from '@/src/components/atom/cards/profile/cardProfile';
 import ProfileButtons from '@/src/components/molecule/profile/profileButtons';
+import { useAuth } from '@/src/context/AuthContext';
 import { useTheme } from '@/src/context/ThemeContext';
 import React from 'react';
 import { StyleSheet, View } from 'react-native';
@@ -8,13 +9,14 @@ import { moderateScale } from 'react-native-size-matters';
 
 export default function ProfileScreen() {
   const { colors } = useTheme();
+  const { user } = useAuth();
 
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: colors.background }]}
     >
       <View style={styles.header}>
-        <CardProfile user='Un Usuario mas largo' />
+        <CardProfile user={user || undefined} />
       </View>
       <ProfileButtons />
     </SafeAreaView>

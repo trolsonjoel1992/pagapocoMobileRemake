@@ -12,17 +12,21 @@ import { Image, Text, TouchableOpacity, View } from 'react-native';
 import { moderateScale, verticalScale } from 'react-native-size-matters';
 
 type Props = {
-  image?: keyof typeof ImagesPath;
-  user: string;
-  email: string;
+  profileImage?: string;
+  username?: string;
+  email: string; // email es requerido
 };
 
-const CardInfo = ({ image, user, email }: Props) => {
+const CardInfo = ({ profileImage, username, email }: Props) => {
   const imageDimensions = moderateScale(75);
   const { colors, theme } = useTheme();
-  const imageMode =
-    theme === 'dark' ? ImagesPath['darkUser'] : ImagesPath['user'];
-  const imageSource = image ? ImagesPath[image] : imageMode;
+  const defaultImage = theme === 'dark' ? ImagesPath.darkUser : ImagesPath.user;
+
+  // Usar imagen de perfil si existe, si no usar la imagen por defecto
+  const imageSource = profileImage ? { uri: profileImage } : defaultImage;
+
+  // Usar nombre de usuario si existe, si no mostrar "Sin nombre"
+  const displayName = username || 'Sin nombre';
 
   return (
     <TouchableOpacity
@@ -40,7 +44,11 @@ const CardInfo = ({ image, user, email }: Props) => {
     >
       <Image
         source={imageSource}
-        style={{ width: imageDimensions, height: imageDimensions }}
+        style={{
+          width: imageDimensions,
+          height: imageDimensions,
+          borderRadius: imageDimensions / 2, // Hacer la imagen circular
+        }}
       />
       <View style={{ gap: moderateScale(5) }}>
         <Text
@@ -50,7 +58,7 @@ const CardInfo = ({ image, user, email }: Props) => {
             fontWeight: globalFontWeightSemiBold,
           }}
         >
-          {user}
+          {displayName}
         </Text>
         <Text
           style={{

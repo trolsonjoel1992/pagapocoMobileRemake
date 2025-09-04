@@ -15,13 +15,14 @@ import { Image, Text, TextInput, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 
 type InputProps = {
+  value?: string; // Agregamos value como opcional
   onValidChange?: (isValid: boolean) => void;
   onChangeText?: (text: string) => void;
 };
 
-const NewPassInput = ({ onValidChange, onChangeText }: InputProps) => {
+const NewPassInput = ({ value, onValidChange, onChangeText }: InputProps) => {
   const { colors, theme } = useTheme();
-  const [password, setPassword] = useState('');
+  const [password, setPassword] = useState(value || '');
   const [repeatPassword, setRepeatPassword] = useState('');
   const isPasswordValid = password.length >= 6;
   const isRepeatValid = repeatPassword.length >= 6;
