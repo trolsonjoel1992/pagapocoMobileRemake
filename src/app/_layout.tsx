@@ -23,6 +23,10 @@ const _layout = () => {
                   name='(profile)'
                   options={{ headerShown: false }}
                 />
+                <Stack.Screen
+                  name='(myPublications)'
+                  options={{ headerShown: false }}
+                />
                 <Stack.Screen name='index' options={{ headerShown: false }} />
               </Stack>
             </ImageProvider>

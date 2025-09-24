@@ -14,6 +14,8 @@ export const globalIconsSma = moderateScale(32);
 export const globalIconsMid = moderateScale(40);
 // Global styles for icons large
 export const globalIconsLar = moderateScale(60);
+//global styles for icons extra large
+export const globalIconsEx = verticalScale(70);
 // Global styles for fontsizes
 export const globalFontSizeTitle = moderateScale(28);
 export const globalFontSizeReg = moderateScale(24);
@@ -38,5 +40,14 @@ export const globalButtonWidthSma = moderateScale(55);
 export const globalButtonWidthLar = moderateScale(300);
 // Global styles for buttons extra
 export const globalButtonWidthEx = moderateScale(350);
+// Global styles for Buttons special
+export const globalButtonHeightSp = moderateScale(50);
+export const globalButtonWidthSp = moderateScale(207.5);
 // Global styles for card 3x
 export const globalCardHeight = verticalScale(145);
+// Global styles for card myPblctns
+// Card myPblctns main
+export const globalCardMyPlctnsHeight = verticalScale(160);
+export const globalCardMyPlctnsImage = moderateScale(120);
+// Card myPblctns edit
+export const globalCardEditHeight = verticalScale(100);

@@ -1,7 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { createContext, useContext, useEffect, useState } from 'react';
-
-type Publication = {
+export type Publication = {
   id: string;
   isSold: boolean;
   isPaused: boolean;
@@ -27,7 +26,6 @@ type Publication = {
   compatibility?: string;
   description?: string;
 };
-
 type PublicationContextType = {
   publication: Publication | null;
   setPublication: (pub: Publication | null) => void;
@@ -36,8 +34,12 @@ type PublicationContextType = {
   publications: Publication[];
   addPublication: (pub: Publication) => void;
   clearPublications: () => void;
+  updatePublicationById: (
+    id: string,
+    fields: Partial<Publication>
+  ) => Promise<void>;
+  deletePublicationById: (id: string) => Promise<void>;
 };
-
 const PublicationContext = createContext<PublicationContextType>({
   publication: null,
   setPublication: () => {},
@@ -46,19 +48,18 @@ const PublicationContext = createContext<PublicationContextType>({
   publications: [],
   addPublication: () => {},
   clearPublications: () => {},
+  updatePublicationById: async () => {},
+  deletePublicationById: async () => {},
 });
-
 export const PublicationProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [publication, setPublication] = useState<Publication | null>(null);
   const [publications, setPublications] = useState<Publication[]>([]);
-
   // Cargar publicaciones al iniciar
   useEffect(() => {
     loadPublications();
   }, []);
-
   // Cargar publicaciones desde AsyncStorage
   const loadPublications = async () => {
     try {
@@ -70,15 +71,12 @@ export const PublicationProvider: React.FC<{ children: React.ReactNode }> = ({
       console.error('Error loading publications:', error);
     }
   };
-
   const updatePublication = (fields: Partial<Publication>) => {
     setPublication(prev =>
       prev ? { ...prev, ...fields } : ({ ...fields } as Publication)
     );
   };
-
   const clearPublication = () => setPublication(null);
-
   const addPublication = async (pub: Publication) => {
     try {
       const newPublications = [...publications, pub];
@@ -91,7 +89,6 @@ export const PublicationProvider: React.FC<{ children: React.ReactNode }> = ({
       console.error('Error saving publication:', error);
     }
   };
-
   const clearPublications = async () => {
     try {
       await AsyncStorage.removeItem('publications');
@@ -100,16 +97,57 @@ export const PublicationProvider: React.FC<{ children: React.ReactNode }> = ({
       console.error('Error clearing publications:', error);
     }
   };
-
+  const updatePublicationById = async (
+    id: string,
+    fields: Partial<Publication>
+  ) => {
+    try {
+      const updatedPublications = publications.map(pub =>
+        pub.id === id ? { ...pub, ...fields } : pub
+      );
+      // Guardar en AsyncStorage
+      await AsyncStorage.setItem(
+        'publications',
+        JSON.stringify(updatedPublications)
+      );
+      // Actualizar estado
+      setPublications(updatedPublications);
+      console.log(`Publicación ${id} actualizada:`, fields);
+    } catch (error) {
+      console.error('Error updating publication:', error);
+    }
+  };
+  // Eliminar publicación
+  const deletePublicationById = async (id: string) => {
+    try {
+      // Eliminar imágenes asociadas
+      await AsyncStorage.removeItem(`images_${id}`);
+      // Filtrar la publicación del array
+      const updatedPublications = publications.filter(pub => pub.id !== id);
+      // Guardar en AsyncStorage
+      await AsyncStorage.setItem(
+        'publications',
+        JSON.stringify(updatedPublications)
+      );
+      // Actualizar estado
+      setPublications(updatedPublications);
+      console.log(`✅ Publicación ${id} eliminada correctamente`);
+    } catch (error) {
+      console.error('❌ Error eliminando publicación:', error);
+      throw error;
+    }
+  };
   return (
     <PublicationContext.Provider
       value={{
         publication,
-        setPublication,
-        updatePublication,
-        clearPublication,
-        publications,
         addPublication,
+        setPublication,
+        clearPublication,
+        updatePublication,
+        updatePublicationById,
+        deletePublicationById,
+        publications,
         clearPublications,
       }}
     >
@@ -117,5 +155,4 @@ export const PublicationProvider: React.FC<{ children: React.ReactNode }> = ({
     </PublicationContext.Provider>
   );
 };
-
 export const usePublication = () => useContext(PublicationContext);

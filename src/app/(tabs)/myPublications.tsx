@@ -1,29 +1,49 @@
-import ButtonReg from '@/src/components/atom/buttons/buttonReg';
-import HeaderGeneric from '@/src/components/atom/header/headerGeneric';
-import CardFremiun from '@/src/components/molecule/sell/cardFremiun';
-import CardPremiun from '@/src/components/molecule/sell/cardPremiun';
-import { router } from 'expo-router';
-import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import EmptyPublication from '@/src/components/atom/cards/myPublications/emptyPublication';
+import CardMyPlctns from '@/src/components/molecule/myPublications/viewMypbs/cardMyPlctns';
+import { useAuth } from '@/src/context/AuthContext';
+import { usePublication } from '@/src/context/PublicationContext';
+import { useTheme } from '@/src/context/ThemeContext';
+import React from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { moderateScale } from 'react-native-size-matters';
 
-export default function SearchScreen() {
-  const [selected, setSelected] = useState<'premiun' | 'fremiun' | null>(null);
+export default function MyPublicationsScreen() {
+  const { colors } = useTheme();
+  const { publications } = usePublication();
+  const { user } = useAuth();
+
+  const userPublications = publications.filter(
+    pub => pub.userEmail === user?.email
+  );
+
+  const renderPublication = ({ item }: { item: any }) => (
+    <CardMyPlctns publication={item} />
+  );
+
+  const renderSeparator = () => <View style={styles.separator} />;
 
   return (
-    <SafeAreaView style={styles.container}>
-      <HeaderGeneric title='Plan de Venta' onBackPress={router.back} />
-      <CardPremiun
-        selectedP={selected === 'premiun'}
-        unSelectedP={selected === 'fremiun'}
-        onPress={() => setSelected('premiun')}
-      />
-      <CardFremiun
-        selectedF={selected === 'fremiun'}
-        unSelectedF={selected === 'premiun'}
-        onPress={() => setSelected('fremiun')}
-      />
-      <ButtonReg action='Continuar' />
+    <SafeAreaView
+      style={[styles.container, { backgroundColor: colors.background }]}
+    >
+      {userPublications.length === 0 ? (
+        <View>
+          <EmptyPublication />
+        </View>
+      ) : (
+        <View style={styles.content}>
+          <FlatList
+            data={userPublications}
+            renderItem={renderPublication}
+            keyExtractor={item => item.id.toString()}
+            showsVerticalScrollIndicator={false}
+            contentContainerStyle={styles.listContainer}
+            ItemSeparatorComponent={renderSeparator}
+            style={styles.flatList}
+          />
+        </View>
+      )}
     </SafeAreaView>
   );
 }
@@ -31,22 +51,18 @@ export default function SearchScreen() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#FFFFFF',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   content: {
-    flex: 1,
-    justifyContent: 'center',
+    paddingTop: moderateScale(16),
+  },
+  flatList: {},
+  listContainer: {
+    paddingBottom: moderateScale(20),
     alignItems: 'center',
-    padding: 20,
   },
-  title: {
-    fontSize: 28,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  subtitle: {
-    fontSize: 16,
-    color: '#666666',
-    textAlign: 'center',
+  separator: {
+    height: moderateScale(20),
   },
 });

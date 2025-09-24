@@ -38,7 +38,7 @@ const ModalContainer = ({
       style={{
         backgroundColor: colors.background,
         width: '85%',
-        height: '55%',
+        height: '70%',
         padding: moderateScale(20),
         borderRadius: globalBorderRadius,
         elevation: globalButtonElevation,

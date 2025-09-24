@@ -58,6 +58,10 @@ const ImagesPath = {
   priceD: require('@/src/assets/images/sellImages/titleImages/priceD.png'),
   cityD: require('@/src/assets/images/sellImages/titleImages/cityD.png'),
   saleD: require('@/src/assets/images/sellImages/titleImages/saleD.png'),
+  // images my publications
+  emptyPbtion: require('@/src/assets/images/myPbtnsImages/emptyPbtns.png'),
+  // images my publications darkmode
+  emptyPbtionD: require('@/src/assets/images/myPbtnsImages/emptyPbtnsD.png'),
 };
 
 export default ImagesPath;

@@ -15,7 +15,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { moderateScale } from 'react-native-size-matters';
 
 const SellForm = () => {
-  const { publication, clearPublication } = usePublication(); // Agregar clearPublication
+  const { publication, clearPublication } = usePublication();
   const { colors } = useTheme();
 
   const handleBack = () => {

@@ -3,58 +3,50 @@ import { useAuth } from '@/src/context/AuthContext';
 import { router, usePathname } from 'expo-router';
 import React, { useState } from 'react';
 import {
-  GestureResponderEvent, // Tipo usado en la declaración de props (onPress)
+  GestureResponderEvent,
   Modal,
   TouchableOpacity,
   View,
 } from 'react-native';
-
-// Declaración de las props que recibe el botón de tab
 interface CustomTabButtonProps {
-  children: React.ReactNode; // Usado como {children} en el render
-  onPress?: (event: GestureResponderEvent) => void; // Usado como {onPress} y en handlePress
+  children: React.ReactNode;
+  onPress?: (event: GestureResponderEvent) => void;
   accessibilityState?: {
     selected?: boolean;
-  }; // Usado como {accessibilityState} (no usado en este código, pero disponible)
-  style?: any; // Usado como {style} en el render
-  testID?: string; // Usado como {testID} en el render
-  to?: string; // No usado en este código, pero disponible
-  href?: string; // No usado en este código, pero disponible
-  routeName: string; // Usado como {routeName} en el render y lógica de navegación
+  };
+  style?: any;
+  testID?: string;
+  to?: string;
+  href?: string;
+  routeName: string;
 }
 
 const CustomTabButton: React.FC<CustomTabButtonProps> = ({
-  children, // Renderiza el contenido del botón
-  onPress, // Función que se ejecuta al presionar el botón
+  children,
+  onPress,
   accessibilityState,
-  style, // Estilo personalizado del botón
-  testID, // Identificador de test
-  routeName, // Nombre de la ruta/tab
+  style,
+  testID,
+  routeName,
   ...otherProps
 }) => {
-  const pathname = usePathname(); // Obtiene la ruta actual para saber si la tab está seleccionada
-  const { user } = useAuth(); // Obtiene el usuario autenticado del contexto
-  const [modalVisible, setModalVisible] = useState(false); // Estado para mostrar/ocultar el modal
+  const pathname = usePathname();
+  const { user } = useAuth();
+  const [modalVisible, setModalVisible] = useState(false);
 
-  // Determina si la tab está seleccionada según la ruta actual y el nombre de la tab
   const isSelected =
     pathname === `/${routeName}` ||
     pathname.endsWith(`/${routeName}`) ||
     pathname === routeName ||
     (pathname === '/' && routeName === 'home');
 
-  // Lógica al presionar el botón de la tab:
-  // - Si hay usuario logueado o es la tab 'home', permite la navegación
-  // - Si no, muestra el modal pidiendo iniciar sesión
   const handlePress = (event: any) => {
     if (user || routeName === 'home') {
-      onPress?.(event); // Ejecuta la función onPress si está definida
+      onPress?.(event);
     } else {
-      setModalVisible(true); // Muestra el modal si no está logueado y no es home
+      setModalVisible(true);
     }
   };
-
-  // Lógica para ir a la pantalla de login desde el modal
   const handleGoToLogin = () => {
     setModalVisible(false);
     router.push('/(auth)/fullLogin');
@@ -70,7 +62,7 @@ const CustomTabButton: React.FC<CustomTabButtonProps> = ({
             flex: 1,
             justifyContent: 'center',
             alignItems: 'center',
-            opacity: user || routeName === 'home' ? 1 : 1, // feedback visual (puedes cambiar opacidad si quieres)
+            opacity: user || routeName === 'home' ? 1 : 1,
           },
           style,
         ]}
@@ -78,7 +70,6 @@ const CustomTabButton: React.FC<CustomTabButtonProps> = ({
         {...otherProps}
       >
         {children}
-        {/* Sombreado solo si está logueado y la tab está seleccionada */}
         {user && isSelected && (
           <View
             style={{
@@ -93,7 +84,6 @@ const CustomTabButton: React.FC<CustomTabButtonProps> = ({
           />
         )}
       </TouchableOpacity>
-      {/* Modal que aparece si intenta navegar sin estar logueado */}
       <Modal
         visible={modalVisible}
         transparent
@@ -116,7 +106,7 @@ const CustomTabButton: React.FC<CustomTabButtonProps> = ({
             onPressCancel={() => setModalVisible(false)}
             onPressButtonAction={() => {
               setModalVisible(false);
-              router.push('/(auth)/fullLogin');
+              handleGoToLogin();
             }}
           />
         </View>
