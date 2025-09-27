@@ -27,18 +27,18 @@ export type Publication = {
   description?: string;
 };
 type PublicationContextType = {
+  publications: Publication[];
   publication: Publication | null;
   setPublication: (pub: Publication | null) => void;
-  updatePublication: (fields: Partial<Publication>) => void;
   clearPublication: () => void;
-  publications: Publication[];
-  addPublication: (pub: Publication) => void;
   clearPublications: () => void;
+  addPublication: (pub: Publication) => Promise<void>;
+  deletePublicationById: (id: string) => Promise<void>;
+  updatePublication: (fields: Partial<Publication>) => void;
   updatePublicationById: (
     id: string,
     fields: Partial<Publication>
   ) => Promise<void>;
-  deletePublicationById: (id: string) => Promise<void>;
 };
 const PublicationContext = createContext<PublicationContextType>({
   publication: null,
@@ -46,7 +46,7 @@ const PublicationContext = createContext<PublicationContextType>({
   updatePublication: () => {},
   clearPublication: () => {},
   publications: [],
-  addPublication: () => {},
+  addPublication: async () => {},
   clearPublications: () => {},
   updatePublicationById: async () => {},
   deletePublicationById: async () => {},
