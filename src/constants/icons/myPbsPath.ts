@@ -6,6 +6,7 @@ const myPbsPath = {
   play: require('@/src/assets/images/myPbtnsImages/play.png'),
   upgrade: require('@/src/assets/images/myPbtnsImages/upgrade.png'),
   editP: require('@/src/assets/images/myPbtnsImages/editP.png'),
+  premiun: require('@/src/assets/images/myPbtnsImages/crown.png'),
   //darkmode
   trashD: require('@/src/assets/images/myPbtnsImages/trashD.png'),
   editD: require('@/src/assets/images/myPbtnsImages/editD.png'),
@@ -13,6 +14,7 @@ const myPbsPath = {
   playD: require('@/src/assets/images/myPbtnsImages/playD.png'),
   upgradeD: require('@/src/assets/images/myPbtnsImages/upgradeD.png'),
   editPD: require('@/src/assets/images/myPbtnsImages/editPD.png'),
+  premiunD: require('@/src/assets/images/myPbtnsImages/crownD.png'),
 };
 
 export default myPbsPath;

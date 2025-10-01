@@ -12,7 +12,7 @@ import { useImages } from '@/src/context/ImageContext';
 import { usePublication } from '@/src/context/PublicationContext';
 import { useTheme } from '@/src/context/ThemeContext';
 import { router } from 'expo-router';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { StyleSheet, Text } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { moderateScale } from 'react-native-size-matters';
@@ -21,18 +21,15 @@ const SellImages = () => {
   const { colors } = useTheme();
   const { publication } = usePublication();
   const { clearImages, images } = useImages();
-  const [showWarning, setShowWarning] = useState(false); // Add this state
-
+  const [showWarning, setShowWarning] = useState(false);
   const handleBack = async () => {
     if (publication?.id) {
       await clearImages(publication.id);
     }
     router.back();
   };
-
   const getTitleByCategory = () => {
     if (!publication?.category) return '';
-
     switch (publication.category) {
       case 'car':
       case 'pickup':
@@ -46,30 +43,32 @@ const SellImages = () => {
         return '';
     }
   };
-
   const getImageLimitText = () => {
     const currentImages = images.length;
     const isPremium = publication?.isPremium;
     const limit = isPremium ? 8 : 4;
-
     if (showWarning && currentImages === 0) {
       return 'Agregá al menos una imagen';
     }
-
     if (currentImages >= limit) {
       return isPremium
         ? 'Has alcanzado el límite de 8 imágenes'
         : 'Pasate a Premium para subir más imágenes';
     }
-
     return isPremium
       ? `Podés agregar hasta 8 imágenes (${currentImages}/8)`
       : `Podés agregar hasta 4 imágenes (${currentImages}/4)`;
   };
-
   const handleDisabledPress = () => {
     setShowWarning(true);
   };
+  useEffect(() => {
+    return () => {
+      if (publication?.id) {
+        clearImages(publication.id);
+      }
+    };
+  }, [publication?.id]);
 
   return (
     <SafeAreaView
@@ -104,7 +103,6 @@ const SellImages = () => {
     </SafeAreaView>
   );
 };
-
 export default SellImages;
 const styles = StyleSheet.create({
   container: {

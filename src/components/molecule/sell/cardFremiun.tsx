@@ -3,6 +3,7 @@ import ImagesPath from '@/src/constants/imagesPath';
 import {
   globalBorderRadius,
   globalCardPlanHeight,
+  globalFontSizeMid,
   globalFontSizeTitle,
   globalFontWeightBold,
   globalIconsLar,
@@ -129,6 +130,34 @@ const CardFremiun = ({ selectedF, unSelectedF, onPress }: Props) => {
           strikeThrough
         />
       </View>
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: globalFontSizeTitle,
+          fontWeight: globalFontWeightBold,
+          color: selectedF
+            ? colors.primary
+            : unSelectedF
+              ? colors.borderDis
+              : colors.textPrimary,
+        }}
+      >
+        Gratis
+      </Text>
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: globalFontSizeMid,
+          fontWeight: globalFontWeightBold,
+          color: selectedF
+            ? colors.primary
+            : unSelectedF
+              ? colors.borderDis
+              : colors.textPrimary,
+        }}
+      >
+        Cargo por publicación
+      </Text>
     </TouchableOpacity>
   );
 };

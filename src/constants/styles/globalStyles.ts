@@ -14,8 +14,10 @@ export const globalIconsSma = moderateScale(32);
 export const globalIconsMid = moderateScale(40);
 // Global styles for icons large
 export const globalIconsLar = moderateScale(60);
-//global styles for icons extra large
-export const globalIconsEx = verticalScale(70);
+// Global styles for icons extra large
+export const globalIconsEx = moderateScale(70);
+// Global styles for icons 4X large
+export const globalIcons2X = moderateScale(150);
 // Global styles for fontsizes
 export const globalFontSizeTitle = moderateScale(28);
 export const globalFontSizeReg = moderateScale(24);

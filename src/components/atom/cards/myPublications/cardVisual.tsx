@@ -1,3 +1,4 @@
+import ImagesPath from '@/src/constants/imagesPath';
 import { useImages } from '@/src/context/ImageContext';
 import { useTheme } from '@/src/context/ThemeContext';
 import React, { useEffect, useState } from 'react';
@@ -6,10 +7,16 @@ import { moderateScale } from 'react-native-size-matters';
 
 interface CardVisualProps {
   publicationId: string;
+  publication?: {
+    isPremium?: boolean;
+  };
 }
-const CardVisual: React.FC<CardVisualProps> = ({ publicationId }) => {
+const CardVisual: React.FC<CardVisualProps> = ({
+  publicationId,
+  publication,
+}) => {
   const { images, getImages } = useImages();
-  const { colors } = useTheme();
+  const { colors, theme } = useTheme();
   const [currentIndex, setCurrentIndex] = useState(0);
   useEffect(() => {
     if (publicationId) {
@@ -23,7 +30,17 @@ const CardVisual: React.FC<CardVisualProps> = ({ publicationId }) => {
     const index = Math.round(scrollPosition / screenWidth);
     setCurrentIndex(index);
   };
-  const renderImage = ({ item }: { item: string }) => (
+  const maxImages = publication?.isPremium ? 8 : 4;
+  let displayImages: (string | number)[] =
+    images && images.length > 0
+      ? [...images]
+      : [theme === 'dark' ? ImagesPath.noImageD : ImagesPath.noImage];
+  while (displayImages.length < maxImages) {
+    displayImages.push(
+      theme === 'dark' ? ImagesPath.noImageD : ImagesPath.noImage
+    );
+  }
+  const renderImage = ({ item }: { item: string | number }) => (
     <View
       style={{
         width: screenWidth,
@@ -31,27 +48,35 @@ const CardVisual: React.FC<CardVisualProps> = ({ publicationId }) => {
         justifyContent: 'center',
       }}
     >
-      <Image
-        source={{ uri: item }}
-        style={{
-          width: imageWidth,
-          height: moderateScale(200),
-          borderRadius: moderateScale(20),
-        }}
-        resizeMode='cover'
-      />
+      {typeof item === 'string' ? (
+        <Image
+          source={{ uri: item }}
+          style={{
+            width: imageWidth,
+            height: moderateScale(200),
+            borderRadius: moderateScale(20),
+          }}
+          resizeMode='cover'
+        />
+      ) : (
+        <Image
+          source={item}
+          style={{
+            width: imageWidth,
+            height: moderateScale(200),
+            borderRadius: moderateScale(20),
+          }}
+          resizeMode='cover'
+        />
+      )}
     </View>
   );
-  if (images.length === 0) {
-    return null;
-  }
-
   return (
-    <View style={{ alignItems: 'center', height: moderateScale(280) }}>
+    <View style={{ alignItems: 'center', height: moderateScale(265) }}>
       <FlatList
-        data={images}
+        data={displayImages}
         renderItem={renderImage}
-        keyExtractor={(item, index) => `image_${index}_${item}`}
+        keyExtractor={(_, index) => `image_${index}`}
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         onScroll={handleScroll}
@@ -62,19 +87,19 @@ const CardVisual: React.FC<CardVisualProps> = ({ publicationId }) => {
         pagingEnabled={true}
         bounces={false}
       />
-      {images.length > 1 && (
+      {displayImages.length > 1 && (
         <View
           style={{
             flexDirection: 'row',
             justifyContent: 'center',
             alignItems: 'center',
-            marginTop: moderateScale(15),
+            marginTop: moderateScale(5),
             borderRadius: moderateScale(15),
-            paddingVertical: moderateScale(8),
+            paddingVertical: moderateScale(5),
             paddingHorizontal: moderateScale(12),
           }}
         >
-          {images.map((_, index) => (
+          {displayImages.map((_, index) => (
             <View
               key={index}
               style={{
@@ -82,9 +107,7 @@ const CardVisual: React.FC<CardVisualProps> = ({ publicationId }) => {
                 height: moderateScale(10),
                 borderRadius: moderateScale(5),
                 backgroundColor:
-                  index === currentIndex
-                    ? colors.primary
-                    : colors.backgroundBCI,
+                  index === currentIndex ? colors.primary : colors.secondary,
                 marginHorizontal: moderateScale(4),
                 opacity: index === currentIndex ? 1 : 0.6,
               }}

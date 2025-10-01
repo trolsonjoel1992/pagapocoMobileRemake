@@ -1,31 +1,27 @@
-import SmallHButtonL from '@/src/components/atom/buttons/myPublications/smallHbuttonL';
-import SmallHButtonLDis from '@/src/components/atom/buttons/myPublications/smallHbuttonLDis';
-import SmallHButtonS from '@/src/components/atom/buttons/myPublications/smallHButtonS';
-import { globalButtonWidthSp } from '@/src/constants/styles/globalStyles';
+import ButtonMax from '@/src/components/atom/buttons/buttonMax';
+import ButtonMaxDis from '@/src/components/atom/buttons/buttonMaxDis';
+import RegHButton from '@/src/components/atom/buttons/myPublications/regHButton';
+import { globalButtonWidthLar } from '@/src/constants/styles/globalStyles';
 import { useTheme } from '@/src/context/ThemeContext';
 import React from 'react';
 import { View } from 'react-native';
-
 type Props = {
   isSold?: boolean;
   deletePress?: () => void;
   sellPress?: () => void;
   newSellPress?: () => void;
   pausePress?: () => void;
-  playPress?: () => void;
   upgradePress?: () => void;
   editPress?: () => void;
 };
-
-const CardActions: React.FC<Props> = ({
+const UpdateButtonSet: React.FC<Props> = ({
   isSold,
   deletePress,
   sellPress,
   newSellPress,
   pausePress,
-  playPress,
-  upgradePress,
   editPress,
+  upgradePress,
 }) => {
   const { theme } = useTheme();
 
@@ -35,35 +31,36 @@ const CardActions: React.FC<Props> = ({
         style={{
           justifyContent: 'space-between',
           alignItems: 'center',
-          gap: '15%',
+          gap: '1.5%',
         }}
       >
         {isSold ? (
-          <SmallHButtonLDis onPress={newSellPress} />
+          <ButtonMaxDis action='Vender otro igual' onPress={newSellPress} />
         ) : (
-          <SmallHButtonL onPress={sellPress} />
+          <ButtonMax action='Marcar como vendido' onPress={sellPress} />
         )}
         {!isSold && (
           <View
             style={{
-              width: globalButtonWidthSp,
+              width: globalButtonWidthLar,
+
               flexDirection: 'row-reverse',
               justifyContent: 'space-between',
             }}
           >
-            <SmallHButtonS
+            <RegHButton
               icon={theme === 'dark' ? 'trashD' : 'trash'}
               onPress={deletePress}
             />
-            <SmallHButtonS
+            <RegHButton
               icon={theme === 'dark' ? 'pauseD' : 'pause'}
               onPress={pausePress}
             />
-            <SmallHButtonS
+            <RegHButton
               icon={theme === 'dark' ? 'editD' : 'edit'}
               onPress={editPress}
             />
-            <SmallHButtonS
+            <RegHButton
               icon={theme === 'dark' ? 'upgradeD' : 'upgrade'}
               onPress={upgradePress}
             />
@@ -73,5 +70,4 @@ const CardActions: React.FC<Props> = ({
     </View>
   );
 };
-
-export default CardActions;
+export default UpdateButtonSet;

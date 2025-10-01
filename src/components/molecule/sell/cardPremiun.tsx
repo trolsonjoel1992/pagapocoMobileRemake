@@ -3,6 +3,7 @@ import ImagesPath from '@/src/constants/imagesPath';
 import {
   globalBorderRadius,
   globalCardPlanHeight,
+  globalFontSizeMid,
   globalFontSizeTitle,
   globalFontWeightBold,
   globalIconsLar,
@@ -132,6 +133,26 @@ const CardPremiun = ({ selectedP, unSelectedP, onPress }: Props) => {
           unSelected={unSelectedP}
         />
       </View>
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: globalFontSizeTitle,
+          fontWeight: globalFontWeightBold,
+          color: colors.textPrimary,
+        }}
+      >
+        $3000
+      </Text>
+      <Text
+        style={{
+          textAlign: 'center',
+          fontSize: globalFontSizeMid,
+          fontWeight: globalFontWeightBold,
+          color: colors.textPrimary,
+        }}
+      >
+        Cargo por publicación
+      </Text>
     </TouchableOpacity>
   );
 };

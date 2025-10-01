@@ -1,4 +1,5 @@
 import HomeHeader from '@/src/components/molecule/home/homeHeader';
+import UpgradePublication from '@/src/components/molecule/myPublications/upgradePublication';
 import { useTheme } from '@/src/context/ThemeContext';
 import React, { useState } from 'react';
 import { StyleSheet } from 'react-native';
@@ -13,6 +14,7 @@ const Home = () => {
       style={[styles.container, { backgroundColor: colors.background }]}
     >
       <HomeHeader backAction={false} setHiddenIndex={setHiddenIndex} />
+      <UpgradePublication />
     </SafeAreaView>
   );
 };

@@ -5,6 +5,7 @@ import {
   globalFontSizeReg,
   globalFontWeightBold,
 } from '@/src/constants/styles/globalStyles';
+import { usePublication } from '@/src/context/PublicationContext';
 import { useTheme } from '@/src/context/ThemeContext';
 import { router } from 'expo-router';
 import React from 'react';
@@ -14,7 +15,13 @@ import { moderateScale } from 'react-native-size-matters';
 
 const SellTitle = () => {
   const { colors } = useTheme();
+  const { clearPublication } = usePublication();
 
+  React.useEffect(() => {
+    return () => {
+      clearPublication();
+    };
+  }, []);
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: colors.background }]}

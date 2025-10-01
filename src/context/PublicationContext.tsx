@@ -131,9 +131,9 @@ export const PublicationProvider: React.FC<{ children: React.ReactNode }> = ({
       );
       // Actualizar estado
       setPublications(updatedPublications);
-      console.log(`✅ Publicación ${id} eliminada correctamente`);
+      console.log(`Publicación ${id} eliminada correctamente`);
     } catch (error) {
-      console.error('❌ Error eliminando publicación:', error);
+      console.error('Error eliminando publicación:', error);
       throw error;
     }
   };

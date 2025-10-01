@@ -8,7 +8,6 @@ export const useMyPublication = (publication: Publication) => {
   const { getImages } = useImages();
   const { updatePublicationById, setPublication, deletePublicationById } =
     usePublication();
-  const [modalVisible, setModalVisible] = useState(false);
   const [firstImage, setFirstImage] = useState<string | null>(null);
   const [isSold, setIsSold] = useState(publication.isSold || false);
   const [isPaused, setIsPaused] = useState(publication.isPaused || false);
@@ -33,12 +32,10 @@ export const useMyPublication = (publication: Publication) => {
     };
   }, [publication.id]);
   const handlePause = useCallback(async () => {
-    setModalVisible(true);
     setIsPaused(true);
     await updatePublicationById(publication.id, { isPaused: true });
   }, [publication.id, updatePublicationById]);
   const handlePlay = useCallback(async () => {
-    setModalVisible(false);
     setIsPaused(false);
     await updatePublicationById(publication.id, { isPaused: false });
   }, [publication.id, updatePublicationById]);
@@ -76,8 +73,13 @@ export const useMyPublication = (publication: Publication) => {
   const handleUpgrade = useCallback(() => {
     console.log('Upgrade publicación:', publication.id);
   }, [publication.id]);
+  const handleView = useCallback(() => {
+    router.push({
+      pathname: '/(myPublications)/myPublication',
+      params: { id: publication.id },
+    });
+  }, [publication.id]);
   return {
-    modalVisible,
     firstImage,
     isSold,
     isPaused,
@@ -89,5 +91,6 @@ export const useMyPublication = (publication: Publication) => {
     handleDelete,
     handleEdit,
     handleUpgrade,
+    handleView,
   };
 };
