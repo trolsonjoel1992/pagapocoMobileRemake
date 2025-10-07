@@ -5,10 +5,13 @@ import * as ImagePicker from 'expo-image-picker';
 import { useState } from 'react';
 import { Alert } from 'react-native';
 
-export const useCardPictureS = () => {
+export const useCardPictureS = (
+  images: string[],
+  setImages: React.Dispatch<React.SetStateAction<string[]>>
+) => {
   const { colors, theme } = useTheme();
   const { publication } = usePublication();
-  const { images, addImage, error, deleteImage } = useImages();
+  const { addImage, error, deleteImage } = useImages();
   const [attempts, setAttempts] = useState<number>(
     publication?.isPremium ? 8 : 4
   );
@@ -28,7 +31,7 @@ export const useCardPictureS = () => {
 
   const handleDeleteImage = async (imageUri: string) => {
     if (!publication?.id) return;
-    await deleteImage(publication.id, imageUri);
+    setImages(prev => prev.filter(uri => uri !== imageUri));
     setAttempts(prev => prev + 1);
   };
 
@@ -61,17 +64,9 @@ export const useCardPictureS = () => {
           : await ImagePicker.launchImageLibraryAsync(options);
 
       if (!result.canceled && result.assets[0].uri) {
-        const success = await addImage(
-          publication.id,
-          result.assets[0].uri,
-          publication.isPremium || false
-        );
-        if (success) {
-          setNewImageUri(result.assets[0].uri);
-          setAttempts(prev => prev - 1);
-        } else if (error) {
-          Alert.alert('Error', error);
-        }
+        setImages(prev => [...prev, result.assets[0].uri]);
+        setNewImageUri(result.assets[0].uri);
+        setAttempts(prev => prev - 1);
       }
     } catch (error) {
       console.error('Error selecting image:', error);

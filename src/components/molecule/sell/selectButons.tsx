@@ -2,6 +2,7 @@ import CategoryMaxButton from '@/src/components/atom/buttons/sell/categoryMaxBut
 import CategoryRegButton from '@/src/components/atom/buttons/sell/categoryRegButton';
 import ImagesPath from '@/src/constants/imagesPath';
 import { useAuth } from '@/src/context/AuthContext';
+import { useImages } from '@/src/context/ImageContext';
 import { usePublication } from '@/src/context/PublicationContext';
 import { useTheme } from '@/src/context/ThemeContext';
 import { router } from 'expo-router';
@@ -44,9 +45,11 @@ const SelectButtons = ({ onSelectCategory }: SelectButtonsProps) => {
 
   const { updatePublication } = usePublication();
   const { user } = useAuth();
+  const { clearImages } = useImages();
 
-  const handleCategorySelect = (category: string) => {
+  const handleCategorySelect = async (category: string) => {
     const id = Date.now().toString();
+    await clearImages(id);
     updatePublication({ id, userEmail: user?.email ?? '', category });
     router.push('/(sell)/sellForm');
   };

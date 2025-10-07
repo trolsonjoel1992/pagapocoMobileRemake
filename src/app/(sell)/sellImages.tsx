@@ -20,14 +20,15 @@ import { moderateScale } from 'react-native-size-matters';
 const SellImages = () => {
   const { colors } = useTheme();
   const { publication } = usePublication();
-  const { clearImages, images } = useImages();
+  const { images, clearImages } = useImages();
+  const [localImages, setLocalImages] = useState<string[]>([]);
   const [showWarning, setShowWarning] = useState(false);
-  const handleBack = async () => {
+  useEffect(() => {
+    setLocalImages([]);
     if (publication?.id) {
-      await clearImages(publication.id);
+      clearImages(publication.id);
     }
-    router.back();
-  };
+  }, [publication?.id]);
   const getTitleByCategory = () => {
     if (!publication?.category) return '';
     switch (publication.category) {
@@ -62,19 +63,15 @@ const SellImages = () => {
   const handleDisabledPress = () => {
     setShowWarning(true);
   };
-  useEffect(() => {
-    return () => {
-      if (publication?.id) {
-        clearImages(publication.id);
-      }
-    };
-  }, [publication?.id]);
 
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: colors.background }]}
     >
-      <HeaderGeneric title='Cargar imágenes' onBackPress={handleBack} />
+      <HeaderGeneric
+        title='Cargar imágenes'
+        onBackPress={() => router.back()}
+      />
       <Text style={[styles.title, { color: colors.textPrimary }]}>
         {getTitleByCategory()}
       </Text>
@@ -83,7 +80,7 @@ const SellImages = () => {
           styles.subtitle,
           {
             color:
-              showWarning && images.length === 0
+              showWarning && localImages.length === 0
                 ? colors.error
                 : colors.textPrimary,
           },
@@ -91,8 +88,8 @@ const SellImages = () => {
       >
         {getImageLimitText()}
       </Text>
-      <CardPictureS />
-      {images.length > 0 ? (
+      <CardPictureS images={localImages} setImages={setLocalImages} />
+      {localImages.length > 0 ? (
         <ButtonReg
           action='Continuar'
           onPress={() => router.push('/(sell)/sellTitle')}

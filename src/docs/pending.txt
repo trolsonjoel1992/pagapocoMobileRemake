@@ -1,8 +1,12 @@
-agregar funcion de presionar imagen obteneti id y dirigir a ruta
+***prioridad*** arreglarcreador de publicaciones.(corregido)
 
-header no sold(buscador mas imagen)
-modularizar card picture
-imagen en blanco en publicaciones
-modularizar tarjetas de premiun fremiun 
+
+
+
+
+header no sold (buscador mas imagen)
 arreglar vista sellplan
+////modularizar card picture
+////modularizar tarjetas de premiun fremiun 
+
 

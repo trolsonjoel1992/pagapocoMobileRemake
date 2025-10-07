@@ -12,11 +12,15 @@ import React from 'react';
 import { FlatList, Text, View } from 'react-native';
 import { moderateScale } from 'react-native-size-matters';
 
-const CardPictureS = () => {
+type CardPictureSProps = {
+  images: string[];
+  setImages: React.Dispatch<React.SetStateAction<string[]>>;
+};
+
+const CardPictureS = ({ images, setImages }: CardPictureSProps) => {
   const {
     colors,
     theme,
-    images,
     attempts,
     buttonPressed,
     newImageUri,
@@ -25,8 +29,7 @@ const CardPictureS = () => {
     getTitleText,
     getSubtitleText,
     handleDisabledPress,
-  } = useCardPictureS();
-
+  } = useCardPictureS(images, setImages);
   const renderImage = ({
     item: uri,
     index,
@@ -41,7 +44,6 @@ const CardPictureS = () => {
       isNewImage={uri === newImageUri}
     />
   );
-
   return (
     <View
       style={{
@@ -86,7 +88,6 @@ const CardPictureS = () => {
         >
           {getSubtitleText()}
         </Text>
-
         <View
           style={{
             flexDirection: 'row',
@@ -120,7 +121,6 @@ const CardPictureS = () => {
             </>
           )}
         </View>
-
         {images.length > 0 && (
           <FlatList
             data={images}
