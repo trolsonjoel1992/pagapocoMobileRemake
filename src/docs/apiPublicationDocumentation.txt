@@ -1,0 +1,406 @@
+# Documentación de la API de Publicaciones - PagaPoco 2.0
+
+## URL Base
+`/api/v1`
+
+---
+
+## Modelo de Publicación
+
+```typescript
+{
+  id: string;
+  isSold: boolean;
+  isPaused: boolean;
+  title: string;
+  city: string;
+  price: string;
+  userEmail: string;
+  isPremium: boolean;
+  category: string; // "autos", "camionetas", "camiones", "motos", "piezas"
+  brand: string;
+  model: string;
+  color: string;
+  year?: string;
+  version?: string;
+  doors?: string;
+  fuelType?: string;
+  transmission?: string;
+  engineDisplacement?: string;
+  kilometers?: string;
+  motorcycleType?: string;
+  motorcycleWheel?: string;
+  condition?: string;
+  compatibility?: string;
+  description?: string;
+}
+```
+
+---
+
+## Endpoints de Publicaciones
+
+### POST /publications
+Crear nueva publicación
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+  - `Content-Type: application/json`
+- **Cuerpo:**
+  - `title` (string, requerido) - Título de la publicación
+  - `city` (string, requerido) - Ciudad de ubicación
+  - `price` (string, requerido) - Precio del artículo
+  - `category` (string, requerido) - Categoría: "autos", "camionetas", "camiones", "motos", "piezas"
+  - `brand` (string, requerido) - Marca del vehículo/pieza
+  - `model` (string, requerido) - Modelo
+  - `color` (string, requerido) - Color
+  - `isPremium` (boolean, requerido) - Si es publicación premium
+  - `year` (string, opcional) - Año del vehículo
+  - `version` (string, opcional) - Versión del modelo
+  - `doors` (string, opcional) - Número de puertas
+  - `fuelType` (string, opcional) - Tipo de combustible
+  - `transmission` (string, opcional) - Tipo de transmisión
+  - `engineDisplacement` (string, opcional) - Cilindrada del motor
+  - `kilometers` (string, opcional) - Kilometraje
+  - `motorcycleType` (string, opcional) - Tipo de motocicleta
+  - `motorcycleWheel` (string, opcional) - Tipo de rueda de moto
+  - `condition` (string, opcional) - Condición del artículo
+  - `compatibility` (string, opcional) - Compatibilidad (para piezas)
+  - `description` (string, opcional) - Descripción detallada
+- **Respuesta exitosa (201):**
+  ```json
+  {
+    "message": "Publicación creada exitosamente",
+    "publication": {
+      "id": "1634567890123",
+      "title": "Volkswagen Polo 0km",
+      "city": "Buenos Aires",
+      "price": "$ 24.500.000",
+      "userEmail": "usuario@ejemplo.com",
+      "category": "autos",
+      "brand": "Volkswagen",
+      "model": "Polo",
+      "color": "Blanco",
+      "isPremium": false,
+      "isSold": false,
+      "isPaused": false,
+      "year": "2024",
+      "kilometers": "0",
+      "fuelType": "Nafta",
+      "transmission": "Manual"
+    }
+  }
+  ```
+- **Respuesta de error (400):**
+  ```json
+  {
+    "error": "Datos requeridos faltantes",
+    "missingFields": ["title", "price"]
+  }
+  ```
+
+### GET /publications
+Obtener todas las publicaciones
+- **Encabezados:**
+  - `Authorization: Bearer <token>` (opcional para listado público)
+- **Parámetros de consulta:**
+  - `category` (string, opcional) - Filtrar por categoría
+  - `isPremium` (boolean, opcional) - Filtrar por publicaciones premium
+  - `isSold` (boolean, opcional) - Filtrar por vendidas
+  - `isPaused` (boolean, opcional) - Filtrar por pausadas
+  - `minPrice` (number, opcional) - Precio mínimo
+  - `maxPrice` (number, opcional) - Precio máximo
+  - `city` (string, opcional) - Filtrar por ciudad
+  - `search` (string, opcional) - Búsqueda por título, marca o modelo
+  - `page` (number, opcional, default: 1) - Número de página
+  - `limit` (number, opcional, default: 10) - Límite por página
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "publications": [
+      {
+        "id": "1634567890123",
+        "title": "Volkswagen Polo 0km",
+        "city": "Buenos Aires",
+        "price": "$ 24.500.000",
+        "category": "autos",
+        "isPremium": true,
+        "isSold": false,
+        "isPaused": false
+      }
+    ],
+    "pagination": {
+      "currentPage": 1,
+      "totalPages": 5,
+      "totalItems": 50,
+      "itemsPerPage": 10
+    }
+  }
+  ```
+
+### GET /publications/{id}
+Obtener una publicación específica
+- **Encabezados:**
+  - `Authorization: Bearer <token>` (opcional)
+- **Parámetros de ruta:**
+  - `id` (string, requerido) - ID de la publicación
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "id": "1634567890123",
+    "title": "Volkswagen Polo 0km",
+    "city": "Buenos Aires",
+    "price": "$ 24.500.000",
+    "userEmail": "usuario@ejemplo.com",
+    "category": "autos",
+    "brand": "Volkswagen",
+    "model": "Polo",
+    "color": "Blanco",
+    "isPremium": true,
+    "isSold": false,
+    "isPaused": false,
+    "year": "2024",
+    "version": "Comfortline",
+    "doors": "5",
+    "fuelType": "Nafta",
+    "transmission": "Manual",
+    "engineDisplacement": "1.6",
+    "kilometers": "0",
+    "description": "Vehículo 0km con todas las prestaciones..."
+  }
+  ```
+- **Respuesta de error (404):**
+  ```json
+  {
+    "error": "Publicación no encontrada"
+  }
+  ```
+
+### PUT /publications/{id}
+Actualizar publicación completa o parcialmente
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+  - `Content-Type: application/json`
+- **Parámetros de ruta:**
+  - `id` (string, requerido) - ID de la publicación
+- **Cuerpo:** (todos los campos son opcionales)
+  - `title` (string, opcional)
+  - `city` (string, opcional)
+  - `price` (string, opcional)
+  - `category` (string, opcional)
+  - `brand` (string, opcional)
+  - `model` (string, opcional)
+  - `color` (string, opcional)
+  - `isPremium` (boolean, opcional)
+  - `isSold` (boolean, opcional)
+  - `isPaused` (boolean, opcional)
+  - `year` (string, opcional)
+  - `version` (string, opcional)
+  - `doors` (string, opcional)
+  - `fuelType` (string, opcional)
+  - `transmission` (string, opcional)
+  - `engineDisplacement` (string, opcional)
+  - `kilometers` (string, opcional)
+  - `motorcycleType` (string, opcional)
+  - `motorcycleWheel` (string, opcional)
+  - `condition` (string, opcional)
+  - `compatibility` (string, opcional)
+  - `description` (string, opcional)
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "message": "Publicación actualizada exitosamente",
+    "publication": {
+      "id": "1634567890123",
+      "title": "Volkswagen Polo 0km - Actualizado",
+      "price": "$ 25.000.000",
+      "isPaused": true
+    }
+  }
+  ```
+- **Respuesta de error (403):**
+  ```json
+  {
+    "error": "No tienes permiso para modificar esta publicación"
+  }
+  ```
+- **Respuesta de error (404):**
+  ```json
+  {
+    "error": "Publicación no encontrada"
+  }
+  ```
+
+### PATCH /publications/{id}/status
+Actualizar solo el estado de la publicación
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+  - `Content-Type: application/json`
+- **Parámetros de ruta:**
+  - `id` (string, requerido) - ID de la publicación
+- **Cuerpo:**
+  - `isSold` (boolean, opcional) - Marcar como vendida
+  - `isPaused` (boolean, opcional) - Pausar/reanudar publicación
+  - `isPremium` (boolean, opcional) - Actualizar a premium
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "message": "Estado actualizado exitosamente",
+    "publication": {
+      "id": "1634567890123",
+      "isSold": false,
+      "isPaused": true,
+      "isPremium": false
+    }
+  }
+  ```
+
+### DELETE /publications/{id}
+Eliminar publicación (también elimina imágenes asociadas)
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+- **Parámetros de ruta:**
+  - `id` (string, requerido) - ID de la publicación
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "message": "Publicación eliminada correctamente",
+    "deletedId": "1634567890123"
+  }
+  ```
+- **Respuesta de error (403):**
+  ```json
+  {
+    "error": "No tienes permiso para eliminar esta publicación"
+  }
+  ```
+- **Respuesta de error (404):**
+  ```json
+  {
+    "error": "Publicación no encontrada"
+  }
+  ```
+
+### GET /publications/user/{userEmail}
+Obtener todas las publicaciones de un usuario específico
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+- **Parámetros de ruta:**
+  - `userEmail` (string, requerido) - Email del usuario
+- **Parámetros de consulta:**
+  - `status` (string, opcional) - "active", "paused", "sold"
+  - `page` (number, opcional, default: 1)
+  - `limit` (number, opcional, default: 10)
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "userEmail": "usuario@ejemplo.com",
+    "publications": [
+      {
+        "id": "1634567890123",
+        "title": "Volkswagen Polo 0km",
+        "price": "$ 24.500.000",
+        "isPremium": true,
+        "isSold": false,
+        "isPaused": false
+      }
+    ],
+    "totalPublications": 5
+  }
+  ```
+
+### DELETE /publications
+Eliminar todas las publicaciones del usuario autenticado
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "message": "Todas las publicaciones fueron eliminadas",
+    "deletedCount": 5
+  }
+  ```
+
+---
+
+## Notas Importantes
+
+### Categorías Válidas
+- `autos` - Automóviles
+- `camionetas` - Camionetas/Pickups
+- `camiones` - Camiones
+- `motos` - Motocicletas
+- `piezas` - Repuestos y piezas
+
+### Campos Opcionales por Categoría
+
+**Autos, Camionetas, Camiones:**
+- year, version, doors, fuelType, transmission, engineDisplacement, kilometers
+
+**Motos:**
+- year, motorcycleType, motorcycleWheel, engineDisplacement, kilometers
+
+**Piezas:**
+- condition, compatibility, brand, model
+
+### Estados de Publicación
+- `isSold: true` - Publicación marcada como vendida
+- `isPaused: true` - Publicación pausada (no visible públicamente)
+- `isPremium: true` - Publicación destacada con beneficios premium
+
+### Validaciones
+- El `userEmail` debe coincidir con el usuario autenticado al crear/modificar
+- Solo el propietario puede modificar o eliminar una publicación
+- Al eliminar una publicación, se eliminan automáticamente todas sus imágenes asociadas
+- El `id` se genera automáticamente usando timestamp
+
+### Códigos de Estado HTTP
+- `200` - Operación exitosa
+- `201` - Publicación creada exitosamente
+- `400` - Datos inválidos o faltantes
+- `401` - No autenticado o token inválido
+- `403` - Sin permiso para realizar la acción
+- `404` - Publicación no encontrada
+- `500` - Error interno del servidor
+
+### Ejemplos de Uso
+
+#### Ejemplo 1: Crear publicación de auto
+```bash
+curl -X POST \
+  https://api.pagapoco.com/api/v1/publications \
+  -H "Authorization: Bearer tu_token_jwt" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "title": "Volkswagen Polo 0km",
+    "city": "Buenos Aires",
+    "price": "$ 24.500.000",
+    "category": "autos",
+    "brand": "Volkswagen",
+    "model": "Polo",
+    "color": "Blanco",
+    "isPremium": false,
+    "year": "2024",
+    "kilometers": "0",
+    "fuelType": "Nafta",
+    "transmission": "Manual",
+    "doors": "5"
+  }'
+```
+
+#### Ejemplo 2: Actualizar estado
+```bash
+curl -X PATCH \
+  https://api.pagapoco.com/api/v1/publications/1634567890123/status \
+  -H "Authorization: Bearer tu_token_jwt" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "isPaused": true
+  }'
+```
+
+#### Ejemplo 3: Obtener publicaciones filtradas
+```bash
+curl -X GET \
+  "https://api.pagapoco.com/api/v1/publications?category=autos&isPremium=true&city=Buenos%20Aires&page=1&limit=10" \
+  -H "Authorization: Bearer tu_token_jwt"
+```

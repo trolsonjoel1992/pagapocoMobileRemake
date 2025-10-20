@@ -17,7 +17,7 @@ const EditPublication = () => {
     <SafeAreaView
       style={[styles.container, { backgroundColor: colors.background }]}
     >
-      <HeaderGeneric title='Editar Publicacion' />
+      <HeaderGeneric title='Editar Publicacion' onBackPress={router.back} />
       <Text style={[styles.title, { color: colors.textPrimary }]}>
         ¿Que queres cambiar en tu publicacion?
       </Text>

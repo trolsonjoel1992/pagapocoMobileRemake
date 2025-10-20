@@ -1,4 +1,4 @@
-***prioridad*** arreglarcreador de publicaciones.(corregido)
+***prioridad*** arreglarcreador de publicaciones.(corregido revisar retroceso)
 
 
 
@@ -8,5 +8,6 @@ header no sold (buscador mas imagen)
 arreglar vista sellplan
 ////modularizar card picture
 ////modularizar tarjetas de premiun fremiun 
+////ocultar boton premiun al ser premiun 
 
 

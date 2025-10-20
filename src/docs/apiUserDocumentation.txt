@@ -1,0 +1,241 @@
+# Documentación de la API para PagaPoco 2.0
+
+## URL Base
+`/api/v1`
+
+---
+
+## Endpoints de Autenticación
+
+### POST /auth/register
+Registrar nuevo usuario
+- **Cuerpo:**
+  - `email` (string, requerido) - Email del usuario
+  - `password` (string, requerido) - Contraseña del usuario
+- **Respuesta exitosa (201):**
+  ```json
+  {
+    "message": "Te has registrado con éxito",
+    "user": {
+      "email": "usuario@ejemplo.com"
+    }
+  }
+  ```
+- **Respuesta de error (409):**
+  ```json
+  {
+    "error": "El email ya está registrado"
+  }
+  ```
+- **Respuesta de error (400):**
+  ```json
+  {
+    "error": "Datos inválidos o faltantes"
+  }
+  ```
+
+### POST /auth/login
+Iniciar sesión de usuario
+- **Cuerpo:**
+  - `email` (string, requerido) - Email del usuario
+  - `password` (string, requerido) - Contraseña del usuario
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "token": "jwt_token_aqui",
+    "user": {
+      "email": "usuario@ejemplo.com",
+      "username": "NombreUsuario",
+      "phone": "+1234567890",
+      "profileImage": "url_de_la_imagen"
+    }
+  }
+  ```
+- **Respuesta de error (401):**
+  ```json
+  {
+    "error": "Email o contraseña incorrectos"
+  }
+  ```
+
+### POST /auth/logout
+Cerrar sesión del usuario
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "message": "Sesión cerrada exitosamente"
+  }
+  ```
+
+---
+
+## Endpoints de Usuario
+
+### GET /users/me
+Obtener información del usuario autenticado
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "email": "usuario@ejemplo.com",
+    "username": "NombreUsuario",
+    "phone": "+1234567890",
+    "profileImage": "url_de_la_imagen"
+  }
+  ```
+
+### PUT /users/me
+Actualizar información del usuario
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+- **Cuerpo:**
+  - `username` (string, opcional) - Nombre de usuario
+  - `phone` (string, opcional) - Teléfono del usuario
+  - `email` (string, opcional) - Email del usuario
+  - `password` (string, opcional) - Nueva contraseña
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "message": "Usuario actualizado exitosamente",
+    "user": {
+      "email": "usuario@ejemplo.com",
+      "username": "NombreUsuario",
+      "phone": "+1234567890"
+    }
+  }
+  ```
+
+### PUT /users/me/username
+Actualizar nombre de usuario
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+- **Cuerpo:**
+  - `username` (string, requerido) - Nuevo nombre de usuario
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "message": "Nombre de usuario actualizado exitosamente"
+  }
+  ```
+
+### PUT /users/me/phone
+Actualizar teléfono del usuario
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+- **Cuerpo:**
+  - `phone` (string, requerido) - Nuevo teléfono
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "message": "Teléfono actualizado exitosamente"
+  }
+  ```
+
+### PUT /users/me/email
+Actualizar email del usuario
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+- **Cuerpo:**
+  - `email` (string, requerido) - Nuevo email
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "message": "Email actualizado exitosamente"
+  }
+  ```
+
+### PUT /users/me/password
+Actualizar contraseña del usuario
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+- **Cuerpo:**
+  - `currentPassword` (string, requerido) - Contraseña actual
+  - `newPassword` (string, requerido) - Nueva contraseña
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "message": "Contraseña actualizada exitosamente"
+  }
+  ```
+
+### DELETE /users/me
+Eliminar cuenta del usuario
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "message": "Cuenta eliminada exitosamente"
+  }
+  ```
+
+---
+
+## Endpoints de Imagen de Perfil
+
+### POST /users/me/profile-image
+Subir o actualizar imagen de perfil
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+  - `Content-Type: multipart/form-data`
+- **Cuerpo:**
+  - `image` (file, requerido) - Archivo de imagen (jpeg, jpg, png)
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "message": "Imagen de perfil actualizada exitosamente",
+    "profileImage": "url_de_la_imagen"
+  }
+  ```
+
+### GET /users/me/profile-image
+Obtener URL de la imagen de perfil
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "profileImage": "url_de_la_imagen"
+  }
+  ```
+- **Respuesta sin imagen (404):**
+  ```json
+  {
+    "profileImage": null
+  }
+  ```
+
+### DELETE /users/me/profile-image
+Eliminar imagen de perfil
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "message": "Imagen de perfil eliminada exitosamente"
+  }
+  ```
+
+---
+
+## Notas Importantes
+
+### Autenticación
+- Todos los endpoints (excepto `/auth/login`) requieren un token JWT válido en el encabezado `Authorization`.
+- El token debe enviarse en el formato: `Bearer <token>`
+
+### Códigos de Estado HTTP
+- `200` - Operación exitosa
+- `400` - Datos inválidos o faltantes
+- `401` - No autenticado o token inválido
+- `404` - Recurso no encontrado
+- `500` - Error interno del servidor
+
+### Validaciones
+- El email debe tener un formato válido
+- La contraseña debe tener al menos 6 caracteres
+- Los archivos de imagen deben ser formato jpeg, jpg o png
+- El tamaño máximo de imagen debe ser 5MB

@@ -1,0 +1,178 @@
+# Documentación de la API de Imágenes - PagaPoco 2.0
+
+## URL Base
+`/api/v1`
+
+---
+
+## Endpoints de Imágenes de Publicaciones
+
+### POST /publications/{publicationId}/images
+Agregar imagen a una publicación
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+  - `Content-Type: multipart/form-data`
+- **Parámetros de ruta:**
+  - `publicationId` (string, requerido) - ID de la publicación
+- **Cuerpo:**
+  - `image` (file, requerido) - Archivo de imagen (jpeg, jpg, png)
+  - `isPremium` (boolean, opcional) - Indica si es usuario premium
+- **Validaciones:**
+  - Usuarios regulares: máximo 4 imágenes
+  - Usuarios premium: máximo 8 imágenes
+  - Formato: jpeg, jpg, png
+  - Tamaño máximo: 5MB por imagen
+- **Respuesta exitosa (201):**
+  ```json
+  {
+    "message": "Imagen agregada exitosamente",
+    "imageUri": "url_de_la_imagen",
+    "publicationId": "123",
+    "totalImages": 3
+  }
+  ```
+- **Respuesta de error (400):**
+  ```json
+  {
+    "error": "La imagen ya existe en esta publicación"
+  }
+  ```
+- **Respuesta de error (403):**
+  ```json
+  {
+    "error": "Has alcanzado el límite de imágenes para tu plan"
+  }
+  ```
+
+### GET /publications/{publicationId}/images
+Obtener todas las imágenes de una publicación
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+- **Parámetros de ruta:**
+  - `publicationId` (string, requerido) - ID de la publicación
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "publicationId": "123",
+    "images": [
+      "url_imagen_1",
+      "url_imagen_2",
+      "url_imagen_3"
+    ],
+    "totalImages": 3
+  }
+  ```
+- **Respuesta sin imágenes (200):**
+  ```json
+  {
+    "publicationId": "123",
+    "images": [],
+    "totalImages": 0
+  }
+  ```
+
+### DELETE /publications/{publicationId}/images/{imageUri}
+Eliminar una imagen específica de una publicación
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+- **Parámetros de ruta:**
+  - `publicationId` (string, requerido) - ID de la publicación
+  - `imageUri` (string, requerido) - URI o ID de la imagen a eliminar (URL encoded)
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "message": "Imagen eliminada exitosamente",
+    "publicationId": "123",
+    "remainingImages": 2
+  }
+  ```
+- **Respuesta de error (404):**
+  ```json
+  {
+    "error": "Imagen no encontrada"
+  }
+  ```
+
+### DELETE /publications/{publicationId}/images
+Eliminar todas las imágenes de una publicación
+- **Encabezados:**
+  - `Authorization: Bearer <token>`
+- **Parámetros de ruta:**
+  - `publicationId` (string, requerido) - ID de la publicación
+- **Respuesta exitosa (200):**
+  ```json
+  {
+    "message": "Todas las imágenes fueron eliminadas exitosamente",
+    "publicationId": "123"
+  }
+  ```
+
+---
+
+## Notas Importantes
+
+### Límites de Imágenes por Plan
+- **Plan Gratuito:** Máximo 4 imágenes por publicación
+- **Plan Premium:** Máximo 8 imágenes por publicación
+
+### Formatos Aceptados
+- JPEG (.jpeg, .jpg)
+- PNG (.png)
+
+### Restricciones
+- Tamaño máximo por imagen: 5MB
+- Las imágenes deben estar asociadas a una publicación existente
+- No se permiten imágenes duplicadas en la misma publicación
+- El usuario debe ser propietario de la publicación para modificar sus imágenes
+
+### Almacenamiento
+- Las imágenes se almacenan con la clave `images_{publicationId}`
+- Cada publicación tiene su propio conjunto de imágenes
+- Las imágenes se eliminan automáticamente cuando se elimina la publicación
+
+### Códigos de Estado HTTP
+- `200` - Operación exitosa
+- `201` - Imagen creada exitosamente
+- `400` - Datos inválidos o imagen duplicada
+- `401` - No autenticado o token inválido
+- `403` - Límite de imágenes alcanzado
+- `404` - Publicación o imagen no encontrada
+- `413` - Archivo demasiado grande
+- `415` - Formato de archivo no soportado
+- `500` - Error interno del servidor
+
+### Manejo de Errores
+Todos los errores relacionados con imágenes incluirán:
+```json
+{
+  "error": "Descripción del error",
+  "code": "ERROR_CODE",
+  "details": "Información adicional si está disponible"
+}
+```
+
+### Ejemplos de Uso
+
+#### Ejemplo 1: Subir imagen con cURL
+```bash
+curl -X POST \
+  https://api.pagapoco.com/api/v1/publications/123/images \
+  -H "Authorization: Bearer tu_token_jwt" \
+  -H "Content-Type: multipart/form-data" \
+  -F "image=@/ruta/a/imagen.jpg" \
+  -F "isPremium=false"
+```
+
+#### Ejemplo 2: Obtener imágenes
+```bash
+curl -X GET \
+  https://api.pagapoco.com/api/v1/publications/123/images \
+  -H "Authorization: Bearer tu_token_jwt"
+```
+
+#### Ejemplo 3: Eliminar una imagen específica
+```bash
+curl -X DELETE \
+  https://api.pagapoco.com/api/v1/publications/123/images/url_encoded_image_uri \
+  -H "Authorization: Bearer tu_token_jwt"
+```

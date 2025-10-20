@@ -52,4 +52,4 @@ export const globalCardHeight = verticalScale(145);
 export const globalCardMyPlctnsHeight = verticalScale(160);
 export const globalCardMyPlctnsImage = moderateScale(120);
 // Card myPblctns edit
-export const globalCardEditHeight = verticalScale(100);
+export const globalCardEditHeight = verticalScale(85);

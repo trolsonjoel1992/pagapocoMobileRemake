@@ -7,6 +7,11 @@ const myPbsPath = {
   upgrade: require('@/src/assets/images/myPbtnsImages/upgrade.png'),
   editP: require('@/src/assets/images/myPbtnsImages/editP.png'),
   premiun: require('@/src/assets/images/myPbtnsImages/crown.png'),
+  bikeE: require('@/src/assets/images/myPbtnsImages/bikeE.png'),
+  carE: require('@/src/assets/images/myPbtnsImages/carE.png'),
+  trailerE: require('@/src/assets/images/myPbtnsImages/trailerE.png'),
+  truckE: require('@/src/assets/images/myPbtnsImages/truckE.png'),
+  pieceE: require('@/src/assets/images/myPbtnsImages/pieceE.png'),
   //darkmode
   trashD: require('@/src/assets/images/myPbtnsImages/trashD.png'),
   editD: require('@/src/assets/images/myPbtnsImages/editD.png'),
@@ -15,6 +20,11 @@ const myPbsPath = {
   upgradeD: require('@/src/assets/images/myPbtnsImages/upgradeD.png'),
   editPD: require('@/src/assets/images/myPbtnsImages/editPD.png'),
   premiunD: require('@/src/assets/images/myPbtnsImages/crownD.png'),
+  bikeED: require('@/src/assets/images/myPbtnsImages/bikeED.png'),
+  carED: require('@/src/assets/images/myPbtnsImages/carED.png'),
+  trailerED: require('@/src/assets/images/myPbtnsImages/trailerED.png'),
+  truckED: require('@/src/assets/images/myPbtnsImages/truckED.png'),
+  pieceED: require('@/src/assets/images/myPbtnsImages/pieceED.png'),
 };
 
 export default myPbsPath;
