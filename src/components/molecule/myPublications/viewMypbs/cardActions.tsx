@@ -1,6 +1,7 @@
 import SmallHButtonL from '@/src/components/atom/buttons/myPublications/smallHbuttonL';
 import SmallHButtonLDis from '@/src/components/atom/buttons/myPublications/smallHbuttonLDis';
 import SmallHButtonS from '@/src/components/atom/buttons/myPublications/smallHButtonS';
+import SmallHSpaceS from '@/src/components/atom/buttons/myPublications/smallHSpaceS';
 import { globalButtonWidthSp } from '@/src/constants/styles/globalStyles';
 import { useTheme } from '@/src/context/ThemeContext';
 import React from 'react';
@@ -8,6 +9,7 @@ import { View } from 'react-native';
 
 type Props = {
   isSold?: boolean;
+  isPremium?: boolean;
   deletePress?: () => void;
   sellPress?: () => void;
   newSellPress?: () => void;
@@ -19,6 +21,7 @@ type Props = {
 
 const CardActions: React.FC<Props> = ({
   isSold,
+  isPremium,
   deletePress,
   sellPress,
   newSellPress,
@@ -63,10 +66,14 @@ const CardActions: React.FC<Props> = ({
               icon={theme === 'dark' ? 'editD' : 'edit'}
               onPress={editPress}
             />
-            <SmallHButtonS
-              icon={theme === 'dark' ? 'upgradeD' : 'upgrade'}
-              onPress={upgradePress}
-            />
+            {isPremium ? (
+              <SmallHSpaceS />
+            ) : (
+              <SmallHButtonS
+                icon={theme === 'dark' ? 'upgradeD' : 'upgrade'}
+                onPress={upgradePress}
+              />
+            )}
           </View>
         )}
       </View>

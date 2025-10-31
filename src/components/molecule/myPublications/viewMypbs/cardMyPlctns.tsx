@@ -88,6 +88,7 @@ const CardMyPlctns: React.FC<CardMyPlctnsProps> = ({ publication }) => {
           <Imagebutton image={firstImage} onPress={handleView} />
           <CardActions
             isSold={isSold}
+            isPremium={publication.isPremium}
             sellPress={handleSell}
             newSellPress={handleNewSell}
             pausePress={pausePressAct}

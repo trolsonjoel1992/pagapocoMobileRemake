@@ -17,7 +17,7 @@ export const SessionProvider: React.FC<{ children: React.ReactNode }> = ({
   const [sessionId, setSessionId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
 
-  // Generar UUID v4 simple (sin dependencias externas)
+  // Generar UUID
   const generateUUID = (): string => {
     return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(
       /[xy]/g,
@@ -39,7 +39,6 @@ export const SessionProvider: React.FC<{ children: React.ReactNode }> = ({
           // Si no existe, generar uno nuevo
           existingSessionId = generateUUID();
           await AsyncStorage.setItem('sessionId', existingSessionId);
-          console.log('New session created:', existingSessionId);
         } else {
           console.log('Existing session loaded:', existingSessionId);
         }

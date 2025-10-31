@@ -1,12 +1,14 @@
 import ButtonMax from '@/src/components/atom/buttons/buttonMax';
 import ButtonMaxDis from '@/src/components/atom/buttons/buttonMaxDis';
 import RegHButton from '@/src/components/atom/buttons/myPublications/regHButton';
+import RegHSpace from '@/src/components/atom/buttons/myPublications/regHSpace';
 import { globalButtonWidthLar } from '@/src/constants/styles/globalStyles';
 import { useTheme } from '@/src/context/ThemeContext';
 import React from 'react';
 import { View } from 'react-native';
 type Props = {
   isSold?: boolean;
+  isPremium?: boolean;
   deletePress?: () => void;
   sellPress?: () => void;
   newSellPress?: () => void;
@@ -16,6 +18,7 @@ type Props = {
 };
 const UpdateButtonSet: React.FC<Props> = ({
   isSold,
+  isPremium,
   deletePress,
   sellPress,
   newSellPress,
@@ -60,10 +63,14 @@ const UpdateButtonSet: React.FC<Props> = ({
               icon={theme === 'dark' ? 'editD' : 'edit'}
               onPress={editPress}
             />
-            <RegHButton
-              icon={theme === 'dark' ? 'upgradeD' : 'upgrade'}
-              onPress={upgradePress}
-            />
+            {isPremium ? (
+              <RegHSpace />
+            ) : (
+              <RegHButton
+                icon={theme === 'dark' ? 'upgradeD' : 'upgrade'}
+                onPress={upgradePress}
+              />
+            )}
           </View>
         )}
       </View>

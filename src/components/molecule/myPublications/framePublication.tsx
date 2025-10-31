@@ -118,6 +118,7 @@ const FramePublication: React.FC<Props> = ({ publication }) => {
         <View>
           <UpdateButtonSet
             isSold={isSold}
+            isPremium={publication.isPremium}
             sellPress={handleSell}
             newSellPress={handleNewSell}
             pausePress={pausePressA}
