@@ -20,7 +20,7 @@ const UpgradePublication = () => {
       style={{
         alignItems: 'center',
         width: '90%',
-        height: '65%',
+        height: '60%',
         borderWidth: moderateScale(1),
         backgroundColor: colors.backgroundBCI,
         borderColor: colors.textPrimary,

@@ -1,7 +1,7 @@
 import ButtonReg from '@/src/components/atom/buttons/buttonReg';
 import ButtonRegDis from '@/src/components/atom/buttons/buttonRegDis';
 import HeaderGeneric from '@/src/components/atom/header/headerGeneric';
-import CardPictureE from '@/src/components/molecule/myPublications/viewMypbs/cardpictureE';
+import CardPictureE from '@/src/components/molecule/myPublications/viewMypbs/cardPictureE';
 import {
   globalFontSizeMid,
   globalFontSizeReg,

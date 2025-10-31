@@ -74,7 +74,10 @@ export const useMyPublication = (publication: Publication) => {
     }
   }, [publication, setPublication]);
   const handleUpgrade = useCallback(() => {
-    console.log('Upgrade publicación:', publication.id);
+    router.push({
+      pathname: '/(myPublications)/upgradePrem',
+      params: { id: publication.id },
+    });
   }, [publication.id]);
   const handleView = useCallback(() => {
     router.push({

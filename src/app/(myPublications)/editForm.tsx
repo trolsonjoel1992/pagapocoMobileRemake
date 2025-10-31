@@ -1,7 +1,7 @@
 import HeaderGeneric from '@/src/components/atom/header/headerGeneric';
-import MotorcycleForm from '@/src/components/molecule/sell/motorcycleForm';
-import PieceForm from '@/src/components/molecule/sell/pieceForm';
-import VehicleForm from '@/src/components/molecule/sell/vehicleForm';
+import EditMotorcycleForm from '@/src/components/molecule/myPublications/editForms/editMotorcycleForm';
+import EditPieceForm from '@/src/components/molecule/myPublications/editForms/editPieceForm';
+import EditVehicleForm from '@/src/components/molecule/myPublications/editForms/editVehicleForm';
 import {
   globalFontSizeReg,
   globalFontWeightBold,
@@ -14,55 +14,56 @@ import { StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { moderateScale } from 'react-native-size-matters';
 
-const SellForm = () => {
-  const { publication, clearPublication } = usePublication();
+const EditForm = () => {
+  const { publication } = usePublication();
   const { colors } = useTheme();
-
-  const handleBack = () => {
-    clearPublication();
-    router.back();
-  };
 
   if (!publication?.category) {
     return (
       <SafeAreaView
         style={[styles.container, { backgroundColor: colors.background }]}
       >
-        <View>
-          <Text>Selecciona una categoría primero.</Text>
+        <HeaderGeneric title='Editar datos' onBackPress={() => router.back()} />
+        <View style={styles.centerContent}>
+          <Text style={[styles.errorText, { color: colors.error }]}>
+            No se encontró la categoría de la publicación
+          </Text>
         </View>
       </SafeAreaView>
     );
   }
 
   let FormComponent = null;
-  let title = null;
+  let title = '';
+
   if (
     publication.category === 'car' ||
     publication.category === 'pickup' ||
     publication.category === 'truck'
   ) {
-    FormComponent = <VehicleForm />;
-    title = 'Ingresa los datos de tu vehículo';
+    FormComponent = <EditVehicleForm />;
+    title = 'Editá los datos de tu vehículo';
   } else if (publication.category === 'motorcycle') {
-    FormComponent = <MotorcycleForm />;
-    title = 'Ingresa los datos de tu motocicleta';
+    FormComponent = <EditMotorcycleForm />;
+    title = 'Editá los datos de tu motocicleta';
   } else if (publication.category === 'pieces') {
-    FormComponent = <PieceForm />;
-    title = 'Ingresa los datos de tu pieza';
+    FormComponent = <EditPieceForm />;
+    title = 'Editá los datos de tu pieza';
   }
 
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: colors.background }]}
     >
-      <HeaderGeneric title='Cargar datos' onBackPress={handleBack} />
+      <HeaderGeneric title='Editar datos' onBackPress={() => router.back()} />
       <Text style={[styles.title, { color: colors.textPrimary }]}>{title}</Text>
       {FormComponent ? (
         FormComponent
       ) : (
-        <View>
-          <Text>Categoría no reconocida.</Text>
+        <View style={styles.centerContent}>
+          <Text style={[styles.errorText, { color: colors.error }]}>
+            Categoría no reconocida
+          </Text>
         </View>
       )}
     </SafeAreaView>
@@ -79,7 +80,17 @@ const styles = StyleSheet.create({
     fontSize: globalFontSizeReg,
     fontWeight: globalFontWeightBold,
     margin: moderateScale(20),
+    textAlign: 'center',
+  },
+  centerContent: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  errorText: {
+    fontSize: globalFontSizeReg,
+    fontWeight: globalFontWeightBold,
   },
 });
 
-export default SellForm;
+export default EditForm;

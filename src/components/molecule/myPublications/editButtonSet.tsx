@@ -21,12 +21,18 @@ const EditButtonSet = () => {
         action='Categoría'
         onPress={() => router.push('/(myPublications)/editCategory')}
       />
-      <EditButton action='Descripción' />
+      <EditButton
+        action='Descripción'
+        onPress={() => router.push('/(myPublications)/editForm')}
+      />
       <EditButton
         action='Imágenes'
         onPress={() => router.push('/(myPublications)/editImages')}
       />
-      <EditButton action='Título/Precio' />
+      <EditButton
+        action='Título/Precio'
+        onPress={() => router.push('/(myPublications)/editTitle')}
+      />
     </View>
   );
 };

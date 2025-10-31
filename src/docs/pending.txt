@@ -1,6 +1,12 @@
-***prioridad*** arreglarcreador de publicaciones.(corregido revisar retroceso)
+#########MUY IMPORTANTE GENERAR UN GUID CON CADA INGRESO A LA APP #########
+
+***prioridad*** arreglar creador de publicaciones.(corregido revisar retroceso)
+ARREGLAR IS PAUSEA AL RETORNAR DE VISOR DE PUBLICACION
 
 
+
+editCategorySet
+editImages
 
 
 

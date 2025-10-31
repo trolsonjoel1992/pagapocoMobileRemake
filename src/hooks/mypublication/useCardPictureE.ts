@@ -3,7 +3,6 @@ import { usePublication } from '@/src/context/PublicationContext';
 import { useTheme } from '@/src/context/ThemeContext';
 import * as ImagePicker from 'expo-image-picker';
 import { useEffect, useState } from 'react';
-import { Alert } from 'react-native';
 
 export const useCardPictureE = (
   images: string[],
@@ -39,19 +38,11 @@ export const useCardPictureE = (
       setAttempts(prev => prev + 1);
     } catch (error) {
       console.error('Error deleting image:', error);
-      Alert.alert('Error', 'No se pudo eliminar la imagen');
     }
   };
 
   const checkImageLimit = () => {
     if (attempts <= 0) {
-      const limit = publication?.isPremium ? 8 : 4;
-      Alert.alert(
-        'Límite alcanzado',
-        publication?.isPremium
-          ? `Ya tenés ${limit} imágenes. Eliminá alguna para agregar una nueva.`
-          : `Alcanzaste el límite de ${limit} imágenes. Pasate a Premium para subir más.`
-      );
       return false;
     }
     return true;
@@ -59,7 +50,6 @@ export const useCardPictureE = (
 
   const handleSelectImage = async (mode: 'camera' | 'gallery') => {
     if (!publication?.id) {
-      Alert.alert('Error', 'No se puede agregar imágenes en este momento');
       return;
     }
     if (!checkImageLimit()) return;
@@ -92,13 +82,10 @@ export const useCardPictureE = (
           setImages(prev => [...prev, newImageUri]);
           setNewImageUri(newImageUri);
           setAttempts(prev => prev - 1);
-        } else {
-          Alert.alert('Error', 'No se pudo guardar la imagen');
         }
       }
     } catch (error) {
       console.error('Error selecting image:', error);
-      Alert.alert('Error', 'No se pudo seleccionar la imagen');
     }
   };
 
