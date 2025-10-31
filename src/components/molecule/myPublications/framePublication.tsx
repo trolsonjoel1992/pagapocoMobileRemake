@@ -31,6 +31,7 @@ const FramePublication: React.FC<Props> = ({ publication }) => {
   const { colors } = useTheme();
   const {
     isSold,
+    isPaused,
     handlePause,
     handlePlay,
     handleSell,
@@ -39,14 +40,11 @@ const FramePublication: React.FC<Props> = ({ publication }) => {
     handleEdit,
     handleUpgrade,
   } = useMyPublication(publication);
-  const [modalVisible, setModalVisible] = React.useState(false);
   const [warningVisible, setWarningVisible] = React.useState(false);
   const pausePressA = () => {
-    setModalVisible(true);
     handlePause();
   };
   const playPressA = () => {
-    setModalVisible(false);
     handlePlay();
   };
   const deletePressA = () => {
@@ -128,7 +126,7 @@ const FramePublication: React.FC<Props> = ({ publication }) => {
           />
         </View>
       </View>
-      {modalVisible && (
+      {isPaused && (
         <ModalCardL playPress={playPressA} trashPress={deletePressA} />
       )}
       {warningVisible && (

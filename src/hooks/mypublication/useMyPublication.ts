@@ -3,7 +3,7 @@ import { Publication, usePublication } from '@/src/context/PublicationContext';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useFocusEffect } from '@react-navigation/native';
 import { router } from 'expo-router';
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useState } from 'react';
 
 export const useMyPublication = (publication: Publication) => {
   const { getImages } = useImages();
@@ -13,6 +13,13 @@ export const useMyPublication = (publication: Publication) => {
   const [isSold, setIsSold] = useState(publication.isSold || false);
   const [isPaused, setIsPaused] = useState(publication.isPaused || false);
   const [isDeleting, setIsDeleting] = useState(false);
+
+  // Sincronizar estados con la publicación cuando cambia
+  useEffect(() => {
+    setIsSold(publication.isSold || false);
+    setIsPaused(publication.isPaused || false);
+  }, [publication.isSold, publication.isPaused]);
+
   useFocusEffect(
     useCallback(() => {
       let isMounted = true;

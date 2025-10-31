@@ -4,8 +4,9 @@ import FramePublication from '@/src/components/molecule/myPublications/framePubl
 import { usePublication } from '@/src/context/PublicationContext';
 import { useTheme } from '@/src/context/ThemeContext';
 import { useMyPublication } from '@/src/hooks/mypublication/useMyPublication';
+import { useFocusEffect } from '@react-navigation/native';
 import { router, useLocalSearchParams } from 'expo-router';
-import React from 'react';
+import React, { useCallback, useState } from 'react';
 import { StyleSheet } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
@@ -14,8 +15,21 @@ const MyPublication = () => {
   const publicationId = Array.isArray(id) ? id[0] : id;
   const { publications } = usePublication();
   const { colors } = useTheme();
-  const publication = publications.find(pub => pub.id === publicationId);
-  if (!publication) return null;
+
+  // Usar estado local para forzar re-render cuando cambia la publicación
+  const [currentPublication, setCurrentPublication] = useState(
+    publications.find(pub => pub.id === publicationId)
+  );
+
+  // Actualizar la publicación cada vez que se enfoca la pantalla o cambia publications
+  useFocusEffect(
+    useCallback(() => {
+      const pub = publications.find(pub => pub.id === publicationId);
+      setCurrentPublication(pub);
+    }, [publications, publicationId])
+  );
+
+  if (!currentPublication) return null;
 
   const {
     handleSell,
@@ -25,7 +39,7 @@ const MyPublication = () => {
     isSold,
     isPaused,
     isDeleting,
-  } = useMyPublication(publication);
+  } = useMyPublication(currentPublication);
 
   return (
     <SafeAreaView
@@ -37,7 +51,7 @@ const MyPublication = () => {
           router.back();
         }}
       />
-      <FramePublication publication={publication} />
+      <FramePublication publication={currentPublication} />
       <ButtonReg action='Volver' onPress={() => router.back()} />
     </SafeAreaView>
   );

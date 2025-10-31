@@ -41,6 +41,7 @@ export default function MyPublicationsScreen() {
             contentContainerStyle={styles.listContainer}
             ItemSeparatorComponent={renderSeparator}
             style={styles.flatList}
+            extraData={publications}
           />
         </View>
       )}
