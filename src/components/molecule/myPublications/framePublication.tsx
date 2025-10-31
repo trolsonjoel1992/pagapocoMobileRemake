@@ -106,6 +106,8 @@ const FramePublication: React.FC<Props> = ({ publication }) => {
           Descripción:
         </Text>
         <Text
+          numberOfLines={1}
+          ellipsizeMode='tail'
           style={{
             fontSize: globalFontSizeSmall,
             marginBottom: '1.5%',
