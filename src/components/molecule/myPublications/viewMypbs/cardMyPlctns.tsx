@@ -21,6 +21,7 @@ const CardMyPlctns: React.FC<CardMyPlctnsProps> = ({ publication }) => {
   const {
     firstImage,
     isSold,
+    isPaused,
     handlePause,
     handlePlay,
     handleSell,
@@ -32,6 +33,10 @@ const CardMyPlctns: React.FC<CardMyPlctnsProps> = ({ publication }) => {
   } = useMyPublication(publication);
   const [modalVisible, setModalVisible] = React.useState(false);
   const [warningVisible, setWarningVisible] = React.useState(false);
+
+  React.useEffect(() => {
+    setModalVisible(isPaused);
+  }, [isPaused]);
   const showModal = () => setModalVisible(true);
   const hideModal = () => setModalVisible(false);
   const pausePressAct = () => {

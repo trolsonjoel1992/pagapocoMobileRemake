@@ -112,7 +112,6 @@ export const PublicationProvider: React.FC<{ children: React.ReactNode }> = ({
       );
       // Actualizar estado
       setPublications(updatedPublications);
-      console.log(`Publicación ${id} actualizada:`, fields);
     } catch (error) {
       console.error('Error updating publication:', error);
     }
