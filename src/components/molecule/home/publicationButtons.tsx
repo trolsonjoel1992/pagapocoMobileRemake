@@ -9,9 +9,10 @@ import { View } from 'react-native';
 
 type Props = {
   isPremium?: boolean;
+  hideContactButtons?: boolean;
 };
 
-const PublicationButtons = ({ isPremium }: Props) => {
+const PublicationButtons = ({ isPremium, hideContactButtons }: Props) => {
   const { user } = useAuth();
   const value = !!user;
   const showEnabled = value || isPremium;
@@ -19,20 +20,22 @@ const PublicationButtons = ({ isPremium }: Props) => {
   return (
     <View>
       <ButtonDetails />
-      <View
-        style={{
-          flexDirection: 'row',
-          width: globalButtonWidthEx,
-          justifyContent: 'space-between',
-        }}
-      >
-        {showEnabled ? (
-          <ButtonReg action='Preguntar' />
-        ) : (
-          <ButtonRegDis action='Preguntar' />
-        )}
-        <ButtonWhatsapp enabled={value} />
-      </View>
+      {!hideContactButtons && (
+        <View
+          style={{
+            flexDirection: 'row',
+            width: globalButtonWidthEx,
+            justifyContent: 'space-between',
+          }}
+        >
+          {showEnabled ? (
+            <ButtonReg action='Preguntar' />
+          ) : (
+            <ButtonRegDis action='Preguntar' />
+          )}
+          <ButtonWhatsapp enabled={value} />
+        </View>
+      )}
     </View>
   );
 };

@@ -1,0 +1,30 @@
+{
+  "project_info": {
+    "project_number": "853902818241",
+    "firebase_url": "https://api-pagapoco-default-rtdb.firebaseio.com",
+    "project_id": "api-pagapoco",
+    "storage_bucket": "api-pagapoco.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:853902818241:android:681e2436745e7d903acd40",
+        "android_client_info": {
+          "package_name": "PagaPoco.v1"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKUYAlZ0-U8RYJG_BZ2UI2csT8i9Gfefk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

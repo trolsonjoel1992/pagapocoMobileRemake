@@ -1,20 +1,40 @@
+import CardHome from '@/src/components/atom/cards/home/cardHome';
 import HomeHeader from '@/src/components/molecule/home/homeHeader';
-import UpgradePublication from '@/src/components/molecule/myPublications/upgradePublication';
+import { Publication, usePublication } from '@/src/context/PublicationContext';
 import { useTheme } from '@/src/context/ThemeContext';
-import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
+import React from 'react';
+import { FlatList, StyleSheet, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { moderateScale } from 'react-native-size-matters';
 
 const Home = () => {
-  const [hiddenIndex, setHiddenIndex] = useState<number | null>(null);
-  const { colors, theme } = useTheme();
+  const { colors } = useTheme();
+  const { publications } = usePublication();
+  const availablePublications = publications.filter(
+    pub => !pub.isSold && !pub.isPaused
+  );
+
+  const renderPublication = ({ item }: { item: Publication }) => (
+    <CardHome publication={item} />
+  );
 
   return (
     <SafeAreaView
       style={[styles.container, { backgroundColor: colors.background }]}
     >
-      <HomeHeader backAction={false} setHiddenIndex={setHiddenIndex} />
-      <UpgradePublication />
+      <HomeHeader backAction={false} />
+      <View style={styles.content}>
+        <FlatList
+          data={availablePublications}
+          renderItem={renderPublication}
+          keyExtractor={item => item.id.toString()}
+          numColumns={2}
+          showsVerticalScrollIndicator={false}
+          contentContainerStyle={styles.listContainer}
+          columnWrapperStyle={styles.columnWrapper}
+          style={styles.flatList}
+        />
+      </View>
     </SafeAreaView>
   );
 };
@@ -23,7 +43,22 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'space-between',
+  },
+  content: {
+    flex: 1,
+    width: '100%',
+  },
+  flatList: {
+    flex: 1,
+    width: '100%',
+  },
+  listContainer: {
+    paddingBottom: moderateScale(20),
+    paddingTop: moderateScale(10),
+    paddingHorizontal: moderateScale(10),
+  },
+  columnWrapper: {
+    justifyContent: 'flex-start',
+    gap: moderateScale(10),
   },
 });
